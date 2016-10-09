@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-    <title>up6.2-SQL2005演示页面</title>
+    <title>up7-SQL2005演示页面</title>
     <link href="js/up6.css" type="text/css" rel="Stylesheet" charset="gb2312"/>
     <script type="text/javascript" src="js/jquery-1.4.min.js"></script>
     <script type="text/javascript" src="js/json2.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/up6.config.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/up6.file.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/up6.folder.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/up6.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/up7.config.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/up7.file.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/up7.folder.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/up7.js" charset="utf-8"></script>
     <script language="javascript" type="text/javascript">
         var cbMgr = new HttpUploaderMgr();
         cbMgr.event.md5Complete = function (obj, md5) { /*alert(md5);*/ };
@@ -35,7 +35,7 @@
 <body>
     <p>up6.2多文件上传演示页面</p>
     <p><a href="db/clear.aspx" target="_blank">清空数据库</a></p>
-    <p><a href="down2/index.htm" target="_blank">打开下载页面</a></p>
+    <p><a href="down3/index.htm" target="_blank">打开下载页面</a></p>
 	<div id="FilePanel"></div>
     <div id="msg"></div>
 </body>

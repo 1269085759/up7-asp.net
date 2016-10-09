@@ -11,7 +11,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>up6</RootNamespace>
-    <AssemblyName>up6</AssemblyName>
+    <AssemblyName>up7</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -64,26 +64,26 @@
     <Content Include="demoSql2005\debug\check_config.aspx" />
     <Content Include="demoSql2005\debug\check_config_down.html" />
     <Content Include="demoSql2005\debug\setup.html" />
-    <Content Include="demoSql2005\down2\db\clear.aspx" />
-    <Content Include="demoSql2005\down2\db\f_list.aspx" />
-    <Content Include="demoSql2005\down2\db\fd_create.aspx" />
-    <Content Include="demoSql2005\down2\db\f_complete.aspx" />
-    <Content Include="demoSql2005\down2\db\f_create.aspx" />
-    <Content Include="demoSql2005\down2\db\f_del.aspx" />
-    <Content Include="demoSql2005\down2\db\f_down.aspx" />
-    <Content Include="demoSql2005\down2\db\f_list_cmp.aspx" />
-    <Content Include="demoSql2005\down2\db\f_update.aspx" />
-    <Content Include="demoSql2005\down2\debug\fd_create.html" />
-    <Content Include="demoSql2005\down2\index.htm" />
-    <Content Include="demoSql2005\down2\js\down-single.js" />
-    <Content Include="demoSql2005\down2\js\down.css" />
-    <Content Include="demoSql2005\down2\js\down.file.js" />
-    <Content Include="demoSql2005\down2\js\down.folder.js" />
-    <Content Include="demoSql2005\down2\js\down.js" />
-    <Content Include="demoSql2005\down2\js\file.png" />
-    <Content Include="demoSql2005\down2\js\folder.png" />
-    <Content Include="demoSql2005\down2\js\jquery-1.3.2.min.js" />
-    <Content Include="demoSql2005\down2\js\json2.min.js" />
+    <Content Include="demoSql2005\down3\db\clear.aspx" />
+    <Content Include="demoSql2005\down3\db\f_list.aspx" />
+    <Content Include="demoSql2005\down3\db\fd_create.aspx" />
+    <Content Include="demoSql2005\down3\db\f_complete.aspx" />
+    <Content Include="demoSql2005\down3\db\f_create.aspx" />
+    <Content Include="demoSql2005\down3\db\f_del.aspx" />
+    <Content Include="demoSql2005\down3\db\f_down.aspx" />
+    <Content Include="demoSql2005\down3\db\f_list_cmp.aspx" />
+    <Content Include="demoSql2005\down3\db\f_update.aspx" />
+    <Content Include="demoSql2005\down3\debug\fd_create.html" />
+    <Content Include="demoSql2005\down3\index.htm" />
+    <Content Include="demoSql2005\down3\js\down-single.js" />
+    <Content Include="demoSql2005\down3\js\down.css" />
+    <Content Include="demoSql2005\down3\js\down.file.js" />
+    <Content Include="demoSql2005\down3\js\down.folder.js" />
+    <Content Include="demoSql2005\down3\js\down.js" />
+    <Content Include="demoSql2005\down3\js\file.png" />
+    <Content Include="demoSql2005\down3\js\folder.png" />
+    <Content Include="demoSql2005\down3\js\jquery-1.3.2.min.js" />
+    <Content Include="demoSql2005\down3\js\json2.min.js" />
     <Content Include="demoSql2005\index-single.htm" />
     <Content Include="demoSql2005\index.aspx" />
     <Content Include="demoSql2005\js\del.png" />
@@ -93,9 +93,9 @@
     <Content Include="demoSql2005\js\json2.min.js" />
     <Content Include="demoSql2005\js\post.png" />
     <Content Include="demoSql2005\js\stop.png" />
-    <Content Include="demoSql2005\js\up6-single.js" />
-    <Content Include="demoSql2005\js\up6.config.js" />
-    <Content Include="demoSql2005\js\up6.css" />
+    <Content Include="demoSql2005\js\up7-single.js" />
+    <Content Include="demoSql2005\js\up7.config.js" />
+    <Content Include="demoSql2005\js\up7.css" />
     <Content Include="demoSql2005\db\clear.aspx" />
     <Content Include="demoSql2005\db\fd_complete.aspx" />
     <Content Include="demoSql2005\db\fd_create.aspx" />
@@ -113,12 +113,12 @@
     <Content Include="demoSql2005\debug\post.html" />
     <Content Include="demoSql2005\debug\process.html" />
     <Content Include="demoSql2005\debug\test.gif" />
-    <Content Include="demoSql2005\js\up6.file.js" />
-    <Content Include="demoSql2005\js\up6.folder.js" />
+    <Content Include="demoSql2005\js\up7.file.js" />
+    <Content Include="demoSql2005\js\up7.folder.js" />
     <Content Include="demoSql2005\sql.down\down_files.sql" />
     <Content Include="demoSql2005\sql.down\down_folders.sql" />
     <Content Include="demoSql2005\index.htm" />
-    <Content Include="demoSql2005\js\up6.js" />
+    <Content Include="demoSql2005\js\up7.js" />
     <Content Include="demoSql2005\js\setup.htm" />
     <Content Include="demoSql2005\debug\test.htm" />
     <Content Include="demoSql2005\sql.down\down_f_del.sql" />
@@ -256,76 +256,76 @@
     <Compile Include="demoSql2005\debug\check_config.aspx.designer.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\biz\cmp_file.cs" />
-    <Compile Include="demoSql2005\down2\biz\un_builder.cs" />
-    <Compile Include="demoSql2005\down2\biz\folder_appender.cs" />
-    <Compile Include="demoSql2005\down2\biz\un_file.cs" />
-    <Compile Include="demoSql2005\down2\db\clear.aspx.cs">
+    <Compile Include="demoSql2005\down3\biz\cmp_file.cs" />
+    <Compile Include="demoSql2005\down3\biz\un_builder.cs" />
+    <Compile Include="demoSql2005\down3\biz\folder_appender.cs" />
+    <Compile Include="demoSql2005\down3\biz\un_file.cs" />
+    <Compile Include="demoSql2005\down3\db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\clear.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\clear.aspx.designer.cs">
       <DependentUpon>clear.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\DnFile.cs" />
-    <Compile Include="demoSql2005\down2\model\DnFileInf.cs" />
-    <Compile Include="demoSql2005\down2\db\DnFolder.cs" />
-    <Compile Include="demoSql2005\down2\model\DnFolderInf.cs" />
-    <Compile Include="demoSql2005\down2\biz\cmp_builder.cs" />
-    <Compile Include="demoSql2005\down2\db\f_list.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\DnFile.cs" />
+    <Compile Include="demoSql2005\down3\model\DnFileInf.cs" />
+    <Compile Include="demoSql2005\down3\db\DnFolder.cs" />
+    <Compile Include="demoSql2005\down3\model\DnFolderInf.cs" />
+    <Compile Include="demoSql2005\down3\biz\cmp_builder.cs" />
+    <Compile Include="demoSql2005\down3\db\f_list.aspx.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_list.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_list.aspx.designer.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\fd_create.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\fd_create.aspx.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\fd_create.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\fd_create.aspx.designer.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_complete.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_complete.aspx.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_complete.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_complete.aspx.designer.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_create.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_create.aspx.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_create.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_create.aspx.designer.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_del.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_del.aspx.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_del.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_del.aspx.designer.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_down.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_down.aspx.cs">
       <DependentUpon>f_down.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_down.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_down.aspx.designer.cs">
       <DependentUpon>f_down.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_list_cmp.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_list_cmp.aspx.cs">
       <DependentUpon>f_list_cmp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_list_cmp.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_list_cmp.aspx.designer.cs">
       <DependentUpon>f_list_cmp.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_update.aspx.cs">
+    <Compile Include="demoSql2005\down3\db\f_update.aspx.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="demoSql2005\down2\db\f_update.aspx.designer.cs">
+    <Compile Include="demoSql2005\down3\db\f_update.aspx.designer.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\index.aspx.cs">
