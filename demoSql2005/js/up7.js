@@ -103,13 +103,13 @@ function HttpUploaderMgr()
         , ie: {
               drop: { clsid: "D75AD7E8-CC9C-48BD-984C-6FBBAC1CD122", name: "Xproer.HttpDroper7" }
             , part: { clsid: "F7E405D6-AD98-4565-84FD-2AA9AED9F507", name: "Xproer.HttpPartition7" }
-            , path: "http://www.ncmem.com/download/up6.2/up6.cab"
+            , path: "http://www.ncmem.com/download/up7/up6.cab"
         }
 	    //x64
         , ie64: {
               drop: { clsid: "7B9F1B50-A7B9-4665-A6D1-0406E643A856", name: "Xproer.HttpDroper7x64" }
             , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "Xproer.HttpPartition7x64" }
-            , path: "http://www.ncmem.com/download/up6.2/up64.cab"
+            , path: "http://www.ncmem.com/download/up7/up64.cab"
         }
         , firefox: { name: "", type: "application/npHttpUp7", path: "http://www.ncmem.com/download/up7/up7.xpi" }
         , chrome: { name: "npHttpUp7", type: "application/npHttpUp7", path: "http://www.ncmem.com/download/up7/up7.crx" }
