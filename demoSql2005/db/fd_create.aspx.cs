@@ -6,6 +6,7 @@ using up6.demoSql2005.db.biz.folder;
 namespace up6.demoSql2005.db
 {
     /// <summary>
+    /// （此页面取消使用）
     /// 以md5模式存储文件夹，
     /// 
     /// 创建文件夹，并返回创建成功后的文件夹信息。

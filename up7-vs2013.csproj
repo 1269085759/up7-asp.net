@@ -115,7 +115,7 @@
     <Content Include="demoSql2005\debug\test.gif" />
     <Content Include="demoSql2005\js\up7.file.js" />
     <Content Include="demoSql2005\js\up7.folder.js" />
-    <Content Include="demoSql2005\readme.txt" />
+    <Content Include="readme.txt" />
     <Content Include="demoSql2005\sql.down\down_files.sql" />
     <Content Include="demoSql2005\sql.down\down_folders.sql" />
     <Content Include="demoSql2005\index.htm" />

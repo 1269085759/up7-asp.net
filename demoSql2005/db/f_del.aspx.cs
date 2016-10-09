@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace up6.demoSql2005.db
 {
@@ -18,6 +19,12 @@ namespace up6.demoSql2005.db
             else
             {
                 DBFile db = new DBFile();
+                //删除服务器文件
+                xdb_files fileSvr = new xdb_files();
+                if(db.find(int.Parse(fid),ref fileSvr))
+                {
+                    File.Delete(fileSvr.pathSvr);
+                }
                 db.Delete(Convert.ToInt32(uid), Convert.ToInt32(fid));
                 ret = 1;
             }

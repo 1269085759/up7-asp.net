@@ -11,7 +11,7 @@ namespace up6.demoSql2005.db.biz
     public class PathBuilder
     {
         /// <summary>
-        /// 根级存储路径,
+        /// 根级存储路径,格式：up7\\upload
         /// </summary>
         /// <returns></returns>
         public string getRoot()

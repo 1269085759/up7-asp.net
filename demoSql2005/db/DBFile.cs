@@ -19,12 +19,12 @@ namespace up6.demoSql2005.db
         /// </summary>
         /// <param name="f_id"></param>
         /// <returns></returns>
-        public bool GetFileInfByFid(int f_id, ref xdb_files inf)
+        public bool find(int f_id, ref xdb_files inf)
         {
             bool ret = false;
             StringBuilder sb = new StringBuilder();
             sb.Append("select top 1 ");
-            sb.Append("f_uid");
+            sb.Append(" f_uid");
             sb.Append(",f_nameLoc");
             sb.Append(",f_nameSvr");
             sb.Append(",f_pathLoc");

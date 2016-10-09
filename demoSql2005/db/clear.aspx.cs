@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using up6.demoSql2005.db.biz;
 
 namespace up6.demoSql2005.db
 {
@@ -8,6 +10,11 @@ namespace up6.demoSql2005.db
         {
             DBFile.Clear();
             DBFolder.Clear();
+
+            //删除upload文件夹
+            PathBuilder pb = new PathBuilder();
+            string pathSvr = pb.getRoot()+"\\";
+            if(Directory.Exists(pathSvr)) Directory.Delete(pathSvr,true);
         }
     }
 }
