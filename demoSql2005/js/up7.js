@@ -111,8 +111,8 @@ function HttpUploaderMgr()
             , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "Xproer.HttpPartition7x64" }
             , path: "http://www.ncmem.com/download/up6.2/up64.cab"
         }
-        , firefox: { name: "", type: "application/npHttpUploader7", path: "http://www.ncmem.com/download/up7/up7.xpi" }
-        , chrome: { name: "npHttpUploader7", type: "application/npHttpUploader7", path: "http://www.ncmem.com/download/up7/up7.crx" }
+        , firefox: { name: "", type: "application/npHttpUp7", path: "http://www.ncmem.com/download/up7/up7.xpi" }
+        , chrome: { name: "npHttpUp7", type: "application/npHttpUp7", path: "http://www.ncmem.com/download/up7/up7.crx" }
         , chrome45: { name: "com.xproer.up7", path: "http://www.ncmem.com/download/up7/up7.nat.crx" }
         , exe: { path: "http://www.ncmem.com/download/up7/up7.exe" }
 		, "SetupPath": "http://localhost:4955/demoAccess/js/setup.htm"
@@ -517,7 +517,7 @@ function HttpUploaderMgr()
 
 	//IE浏览器信息管理对象
 	this.browser = {
-	      entID: "Uploader6Event"
+	      entID: "Uploader7Event"
 		, check : function ()//检查插件是否已安装
 		  {
 		      return null != this.GetVersion();
