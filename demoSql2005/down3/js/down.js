@@ -50,14 +50,14 @@ function DownloaderMgr()
 		, "FilePart"	: 1048576//文件块大小，更新进度时使用，计算器：http://www.beesky.com/newsite/bit_byte.htm
 		, "FilePartTdr"	: 3//文件块线程数
         //file
-        , "UrlCreate"   : "http://localhost:4959/demoSql2005/down2/db/f_create.aspx"
-        , "UrlDel"      : "http://localhost:4959/demoSql2005/down2/db/f_del.aspx"
-        , "UrlList"     : "http://localhost:4959/demoSql2005/down2/db/f_list.aspx"
-        , "UrlListCmp"  : "http://localhost:4959/demoSql2005/down2/db/f_list_cmp.aspx"
-        , "UrlUpdate"   : "http://localhost:4959/demoSql2005/down2/db/f_update.aspx"
-        , "UrlDown"     : "http://localhost:4959/demoSql2005/down2/db/f_down.aspx"
+        , "UrlCreate"   : "http://localhost:88/demoSql2005/down3/db/f_create.aspx"
+        , "UrlDel"      : "http://localhost:88/demoSql2005/down3/db/f_del.aspx"
+        , "UrlList"     : "http://localhost:88/demoSql2005/down3/db/f_list.aspx"
+        , "UrlListCmp"  : "http://localhost:88/demoSql2005/down3/db/f_list_cmp.aspx"
+        , "UrlUpdate"   : "http://localhost:88/demoSql2005/down3/db/f_update.aspx"
+        , "UrlDown"     : "http://localhost:88/demoSql2005/down3/db/f_down.aspx"
 	    //folder
-        , "UrlFdCreate" : "http://localhost:4959/demoSql2005/down2/db/fd_create.aspx"
+        , "UrlFdCreate" : "http://localhost:88/demoSql2005/down3/db/fd_create.aspx"
         //x86
 		, "ClsidPart"	: "57FA11EE-5E98-415C-933D-BCA188B86B5E"
 		, "CabPath"		: "http://www.ncmem.com/download/down3/down3.cab"

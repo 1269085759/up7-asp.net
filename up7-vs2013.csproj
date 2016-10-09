@@ -62,7 +62,6 @@
     <Content Include="demoSql2005\db\f_update.aspx" />
     <Content Include="demoSql2005\debug\big_file.aspx" />
     <Content Include="demoSql2005\debug\check_config.aspx" />
-    <Content Include="demoSql2005\debug\check_config_down.html" />
     <Content Include="demoSql2005\debug\setup.html" />
     <Content Include="demoSql2005\down3\db\clear.aspx" />
     <Content Include="demoSql2005\down3\db\f_list.aspx" />
@@ -73,6 +72,7 @@
     <Content Include="demoSql2005\down3\db\f_down.aspx" />
     <Content Include="demoSql2005\down3\db\f_list_cmp.aspx" />
     <Content Include="demoSql2005\down3\db\f_update.aspx" />
+    <Content Include="demoSql2005\down3\debug\check_config.aspx" />
     <Content Include="demoSql2005\down3\debug\fd_create.html" />
     <Content Include="demoSql2005\down3\index.htm" />
     <Content Include="demoSql2005\down3\js\down-single.js" />
@@ -268,6 +268,13 @@
       <DependentUpon>clear.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\down3\db\DnFile.cs" />
+    <Compile Include="demoSql2005\down3\debug\check_config.aspx.cs">
+      <DependentUpon>check_config.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="demoSql2005\down3\debug\check_config.aspx.designer.cs">
+      <DependentUpon>check_config.aspx</DependentUpon>
+    </Compile>
     <Compile Include="demoSql2005\down3\model\DnFileInf.cs" />
     <Compile Include="demoSql2005\down3\db\DnFolder.cs" />
     <Compile Include="demoSql2005\down3\model\DnFolderInf.cs" />
