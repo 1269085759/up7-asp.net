@@ -31,3 +31,8 @@
   fd_add_batch.sql      存储过程-批量分配文件ID，在下载文件夹（down3/fd_create.aspx）逻辑中调用。
   down_files.sql        文件表
   down_folders.sql      文件夹表
+
+/////////////////////////////////////////////////////////////////////////////
+相关问题
+  报错：“目录不是空的”
+    需要为upload文件夹增加权限：Administrator-完全控制权限
