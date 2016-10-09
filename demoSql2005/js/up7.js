@@ -103,7 +103,7 @@ function HttpUploaderMgr()
         , ie: {
               drop: { clsid: "D75AD7E8-CC9C-48BD-984C-6FBBAC1CD122", name: "Xproer.HttpDroper7" }
             , part: { clsid: "F7E405D6-AD98-4565-84FD-2AA9AED9F507", name: "Xproer.HttpPartition7" }
-            , path: "http://www.ncmem.com/download/up7/up6.cab"
+            , path: "http://www.ncmem.com/download/up7/up7.cab"
         }
 	    //x64
         , ie64: {
