@@ -41,6 +41,7 @@
             var arr = $.grep(cfg_arr, function (n, i)
             {
                 var need = n.indexOf("Company");
+                if (need == -1) need = n.indexOf("Folder");
                 if (need == -1) need = n.indexOf("License");
                 if (need == -1) need = n.indexOf("Version");
                 if (need == -1) need = n.indexOf("UrlFdCreate");
@@ -51,12 +52,18 @@
                 if (need == -1) need = n.indexOf("UrlComplete");
                 if (need == -1) need = n.indexOf("UrlList");
                 if (need == -1) need = n.indexOf("UrlDel");
-                if (need == -1) need = n.indexOf("ie");
-                if (need == -1) need = n.indexOf("name");
-                if (need == -1) need = n.indexOf("firefox");
-                if (need == -1) need = n.indexOf("chrome");
-                if (need == -1) need = n.indexOf("chrome45");
-                if (need == -1) need = n.indexOf("exe");
+                if (need == -1) need = n.indexOf("ClsidPart");
+                if (need == -1) need = n.indexOf("CabPath");
+                if (need == -1) need = n.indexOf("ClsidPart64");
+                if (need == -1) need = n.indexOf("CabPath64");
+                if (need == -1) need = n.indexOf("XpiType");
+                if (need == -1) need = n.indexOf("XpiPath");
+                if (need == -1) need = n.indexOf("CrxName");
+                if (need == -1) need = n.indexOf("CrxType");
+                if (need == -1) need = n.indexOf("CrxPath");
+                if (need == -1) need = n.indexOf("NatHostName");
+                if (need == -1) need = n.indexOf("NatPath");
+                if (need == -1) need = n.indexOf("ExePath");
                 //if (need == -1) need = n.indexOf("path");
                 return need != -1;
             });
