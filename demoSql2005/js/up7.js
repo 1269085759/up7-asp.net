@@ -88,17 +88,17 @@ function HttpUploaderMgr()
         , "Cookie"			: ""//服务器cookie
         , "QueueCount"      : 1//同时上传的任务数
 		//文件夹操作相关
-		, "UrlFdCreate"		: "http://localhost:88/demoSql2005/db/fd_create_uuid.aspx"
-		, "UrlFdUpdate"		: "http://localhost:88/demoSql2005/db/fd_update.aspx"
-		, "UrlFdComplete"	: "http://localhost:88/demoSql2005/db/fd_complete.aspx"
-		, "UrlFdDel"	    : "http://localhost:88/demoSql2005/db/fd_del.aspx"
+		, "UrlFdCreate"		: "http://localhost:4959/demoSql2005/db/fd_create_uuid.aspx"
+		, "UrlFdUpdate"		: "http://localhost:4959/demoSql2005/db/fd_update.aspx"
+		, "UrlFdComplete"	: "http://localhost:4959/demoSql2005/db/fd_complete.aspx"
+		, "UrlFdDel"	    : "http://localhost:4959/demoSql2005/db/fd_del.aspx"
 		//文件操作相关
-		, "UrlCreate"		: "http://localhost:88/demoSql2005/db/f_create.aspx"
-		, "UrlUpdate"		: "http://localhost:88/demoSql2005/db/f_update.aspx"
-		, "UrlPost"			: "http://localhost:88/demoSql2005/db/f_post.aspx"
-		, "UrlComplete"		: "http://localhost:88/demoSql2005/db/f_complete.aspx"
-		, "UrlList"			: "http://localhost:88/demoSql2005/db/f_list.aspx"
-		, "UrlDel"			: "http://localhost:88/demoSql2005/db/f_del.aspx"
+		, "UrlCreate"		: "http://localhost:4959/demoSql2005/db/f_create.aspx"
+		, "UrlUpdate"		: "http://localhost:4959/demoSql2005/db/f_update.aspx"
+		, "UrlPost"			: "http://localhost:4959/demoSql2005/db/f_post.aspx"
+		, "UrlComplete"		: "http://localhost:4959/demoSql2005/db/f_complete.aspx"
+		, "UrlList"			: "http://localhost:4959/demoSql2005/db/f_list.aspx"
+		, "UrlDel"			: "http://localhost:4959/demoSql2005/db/f_del.aspx"
 	    //x86
         , ie: {
               drop: { clsid: "D75AD7E8-CC9C-48BD-984C-6FBBAC1CD122", name: "Xproer.HttpDroper7" }
@@ -107,8 +107,8 @@ function HttpUploaderMgr()
         }
 	    //x64
         , ie64: {
-              drop: { clsid: "7B9F1B50-A7B9-4665-A6D1-0406E643A856", name: "Xproer.HttpDroper7x64" }
-            , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "Xproer.HttpPartition7x64" }
+              drop: { clsid: "DD51A458-19D2-483F-9AB1-95DC153ADD5C", name: "Xproer.HttpDroper7x64" }
+            , part: { clsid: "E01D2121-3C80-4A4E-A653-6032EC552BCE", name: "Xproer.HttpPartition7x64" }
             , path: "http://www.ncmem.com/download/up7/up64.cab"
         }
         , firefox: { name: "", type: "application/npHttpUp7", path: "http://www.ncmem.com/download/up7/up7.xpi" }
