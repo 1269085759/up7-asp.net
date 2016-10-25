@@ -579,7 +579,7 @@ function HttpUploaderMgr()
         {
             if (!_this.chrome45) return;
             this.exitEvent();
-            document.addEventListener('Uploader6EventCallBack', function (evt)
+            document.addEventListener('Uploader7EventCallBack', function (evt)
             {
                 _this.recvMessage(JSON.stringify(evt.detail));
             });
