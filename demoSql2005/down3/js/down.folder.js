@@ -258,7 +258,7 @@
     //更新服务器进度
     this.down_part = function (json)
     {
-        this.svr_update(json);//更新频繁，对服务器会造成较大压力。考虑做优化。
+        //this.svr_update(json);//更新频繁，对服务器会造成较大压力。考虑做优化。
     };
 
     this.init_end = function (json)
@@ -287,6 +287,6 @@
         this.hideBtns();
         this.ui.btn.down.show();
         this.ui.btn.del.show();
-        //this.svr_update();
+        this.svr_update();
     };
 }
