@@ -88,17 +88,17 @@ function HttpUploaderMgr()
         , "Cookie"			: ""//服务器cookie
         , "QueueCount"      : 1//同时上传的任务数
 		//文件夹操作相关
-		, "UrlFdCreate"		: "http://localhost:4959/demoSql2005/db/fd_create_uuid.aspx"
-		, "UrlFdUpdate"		: "http://localhost:4959/demoSql2005/db/fd_update.aspx"
-		, "UrlFdComplete"	: "http://localhost:4959/demoSql2005/db/fd_complete.aspx"
-		, "UrlFdDel"	    : "http://localhost:4959/demoSql2005/db/fd_del.aspx"
+		, "UrlFdCreate"		: "http://localhost:88/demoSql2005/db/fd_create_uuid.aspx"
+		, "UrlFdUpdate"		: "http://localhost:88/demoSql2005/db/fd_update.aspx"
+		, "UrlFdComplete"	: "http://localhost:88/demoSql2005/db/fd_complete.aspx"
+		, "UrlFdDel"	    : "http://localhost:88/demoSql2005/db/fd_del.aspx"
 		//文件操作相关
-		, "UrlCreate"		: "http://localhost:4959/demoSql2005/db/f_create.aspx"
-		, "UrlUpdate"		: "http://localhost:4959/demoSql2005/db/f_update.aspx"
-		, "UrlPost"			: "http://localhost:4959/demoSql2005/db/f_post.aspx"
-		, "UrlComplete"		: "http://localhost:4959/demoSql2005/db/f_complete.aspx"
-		, "UrlList"			: "http://localhost:4959/demoSql2005/db/f_list.aspx"
-		, "UrlDel"			: "http://localhost:4959/demoSql2005/db/f_del.aspx"
+		, "UrlCreate"		: "http://localhost:88/demoSql2005/db/f_create.aspx"
+		, "UrlUpdate"		: "http://localhost:88/demoSql2005/db/f_update.aspx"
+		, "UrlPost"			: "http://localhost:88/demoSql2005/db/f_post.aspx"
+		, "UrlComplete"		: "http://localhost:88/demoSql2005/db/f_complete.aspx"
+		, "UrlList"			: "http://localhost:88/demoSql2005/db/f_list.aspx"
+		, "UrlDel"			: "http://localhost:88/demoSql2005/db/f_del.aspx"
 	    //x86
         , ie: {
               drop: { clsid: "D75AD7E8-CC9C-48BD-984C-6FBBAC1CD122", name: "Xproer.HttpDroper7" }
