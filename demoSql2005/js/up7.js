@@ -954,10 +954,11 @@ function HttpUploaderMgr()
 	参数:
 		fid 上传项ID。唯一标识
 	*/
-	this.Delete = function(fid)
+	this.Delete = function(idLoc)
 	{
-		_this.RemoveQueue(fid); //从队列中删除
-		_this.RemoveQueueWait(fid);//从未上传列表中删除
+	    _this.filesMap[idLoc].LocalFile = null;
+	    _this.RemoveQueue(idLoc); //从队列中删除
+	    _this.RemoveQueueWait(idLoc);//从未上传列表中删除
 	};
 
 	/*

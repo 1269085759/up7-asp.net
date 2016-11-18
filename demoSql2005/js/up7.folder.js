@@ -84,7 +84,7 @@ function FolderUploader(idLoc, fdLoc, mgr)
         }
         else
         {
-            if (this.check_opened()) return;
+            if (!this.check_opened()) return;
             //在此处增加服务器验证代码。
             this.ui.msg.text("初始化...");
             var f_data = jQuery.extend({}, this.fields, { folder: encodeURIComponent(JSON.stringify(this.folderSvr)), time: new Date().getTime() });
@@ -120,6 +120,8 @@ function FolderUploader(idLoc, fdLoc, mgr)
             if (f.opened)
             {
                 this.ui.btn.del.show();
+                this.ui.btn.stop.hide();
+                this.manager.RemoveQueuePost(this.idLoc);//从上传队列中删除
                 this.ui.msg.text("文件被占用，请关闭后重选文件夹：" + f.pathLoc);
                 return false;
             }
