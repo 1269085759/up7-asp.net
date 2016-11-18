@@ -126,7 +126,7 @@ function FolderUploader(idLoc, fdLoc, mgr)
                 return false;
             }
         }
-        return false;
+        return true;
     };
     this.check_fd = function ()
     {
