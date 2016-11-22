@@ -163,6 +163,8 @@ function FolderUploader(idLoc, fdLoc, mgr)
         //添加到未上传列表
         this.manager.AppendQueueWait(this.idLoc);
 
+        this.svr_update();//
+
         setTimeout(function () { _this.manager.PostNext(); }, 500);
     };
     this.post_process = function (json)
