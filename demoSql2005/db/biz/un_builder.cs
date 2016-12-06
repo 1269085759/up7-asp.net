@@ -43,7 +43,7 @@ namespace up6.demoSql2005.db.biz
             sb.Append(",f_complete");//18
             sb.Append(",f_sign");//18
             //
-            sb.Append(" from up6_files");
+            sb.Append(" from up7_files");
             //
             sb.Append(" where f_uid=@f_uid and f_complete=0 and f_deleted=0");
 
