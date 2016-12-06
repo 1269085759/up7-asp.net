@@ -60,7 +60,7 @@ namespace up6.demoSql2005.db
         private static string m_dbServer = @"(local)\SQL2005";	//数据库地址
         private static string m_dbUser = "sa";			    //数据库帐号
         private static string m_dbPass = "123456";			//数据库密码
-        private static string m_dbName = "HttpUploader6";	//数据库名称
+        private static string m_dbName = "up7";	//数据库名称
         private static string dbProviderName = "System.Data.SqlClient";
         private DbConnection connection;
 

@@ -39,7 +39,7 @@ namespace up6.demoSql2005.db
             sb.Append(",f_complete");
             sb.Append(",f_time");
             sb.Append(",f_deleted");
-            sb.Append(" from up6_files where f_id=@f_id");
+            sb.Append(" from up7_files where f_id=@f_id");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
@@ -99,7 +99,7 @@ namespace up6.demoSql2005.db
             sb.Append(",f_complete");
             sb.Append(",f_time");
             sb.Append(",f_deleted");
-            sb.Append(" from up6_files where f_md5=@f_md5 order by f_perSvr desc");
+            sb.Append(" from up7_files where f_md5=@f_md5 order by f_perSvr desc");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
@@ -138,7 +138,7 @@ namespace up6.demoSql2005.db
         public int Add(ref xdb_files model)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("insert into up6_files(");
+            sb.Append("insert into up7_files(");
             sb.Append("f_sizeLoc");
             sb.Append(",f_pos");
             sb.Append(",f_lenSvr");
@@ -212,14 +212,14 @@ namespace up6.demoSql2005.db
         /// <summary>
         /// 添加一个文件夹上传任务
         /// 更新记录：
-        ///     2016-03-30 返回up6_files.f_id
+        ///     2016-03-30 返回up7_files.f_id
         /// </summary>
         /// <param name="fd"></param>
         /// <returns></returns>
         static public int Add(ref FolderInf fd)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("insert into up6_files(");
+            sb.Append("insert into up7_files(");
             sb.Append(" f_nameLoc");
             sb.Append(",f_fdTask");
             sb.Append(",f_fdID");
@@ -257,7 +257,7 @@ namespace up6.demoSql2005.db
         static public int Add(ref FileInf inf)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("insert into up6_files(");
+            sb.Append("insert into up7_files(");
             sb.Append("f_pid");
             sb.Append(",f_pidRoot");
             sb.Append(",f_fdChild");
@@ -310,7 +310,7 @@ namespace up6.demoSql2005.db
             object f_id = db.ExecuteScalar(cmd);
 
             //cmd.Parameters.Clear();
-            //cmd.CommandText = "select top 1 f_id from up6_files order by f_id desc";
+            //cmd.CommandText = "select top 1 f_id from up7_files order by f_id desc";
             //object f_id = db.ExecuteScalar(cmd);
             return Convert.ToInt32(f_id);
         }
@@ -318,9 +318,9 @@ namespace up6.demoSql2005.db
         static public void Clear()
         {
             DbHelper db = new DbHelper();
-            DbCommand cmd = db.GetCommand("delete from up6_files;");
+            DbCommand cmd = db.GetCommand("delete from up7_files;");
             db.ExecuteNonQuery(cmd);
-            cmd.CommandText = "delete from up6_folders;";
+            cmd.CommandText = "delete from up7_folders;";
             db.ExecuteNonQuery(cmd);
         }
 
@@ -331,9 +331,9 @@ namespace up6.demoSql2005.db
         /// <param name="f_id">文件夹ID</param>
         static public void fd_complete(string f_id,string fd_id,string uid)
         {
-            string sql = "update up6_files set f_perSvr='100%',f_lenSvr=f_lenLoc,f_complete=1 where f_id=@f_id and f_uid=@uid;";
-            sql += "update up6_folders set fd_complete=1 where fd_id=@fd_id and fd_uid=@uid;";
-            sql += "update up6_files set f_perSvr='100%',f_lenSvr=f_lenLoc,f_complete=1 where f_pidRoot=@pidRoot;";
+            string sql = "update up7_files set f_perSvr='100%',f_lenSvr=f_lenLoc,f_complete=1 where f_id=@f_id and f_uid=@uid;";
+            sql += "update up7_folders set fd_complete=1 where fd_id=@fd_id and fd_uid=@uid;";
+            sql += "update up7_files set f_perSvr='100%',f_lenSvr=f_lenLoc,f_complete=1 where f_pidRoot=@pidRoot;";
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
@@ -354,7 +354,7 @@ namespace up6.demoSql2005.db
         ///<param name="f_perSvr">已上传百分比</param>
         public bool f_process(int f_uid, int f_id, long f_pos, long f_lenSvr, string f_perSvr,bool complete)
         {
-            //string sql = "update up6_files set f_pos=@f_pos,f_lenSvr=@f_lenSvr,f_perSvr=@f_perSvr where f_uid=@f_uid and f_id=@f_id";
+            //string sql = "update up7_files set f_pos=@f_pos,f_lenSvr=@f_lenSvr,f_perSvr=@f_perSvr where f_uid=@f_uid and f_id=@f_id";
             string sql = "f_process";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommandStored(sql);
@@ -383,7 +383,7 @@ namespace up6.demoSql2005.db
         /// <returns></returns>
         public bool fd_fileProcess(int uid, int f_id, long f_pos, long lenSvr, string perSvr, int fd_idSvr, long fd_lenSvr,string perSvrFD,bool f_complete)
         {
-            //string sql = "update up6_files set f_pos=@f_pos,f_lenSvr=@f_lenSvr,f_perSvr=@f_perSvr where uid=@uid and f_id=@f_id";
+            //string sql = "update up7_files set f_pos=@f_pos,f_lenSvr=@f_lenSvr,f_perSvr=@f_perSvr where uid=@uid and f_id=@f_id";
             string sql = "fd_fileProcess";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommandStored(sql);
@@ -407,7 +407,7 @@ namespace up6.demoSql2005.db
         /// </summary>
         public void UploadComplete(string md5)
         {
-            string sql = "update up6_files set f_lenSvr=f_lenLoc,f_perSvr='100%',f_complete=1 where f_md5=@f_md5";
+            string sql = "update up7_files set f_lenSvr=f_lenLoc,f_perSvr='100%',f_complete=1 where f_md5=@f_md5";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
 
@@ -417,7 +417,7 @@ namespace up6.demoSql2005.db
 
         public void complete(int uid,int idSvr)
         {
-            string sql = "update up6_files set f_lenSvr=f_lenLoc,f_perSvr='100%',f_complete=1 where f_id=@f_id and f_uid=@f_uid";
+            string sql = "update up7_files set f_lenSvr=f_lenLoc,f_perSvr='100%',f_complete=1 where f_id=@f_id and f_uid=@f_uid";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
 
@@ -433,7 +433,7 @@ namespace up6.demoSql2005.db
         /// <param name="f_id"></param>
         public void Delete(int f_uid, int f_id)
         {
-            string sql = "update up6_files set f_deleted=1 where f_uid=@f_uid and f_id=@f_id";
+            string sql = "update up7_files set f_deleted=1 where f_uid=@f_uid and f_id=@f_id";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
 
@@ -460,7 +460,7 @@ namespace up6.demoSql2005.db
             sql.Append(",f_pid");
             sql.Append(",f_lenSvr");
             sql.Append(",f_pathSvr");
-            sql.Append(" from up6_files where f_pidRoot=@f_pidRoot and f_complete=0;");
+            sql.Append(" from up7_files where f_pidRoot=@f_pidRoot and f_complete=0;");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql.ToString());
@@ -503,8 +503,8 @@ namespace up6.demoSql2005.db
             sql.Append(",f_lenSvr");
             sql.Append(",f_pathSvr");//fix:服务器会重复创建文件项的问题
             sql.Append(",fd.fd_pathRel");//
-            sql.Append(" from up6_files as f");
-            sql.Append(" left join up6_folders as fd");
+            sql.Append(" from up7_files as f");
+            sql.Append(" left join up7_folders as fd");
             sql.Append(" on fd.fd_id = f.f_pid");
             sql.Append(" where f.f_pidRoot=@f_pidRoot and f.f_complete=1;");
 
