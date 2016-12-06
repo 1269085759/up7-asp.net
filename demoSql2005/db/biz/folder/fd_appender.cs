@@ -161,7 +161,7 @@ namespace up6.demoSql2005.db.biz.folder
         void pre_update_fd()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("update up6_folders set");
+            sb.Append("update up7_folders set");
             sb.Append(" fd_name=@fd_name");
             sb.Append(",fd_pid=@fd_pid");
             sb.Append(",fd_uid=@fd_uid");
@@ -276,7 +276,7 @@ namespace up6.demoSql2005.db.biz.folder
         void pre_update_files()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("update up6_files set");
+            sb.Append("update up7_files set");
             sb.Append(" f_pid=@f_pid");
             sb.Append(",f_pidRoot=@f_pidRoot");
             sb.Append(",f_fdTask=@f_fdTask");
