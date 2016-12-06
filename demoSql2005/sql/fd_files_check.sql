@@ -1,4 +1,4 @@
-﻿USE [HttpUploader6]
+﻿USE [up7]
 GO
 /****** 对象:  StoredProcedure [dbo].[fd_add_batch]    脚本日期: 07/28/2016 17:42:12 ******/
 SET ANSI_NULLS ON
@@ -47,7 +47,7 @@ BEGIN
 	--查询数据库
 	
 	select *
-	from (select * from up6_files where f_id in (select max(f_id) from up6_files group by f_md5)) as fs
+	from (select * from up7_files where f_id in (select max(f_id) from up7_files group by f_md5)) as fs
 	inner join @t_md5 t
 	on t.md5 = fs.f_md5 
 END

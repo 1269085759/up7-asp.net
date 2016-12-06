@@ -1,4 +1,4 @@
-﻿USE [HttpUploader6]
+﻿USE [up7]
 GO
 /****** 对象:  StoredProcedure [dbo].[fd_add_batch]    脚本日期: 07/28/2016 17:42:12 ******/
 SET ANSI_NULLS ON
@@ -30,7 +30,7 @@ BEGIN
 	/*批量添加文件夹*/
 	while @i < @fd_count
 	begin
-		insert into up6_folders(fd_pid) values(0);
+		insert into up7_folders(fd_pid) values(0);
 		insert into #tb_ids values(0,@@IDENTITY)
 		set @i = @i + 1;
 	end
@@ -39,7 +39,7 @@ BEGIN
 	set @i = 0;
 	while @i < @f_count
 	begin
-		insert into up6_files(f_pid) values(0)
+		insert into up7_files(f_pid) values(0)
 		insert into #tb_ids values(1,@@IDENTITY)
 		set @i = @i+1
 	end
