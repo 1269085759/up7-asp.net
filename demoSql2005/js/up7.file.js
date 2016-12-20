@@ -218,6 +218,19 @@ function FileUploader(fileLoc, mgr)
         this.Manager.AppendQueueWait(this.idLoc);
         this.post_next();
     };
+    this.post_stoped = function (json)
+    {
+        this.ui.msg.text("传输已停止....");
+        this.ui.btn.stop.hide();
+        this.ui.btn.post.show();
+        this.ui.btn.del.show();
+
+        this.State = HttpUploaderState.Stop;
+        //从上传列表中删除
+        this.Manager.RemoveQueuePost(this.idLoc);
+        //添加到未上传列表
+        this.Manager.AppendQueueWait(this.idLoc);
+    };
     this.md5_process = function (json)
     {
         if (this.root)
@@ -322,8 +335,11 @@ function FileUploader(fileLoc, mgr)
     this.stop = function ()
     {
         this.svr_update();
-        this.ui.msg.text("传输已停止....");
-        this.Manager.AppendQueueWait(this.idLoc);//添加到未上传列表
+        this.ui.btn.post.hide();
+        this.ui.btn.stop.hide();
+        this.ui.btn.cancel.hide();
+        //this.ui.msg.text("传输已停止....");
+        //this.Manager.AppendQueueWait(this.idLoc);//添加到未上传列表
 
         if (HttpUploaderState.Ready == this.State)
         {
@@ -338,19 +354,17 @@ function FileUploader(fileLoc, mgr)
         //从上传列表中删除
         if (null == this.root) this.Manager.RemoveQueuePost(this.idLoc);
         //传输下一个
-        this.post_next();
+        //this.post_next();
     };
     //手动停止，一般在StopAll中调用
     this.stop_manual = function ()
     {
         if (HttpUploaderState.Posting == this.State)
         {
-        	this.ui.btn.post.show();
+            this.ui.btn.post.hide();
         	this.ui.btn.stop.hide();
         	this.ui.btn.cancel.hide();
-            this.ui.msg.text("传输已停止....");
             this.browser.stopFile({ id: this.idLoc });
-            this.State = HttpUploaderState.Stop;
         }
     };
 

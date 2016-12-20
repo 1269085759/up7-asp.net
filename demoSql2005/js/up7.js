@@ -480,6 +480,11 @@ function HttpUploaderMgr()
 	    var p = this.filesMap[json.id];
 	    p.post_error(json);
 	};
+	this.post_stoped = function (json)
+	{
+	    var p = this.filesMap[json.id];
+	    p.post_stoped(json);
+	};
 	this.post_complete = function (json)
 	{
 	    var p = this.filesMap[json.id];
@@ -509,6 +514,7 @@ function HttpUploaderMgr()
 	    else if (json.name == "paste_files") { _this.paste_files(json); }
 	    else if (json.name == "post_process") { _this.post_process(json); }
 	    else if (json.name == "post_error") { _this.post_error(json); }
+	    else if (json.name == "post_stoped") { _this.post_stoped(json); }
 	    else if (json.name == "post_complete") { _this.post_complete(json); }
 	    else if (json.name == "md5_process") { _this.md5_process(json); }
 	    else if (json.name == "md5_complete") { _this.md5_complete(json); }
