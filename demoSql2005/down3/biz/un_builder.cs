@@ -34,7 +34,7 @@ namespace up6.demoSql2005.down2.biz
             sb.Append(",f_pidRoot");//9
             sb.Append(",f_fdTask");//10
             //
-            sb.Append(" from down_files");
+            sb.Append(" from down3_files");
             //
             sb.Append(" where f_uid=@f_uid and f_complete=0");
 

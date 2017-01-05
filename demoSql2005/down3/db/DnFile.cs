@@ -10,7 +10,7 @@ namespace up6.demoSql2005.down2.db
         public int Add(ref model.DnFileInf inf)
         {
             StringBuilder sql = new StringBuilder();
-            sql.Append("insert into down_files(");
+            sql.Append("insert into down3_files(");
             sql.Append(" f_uid");
             sql.Append(",f_nameLoc");
             sql.Append(",f_pathLoc");
@@ -47,7 +47,7 @@ namespace up6.demoSql2005.down2.db
         /// <param name="fid"></param>
         public void Delete(int fid, int uid)
         {
-            //string sql = "delete from down_files where f_id=@f_id and f_uid=@f_uid";
+            //string sql = "delete from down3_files where f_id=@f_id and f_uid=@f_uid";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommandStored("down_f_del");
             db.AddInt(ref cmd, "@f_id", fid);
@@ -57,7 +57,7 @@ namespace up6.demoSql2005.down2.db
             //cmd.ExecuteNonQuery();
 
             //清除子文件
-            //cmd.CommandText = "delete from down_files where f_pidRoot=@f_id and f_uid=@f_uid;";
+            //cmd.CommandText = "delete from down3_files where f_pidRoot=@f_id and f_uid=@f_uid;";
             //cmd.ExecuteNonQuery();
             //cmd.Connection.Close();
             //db.ExecuteNonQuery(ref cmd);
@@ -77,7 +77,7 @@ namespace up6.demoSql2005.down2.db
         static public void Clear()
         {
             DbHelper db = new DbHelper();
-            DbCommand cmd = db.GetCommand("delete from down_files;");
+            DbCommand cmd = db.GetCommand("delete from down3_files;");
             db.ExecuteNonQuery(ref cmd);
         }
     }

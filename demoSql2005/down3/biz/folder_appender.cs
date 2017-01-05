@@ -31,7 +31,7 @@ namespace up6.demoSql2005.down2.biz
             string[] ids = id_lst.ToArray();
 
             //批量更新文件
-            sql = "update down_files set ";
+            sql = "update down3_files set ";
             sql += " f_nameLoc=@f_nameLoc";
             sql += ",f_pathLoc=@f_pathLoc";
             sql += ",f_fileUrl=@f_fileUrl";
