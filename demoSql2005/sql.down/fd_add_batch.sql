@@ -29,7 +29,7 @@ BEGIN
 	
 	while @i < @f_count
 	begin
-		insert into down_files(f_uid) values(@uid);
+		insert into down3_files(f_uid) values(@uid);
 		insert into #tb_ids values(@@IDENTITY)
 		set @i = @i + 1;
 	end
