@@ -1,10 +1,7 @@
 ﻿using up6.demoSql2005.db;
 using up6.demoSql2005.down2.model;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
-using System.Web;
 
 namespace up6.demoSql2005.down2.biz
 {

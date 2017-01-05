@@ -1,11 +1,8 @@
 ﻿using up6.demoSql2005.db;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
-using System.Web;
 
 namespace up6.demoSql2005.down2.biz
 {
@@ -25,19 +22,19 @@ namespace up6.demoSql2005.down2.biz
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("select ");
-            sb.Append(" up6_files.f_id");//0
-            sb.Append(",up6_files.f_pid");//1
-            sb.Append(",up6_files.f_fdTask");//2
-            sb.Append(",up6_files.f_fdID");//3
-            sb.Append(",up6_files.f_fdChild");//4
-            sb.Append(",up6_files.f_pidRoot");//5
-            sb.Append(",up6_files.f_nameLoc");//6
-            sb.Append(",up6_files.f_sizeLoc");//6
-            sb.Append(",up6_files.f_pathLoc");//7
-            sb.Append(",up6_files.f_lenSvr");//12
-            sb.Append(" from up6_files ");
+            sb.Append(" up7_files.f_id");//0
+            sb.Append(",up7_files.f_pid");//1
+            sb.Append(",up7_files.f_fdTask");//2
+            sb.Append(",up7_files.f_fdID");//3
+            sb.Append(",up7_files.f_fdChild");//4
+            sb.Append(",up7_files.f_pidRoot");//5
+            sb.Append(",up7_files.f_nameLoc");//6
+            sb.Append(",up7_files.f_sizeLoc");//6
+            sb.Append(",up7_files.f_pathLoc");//7
+            sb.Append(",up7_files.f_lenSvr");//12
+            sb.Append(" from up7_files ");
             //
-            sb.Append(" where up6_files.f_uid=@f_uid and up6_files.f_deleted=0 and up6_files.f_complete=1");
+            sb.Append(" where up7_files.f_uid=@f_uid and up7_files.f_deleted=0 and up7_files.f_complete=1");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
