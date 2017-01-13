@@ -62,6 +62,7 @@
     <Content Include="demoSql2005\db\f_update.aspx" />
     <Content Include="demoSql2005\debug\big_file.aspx" />
     <Content Include="demoSql2005\debug\check_config.aspx" />
+    <Content Include="demoSql2005\debug\fd_create.html" />
     <Content Include="demoSql2005\debug\setup.html" />
     <Content Include="demoSql2005\down3\db\clear.aspx" />
     <Content Include="demoSql2005\down3\db\f_list.aspx" />
