@@ -116,6 +116,8 @@
     <Content Include="demoSql2005\debug\test.gif" />
     <Content Include="demoSql2005\js\up7.file.js" />
     <Content Include="demoSql2005\js\up7.folder.js" />
+    <Content Include="demoSql2005\sql\up7_files.sql" />
+    <Content Include="demoSql2005\sql\up7_folders.sql" />
     <Content Include="readme.txt" />
     <Content Include="demoSql2005\sql.down\down3_files.sql" />
     <Content Include="demoSql2005\sql.down\down3_folders.sql" />
@@ -129,7 +131,6 @@
     <Content Include="demoSql2005\sql\fd_fileProcess.sql" />
     <Content Include="demoSql2005\sql\fd_files_add_batch.sql" />
     <Content Include="demoSql2005\sql\fd_files_check.sql" />
-    <Content Include="demoSql2005\sql\up6_folders.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -349,7 +350,6 @@
   <ItemGroup>
     <None Include="demoSql2005\sql\spGetFileInfByFid.sql" />
     <None Include="demoSql2005\sql\f_process.sql" />
-    <None Include="demoSql2005\sql\up6_files.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
