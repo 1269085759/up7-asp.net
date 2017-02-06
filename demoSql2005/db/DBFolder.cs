@@ -54,8 +54,8 @@ namespace up6.demoSql2005.db
             db.AddInt(ref cmd, "@uid", inf.uid);
             db.AddInt64(ref cmd, "@length", inf.lenLoc);
             db.AddString(ref cmd, "@size", inf.size, 50);
-            db.AddString(ref cmd, "@pathLoc", inf.m_pathLoc, 255);
-            db.AddString(ref cmd, "@pathSvr", inf.m_pathSvr, 255);
+            db.AddString(ref cmd, "@pathLoc", inf.pathLoc, 255);
+            db.AddString(ref cmd, "@pathSvr", inf.pathSvr, 255);
             db.AddInt(ref cmd, "@folders", inf.foldersCount);
             db.AddInt(ref cmd, "@files", inf.filesCount);
             db.AddInt(ref cmd, "@pidRoot", inf.pidRoot);//为下载控件提供支持
@@ -95,13 +95,13 @@ namespace up6.demoSql2005.db
             //FolderInf root = new FolderInf();
             if (r.Read())
             {
-                root.m_name = r.GetString(0);
-                root.m_lenLoc = r.GetInt64(1);
-                root.m_size = r.GetString(2);
-                root.m_pidSvr = r.GetInt32(3);
-                root.m_idSvr = fid;
-                root.m_pathLoc = r.GetString(4);
-                root.m_pathSvr = r.GetString(5);
+                root.nameLoc = r.GetString(0);
+                root.lenLoc = r.GetInt64(1);
+                root.size = r.GetString(2);
+                root.pidSvr = r.GetInt32(3);
+                root.idSvr = fid;
+                root.pathLoc = r.GetString(4);
+                root.pathSvr = r.GetString(5);
                 root.foldersCount = r.GetInt32(6);
                 root.filesCount = r.GetInt32(7);
                 root.filesComplete = r.GetInt32(8);
@@ -118,7 +118,7 @@ namespace up6.demoSql2005.db
 
             JObject obj = (JObject)JToken.FromObject(root);
             obj["files"] = files;
-            obj["length"] = root.m_lenLoc;
+            obj["length"] = root.lenLoc;
             obj["ids"] = string.Join(",", ids.ToArray());//
             return obj.ToString();
         }
@@ -204,14 +204,14 @@ namespace up6.demoSql2005.db
             //FolderInf root = new FolderInf();
             if (r.Read())
             {
-                fd.m_name = r.GetString(0);
-                fd.m_lenLoc = r.GetInt64(1);
-                fd.m_size = r.GetString(2);
-                fd.m_pidSvr = r.GetInt32(3);
-                fd.m_idSvr = fid;
+                fd.nameLoc = r.GetString(0);
+                fd.lenLoc = r.GetInt64(1);
+                fd.size = r.GetString(2);
+                fd.pidSvr = r.GetInt32(3);
+                fd.idSvr = fid;
                 fd.idFile = fid;//将文件夹与文件关联
-                fd.m_pathLoc = r.GetString(4);
-                fd.m_pathSvr = r.GetString(5);
+                fd.pathLoc = r.GetString(4);
+                fd.pathSvr = r.GetString(5);
                 fd.foldersCount = r.GetInt32(6);
                 fd.filesCount = r.GetInt32(7);
                 fd.filesComplete = r.GetInt32(8);
@@ -274,11 +274,11 @@ namespace up6.demoSql2005.db
             DbDataReader r = db.ExecuteReader(cmd);
             if (r.Read())
             {
-                inf.m_name = r.GetString(0);
-                inf.m_lenLoc = r.GetInt64(1);
-                inf.m_size = r.GetString(2);
-                inf.m_pidSvr = r.GetInt32(3);
-                inf.m_idSvr = int.Parse(fid);
+                inf.nameLoc = r.GetString(0);
+                inf.lenLoc = r.GetInt64(1);
+                inf.size = r.GetString(2);
+                inf.pidSvr = r.GetInt32(3);
+                inf.idSvr = int.Parse(fid);
                 inf.pathLoc = r.GetString(4);
                 inf.pathSvr = r.GetString(5);
                 inf.foldersCount = r.GetInt32(6);

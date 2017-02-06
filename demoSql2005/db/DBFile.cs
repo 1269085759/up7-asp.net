@@ -470,7 +470,7 @@ namespace up6.demoSql2005.db
             {
                 FileInf fi = new FileInf();
                 fi.idSvr = r.GetInt32(0);
-                fi.m_nameLoc = r.GetString(1);
+                fi.nameLoc = r.GetString(1);
                 fi.pathLoc = r.GetString(2);
                 fi.lenLoc = r.GetInt64(3);
                 fi.sizeLoc = r.GetString(4);
