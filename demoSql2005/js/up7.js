@@ -484,7 +484,7 @@ function HttpUploaderMgr()
 	{
 	    var p = this.filesMap[json.id];
 	    
-	    setTimeout(function () { p.post_stoped(json); }, 100);
+	    p.post_stoped(json);
 	};
 	this.post_complete = function (json)
 	{
@@ -1159,10 +1159,6 @@ function HttpUploaderMgr()
 	    btnStop.click(function ()
 	    {
 	        fdTask.stop();
-	        btnPost.show();
-	        btnDel.show();
-	        btnCancel.hide();
-	        btnStop.hide();
 	    });
 		btnDel.click(function(){fdTask.remove();});
 		fdTask.Ready(); //准备
