@@ -82,7 +82,7 @@ function HttpUploaderMgr()
 		, "FilesLimit"		: "0"//文件选择数限制。0表示不限制
 		, "AllowMultiSelect": true//多选开关。1:开启多选。0:关闭多选
 		, "RangeSize"		: "5242880"//文件块大小，以字节为单位。必须为64KB的倍数。推荐大小：5MB。
-		, "Debug"			: true//是否打开调式模式。true,false
+		, "Debug"			: false//是否打开调式模式。true,false
 		, "LogFile"			: "F:\\log.txt"//日志文件路径。需要先打开调试模式。
 		, "InitDir"			: ""//初始化路径。示例：D:\\Soft
 		, "AppPath"			: ""//网站虚拟目录名称。子文件夹 web
