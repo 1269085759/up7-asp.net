@@ -28,7 +28,7 @@ namespace up6.demoSql2005.db
                 ||  string.IsNullOrEmpty(sizeLoc)
                 )
             {
-                Response.Write(callback + "({\"value\":null,\"inf\":\"参数为空，请检查md5,uid,sizeLoc参数。\"})");
+                Response.Write(callback + "({\"value\":null,\"inf\":\"参数为空，请检查uid,sizeLoc参数。\"})");
                 return;
             }
 
