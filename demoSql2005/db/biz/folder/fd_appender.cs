@@ -25,6 +25,11 @@ namespace up6.demoSql2005.db.biz.folder
             this.db = new DbHelper();
         }
 
+        /// <summary>
+        /// 创建层级路径，UUID模式使用，MD5模式不用
+        /// </summary>
+        public virtual void make_folders() { }
+
         public virtual void save()
         {
             this.get_md5s();//提取所有文件的MD5
@@ -34,6 +39,7 @@ namespace up6.demoSql2005.db.biz.folder
 
             this.set_ids();     //设置文件和文件夹id
             this.update_rel();  //更新结构关系
+            this.make_folders();//创建层级路径
 
             //对空文件夹的处理，或0字节文件夹的处理
             if (this.m_root.lenLoc == 0) this.m_root.complete = true;

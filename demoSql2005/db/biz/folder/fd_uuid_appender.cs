@@ -15,6 +15,17 @@ namespace up6.demoSql2005.db.biz.folder
             this.pb = new PathUuidBuilder();
         }
 
+        /// <summary>
+        /// 创建层级路径，UUID模式使用
+        /// </summary>
+        public override void make_folders()
+        {
+            foreach(var fd in this.m_root.folders)
+            {
+                if (!Directory.Exists(fd.pathSvr)) Directory.CreateDirectory(fd.pathSvr);                 
+            }
+        }
+
         public override void save()
         {
             this.m_root.pathRel = this.m_root.nameLoc;//
