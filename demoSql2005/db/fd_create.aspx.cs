@@ -100,9 +100,10 @@ namespace up6.demoSql2005.db
             f.lenLoc = long.Parse(lenLoc);
             f.filesCount = int.Parse(fCount);
             f.f_fdTask = true;
+            f.uid = int.Parse( uid);
             //生成路径
             PathGuidBuilder pb = new PathGuidBuilder();
-            f.pathSvr = pb.genFolder(0, f.nameLoc);
+            f.pathSvr = pb.genFolder(f.uid,f.sign);
             System.IO.Directory.CreateDirectory(f.pathSvr);
 
             var j = RedisConfig.getCon();
@@ -114,7 +115,7 @@ namespace up6.demoSql2005.db
             string json = JsonConvert.SerializeObject(f);
             json = HttpUtility.UrlEncode(json);
             json = json.Replace("+", "%20");
-            Response.Write(json);
+            Response.Write(callback + "({\"ret\":\""+json+"\"})");
         }
     }
 }

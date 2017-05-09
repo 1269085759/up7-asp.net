@@ -13,9 +13,15 @@ namespace up6.demoSql2005.db.biz
         /// <param name="uid"></param>
         /// <param name="fd"></param>
         /// <returns></returns>
-        public override string genFolder(int uid, ref FolderInf fd)
+        public override string genFolder(int uid, string guid)
         {
-            return string.Empty;
+            DateTime timeCur = DateTime.Now;
+            string path = Path.Combine(this.getRoot(), timeCur.ToString("yyyy"));
+            path = Path.Combine(path, timeCur.ToString("MM"));
+            path = Path.Combine(path, timeCur.ToString("dd"));
+            path = Path.Combine(path, guid);
+
+            return path;
         }
 
         /// <summary>
