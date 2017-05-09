@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using up6.demoSql2005.db;
 using up6.demoSql2005.db.biz;
 using up6.demoSql2005.db.biz.folder;
+using up7.demoSql2005.db.biz.folder;
 using up7.demoSql2005.db.redis;
 
 namespace up7.demoSql2005.db.biz.redis
@@ -19,7 +21,7 @@ namespace up7.demoSql2005.db.biz.redis
         Dictionary<String/*guid*/, String/*pathSvr*/> parentPathMap = new Dictionary<String, String>();
 
         public fd_redis() { }
-        public fd_redis(CSRedis.IRedisClient j) { this.con = j; }
+        public fd_redis(ref CSRedis.RedisClient j) { this.con = j; }
 
 
         void parse()
@@ -125,11 +127,11 @@ namespace up7.demoSql2005.db.biz.redis
         {
             var j = this.con;
             //清除文件列表
-            fd_files_redis fs = new fd_files_redis(j, idSign);
+            fd_files_redis fs = new fd_files_redis(ref this.con, idSign);
             fs.del();
 
             //清除目录列表
-            fd_folders_redis ds = new fd_folders_redis(j, idSign);
+            fd_folders_redis ds = new fd_folders_redis(ref this.con, idSign);
             ds.del();
 
             //清除文件夹
@@ -139,19 +141,20 @@ namespace up7.demoSql2005.db.biz.redis
         //保存到数据库
         public void saveToDb()
         {
-            DbHelper db = new DbHelper();
-            Connection con = db.GetCon();
-            FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
-            fd.save();
+            using (var con = DbHelper.CreateConnection())
+            {
+                FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
+                fd.save();
 
-            FileDbWriter fw = new FileDbWriter(con, this.m_root);
-            fw.save();
+                FileDbWriter fw = new FileDbWriter(con, this.m_root);
+                fw.save();
+            }                
         }
 
         void loadFiles()
         {
             //取文件ID列表
-            fd_files_redis rfs = new fd_files_redis(j, this.m_root.idSign);
+            fd_files_redis rfs = new fd_files_redis(ref this.con, this.m_root.idSign);
             var fs = rfs.all();
             this.m_root.files = new List<fd_file>();
             

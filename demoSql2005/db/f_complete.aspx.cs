@@ -31,9 +31,10 @@ namespace up6.demoSql2005.db
                 j.Del(fid);
 
                 //从任务列表（未完成）中删除
-                tasks svr = new tasks(j);
+                tasks svr = new tasks(ref j);
                 svr.uid = uid;
                 svr.del(fid);
+                j.Dispose();
                 ret = 1;
             }
             

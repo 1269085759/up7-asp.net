@@ -68,7 +68,6 @@ namespace up6.demoSql2005.db
                 var con = RedisConfig.getCon();
                 file f_svr = new file(ref con);
                 string partPath = f_svr.getPartPath(idSign, rangeIndex);
-                bool folder = false;
 
                 //自动创建目录
                 if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
@@ -100,7 +99,7 @@ namespace up6.demoSql2005.db
                     f_svr.create(f_child);
 
                     //添加到文件夹
-                    fd_files_redis root = new fd_files_redis(con, fd_idSign);
+                    fd_files_redis root = new fd_files_redis(ref con, fd_idSign);
                     root.add(idSign);
                     
                     //更新文件夹进度

@@ -17,7 +17,7 @@ namespace up6.demoSql2005.db
             if (!string.IsNullOrEmpty(id) )
             {
                 var con = RedisConfig.getCon();
-                fd_redis fd = new fd_redis(con);
+                fd_redis fd = new fd_redis(ref con);
                 fd.read(id);
 
                 //清除缓存
@@ -27,6 +27,7 @@ namespace up6.demoSql2005.db
 
                 fd.mergeAll();//合并文件块
                 fd.saveToDb();//保存到数据库
+                con.Dispose();
                 ret = 1;
             }
             Response.Write(cak + "(" + ret + ")");

@@ -40,7 +40,7 @@ namespace up7.demoSql2005.db.biz.redis
         public void delFd(String sign)
         {
             //清除文件列表缓存
-            fd_files_redis files = new fd_files_redis(this.con, sign);
+            fd_files_redis files = new fd_files_redis(ref this.con, sign);
             files.del();
 
             //清除目录列表缓存
