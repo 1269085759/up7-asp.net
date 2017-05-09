@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace up7.demoSql2005.db.biz.redis
+{
+    public class fd_files_redis
+    {
+        public string idSign = string.Empty;
+        CSRedis.RedisClient con = null;
+
+        public fd_files_redis(CSRedis.RedisClient c, string id) { this.con = c;this.idSign = id; }
+        string getKey()
+        {
+            string key = idSign + "-files";
+            return key;
+        }
+
+        public void del() { this.con.Del(this.getKey()); }
+        public void add(string id)
+        {
+            this.con.SAdd(this.getKey(), id);
+        }
+
+        public void add(List<fd_file_redis> fs)
+        {
+            String key = this.getKey();
+            foreach (fd_file_redis f in fs)
+            {
+                this.con.SAdd(key, f.idSign);
+            }
+        }
+
+        public String[] all()
+        {
+            return this.con.SMembers(this.getKey());
+        }
+    }
+}

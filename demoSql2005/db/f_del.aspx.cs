@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -7,7 +9,7 @@ namespace up6.demoSql2005.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fid = Request.QueryString["fid"];
+            string fid = Request.QueryString["idSign"];
             string uid = Request.QueryString["uid"];
             string callback = Request.QueryString["callback"];
             int ret = 0;
@@ -18,14 +20,13 @@ namespace up6.demoSql2005.db
             }//参数不为空
             else
             {
+                var j = RedisConfig.getCon();
+                tasks svr = new tasks(ref j);
+                svr.uid = uid;
+                svr.del(fid);
+
                 DBFile db = new DBFile();
-                //删除服务器文件
-                xdb_files fileSvr = new xdb_files();
-                if(db.find(int.Parse(fid),ref fileSvr))
-                {
-                    File.Delete(fileSvr.pathSvr);
-                }
-                db.Delete(Convert.ToInt32(uid), Convert.ToInt32(fid));
+                db.delete(fid);
                 ret = 1;
             }
             Response.Write(callback + "(" + ret + ")");//返回jsonp格式数据

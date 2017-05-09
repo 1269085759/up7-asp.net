@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -18,7 +20,7 @@ namespace up6.demoSql2005.db
         {
             string uid          = Request.QueryString["uid"];
             string sign         = Request.QueryString["sign"];
-            string idSvr        = Request.QueryString["idSvr"];
+            string idSign       = Request.QueryString["idSign"];
             string perSvr       = Request.QueryString["perSvr"];//文件百分比
             string lenSvr       = Request.QueryString["lenSvr"];//已传大小
             string lenLoc       = Request.QueryString["lenLoc"];//本地文件大小
@@ -26,19 +28,20 @@ namespace up6.demoSql2005.db
             //参数为空
             if (string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(uid)
-                || string.IsNullOrEmpty(idSvr)
+                || string.IsNullOrEmpty(idSign)
                 )
             {
                 XDebug.Output("lenLoc", lenLoc);
                 XDebug.Output("uid", uid);
-                XDebug.Output("idSvr", idSvr);
+                XDebug.Output("idSvr", idSign);
                 Response.Write("param is null");
                 return;
             }
 
-            //文件夹进度
-            DBFile db = new DBFile();
-            db.f_process(Convert.ToInt32(uid), Convert.ToInt32(idSvr), 0, Convert.ToInt64(lenSvr), perSvr, false);
+            //更新redis进度
+            var con = RedisConfig.getCon();
+            file rf = new file(ref con);
+            rf.process(idSign, perSvr, lenSvr);
         }
     }
 }

@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>up7</RootNamespace>
     <AssemblyName>up7</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
@@ -215,6 +215,7 @@
     <Compile Include="demoSql2005\db\f_update.aspx.designer.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
+    <Compile Include="demoSql2005\db\redis\RedisConfig.cs" />
     <Compile Include="demoSql2005\db\utils\MapBlockWriter.cs" />
     <Compile Include="demoSql2005\db\model\FileInf.cs" />
     <Compile Include="demoSql2005\db\utils\FileBlockWriter.cs" />

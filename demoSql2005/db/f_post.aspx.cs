@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Web;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -18,31 +21,39 @@ namespace up6.demoSql2005.db
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            string uid          = Request.Form["uid"];
-            string idSvr        = Request.Form["idSvr"];//与up6_files对应
-            string perSvr       = Request.Form["perSvr"];//文件百分比
-            string lenSvr       = Request.Form["lenSvr"];//已传大小
-            string lenLoc       = Request.Form["lenLoc"];//本地文件大小
-            string f_pos        = Request.Form["RangePos"];
-            string complete     = Request.Form["complete"];//true/false
-            string fd_idSvr     = Request.Form["fd-idSvr"];//文件夹ID,与up6_folders对应
-            string fd_lenSvr    = Request.Form["fd-lenSvr"];//文件夹已传大小
-            string fd_perSvr    = Request.Form["fd-perSvr"];//文件夹百分比
-            string pathSvr      = Request.Form["pathSvr"];//add(2015-03-19):
-            pathSvr             = HttpUtility.UrlDecode(pathSvr);
+            string uid          = Request.Headers["f-uid"];
+            string idSign       = Request.Headers["f-idSign"];//
+            string perSvr       = Request.Headers["f-perSvr"];//文件百分比
+            string lenSvr       = Request.Headers["f-lenSvr"];//已传大小
+            string lenLoc       = Request.Headers["f-lenLoc"];//本地文件大小
+            string nameLoc      = Request.Headers["f-nameLoc"];//
+            string pathLoc      = Request.Headers["f-pathLoc"];//
+            string sizeLoc      = Request.Headers["f-sizeLoc"];//
+            string f_pos        = Request.Headers["f-RangePos"];
+            string rangeIndex   = Request.Headers["f-rangeIndex"];
+            string rangeCount   = Request.Headers["f-rangeCount"];
+            //string complete     = Request.Headers["complete"];//true/false
+            string fd_idSign     = Request.Headers["fd-idSvr"];//文件夹ID,与up6_folders对应
+            string fd_lenSvr    = Request.Headers["fd-lenSvr"];//文件夹已传大小
+            string fd_perSvr    = Request.Headers["fd-perSvr"];//文件夹百分比
+            pathLoc = pathLoc.Replace("+", "%20");
+            pathLoc = HttpUtility.UrlDecode(pathLoc);
+            nameLoc = pathLoc.Replace("+", "%20");
+            nameLoc = HttpUtility.UrlDecode(nameLoc);
 
             //参数为空
             if (string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(uid)
-                || string.IsNullOrEmpty(idSvr)
+                || string.IsNullOrEmpty(idSign)
                 || string.IsNullOrEmpty(f_pos)
-                || string.IsNullOrEmpty(pathSvr))
+                || string.IsNullOrEmpty(nameLoc))
             {
                 XDebug.Output("lenLoc", lenLoc);
                 XDebug.Output("uid", uid);
-                XDebug.Output("idSvr", idSvr);
-                XDebug.Output("pathSvr", pathSvr);
-                XDebug.Output("fd-idSvr", fd_idSvr);
+                XDebug.Output("idSvr", idSign);
+                XDebug.Output("nameLoc", nameLoc);
+                XDebug.Output("pathLoc", pathLoc);
+                XDebug.Output("fd-idSvr", fd_idSign);
                 XDebug.Output("fd-lenSvr", fd_lenSvr);
                 Response.Write("param is null");
                 return;
@@ -53,42 +64,48 @@ namespace up6.demoSql2005.db
             {
                 long rangePos = Convert.ToInt64(f_pos);
 
-                //临时文件大小
-                HttpPostedFile file = Request.Files.Get(0);
+                HttpPostedFile part = Request.Files.Get(0);
+                var con = RedisConfig.getCon();
+                file f_svr = new file(ref con);
+                string partPath = f_svr.getPartPath(idSign, rangeIndex);
+                bool folder = false;
 
-                XDebug.Output("lenLoc", lenLoc);
-                XDebug.Output("uid", uid);
-                XDebug.Output("idSvr", idSvr);
-                XDebug.Output("rangePos", rangePos);
-                XDebug.Output("lenSvr", lenSvr);
-                XDebug.Output("perSvr", perSvr);
-                XDebug.Output("fd_idSvr", fd_idSvr);
-                XDebug.Output("fd_lenSvr", fd_lenSvr);
-                XDebug.Output("fd_perSvr", fd_perSvr);
+                //自动创建目录
+                if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
 
-                //2.0保存文件块数据
-                FileBlockWriter res = new FileBlockWriter();
-                res.write(pathSvr, rangePos, ref file);
-
-                bool fd = !string.IsNullOrEmpty(fd_idSvr);
-                if (fd) fd = !string.IsNullOrEmpty(fd_lenSvr);
-                if(fd)  fd = int.Parse(fd_idSvr) > 0;
-                if(fd) fd = long.Parse(fd_lenSvr) > 0;
-                
-                //第一块数据
-                if(rangePos==0)
+                //文件块
+                if (string.IsNullOrEmpty(fd_idSign))
                 {
-                    //文件夹进度
-                    DBFile db = new DBFile();
-                    if (fd)
-                    {
-                        db.fd_fileProcess(Convert.ToInt32(uid), Convert.ToInt32(idSvr), rangePos, Convert.ToInt64(lenSvr), perSvr, Convert.ToInt32(fd_idSvr), Convert.ToInt64(fd_lenSvr), fd_perSvr, complete == "true");
-                    }//文件进度
-                    else
-                    {
-                        db.f_process(Convert.ToInt32(uid), Convert.ToInt32(idSvr), rangePos, file.InputStream.Length, perSvr, complete == "true");
-                    }
-                }
+                    part.SaveAs(partPath);
+                    //更新文件进度
+                    if (f_pos == "0") f_svr.process(idSign, perSvr, lenSvr);
+                }//子文件块
+                else
+                {
+                    //块路径
+                    partPath = f_svr.getPartPath(idSign, rangeIndex, rangeCount, fd_idSign);
+                    //保存块
+                    part.SaveAs(partPath);
+
+                    //向redis添加子文件信息
+                    xdb_files f_child = new xdb_files();
+                    f_child.blockCount = int.Parse(rangeCount);
+                    f_child.idSign = idSign;
+                    f_child.nameLoc = System.IO.Path.GetFileName(pathLoc);
+                    f_child.nameSvr = nameLoc;
+                    f_child.lenLoc = long.Parse(lenLoc);
+                    f_child.sizeLoc = sizeLoc;
+                    f_child.pathLoc = pathLoc.Replace("\\", "/");//路径规范化处理
+                    f_child.rootSign = fd_idSign;
+                    f_svr.create(f_child);
+
+                    //添加到文件夹
+                    fd_files_redis root = new fd_files_redis(con, fd_idSign);
+                    root.add(idSign);
+                    
+                    //更新文件夹进度
+                    if (f_pos == "0") f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr);
+                }                
 
                 Response.Write("ok");
             }

@@ -442,6 +442,16 @@ namespace up6.demoSql2005.db
             db.ExecuteNonQuery(cmd);
         }
 
+        public void delete(string id)
+        {
+            string sql = "update up7_files set f_deleted=1 where f_idSign=@f_id";
+            DbHelper db = new DbHelper();
+            DbCommand cmd = db.GetCommand(sql);
+
+            db.AddString(ref cmd, "@f_id", id,36);
+            db.ExecuteNonQuery(cmd);
+        }
+
         /// <summary>
         /// 获取未上传完的文件列表
         /// </summary>

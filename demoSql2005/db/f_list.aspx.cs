@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
 using up6.demoSql2005.db.biz;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -18,8 +20,11 @@ namespace up6.demoSql2005.db
 
             if (!string.IsNullOrEmpty(uid))
             {
-                un_builder ub = new un_builder();
-                string json = ub.read(uid);
+                var j = RedisConfig.getCon();
+                tasks svr = new tasks(ref j);
+                svr.uid = uid;
+                var json = svr.toJson();
+                
                 if (!string.IsNullOrEmpty(json))
                 {
                     System.Diagnostics.Debug.WriteLine(json);

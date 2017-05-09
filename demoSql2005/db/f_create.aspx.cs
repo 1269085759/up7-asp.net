@@ -3,6 +3,8 @@ using System.Web;
 using System.IO;
 using Newtonsoft.Json;
 using up6.demoSql2005.db.biz;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.db.biz.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -17,6 +19,7 @@ namespace up6.demoSql2005.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid          = Request.QueryString["uid"];
+            string idSign       = Request.QueryString["idSign"];
             string lenLoc       = Request.QueryString["lenLoc"];
             string sizeLoc      = Request.QueryString["sizeLoc"];
             string callback     = Request.QueryString["callback"];//jsonp参数
@@ -33,7 +36,7 @@ namespace up6.demoSql2005.db
             }
 
             xdb_files fileSvr = new xdb_files();
-            fileSvr.f_fdChild = false;
+            fileSvr.idSign = idSign;
             fileSvr.uid = int.Parse(uid);//将当前文件UID设置为当前用户UID
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.pathLoc = pathLoc;
@@ -46,13 +49,12 @@ namespace up6.demoSql2005.db
             PathGuidBuilder pb = new PathGuidBuilder();
             fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.sign,fileSvr.nameLoc);
 
-            //数据库存在相同文件
-            DBFile db = new DBFile();
-            xdb_files fileExist = new xdb_files();
-            
-            fileSvr.idSvr = db.Add(ref fileSvr);
-            if(!this.try_make(callback, fileSvr.pathSvr, fileSvr.lenLoc)) return;
-            
+            //添加到redis
+            var con = RedisConfig.getCon();
+            tasks svr = new tasks(ref con);
+            svr.uid = uid;
+            svr.add(fileSvr);            
+
             string jv = JsonConvert.SerializeObject(fileSvr);
             jv = HttpUtility.UrlEncode(jv);
             jv = jv.Replace("+", "%20");

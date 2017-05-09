@@ -11,6 +11,7 @@ namespace up6.demoSql2005.db.biz.folder
     {
         public int idLoc = 0;
         public int idSvr = 0;//与up6_files.f_id对应
+        public string idSign = string.Empty;
         public string nameLoc = string.Empty;
         public string nameSvr = string.Empty;
         public string pathLoc = string.Empty;
@@ -21,6 +22,8 @@ namespace up6.demoSql2005.db.biz.folder
         public int pidLoc = 0;
         public int pidSvr = 0;
         public int pidRoot = 0;//
+        public string pidSign = string.Empty;
+        public string rootSign = string.Empty;
         public int fdID = 0;//与up6_folders.fd_id对应，提供给文件夹使用。
         public bool fdChild;//是否是一个子文件
         public long lenLoc = 0;

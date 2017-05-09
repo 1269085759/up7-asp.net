@@ -6,19 +6,26 @@ namespace up6.demoSql2005.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id_file = Request.QueryString["id_file"];
-            string id_fd = Request.QueryString["id_folder"];
+            string id  = Request.QueryString["idSign"];
             string uid = Request.QueryString["uid"];
             string cak = Request.QueryString["callback"];
             int ret = 0;
 
-            if ( string.IsNullOrEmpty(id_fd)
-                || uid.Length < 1)
+            //参数为空
+            if (!string.IsNullOrEmpty(id) )
             {
-            }
-            else
-            {
-                DBFile.fd_complete(id_file,id_fd,uid);
+                Jedis j = JedisTool.con();
+                fd_redis fd = new fd_redis(j);
+                fd.read(sign);
+
+                //清除缓存
+                tasks svr = new tasks(j);
+                svr.uid = uid;
+                svr.delFd(sign);
+                j.close();
+
+                fd.mergeAll();//合并文件块
+                fd.saveToDb();//保存到数据库
                 ret = 1;
             }
             Response.Write(cak + "(" + ret + ")");

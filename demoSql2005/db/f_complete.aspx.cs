@@ -1,4 +1,6 @@
 ﻿using System;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -10,10 +12,8 @@ namespace up6.demoSql2005.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid = Request.QueryString["uid"];
-            string sign = Request.QueryString["sign"];
-            string fid = Request.QueryString["idSvr"];
+            string fid = Request.QueryString["idSign"];
             string cbk = Request.QueryString["callback"];
-            string fd_idSvr = Request.QueryString["fd_idSvr"];
 
             //返回值。1表示成功
             int ret = 0;
@@ -24,16 +24,19 @@ namespace up6.demoSql2005.db
             }//参数不为空
             else
             {
-                DBFile db = new DBFile();
-                db.complete(int.Parse(uid),int.Parse(fid));
+                var j = RedisConfig.getCon();
+                var f_svr = new fd_file_redis();
+                f_svr.read(j, fid);
+                f_svr.merge();
+                j.Del(fid);
+
+                //从任务列表（未完成）中删除
+                tasks svr = new tasks(j);
+                svr.uid = uid;
+                svr.del(fid);
                 ret = 1;
             }
-
-            //更新文件夹已上传文件数
-            if (!string.IsNullOrEmpty(fd_idSvr))
-            {
-                DBFolder.child_complete(int.Parse(fd_idSvr));
-            }
+            
             Response.Write(cbk + "(" + ret + ")");//必须返回jsonp格式数据
         }
     }
