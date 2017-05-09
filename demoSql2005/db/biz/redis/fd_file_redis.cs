@@ -52,13 +52,13 @@ namespace up7.demoSql2005.db.biz.redis
             if (File.Exists(pathSvr)) return;//文件已存在
 
             var fd = Path.GetDirectoryName(pathSvr);
-            Directory.CreateDirectory(fd);
+            if(!Directory.Exists(fd)) Directory.CreateDirectory(fd);
 
             //取文件块路径
             fd = fd + "/" + this.idSign + "/";//f:/files/folder/guid/
             String[] parts = Directory.GetFiles(fd);
 
-            using (var mapFile = MemoryMappedFile.CreateNew(pathSvr, this.lenLoc))
+            using (var mapFile = MemoryMappedFile.CreateFromFile(pathSvr,FileMode.CreateNew,this.idSign,this.lenLoc))
             {
 
                 for (int i = 0, l = parts.Length; i < l; ++i)
