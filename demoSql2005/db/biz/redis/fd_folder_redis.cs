@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using up6.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
 {
@@ -30,6 +31,15 @@ namespace up7.demoSql2005.db.biz.redis
         {
             String key = this.getKey();
             foreach(fd_child_redis f in fs)
+            {
+                this.con.LPush(key, f.idSign);
+            }
+        }
+
+        public void add(List<fd_child> fs)
+        {
+            String key = this.getKey();
+            foreach (var f in fs)
             {
                 this.con.LPush(key, f.idSign);
             }

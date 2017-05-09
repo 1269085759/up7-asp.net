@@ -1,4 +1,6 @@
 ﻿using System;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -14,15 +16,14 @@ namespace up6.demoSql2005.db
             //参数为空
             if (!string.IsNullOrEmpty(id) )
             {
-                Jedis j = JedisTool.con();
-                fd_redis fd = new fd_redis(j);
-                fd.read(sign);
+                var con = RedisConfig.getCon();
+                fd_redis fd = new fd_redis(con);
+                fd.read(id);
 
                 //清除缓存
-                tasks svr = new tasks(j);
+                tasks svr = new tasks(ref con);
                 svr.uid = uid;
-                svr.delFd(sign);
-                j.close();
+                svr.delFd(id);
 
                 fd.mergeAll();//合并文件块
                 fd.saveToDb();//保存到数据库

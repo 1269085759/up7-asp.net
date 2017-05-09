@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using up6.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
 {
+    /// <summary>
+    /// 文件夹子文件列表
+    /// </summary>
     public class fd_files_redis
     {
         public string idSign = string.Empty;
         CSRedis.RedisClient con = null;
 
-        public fd_files_redis(CSRedis.RedisClient c, string id) { this.con = c;this.idSign = id; }
+        public fd_files_redis(ref CSRedis.RedisClient c, string id) { this.con = c;this.idSign = id; }
         string getKey()
         {
             string key = idSign + "-files";
@@ -27,6 +31,15 @@ namespace up7.demoSql2005.db.biz.redis
         {
             String key = this.getKey();
             foreach (fd_file_redis f in fs)
+            {
+                this.con.SAdd(key, f.idSign);
+            }
+        }
+
+        public void add(List<fd_file> fs)
+        {
+            String key = this.getKey();
+            foreach (var f in fs)
             {
                 this.con.SAdd(key, f.idSign);
             }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Web;
 using up6.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
@@ -44,7 +41,7 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.idSign, "nameSvr", this.nameSvr);//
             j.HSet(this.idSign, "pidSign", this.pidSign);//
             j.HSet(this.idSign, "rootSign", this.rootSign);//		
-            j.HSet(this.idSign, "fdTask", this.fdTask == true ? "true" : "false");//
+            j.HSet(this.idSign, "fdTask", this.fdTask);//
             j.HSet(this.idSign, "complete", this.lenLoc > 0 ? "false" : "true");//
             j.HSet(this.idSign, "sign", this.sign);//
         }

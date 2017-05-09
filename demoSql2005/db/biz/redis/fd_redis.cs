@@ -189,11 +189,11 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.m_root.idSign, "pathSvr", this.m_root.pathSvr);//
             j.HSet(this.m_root.idSign, "filesCount", this.m_root.filesCount);
 
-            fd_files_redis rfs = new fd_files_redis(j, this.m_root.idSign);
-            rfs.add(this.m_root.files);
+            fd_files_redis rfs = new fd_files_redis(ref j, this.m_root.idSign);
+            rfs.add(m_root.files);
 
             //保存目录
-            fd_folders_redis rds = new fd_folders_redis(j, this.m_root.idSign);
+            fd_folders_redis rds = new fd_folders_redis(ref j, this.m_root.idSign);
             rds.add(this.m_root.folders);
         }
 
