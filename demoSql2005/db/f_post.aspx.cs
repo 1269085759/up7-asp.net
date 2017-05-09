@@ -33,7 +33,7 @@ namespace up6.demoSql2005.db
             string rangeIndex   = Request.Headers["f-rangeIndex"];
             string rangeCount   = Request.Headers["f-rangeCount"];
             //string complete     = Request.Headers["complete"];//true/false
-            string fd_idSign     = Request.Headers["fd-idSvr"];//文件夹ID,与up6_folders对应
+            string fd_idSign     = Request.Headers["fd-idSign"];//文件夹标识(guid)
             string fd_lenSvr    = Request.Headers["fd-lenSvr"];//文件夹已传大小
             string fd_perSvr    = Request.Headers["fd-perSvr"];//文件夹百分比
             pathLoc = pathLoc.Replace("+", "%20");
@@ -67,25 +67,16 @@ namespace up6.demoSql2005.db
                 HttpPostedFile part = Request.Files.Get(0);
                 var con = RedisConfig.getCon();
                 file f_svr = new file(ref con);
-                string partPath = f_svr.getPartPath(idSign, rangeIndex,rangeCount);
-
-                //自动创建目录
-                if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
+                string partPath = f_svr.getPartPath(idSign, rangeIndex, rangeCount);
 
                 //文件块
                 if (string.IsNullOrEmpty(fd_idSign))
                 {
-                    part.SaveAs(partPath);
                     //更新文件进度
                     if (f_pos == "0") f_svr.process(idSign, perSvr, lenSvr);
                 }//子文件块
                 else
                 {
-                    //块路径
-                    partPath = f_svr.getPartPath(idSign, rangeIndex, rangeCount, fd_idSign);
-                    //保存块
-                    part.SaveAs(partPath);
-
                     //向redis添加子文件信息
                     xdb_files f_child = new xdb_files();
                     f_child.blockCount = int.Parse(rangeCount);
@@ -104,7 +95,16 @@ namespace up6.demoSql2005.db
                     
                     //更新文件夹进度
                     if (f_pos == "0") f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr);
-                }                
+
+                    //块路径
+                    partPath = f_svr.getPartPath(idSign, rangeIndex, rangeCount, fd_idSign);
+                }
+
+
+                //自动创建目录
+                if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
+                part.SaveAs(partPath);
+
 
                 Response.Write("ok");
             }

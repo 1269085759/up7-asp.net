@@ -143,11 +143,13 @@ namespace up7.demoSql2005.db.biz.redis
         {
             using (var con = DbHelper.CreateConnection())
             {
+                con.Open();
                 FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
                 fd.save();
 
                 FileDbWriter fw = new FileDbWriter(con, this.m_root);
                 fw.save();
+                con.Close();
             }                
         }
 
