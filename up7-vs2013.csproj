@@ -68,7 +68,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="demoSql2005\db\fd_create_uuid.aspx" />
     <Content Include="demoSql2005\db\fd_update.aspx" />
     <Content Include="demoSql2005\db\f_update.aspx" />
     <Content Include="demoSql2005\debug\big_file.aspx" />
@@ -186,13 +185,6 @@
     </Compile>
     <Compile Include="demoSql2005\db\fd_create.aspx.designer.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="demoSql2005\db\fd_create_uuid.aspx.cs">
-      <DependentUpon>fd_create_uuid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="demoSql2005\db\fd_create_uuid.aspx.designer.cs">
-      <DependentUpon>fd_create_uuid.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\db\fd_del.aspx.cs">
       <DependentUpon>fd_del.aspx</DependentUpon>

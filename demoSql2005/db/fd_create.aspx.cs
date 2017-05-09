@@ -2,6 +2,9 @@
 using System.Web;
 using Newtonsoft.Json;
 using up6.demoSql2005.db.biz.folder;
+using up6.demoSql2005.db.biz;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.db.biz.redis;
 
 namespace up6.demoSql2005.db
 {
@@ -78,15 +81,37 @@ namespace up6.demoSql2005.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string folderStr = Request.Form["folder"];
-            folderStr = folderStr.Replace("+", "%20");
-            folderStr = HttpUtility.UrlDecode(folderStr);
+            String idSign   = Request.QueryString["idSign"];
+            String pathLoc  = Request.QueryString["pathLoc"];
+            pathLoc         = pathLoc.Replace("+", "%20");
+            pathLoc         = HttpUtility.UrlDecode(pathLoc);//utf-8解码
+            String sizeLoc  = Request.QueryString["sizeLoc"];
+            String lenLoc   = Request.QueryString["lenLoc"];
+            String uid      = Request.QueryString["uid"];
+            String fCount   = Request.QueryString["filesCount"];
+            String callback = Request.QueryString["callback"];
 
-            fd_appender adder = new fd_appender();
-            adder.m_root = JsonConvert.DeserializeObject<fd_root>(folderStr);
-            adder.save();//保存到数据库
+            xdb_files f = new xdb_files();
+            f.nameLoc = System.IO.Path.GetFileName(pathLoc);
+            f.nameSvr = f.nameLoc;
+            f.idSign = idSign;
+            f.pathLoc = pathLoc;
+            f.sizeLoc = sizeLoc;
+            f.lenLoc = long.Parse(lenLoc);
+            f.filesCount = int.Parse(fCount);
+            f.f_fdTask = true;
+            //生成路径
+            PathGuidBuilder pb = new PathGuidBuilder();
+            f.pathSvr = pb.genFolder(0, f.nameLoc);
+            System.IO.Directory.CreateDirectory(f.pathSvr);
 
-            string json = JsonConvert.SerializeObject(adder.m_root);
+            var j = RedisConfig.getCon();
+            //添加到任务
+            tasks svr = new tasks(ref j);
+            svr.uid = uid;
+            svr.add(f);
+
+            string json = JsonConvert.SerializeObject(f);
             json = HttpUtility.UrlEncode(json);
             json = json.Replace("+", "%20");
             Response.Write(json);

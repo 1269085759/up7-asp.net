@@ -67,7 +67,7 @@ namespace up6.demoSql2005.db
                 HttpPostedFile part = Request.Files.Get(0);
                 var con = RedisConfig.getCon();
                 file f_svr = new file(ref con);
-                string partPath = f_svr.getPartPath(idSign, rangeIndex);
+                string partPath = f_svr.getPartPath(idSign, rangeIndex,rangeCount);
 
                 //自动创建目录
                 if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));

@@ -89,7 +89,7 @@ function HttpUploaderMgr()
         , "Cookie"			: ""//服务器cookie
         , "QueueCount"      : 1//同时上传的任务数
 		//文件夹操作相关
-		, "UrlFdCreate"		: "http://localhost:88/demoSql2005/db/fd_create_uuid.aspx"
+		, "UrlFdCreate"		: "http://localhost:88/demoSql2005/db/fd_create.aspx"
 		, "UrlFdUpdate"		: "http://localhost:88/demoSql2005/db/fd_update.aspx"
 		, "UrlFdComplete"	: "http://localhost:88/demoSql2005/db/fd_complete.aspx"
 		, "UrlFdDel"	    : "http://localhost:88/demoSql2005/db/fd_del.aspx"
