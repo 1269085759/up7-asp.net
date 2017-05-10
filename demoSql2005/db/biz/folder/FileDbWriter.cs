@@ -107,20 +107,20 @@ namespace up7.demoSql2005.db.biz.folder
                 foreach (var f in this.root.files)
                 {
                     cmd.Parameters[0].Value = f.idSign;//idSign
-                    cmd.Parameters[0].Value = f.pidSign;//pidSign
-                    cmd.Parameters[0].Value = f.rootSign;//rootSign
-                    cmd.Parameters[0].Value = true;//fdChild
-                    cmd.Parameters[0].Value = f.uid;//uid
-                    cmd.Parameters[0].Value = f.nameLoc;//nameLoc
-                    cmd.Parameters[0].Value = f.nameSvr;//nameSvr
-                    cmd.Parameters[0].Value = f.pathLoc;//pathLoc
-                    cmd.Parameters[0].Value = f.pathSvr;//pathSvr
-                    cmd.Parameters[0].Value = f.lenLoc;//lenLoc
-                    cmd.Parameters[0].Value = f.sizeLoc;//sizeLoc
-                    cmd.Parameters[0].Value = f.lenLoc;//lenSvr
-                    cmd.Parameters[0].Value = "100%";//perSvr
-                    cmd.Parameters[0].Value = f.sign;//sign
-                    cmd.Parameters[0].Value = false;//fdTask
+                    cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pidSign) ? string.Empty : f.pidSign;//pidSign
+                    cmd.Parameters[2].Value = string.IsNullOrEmpty(f.rootSign) ?string.Empty:f.rootSign;//rootSign
+                    cmd.Parameters[3].Value = true;//fdChild
+                    cmd.Parameters[4].Value = f.uid;//uid
+                    cmd.Parameters[5].Value = f.nameLoc;//nameLoc
+                    cmd.Parameters[6].Value = f.nameSvr;//nameSvr
+                    cmd.Parameters[7].Value = f.pathLoc;//pathLoc
+                    cmd.Parameters[8].Value = f.pathSvr;//pathSvr
+                    cmd.Parameters[9].Value = f.lenLoc;//lenLoc
+                    cmd.Parameters[10].Value = f.sizeLoc;//sizeLoc
+                    cmd.Parameters[11].Value = f.lenLoc;//lenSvr
+                    cmd.Parameters[12].Value = "100%";//perSvr
+                    cmd.Parameters[13].Value = string.IsNullOrEmpty(f.sign)?string.Empty:f.sign;//sign
+                    cmd.Parameters[14].Value = false;//fdTask
                     cmd.ExecuteNonQuery();
                 }
             }
