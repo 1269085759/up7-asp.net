@@ -57,6 +57,7 @@ namespace up7.demoSql2005.db.biz.redis
             //取文件块路径
             fd = fd + "/" + this.idSign + "/";//f:/files/folder/guid/
             String[] parts = Directory.GetFiles(fd);
+            long prevLen = 0;
 
             using (var mapFile = MemoryMappedFile.CreateFromFile(pathSvr,FileMode.CreateNew,this.idSign,this.lenLoc))
             {
@@ -66,11 +67,12 @@ namespace up7.demoSql2005.db.biz.redis
                     String partName = fd + (i + 1) + ".part";
                     var partData = File.ReadAllBytes(partName);
                     //每一个文件块为64mb，最后一个文件块<=64mb
-                    long partOffset = i * 67108864;
+                    long partOffset = prevLen;
                     using (var ss = mapFile.CreateViewStream(partOffset, partData.Length))
                     {
                         ss.Write(partData, 0, partData.Length);
                     }
+                    prevLen += partData.Length;
                 }
             }
 
