@@ -73,7 +73,7 @@ namespace up6.demoSql2005.db
                 if (string.IsNullOrEmpty(fd_idSign))
                 {
                     //更新文件进度
-                    if (f_pos == "0") f_svr.process(idSign, perSvr, lenSvr);
+                    if (f_pos == "0") f_svr.process(idSign, perSvr, lenSvr, rangeCount);
                 }//子文件块
                 else
                 {
@@ -87,6 +87,7 @@ namespace up6.demoSql2005.db
                     f_child.sizeLoc = sizeLoc;
                     f_child.pathLoc = pathLoc.Replace("\\", "/");//路径规范化处理
                     f_child.rootSign = fd_idSign;
+                    f_child.blockCount = int.Parse(rangeCount);
                     f_svr.create(f_child);
 
                     //添加到文件夹
@@ -94,7 +95,7 @@ namespace up6.demoSql2005.db
                     root.add(idSign);
                     
                     //更新文件夹进度
-                    if (f_pos == "0") f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr);
+                    if (f_pos == "0") f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr,"0");
 
                     //块路径
                     partPath = f_svr.getPartPath(idSign, rangeIndex, rangeCount, fd_idSign);
