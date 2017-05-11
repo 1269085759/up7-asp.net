@@ -37,6 +37,11 @@ namespace up6.demoSql2005.db
                 Response.Write("param is null");
                 return;
             }
+
+            //更新redis进度
+            var con = RedisConfig.getCon();
+            file rf = new file(ref con);
+            rf.process(idSign, perSvr, lenSvr,"0");
         }
     }
 }
