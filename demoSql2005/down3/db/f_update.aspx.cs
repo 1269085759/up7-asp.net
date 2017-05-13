@@ -1,6 +1,8 @@
 ﻿using System;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
-namespace up6.demoSql2005.down2.db
+namespace up6.demoSql2005.down3.db
 {
     /// <summary>
     /// 更新文件下载进度
@@ -9,16 +11,12 @@ namespace up6.demoSql2005.down2.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fid      = Request.QueryString["idSvr"];
+            string fid      = Request.QueryString["signSvr"];
             string uid      = Request.QueryString["uid"];
             string lenLoc   = Request.QueryString["lenLoc"];
             string per      = Request.QueryString["perLoc"];
             string cbk      = Request.QueryString["callback"];
             //
-            string file_id  = Request.QueryString["file_id"];
-            string file_lenLoc = Request.QueryString["file_lenLoc"];
-            string file_per = Request.QueryString["file_per"];
-
             if (    string.IsNullOrEmpty(uid)
                 ||  string.IsNullOrEmpty(fid)
                 ||  string.IsNullOrEmpty(cbk)
@@ -28,14 +26,10 @@ namespace up6.demoSql2005.down2.db
                 Response.End();
                 return;
             }
-
-            DnFile db = new DnFile();
-            if(int.Parse(fid)>0)db.updateProcess(int.Parse(fid), int.Parse(uid), lenLoc, per);
-            //更新子文件
-            if (!string.IsNullOrEmpty(file_id) && !string.IsNullOrEmpty(file_lenLoc))
-            {
-                db.updateProcess(int.Parse(file_id), int.Parse(uid), file_lenLoc, file_per);
-            }
+            var j = RedisConfig.getCon();
+            FileRedis f = new FileRedis(ref j);
+            f.process(fid, per, lenLoc);//更新文件或文件夹进度
+            
             Response.Write(cbk + "({\"value\":1})");
         }
     }

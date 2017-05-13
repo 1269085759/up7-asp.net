@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace up6.demoSql2005.down2.biz
+namespace up6.demoSql2005.down3.biz
 {
     public class un_builder
     {

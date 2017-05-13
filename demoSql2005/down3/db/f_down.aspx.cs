@@ -2,147 +2,99 @@
 using System.IO;
 using System.Text;
 using System.Web;
+using up6.demoSql2005.down3.model;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
-namespace up6.demoSql2005.down2.db
+namespace up6.demoSql2005.down3.db
 {
     public partial class f_down : System.Web.UI.Page
     {
-        /// <summary>
-        /// 为字符串中的非英文字符编码Encodes non-US-ASCII characters in a string.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static string ToHexString(string s)
-        {
-            char[] chars = s.ToCharArray();
-            StringBuilder builder = new StringBuilder();
-            for (int index = 0; index < chars.Length; index++)
-            {
-                bool needToEncode = NeedToEncode(chars[index]);
-                if (needToEncode)
-                {
-                    string encodedString = ToHexString(chars[index]);
-                    builder.Append(encodedString);
-                }
-                else
-                {
-                    builder.Append(chars[index]);
-                }
-            }
-            return builder.ToString();
-        }
-        /// <summary>
-        ///指定一个字符是否应该被编码 Determines if the character needs to be encoded.
-        /// </summary>
-        /// <param name="chr"></param>
-        /// <returns></returns>
-        private static bool NeedToEncode(char chr)
-        {
-            string reservedChars = "$-_.+!*'(),@=&";
-            if (chr > 127)
-                return true;
-            if (char.IsLetterOrDigit(chr) || reservedChars.IndexOf(chr) >= 0)
-                return false;
-            return true;
-        }
-        /// <summary>
-        /// 为非英文字符串编码Encodes a non-US-ASCII character.
-        /// </summary>
-        /// <param name="chr"></param>
-        /// <returns></returns>
-        private static string ToHexString(char chr)
-        {
-            UTF8Encoding utf8 = new UTF8Encoding();
-            byte[] encodedBytes = utf8.GetBytes(chr.ToString());
-            StringBuilder builder = new StringBuilder();
-            for (int index = 0; index < encodedBytes.Length; index++)
-            {
-                builder.AppendFormat("%{0}", Convert.ToString(encodedBytes[index], 16));
-            }
-            return builder.ToString();
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fid = Request.QueryString["fid"];
-            if (String.IsNullOrEmpty(fid))
+            String lenSvr       = Request.Headers["f-lenSvr"];
+            String nameLoc      = Request.Headers["f-nameLoc"];
+            String sizeSvr      = Request.Headers["f-sizeSvr"];
+            String pathSvr      = Request.Headers["f-pathSvr"];
+            String pathLoc      = Request.Headers["f-pathLoc"];
+            String blockIndex   = Request.Headers["f-blockIndex"];
+            String blockOffset  = Request.Headers["f-blockOffset"];
+            String blockSize    = Request.Headers["f-blockSize"];//逻辑块大小
+            String rangeSize    = Request.Headers["f-rangeSize"];//当前请求的块大小
+            String lenLoc       = Request.Headers["f-lenLoc"];
+            String signSvr      = Request.Headers["f-signSvr"];
+            String fd_signSvr   = Request.Headers["fd-signSvr"];
+            String fd_lenLoc    = Request.Headers["fd-lenLoc"];
+            String fd_sizeLoc   = Request.Headers["fd-sizeLoc"];
+            String uid          = Request.Headers["f-uid"];
+            String percent      = Request.Headers["f-percent"];
+
+            pathSvr = pathSvr.Replace("+", "%20");
+            pathLoc = pathLoc.Replace("+", "%20");
+            nameLoc = nameLoc.Replace("+", "%20");
+            pathSvr = HttpUtility.UrlDecode(pathSvr);//utf-8解码
+            pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
+            nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
+
+            if (string.IsNullOrEmpty(lenSvr)
+                || string.IsNullOrEmpty(pathSvr)
+                || string.IsNullOrEmpty(pathLoc)
+                || string.IsNullOrEmpty(blockIndex)
+                || string.IsNullOrEmpty(lenLoc)
+                || string.IsNullOrEmpty(percent)
+                )
             {
+                System.Diagnostics.Debug.WriteLine("lenSvr:"+lenSvr);
+                System.Diagnostics.Debug.WriteLine("lenLoc:" + lenLoc);
+                System.Diagnostics.Debug.WriteLine("nameLoc:" + nameLoc);
+                System.Diagnostics.Debug.WriteLine("sizeSvr:" + sizeSvr);
+                System.Diagnostics.Debug.WriteLine("pathSvr:" + pathSvr);
+                System.Diagnostics.Debug.WriteLine("pathLoc:" + pathLoc);
+                System.Diagnostics.Debug.WriteLine("blockIndex:" + blockIndex);
+                System.Diagnostics.Debug.WriteLine("blockSize:" + blockSize);
+                System.Diagnostics.Debug.WriteLine("signSvr:" + signSvr);
+                System.Diagnostics.Debug.WriteLine("percent:" + percent);
+                System.Diagnostics.Debug.WriteLine("f_down.jsp 业务逻辑参数为空。" );
                 return;
             }
-            demoSql2005.db.DBFile f = new demoSql2005.db.DBFile();
-            demoSql2005.db.xdb_files inf = new demoSql2005.db.xdb_files();
-            //数据库不存在文件
-            if (!f.find(int.Parse(fid), ref inf))
-            {
-                Response.AddHeader("Content-Range", "0-0/0");
-                Response.AddHeader("Content-Length", "0");
-                return;
-            }
-            string nameLoc = Path.GetFileName(inf.nameLoc);
-            string ext = Path.GetExtension(nameLoc);
-            string encodefileName = ToHexString(nameLoc);//使用自定义的
-            if (Request.Browser.Browser.Contains("IE"))
-            {
-                string name = encodefileName.Remove(encodefileName.Length - ext.Length);//得到文件名称
-                name = name.Replace(".", "%2e"); //关键代码
-                encodefileName = name + ext;
-            }
-            string pathSvr = inf.pathSvr;
 
-            UTF8Encoding utf8 = new UTF8Encoding();
-            byte[] encodedBytes = utf8.GetBytes(nameLoc);
+            DnFileInf fileSvr = new DnFileInf();
+            fileSvr.signSvr = signSvr;
+            //子文件项时仅保存文件夹信息
+            if (fd_signSvr != null) fileSvr.signSvr = fd_signSvr;
+            fileSvr.uid = uid == null ? 0 : int.Parse(uid);
+            fileSvr.lenLoc = long.Parse(lenLoc);
+            if (fd_lenLoc != null) fileSvr.lenLoc = long.Parse(fd_lenLoc);
+            fileSvr.lenSvr = long.Parse(lenSvr);
+            fileSvr.sizeSvr = sizeSvr == null ? "" : sizeSvr;
+            fileSvr.perLoc = percent;
+            fileSvr.pathSvr = pathSvr;
+            fileSvr.pathLoc = pathLoc;
+            fileSvr.nameLoc = nameLoc == null ? "" : nameLoc;
 
-            string fnUtf8 = Encoding.UTF8.GetString(Encoding.GetEncoding("gb2312").GetBytes(nameLoc));
-            fnUtf8 = HttpUtility.UrlEncode(nameLoc);
+            //添加到缓存
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks(uid, j);
+            svr.add(fileSvr);
+
+            long fileLen = fileSvr.lenSvr;
+
+            Response.ContentType = "application/octet-stream";
+            Response.AddHeader("Pragma", "No-cache");
+            Response.AddHeader("Cache-Control", "no-cache");
+            Response.AddHeader("Expires", "0");
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + nameLoc);
+            Response.AddHeader("Content-Length", rangeSize.ToString());
 
             Stream iStream = null;
             try
             {
                 // Open the file.
-                iStream = new System.IO.FileStream(pathSvr, FileMode.Open, FileAccess.Read, FileShare.Read);
+                iStream = new FileStream(pathSvr, FileMode.Open, FileAccess.Read, FileShare.Read);
+                iStream.Seek(long.Parse(blockOffset), SeekOrigin.Begin);
 
                 // Total bytes to read:
-                long dataToRead = iStream.Length;
-
-                Response.ContentType = "application/octet-stream";
-                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + fnUtf8 + "\"");
-                /*
-                    表示头500个字节：bytes=0-499
-                    表示第二个500字节：bytes=500-999
-                    表示最后500个字节：bytes=-500
-                    表示500字节以后的范围：bytes=500-
-                    第一个和最后一个字节：bytes=0-0,-1
-                    同时指定几个范围：bytes=500-600,601-999
-                */
-                string range = Request.Headers.Get("Range");//续传
-                if (!string.IsNullOrEmpty(range))
-                {
-                    string[] rs = range.Split("-".ToCharArray());//bytes=10254
-                    int posBegin = rs[0].IndexOf("=") + 1;
-                    string pos = rs[0].Substring(posBegin);
-                    long offset_begin = long.Parse(pos);
-                    iStream.Seek(offset_begin, SeekOrigin.Begin);
-
-                    string con_range;
-                    if (rs.Length == 2)
-                    {
-                        string offset_end = rs[1];
-                        long totalLen = long.Parse(offset_end) - offset_begin;
-                        //fix(2016-09-13):只有1byte的文件
-                        if(totalLen>1) ++totalLen;//字段大小+1
-                        dataToRead = totalLen;//
-                        con_range = string.Format("bytes {0}-{1}/{2}", offset_begin, offset_end, iStream.Length);
-                    }
-                    else
-                    {
-                        dataToRead -= offset_begin;//fix(2015-08-12):修复返回长度不正确的问题。
-                        con_range = string.Format("bytes {0}-{1}/{2}", offset_begin, dataToRead, iStream.Length);
-                    }
-
-                    //add(2016-08-30):添加content-range，为多线程提供支持
-                    Response.AddHeader("Content-Range", con_range);
-                }
-                Response.AddHeader("Content-Length", dataToRead.ToString());
+                long dataToRead = long.Parse(rangeSize);
 
                 byte[] buffer = new Byte[10000];
                 int length;

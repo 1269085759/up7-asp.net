@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace up6.demoSql2005.down2.db {
+namespace up6.demoSql2005.down3.db {
     
     
     public partial class clear {

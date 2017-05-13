@@ -1,8 +1,8 @@
-﻿using up6.demoSql2005.down2.biz;
+﻿using up6.demoSql2005.down3.biz;
 using System;
 using System.Web;
 
-namespace up6.demoSql2005.down2.db
+namespace up6.demoSql2005.down3.db
 {
     /// <summary>
     /// 列出所有已经上传完的文件和文件夹

@@ -1,10 +1,10 @@
-﻿using up6.demoSql2005.down2.biz;
-using up6.demoSql2005.down2.model;
+﻿using up6.demoSql2005.down3.biz;
+using up6.demoSql2005.down3.model;
 using Newtonsoft.Json;
 using System;
 using System.Web;
 
-namespace up6.demoSql2005.down2.db
+namespace up6.demoSql2005.down3.db
 {
     /// <summary>
     /// 创建一个文件夹下载任务。

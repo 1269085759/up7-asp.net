@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace up6.demoSql2005.down2.model
+namespace up6.demoSql2005.down3.model
 {
     public class DnFileInf
     {
