@@ -157,7 +157,7 @@
     <Compile Include="demoSql2005\db\biz\redis\fd_file_redis.cs" />
     <Compile Include="demoSql2005\db\biz\redis\fd_folder_redis.cs" />
     <Compile Include="demoSql2005\db\biz\redis\fd_redis.cs" />
-    <Compile Include="demoSql2005\db\biz\redis\file.cs" />
+    <Compile Include="demoSql2005\db\biz\redis\FileRedis.cs" />
     <Compile Include="demoSql2005\db\biz\redis\tasks.cs" />
     <Compile Include="demoSql2005\db\biz\un_builder.cs" />
     <Compile Include="demoSql2005\db\biz\un_file.cs" />

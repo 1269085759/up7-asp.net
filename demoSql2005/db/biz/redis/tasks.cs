@@ -25,7 +25,7 @@ namespace up7.demoSql2005.db.biz.redis
         {
             this.add(f.idSign);
 
-            file fs = new file(ref this.con);
+            FileRedis fs = new FileRedis(ref this.con);
             fs.create(f);
         }
 

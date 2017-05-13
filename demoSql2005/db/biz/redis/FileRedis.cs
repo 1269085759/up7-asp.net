@@ -1,12 +1,11 @@
 ﻿using System;
-using up7.demoSql2005.db;
 
 namespace up7.demoSql2005.db.biz.redis
 {
-    public class file
+    public class FileRedis
     {
         CSRedis.RedisClient con = null;
-        public file(ref CSRedis.RedisClient c) { this.con = c; }
+        public FileRedis(ref CSRedis.RedisClient c) { this.con = c; }
 
         public void process(String idSign, String perSvr, String lenSvr,String blockCount)
         {

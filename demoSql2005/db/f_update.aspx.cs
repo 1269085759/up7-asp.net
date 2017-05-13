@@ -40,7 +40,7 @@ namespace up7.demoSql2005.db
 
             //更新redis进度
             var con = RedisConfig.getCon();
-            file rf = new file(ref con);
+            FileRedis rf = new FileRedis(ref con);
             rf.process(idSign, perSvr, lenSvr,"0");
         }
     }
