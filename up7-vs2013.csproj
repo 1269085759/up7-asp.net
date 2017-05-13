@@ -141,13 +141,12 @@
   <ItemGroup>
     <Compile Include="demoSql2005\db\biz\BlockPathBuilder.cs" />
     <Compile Include="demoSql2005\db\biz\file_part.cs" />
-    <Compile Include="demoSql2005\db\biz\folder\fd_appender.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_child.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_file.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_root.cs" />
-    <Compile Include="demoSql2005\db\biz\folder\fd_uuid_appender.cs" />
     <Compile Include="demoSql2005\db\biz\folder\FileDbWriter.cs" />
     <Compile Include="demoSql2005\db\biz\folder\FolderDbWriter.cs" />
+    <Compile Include="demoSql2005\db\biz\PartMeger.cs" />
     <Compile Include="demoSql2005\db\biz\PathBuilder.cs" />
     <Compile Include="demoSql2005\db\biz\PathGuidBuilder.cs" />
     <Compile Include="demoSql2005\db\biz\PathMd5Builder.cs" />
@@ -159,8 +158,6 @@
     <Compile Include="demoSql2005\db\biz\redis\fd_redis.cs" />
     <Compile Include="demoSql2005\db\biz\redis\FileRedis.cs" />
     <Compile Include="demoSql2005\db\biz\redis\tasks.cs" />
-    <Compile Include="demoSql2005\db\biz\un_builder.cs" />
-    <Compile Include="demoSql2005\db\biz\un_file.cs" />
     <Compile Include="demoSql2005\db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -27,10 +27,10 @@ namespace up7.demoSql2005.db.biz.redis
             this.con.SAdd(this.getKey(), id);
         }
 
-        public void add(List<fd_file_redis> fs)
+        public void add(List<xdb_files> fs)
         {
             String key = this.getKey();
-            foreach (fd_file_redis f in fs)
+            foreach (var f in fs)
             {
                 this.con.SAdd(key, f.idSign);
             }

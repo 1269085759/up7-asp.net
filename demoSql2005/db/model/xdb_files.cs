@@ -6,7 +6,9 @@ namespace up7.demoSql2005.db
     public class xdb_files
     {
         public string idSign = string.Empty;
+        public string pidSign = string.Empty;
         public string rootSign = string.Empty;
+        public bool fdTask = false;//是否是一个文件夹
         public int blockCount = 0;
         public int filesCount = 0;
         public int idSvr = 0;

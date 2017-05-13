@@ -44,7 +44,7 @@ namespace up7.demoSql2005.db.biz.redis
             }
 
             //更新文件路径（Server）
-            foreach (fd_file f in this.m_root.files)
+            foreach (var f in this.m_root.files)
 
             {
                 if (parentPathMap.ContainsKey(f.pidSign))
@@ -154,7 +154,7 @@ namespace up7.demoSql2005.db.biz.redis
             //取文件ID列表
             fd_files_redis rfs = new fd_files_redis(ref this.con, this.m_root.idSign);
             var fs = rfs.all();
-            this.m_root.files = new List<fd_file>();
+            this.m_root.files = new List<xdb_files>();
             
             foreach(String s in fs)
             {

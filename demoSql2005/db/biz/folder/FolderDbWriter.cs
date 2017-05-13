@@ -17,18 +17,32 @@ namespace up7.demoSql2005.db.biz.folder
         DbCommand makeCmd(DbConnection con)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("update up7_folders set");
-            sb.Append(" fd_name=@fd_name");
-            sb.Append(",fd_pidSign=@fd_pidSign");
-            sb.Append(",fd_uid=@fd_uid");
-            sb.Append(",fd_length=@fd_length");
-            sb.Append(",fd_size=@fd_size");
-            sb.Append(",fd_pathLoc=@fd_pathLoc");
-            sb.Append(",fd_pathSvr=@fd_pathSvr");
-            sb.Append(",fd_folders=@fd_folders");
-            sb.Append(",fd_files=@fd_files");
-            sb.Append(",fd_rootSign=@fd_rootSign");
-            sb.Append(" where fd_sign=@fd_sign");
+            sb.Append("insert into up7_folders(");
+            sb.Append(" fd_sign");
+            sb.Append(",fd_name");
+            sb.Append(",fd_pidSign");
+            sb.Append(",fd_uid");
+            sb.Append(",fd_length");
+            sb.Append(",fd_size");
+            sb.Append(",fd_pathLoc");
+            sb.Append(",fd_pathSvr");
+            sb.Append(",fd_folders");
+            sb.Append(",fd_files");
+            sb.Append(",fd_rootSign");
+
+            sb.Append(") values(");
+            sb.Append(" @fd_sign");
+            sb.Append(",@fd_name");
+            sb.Append(",@fd_pidSign");
+            sb.Append(",@fd_uid");
+            sb.Append(",@fd_length");
+            sb.Append(",@fd_size");
+            sb.Append(",@fd_pathLoc");
+            sb.Append(",@fd_pathSvr");
+            sb.Append(",@fd_folders");
+            sb.Append(",@fd_files");
+            sb.Append(",@fd_rootSign");
+            sb.Append(")");
 
             DbHelper db = new DbHelper();
             var cmd = con.CreateCommand();
@@ -56,33 +70,33 @@ namespace up7.demoSql2005.db.biz.folder
             {
 
                 //写根目录
-                cmd.Parameters[0].Value = this.root.nameLoc;
-                cmd.Parameters[1].Value = this.root.pidSvr;//fd_pid
-                cmd.Parameters[2].Value = this.root.uid;//fd_uid
-                cmd.Parameters[3].Value = this.root.lenLoc;//fd_length
-                cmd.Parameters[4].Value = this.root.sizeLoc;//fd_size
-                cmd.Parameters[5].Value = this.root.pathLoc;//fd_pathLoc
-                cmd.Parameters[6].Value = this.root.pathSvr;//fd_pathSvr
-                cmd.Parameters[7].Value = this.root.foldersCount;//fd_folders
-                cmd.Parameters[8].Value = this.root.filesCount;//fd_files
-                cmd.Parameters[9].Value = this.root.rootSign;//fd_pidRoot
-                cmd.Parameters[10].Value = this.root.idSign;//fd_id
+                cmd.Parameters[0].Value = this.root.idSign;
+                cmd.Parameters[1].Value = this.root.nameLoc;//
+                cmd.Parameters[2].Value = this.root.pidSign;//
+                cmd.Parameters[3].Value = this.root.uid;//
+                cmd.Parameters[4].Value = this.root.lenLoc;//
+                cmd.Parameters[5].Value = this.root.sizeLoc;//
+                cmd.Parameters[6].Value = this.root.pathLoc;//
+                cmd.Parameters[7].Value = this.root.pathSvr;//
+                cmd.Parameters[8].Value = this.root.folders;//
+                cmd.Parameters[9].Value = this.root.filesCount;//
+                cmd.Parameters[10].Value = this.root.rootSign;//
                 cmd.ExecuteNonQuery();
 
                 //写子目录列表
                 foreach (var fd in this.root.folders)
                 {
-                    cmd.Parameters[0].Value = fd.nameLoc;
-                    cmd.Parameters[1].Value = fd.pidSvr;//fd_pid
-                    cmd.Parameters[2].Value = fd.uid;//fd_uid
-                    cmd.Parameters[3].Value = fd.lenLoc;//fd_length
-                    cmd.Parameters[4].Value = fd.sizeLoc;//fd_size
-                    cmd.Parameters[5].Value = fd.pathLoc;//fd_pathLoc
-                    cmd.Parameters[6].Value = fd.pathSvr;//fd_pathSvr
-                    cmd.Parameters[7].Value = fd.foldersCount;//fd_folders
-                    cmd.Parameters[8].Value = fd.filesCount;//fd_files
-                    cmd.Parameters[9].Value = fd.rootSign;//fd_pidRoot
-                    cmd.Parameters[10].Value = fd.idSign;//fd_id
+                    cmd.Parameters[0].Value = fd.idSign;
+                    cmd.Parameters[1].Value = fd.nameLoc;//fd_pid
+                    cmd.Parameters[2].Value = fd.pidSign;//fd_uid
+                    cmd.Parameters[3].Value = fd.uid;//fd_length
+                    cmd.Parameters[4].Value = fd.lenLoc;//fd_size
+                    cmd.Parameters[5].Value = fd.sizeLoc;//fd_pathLoc
+                    cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
+                    cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
+                    cmd.Parameters[8].Value = fd.folders;//fd_files
+                    cmd.Parameters[9].Value = fd.filesCount;//fd_pidRoot
+                    cmd.Parameters[10].Value = fd.rootSign;//fd_id
                     cmd.ExecuteNonQuery();
                 }
             }

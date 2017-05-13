@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using up7.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
 {
-    public class fd_file_redis : fd_file
+    public class fd_file_redis : xdb_files
     {
         public void read(CSRedis.RedisClient j, String idSign)
         {

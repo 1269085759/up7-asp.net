@@ -10,7 +10,7 @@ namespace up7.demoSql2005.db.biz.folder
     public class fd_root : fd_child
     {
         public List<fd_child> folders;
-        public List<fd_file> files;
+        public List<xdb_files> files;
         public int idFile = 0;//
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web;
 
 namespace up7.demoSql2005.db.biz.folder
 {

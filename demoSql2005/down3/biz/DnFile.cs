@@ -1,5 +1,4 @@
-﻿using up7.demoSql2005.db;
-using System;
+﻿using System;
 using System.Data.Common;
 using System.Text;
 using up7.demoSql2005.db;
