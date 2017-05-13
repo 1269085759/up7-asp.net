@@ -3,6 +3,7 @@ using System;
 using System.Web;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
+using up7.demoSql2005.down3.model;
 
 namespace up6.demoSql2005.down3.db
 {
@@ -35,7 +36,7 @@ namespace up6.demoSql2005.down3.db
                 return;
             }
 
-            model.DnFileInf inf = new model.DnFileInf();
+            DnFileInf inf = new DnFileInf();
             inf.uid = int.Parse(uid);
             inf.nameLoc = nameLoc;
             inf.pathLoc = pathLoc;//记录本地存储位置

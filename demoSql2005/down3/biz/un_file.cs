@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace up6.demoSql2005.down3.biz
+namespace up7.demoSql2005.down3.biz
 {
     public class un_file : model.DnFileInf
     {

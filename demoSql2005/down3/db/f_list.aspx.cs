@@ -1,11 +1,10 @@
-﻿using up6.demoSql2005.down3.biz;
-using System;
+﻿using System;
 
 using System.Web;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
 
-namespace up6.demoSql2005.down3.db
+namespace up7.demoSql2005.down3.db
 {
     /// <summary>
     /// 列出未完成的文件和文件夹下载任务。

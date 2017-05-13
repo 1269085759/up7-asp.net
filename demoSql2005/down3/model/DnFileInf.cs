@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace up6.demoSql2005.down3.model
+namespace up7.demoSql2005.down3.model
 {
     public class DnFileInf
     {
@@ -12,6 +12,7 @@ namespace up6.demoSql2005.down3.model
 
         public int idSvr { get { return this.m_fid; } set { this.m_fid = value; } }
         public string signSvr = string.Empty;
+        public string idSign = string.Empty;
         public int uid { get { return this.m_uid; } set { this.m_uid = value; } }
         public string mac { get { return this.m_mac; } set { this.m_mac = value; } }
         public string pathLoc { get { return this.m_pathLoc; } set { this.m_pathLoc = value; } }

@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.Common;
 using Newtonsoft.Json.Linq;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     public class DBFolder
     {

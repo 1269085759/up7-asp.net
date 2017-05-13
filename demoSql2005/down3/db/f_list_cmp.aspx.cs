@@ -1,18 +1,12 @@
-﻿using up6.demoSql2005.down3.biz;
-using System;
+﻿using System;
 using System.Web;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
-namespace up6.demoSql2005.down3.db
+namespace up7.demoSql2005.down3.db
 {
     /// <summary>
-    /// 列出所有已经上传完的文件和文件夹
-    /// 格式：
-    /// json:
-    ///     [{f1,f2,f3,f4,f5}]
-    /// xdb_files
-    /// 文件：xdb_files
-    /// 文件夹：xdb_files.fd_json
-    /// 
+    /// 从up7_files表中加载所有已经上传完毕的文件和文件夹
     /// </summary>
     public partial class f_list_cmp : System.Web.UI.Page
     {
@@ -23,6 +17,9 @@ namespace up6.demoSql2005.down3.db
 
             if (!string.IsNullOrEmpty(uid))
             {
+                var j = RedisConfig.getCon();
+                tasks svr = new tasks(uid,j);
+
                 cmp_builder cb = new cmp_builder();
                 string json = cb.read(int.Parse(uid));
                 if (!string.IsNullOrEmpty(json))

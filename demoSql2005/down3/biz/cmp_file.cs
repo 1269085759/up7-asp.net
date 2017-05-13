@@ -1,9 +1,11 @@
 ﻿using System.Data.Common;
 
-namespace up6.demoSql2005.down3.biz
+namespace up7.demoSql2005.down3.biz
 {
     public class cmp_file : model.DnFileInf
     {
+        //对文件夹的支持
+        public int filesCount = 0;
         public cmp_file() { }
 
         public void read(int pidRoot,ref DbDataReader r)

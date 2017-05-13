@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web;
 
-namespace up6.demoSql2005.db.biz.folder
+namespace up7.demoSql2005.db.biz.folder
 {
     /// <summary>
     /// 以uuid模式存储，文件夹层级结构与客户端完全一致。

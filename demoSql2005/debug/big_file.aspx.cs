@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using up7.demoSql2005.db.utils;
 
 namespace up6.demoSql2005.debug
 {
@@ -34,7 +35,7 @@ namespace up6.demoSql2005.debug
         {
             long mb = 1048576;
             long gb = 1073741824;
-            db.FileBlockWriter fw = new db.FileBlockWriter();
+            FileBlockWriter fw = new FileBlockWriter();
             fw.make("d:\\test.db", gb * 10);
         }
     }

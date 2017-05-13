@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using up7.demoSql2005.db;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db.utils
 {
     /// <summary>
     /// 文件块处理器

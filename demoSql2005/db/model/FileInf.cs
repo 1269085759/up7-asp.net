@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 文件信息，与FolderInf配合使用。

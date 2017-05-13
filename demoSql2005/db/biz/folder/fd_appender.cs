@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.IO;
 using System.Text;
+using up7.demoSql2005.db.utils;
 
-namespace up6.demoSql2005.db.biz.folder
+namespace up7.demoSql2005.db.biz.folder
 {
     public class fd_appender
     {

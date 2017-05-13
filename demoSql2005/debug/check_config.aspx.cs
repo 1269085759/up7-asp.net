@@ -1,8 +1,8 @@
 ﻿using System;
-using up6.demoSql2005.db;
-using up6.demoSql2005.db.biz;
+using up7.demoSql2005.db;
+using up7.demoSql2005.db.biz;
 
-namespace up6.demoSql2005.debug
+namespace up7.demoSql2005.debug
 {
     public partial class check : System.Web.UI.Page
     {

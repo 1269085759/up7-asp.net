@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 using System.Web;
-using up6.demoSql2005.db.biz.folder;
 
-namespace up6.demoSql2005.db.biz
+namespace up7.demoSql2005.db.biz
 {
     public class un_builder
     {

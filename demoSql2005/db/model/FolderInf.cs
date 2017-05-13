@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Newtonsoft.Json;
-
-namespace up6.demoSql2005.db
+﻿namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 文件夹信息

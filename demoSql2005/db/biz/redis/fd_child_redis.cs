@@ -1,5 +1,5 @@
 ﻿using System;
-using up6.demoSql2005.db.biz.folder;
+using up7.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using up6.demoSql2005.db.biz.folder;
+using up7.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.redis
 {

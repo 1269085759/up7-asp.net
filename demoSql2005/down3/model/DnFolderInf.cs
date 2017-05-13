@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace up6.demoSql2005.down3.model
+namespace up7.demoSql2005.down3.model
 {
     public class DnFolderInf : DnFileInf
     {

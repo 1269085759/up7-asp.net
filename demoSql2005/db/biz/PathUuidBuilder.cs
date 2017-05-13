@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace up6.demoSql2005.db.biz
+namespace up7.demoSql2005.db.biz
 {
     /// <summary>
     /// 根据UUID生成存储路径

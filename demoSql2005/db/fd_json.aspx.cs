@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 以JSON格式返回文件夹信息。

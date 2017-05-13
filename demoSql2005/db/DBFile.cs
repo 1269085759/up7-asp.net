@@ -4,7 +4,7 @@ using System.Text;
 using System.Data.Common;
 using Newtonsoft.Json.Linq;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 数据库访问操作

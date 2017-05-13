@@ -1,10 +1,10 @@
-﻿using up6.demoSql2005.db;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
+using up7.demoSql2005.db;
 
-namespace up6.demoSql2005.down3.biz
+namespace up7.demoSql2005.down3.biz
 {
     public class un_builder
     {

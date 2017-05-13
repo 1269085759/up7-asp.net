@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Web;
 using Newtonsoft.Json;
-using up6.demoSql2005.db.biz.folder;
-using up6.demoSql2005.db.biz;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.biz;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// （此页面取消使用）

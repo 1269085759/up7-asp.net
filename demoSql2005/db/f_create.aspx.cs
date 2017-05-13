@@ -2,11 +2,12 @@
 using System.Web;
 using System.IO;
 using Newtonsoft.Json;
-using up6.demoSql2005.db.biz;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.biz;
+using up7.demoSql2005.db.utils;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 此文件处理单文件上传逻辑

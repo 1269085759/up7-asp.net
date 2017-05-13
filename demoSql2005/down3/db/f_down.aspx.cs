@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Web;
-using up6.demoSql2005.down3.model;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
+using up7.demoSql2005.down3.model;
 
-namespace up6.demoSql2005.down3.db
+namespace up7.demoSql2005.down3.db
 {
     public partial class f_down : System.Web.UI.Page
     {

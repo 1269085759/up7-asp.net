@@ -1,7 +1,5 @@
 ﻿using System.Data.Common;
 using System.Text;
-using up6.demoSql2005.db;
-using up6.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.db.biz.folder
 {

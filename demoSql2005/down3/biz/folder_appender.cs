@@ -1,9 +1,9 @@
-﻿using up6.demoSql2005.db;
-using up6.demoSql2005.down3.model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Common;
+using up7.demoSql2005.db;
+using up7.demoSql2005.down3.model;
 
-namespace up6.demoSql2005.down3.biz
+namespace up7.demoSql2005.down3.biz
 {
     public class folder_appender
     {

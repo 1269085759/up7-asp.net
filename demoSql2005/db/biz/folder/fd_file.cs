@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace up6.demoSql2005.db.biz.folder
+namespace up7.demoSql2005.db.biz.folder
 {
     /// <summary>
     /// 文件

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace up6.demoSql2005.db.biz
+namespace up7.demoSql2005.db.biz
 {
     /// <summary>
     /// 路径生成器基类

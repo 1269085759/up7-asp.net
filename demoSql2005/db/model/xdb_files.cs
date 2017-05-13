@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     public class xdb_files
     {
