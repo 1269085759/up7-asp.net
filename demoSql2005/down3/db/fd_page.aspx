@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fd_page.aspx.cs" Inherits="up7.demoSql2005.down3.db.fd_page" %>
