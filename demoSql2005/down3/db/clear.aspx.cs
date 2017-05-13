@@ -1,4 +1,6 @@
 ﻿using System;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
 namespace up6.demoSql2005.down2.db
 {
@@ -6,8 +8,9 @@ namespace up6.demoSql2005.down2.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DnFile.Clear();
-            DnFolder.Clear();
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks("0",j);
+            svr.clear();
         }
     }
 }
