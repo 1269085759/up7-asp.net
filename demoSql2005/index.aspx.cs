@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace up6.demoSql2005
+namespace up7.demoSql2005
 {
     public partial class index : System.Web.UI.Page
     {

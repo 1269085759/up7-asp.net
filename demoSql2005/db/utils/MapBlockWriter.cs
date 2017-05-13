@@ -2,7 +2,7 @@
 //using System.IO.MemoryMappedFiles;
 using System.Web;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 基于内存映射文件的文件块保存类
@@ -23,9 +23,6 @@ namespace up6.demoSql2005.db
             //自动创建目录
             if (!Directory.Exists(path)) Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-            //using (var mf = MemoryMappedFile.CreateFromFile(path, FileMode.Create, "up6-mem-file", len))
-            {
-            }
         }
 
         /// <summary>
@@ -37,16 +34,6 @@ namespace up6.demoSql2005.db
         public void write(string path,long offset, ref HttpPostedFile block)
         {
             long length = block.InputStream.Length;
-            //using (var mmf = MemoryMappedFile.CreateFromFile(path, FileMode.Open))
-            //{
-            //    using (var view = mmf.CreateViewAccessor(offset, length))
-            //    {
-            //        byte[] data = new byte[block.InputStream.Length];
-            //        block.InputStream.Read(data, 0, (int)block.InputStream.Length);
-            //        //view.Write(0,block.InputStream.ReadByte())
-            //        view.WriteArray<byte>(0, data, 0, (int)block.InputStream.Length);
-            //    }
-            //}
         }
     }
 }

@@ -10,7 +10,7 @@ namespace up7.demoSql2005.down3.biz
 
         public void read(int pidRoot,ref DbDataReader r)
         {
-            this.idSvr = r.GetInt32(0);//与up6_files.f_id对应，f_down.aspx用到
+            this.idSvr = r.GetInt32(0);//
             this.nameLoc = (string)r["f_nameLoc"];
             this.pathLoc = (string)r["f_pathLoc"];//
             this.lenSvr = (long)r["f_lenSvr"];

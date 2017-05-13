@@ -4,7 +4,7 @@ using up7.demoSql2005.db;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     public partial class f_del : System.Web.UI.Page
     {

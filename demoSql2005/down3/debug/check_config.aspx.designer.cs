@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace up6.demoSql2005.down3.debug {
+namespace up7.demoSql2005.down3.debug {
     
     
     public partial class check_config {

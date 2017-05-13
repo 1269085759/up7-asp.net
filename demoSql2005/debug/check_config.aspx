@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="check_config.aspx.cs" Inherits="up6.demoSql2005.debug.check" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="check_config.aspx.cs" Inherits="up7.demoSql2005.debug.check" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">

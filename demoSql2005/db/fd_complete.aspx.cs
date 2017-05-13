@@ -2,7 +2,7 @@
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     public partial class fd_complete : System.Web.UI.Page
     {

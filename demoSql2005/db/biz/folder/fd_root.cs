@@ -11,6 +11,6 @@ namespace up7.demoSql2005.db.biz.folder
     {
         public List<fd_child> folders;
         public List<fd_file> files;
-        public int idFile = 0;//文件夹id与up6_files.f_id对应。
+        public int idFile = 0;//
     }
 }

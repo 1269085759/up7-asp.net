@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     /// <summary>
     /// 更新文件或文件夹进度信息

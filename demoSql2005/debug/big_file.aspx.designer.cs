@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace up6.demoSql2005.debug {
+namespace up7.demoSql2005.debug {
     
     
     public partial class big_file {

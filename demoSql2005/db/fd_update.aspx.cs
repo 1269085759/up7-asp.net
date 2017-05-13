@@ -1,7 +1,7 @@
 ﻿using System;
 using up7.demoSql2005.db;
 
-namespace up6.demoSql2005.db
+namespace up7.demoSql2005.db
 {
     public partial class fd_update : System.Web.UI.Page
     {

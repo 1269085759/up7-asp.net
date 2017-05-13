@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="big_file.aspx.cs" Inherits="up6.demoSql2005.debug.big_file" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="big_file.aspx.cs" Inherits="up7.demoSql2005.debug.big_file" %>
 
 <!DOCTYPE html>
 

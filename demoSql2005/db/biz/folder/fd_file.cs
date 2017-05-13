@@ -10,7 +10,7 @@ namespace up7.demoSql2005.db.biz.folder
     public class fd_file
     {
         public int idLoc = 0;
-        public int idSvr = 0;//与up6_files.f_id对应
+        public int idSvr = 0;//
         public string idSign = string.Empty;
         public string nameLoc = string.Empty;
         public string nameSvr = string.Empty;
@@ -24,7 +24,7 @@ namespace up7.demoSql2005.db.biz.folder
         public int pidRoot = 0;//
         public string pidSign = string.Empty;
         public string rootSign = string.Empty;
-        public int fdID = 0;//与up6_folders.fd_id对应，提供给文件夹使用。
+        public int fdID = 0;//
         public bool fdChild;//是否是一个子文件
         public long lenLoc = 0;
         public string sizeLoc = "0";//sizeLoc

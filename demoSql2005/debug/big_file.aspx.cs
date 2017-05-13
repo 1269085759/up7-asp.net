@@ -2,7 +2,7 @@
 using System.IO;
 using up7.demoSql2005.db.utils;
 
-namespace up6.demoSql2005.debug
+namespace up7.demoSql2005.debug
 {
     public partial class big_file : System.Web.UI.Page
     {

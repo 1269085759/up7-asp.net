@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace up6.demoSql2005.db {
+namespace up7.demoSql2005.db {
     
     
     public partial class f_update {

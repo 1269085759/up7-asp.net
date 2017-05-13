@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="up6.demoSql2005.index" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="up7.demoSql2005.index" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -18,13 +18,13 @@
         cbMgr.event.fileComplete = function (obj) { /*alert(obj.pathSvr);*/ };
         cbMgr.Config["Cookie"] = 'ASP.NET_SessionId=<%=Session.SessionID%>';
         //使用不同项目配置
-        //cbMgr.set_config(up6_config.qq);
-        //cbMgr.set_config(up6_config.qq_mail);
-        //cbMgr.set_config(up6_config.qq_zone);
-        //cbMgr.set_config(up6_config.erp);
-        //cbMgr.set_config(up6_config.oa);
-        //cbMgr.set_config(up6_config.share_point);
-        //cbMgr.set_config(up6_config.vm);
+        //cbMgr.set_config(up7_config.qq);
+        //cbMgr.set_config(up7_config.qq_mail);
+        //cbMgr.set_config(up7_config.qq_zone);
+        //cbMgr.set_config(up7_config.erp);
+        //cbMgr.set_config(up7_config.oa);
+        //cbMgr.set_config(up7_config.share_point);
+        //cbMgr.set_config(up7_config.vm);
 
         $(document).ready(function ()
         {
@@ -43,7 +43,7 @@
     </script>
 </head>
 <body>
-    <p>up6.2多文件上传演示页面</p>
+    <p>up7.2多文件上传演示页面</p>
     <p><a href="debug/check_config.aspx" target="_blank">检查配置</a></p>
     <p><a href="db/clear.aspx" target="_blank">清空数据库和Redis缓存</a></p>
     <p><a href="down3/index.htm" target="_blank">打开下载页面</a></p>

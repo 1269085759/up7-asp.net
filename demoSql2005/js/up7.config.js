@@ -1,4 +1,4 @@
-var up6_config = {
+var up7_config = {
     qq: { 
         //文件夹操作相关
           "UrlFdCreate"		: "http://www.qq.com/demoSql2005/db/fd_create.aspx"
@@ -15,17 +15,17 @@ var up6_config = {
         , ie: {
               drop: { clsid: "0868BADD-C17E-4819-81DE-1D60E5E734A6", name: "QQ.HttpDroper6" }
             , part: { clsid: "BA0B719E-F4B7-464b-A664-6FC02126B652", name: "QQ.HttpPartition6" }
-            , path: "http://www.qq.com/up6/HttpUploader6.cab"
+            , path: "http://www.qq.com/up7/HttpUploader6.cab"
         }
 	    //x64
         , ie64: {
               drop: { clsid: "7B9F1B50-A7B9-4665-A6D1-0406E643A856", name: "QQ.HttpDroper6x64" }
             , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "QQ.HttpPartition6x64" }
-            , path: "http://www.qq.com/up6/HttpUploader64.cab"
+            , path: "http://www.qq.com/up7/HttpUploader64.cab"
         }
-        , firefox: { name: "", type: "application/npUp6QQ", path: "http://www.qq.com/up6/HttpUploader6.xpi" }
-        , chrome: { name: "npUp6QQ", type: "application/npUp6QQ", path: "http://www.qq.com/up6/HttpUploader6.crx" }
-        , exe: { path: "http://www.qq.com/up6/HttpUploader6.exe" }
+        , firefox: { name: "", type: "application/npup7QQ", path: "http://www.qq.com/up7/HttpUploader6.xpi" }
+        , chrome: { name: "npup7QQ", type: "application/npup7QQ", path: "http://www.qq.com/up7/HttpUploader6.crx" }
+        , exe: { path: "http://www.qq.com/up7/HttpUploader6.exe" }
     }
     //qq mail
     ,qq_mail:{ 
@@ -44,17 +44,17 @@ var up6_config = {
         , ie: {
               drop: { clsid: "0868BADD-C17E-4819-81DE-1D60E5E734A6", name: "QQMail.HttpDroper6" }
             , part: { clsid: "BA0B719E-F4B7-464b-A664-6FC02126B652", name: "QQMail.HttpPartition6" }
-            , path: "http://mail.qq.com/up6/HttpUploader6.cab"
+            , path: "http://mail.qq.com/up7/HttpUploader6.cab"
         }
 	    //x64
         , ie64: {
               drop: { clsid: "7B9F1B50-A7B9-4665-A6D1-0406E643A856", name: "QQMail.HttpDroper6x64" }
             , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "QQMail.HttpPartition6x64" }
-            , path: "http://mail.qq.com/up6/HttpUploader64.cab"
+            , path: "http://mail.qq.com/up7/HttpUploader64.cab"
         }
-        , firefox: { name: "", type: "application/npUp6QQMail", path: "http://mail.qq.com/up6/HttpUploader6.xpi" }
-        , chrome: { name: "npUp6QQMail", type: "application/npUp6QQMail", path: "http://mail.qq.com/up6/HttpUploader6.crx" }
-        , exe: { path: "http://mail.qq.com/up6/HttpUploader6.exe" }
+        , firefox: { name: "", type: "application/npup7QQMail", path: "http://mail.qq.com/up7/HttpUploader6.xpi" }
+        , chrome: { name: "npup7QQMail", type: "application/npup7QQMail", path: "http://mail.qq.com/up7/HttpUploader6.crx" }
+        , exe: { path: "http://mail.qq.com/up7/HttpUploader6.exe" }
     }
     //qq zone
     ,qq_zone:{ 
@@ -73,17 +73,17 @@ var up6_config = {
         , ie: {
               drop: { clsid: "0868BADD-C17E-4819-81DE-1D60E5E734A6", name: "QZone.HttpDroper6" }
             , part: { clsid: "BA0B719E-F4B7-464b-A664-6FC02126B652", name: "QZone.HttpPartition6" }
-            , path: "http://mail.qq.com/up6/HttpUploader6.cab"
+            , path: "http://mail.qq.com/up7/HttpUploader6.cab"
         }
 	    //x64
         , ie64: {
               drop: { clsid: "7B9F1B50-A7B9-4665-A6D1-0406E643A856", name: "QZone.HttpDroper6x64" }
             , part: { clsid: "307DE0A1-5384-4CD0-8FA8-500F0FFEA388", name: "QZone.HttpPartition6x64" }
-            , path: "http://qzone.qq.com/up6/HttpUploader64.cab"
+            , path: "http://qzone.qq.com/up7/HttpUploader64.cab"
         }
-        , firefox: { name: "", type: "application/npUp6QZone", path: "http://qzone.qq.com/up6/HttpUploader6.xpi" }
-        , chrome: { name: "npUp6QZone", type: "application/npUp6QZone", path: "http://qzone.qq.com/up6/HttpUploader6.crx" }
-        , exe: { path: "http://qzone.qq.com/up6/HttpUploader6.exe" }
+        , firefox: { name: "", type: "application/npup7QZone", path: "http://qzone.qq.com/up7/HttpUploader6.xpi" }
+        , chrome: { name: "npup7QZone", type: "application/npup7QZone", path: "http://qzone.qq.com/up7/HttpUploader6.crx" }
+        , exe: { path: "http://qzone.qq.com/up7/HttpUploader6.exe" }
     }
     //oa项目
     ,oa:{ 
@@ -98,7 +98,7 @@ var up6_config = {
 		, "UrlComplete"		: "http://oa.qq.com/demoSql2005/db/f_complete.aspx"
 		, "UrlList"			: "http://oa.qq.com/demoSql2005/db/f_list.aspx"
 		, "UrlDel"			: "http://oa.qq.com/demoSql2005/db/f_del.aspx"
-        , exe: { path: "http://oa.qq.com/up6/HttpUploader6.exe" }
+        , exe: { path: "http://oa.qq.com/up7/HttpUploader6.exe" }
     }
     //erp
     , erp: { 
@@ -113,7 +113,7 @@ var up6_config = {
 		, "UrlComplete"		: "http://erp.qq.com/demoSql2005/db/f_complete.aspx"
 		, "UrlList"			: "http://erp.qq.com/demoSql2005/db/f_list.aspx"
 		, "UrlDel"			: "http://erp.qq.com/demoSql2005/db/f_del.aspx"
-        , exe: { path: "http://erp.qq.com/up6/HttpUploader6.exe" }
+        , exe: { path: "http://erp.qq.com/up7/HttpUploader6.exe" }
     }
     //share point
     ,share_point:{ 
@@ -128,6 +128,6 @@ var up6_config = {
 		, "UrlComplete"		: "http://share.point.qq.com/demoSql2005/db/f_complete.aspx"
 		, "UrlList"			: "http://share.point.qq.com/demoSql2005/db/f_list.aspx"
 		, "UrlDel"			: "http://share.point.qq.com/demoSql2005/db/f_del.aspx"
-        , exe: { path: "http://share.point.qq.com/up6/HttpUploader6.exe" }
+        , exe: { path: "http://share.point.qq.com/up7/HttpUploader6.exe" }
     }
 };

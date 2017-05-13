@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace up6.demoSql2005 {
+namespace up7.demoSql2005 {
     
     
     public partial class index {

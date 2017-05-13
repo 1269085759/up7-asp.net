@@ -1,8 +1,8 @@
-﻿using up6.demoSql2005.db;
+﻿using up7.demoSql2005.db;
 using System.Data.Common;
 using up7.demoSql2005.db;
 
-namespace up6.demoSql2005.down3.db
+namespace up7.demoSql2005.down3.db
 {
     public class DnFolder
     {

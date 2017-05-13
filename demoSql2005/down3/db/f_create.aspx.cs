@@ -5,7 +5,7 @@ using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
 using up7.demoSql2005.down3.model;
 
-namespace up6.demoSql2005.down3.db
+namespace up7.demoSql2005.down3.db
 {
     public partial class f_create : System.Web.UI.Page
     {

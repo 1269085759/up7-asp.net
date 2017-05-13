@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fd_del.aspx.cs" Inherits="up6.demoSql2005.db.fd_del" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fd_del.aspx.cs" Inherits="up7.demoSql2005.db.fd_del" %>
