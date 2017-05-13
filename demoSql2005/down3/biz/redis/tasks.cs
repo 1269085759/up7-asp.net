@@ -58,7 +58,7 @@ namespace up7.demoSql2005.down3.biz
 
         public void add(DnFileInf f)
         {
-            //添加到用户队列
+            //添加到队列（当前用户下载列表）
             this.con.SAdd(this.getKey(), f.signSvr);
             //添加一条信息
             FileRedis f_svr = new FileRedis(ref this.con);

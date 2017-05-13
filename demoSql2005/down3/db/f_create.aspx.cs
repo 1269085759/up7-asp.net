@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Web;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
 namespace up6.demoSql2005.down2.db
 {
@@ -9,20 +11,19 @@ namespace up6.demoSql2005.down2.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid      = Request.QueryString["uid"];
+            string idSign   = Request.QueryString["idSign"];
+            string signSvr = Request.QueryString["signSvr"];
             string nameLoc  = Request.QueryString["nameCustom"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
+            string pathSvr = Request.QueryString["pathSvr"];
             string fileUrl  = Request.QueryString["fileUrl"];
+            pathLoc         = pathLoc.Replace("+", "%20");
             pathLoc         = HttpUtility.UrlDecode(pathLoc);//utf-8解码
+            nameLoc         = nameLoc.Replace("+", "%20");
             nameLoc         = HttpUtility.UrlDecode(nameLoc);
-            string lenSvr   = Request.QueryString["lenSvr"];
+            string lenSvr = Request.QueryString["lenSvr"];
             string sizeSvr  = Request.QueryString["sizeSvr"];
             string cbk      = Request.QueryString["callback"];//应用于jsonp数据
-
-            System.Diagnostics.Debug.WriteLine("uid:" + uid);
-            System.Diagnostics.Debug.WriteLine("pathLoc:" + pathLoc);
-            System.Diagnostics.Debug.WriteLine("fileUrl:" + fileUrl);
-            System.Diagnostics.Debug.WriteLine("lenSvr:" + lenSvr);
-            System.Diagnostics.Debug.WriteLine("callback:" + cbk);
 
             if (string.IsNullOrEmpty(uid)
                 || string.IsNullOrEmpty(pathLoc)
@@ -41,8 +42,10 @@ namespace up6.demoSql2005.down2.db
             inf.fileUrl = fileUrl;
             inf.lenSvr = long.Parse(lenSvr);
             inf.sizeSvr = sizeSvr;
-            DnFile db = new DnFile();
-            inf.idSvr = db.Add(ref inf);
+
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks(uid,j);
+            svr.add(inf);//添加到缓存
 
             string json = JsonConvert.SerializeObject(inf);
             json = HttpUtility.UrlEncode(json);
