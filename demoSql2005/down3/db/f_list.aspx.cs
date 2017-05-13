@@ -2,11 +2,14 @@
 using System;
 
 using System.Web;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
 namespace up6.demoSql2005.down3.db
 {
     /// <summary>
     /// 列出未完成的文件和文件夹下载任务。
+    /// 从redis缓存中取数据，
     /// 格式：json
     ///     [f1,f2,f3,f4]
     /// f1为xdb_files对象
@@ -25,9 +28,9 @@ namespace up6.demoSql2005.down3.db
                 return;
             }
 
-            //string json = DnFile.GetAll(int.Parse(uid));
-            un_builder fd = new un_builder();
-            string json = fd.read(uid);
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks(uid,j);
+            string json = svr.toJson();
             if (!string.IsNullOrEmpty(json))
             {
                 json = HttpUtility.UrlEncode(json);

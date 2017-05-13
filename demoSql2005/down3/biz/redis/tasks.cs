@@ -79,6 +79,10 @@ namespace up7.demoSql2005.down3.biz
             this.con.Del(signSvr);
         }
 
+        /// <summary>
+        /// 加载用户未完成列表
+        /// </summary>
+        /// <returns></returns>
         public string toJson()
         {
             var keys = this.con.SMembers(this.getKey());
