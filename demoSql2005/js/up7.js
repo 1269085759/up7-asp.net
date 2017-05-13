@@ -23,7 +23,8 @@ var HttpUploaderErrorCode = {
 	, "3": "域名未授权"
 	, "4": "文件大小超过限制"
 	, "5": "文件大小为0"
-    , "6": "文件被占用"
+	, "6": "文件被占用"
+	, "7": "服务器错误"
 };
 var up6_err_solve = {
     errFolderCreate: "请检查UrlFdCreate地址配置是否正确\n请检查浏览器缓存是否已更新\n请检查数据库是否创建\n请检查数据库连接配置是否正确"
@@ -81,7 +82,7 @@ function HttpUploaderMgr()
 		, "FileSizeLimit"	: "0"//自定义允许上传的文件大小，以字节为单位。0表示不限制。字节计算工具：http://www.beesky.com/newsite/bit_byte.htm
 		, "FilesLimit"		: "0"//文件选择数限制。0表示不限制
 		, "AllowMultiSelect": true//多选开关。1:开启多选。0:关闭多选
-		, "RangeSize"		: "10485760"//文件块大小，以字节为单位。必须为64KB的倍数。默认：10MB。
+		, "RangeSize"		: "67108864"//文件块大小，以字节为单位。必须为64KB的倍数。推荐大小：64MB。
 		, "Debug"			: false//是否打开调式模式。true,false
 		, "LogFile"			: "F:\\log.txt"//日志文件路径。需要先打开调试模式。
 		, "InitDir"			: ""//初始化路径。示例：D:\\Soft
@@ -281,7 +282,7 @@ function HttpUploaderMgr()
 		    else{ this.addFileSvr(fileSvr); }
 		}//文件夹上传完毕        
 		, "ResumerFile": function (fileSvr)//续传文件
-		{
+        {
 			//文件夹任务
 		    if (fileSvr.fdTask)
 			{
@@ -425,7 +426,7 @@ function HttpUploaderMgr()
 					<div name="post_head" class="toolbar">\
 						<a href="javascript:void(0)" class="btn" name="btnAddFiles">选择多个文件</a>\
 						<a href="javascript:void(0)" class="btn" name="btnAddFolder">选择文件夹</a>\
-						<a href="javascript:void(0)" class="btn" name="btnPasteFile">粘贴文件</a>\
+						<a href="javascript:void(0)" class="btn" name="btnPasteFile">粘贴文件和文件夹</a>\
 						<a href="javascript:void(0)" class="btn hide" name="btnSetup">安装控件</a>\
 					</div>\
 					<div class="content" name="post_content">\
@@ -510,7 +511,15 @@ function HttpUploaderMgr()
 	{
         var p = this.filesMap[json.idSign];
 	    p.md5_error(json);
-	};
+    };
+    this.scan_process = function (json) {
+        var p = this.filesMap[json.idSign];
+        p.scan_process(json);
+    };
+    this.scan_complete = function (json) {
+        var p = this.filesMap[json.idSign];
+        p.scan_complete(json);
+    };
     this.load_complete = function (json)
     {
         this.btnSetup.hide();
@@ -537,6 +546,8 @@ function HttpUploaderMgr()
 	    else if (json.name == "md5_process") { _this.md5_process(json); }
 	    else if (json.name == "md5_complete") { _this.md5_complete(json); }
 	    else if (json.name == "md5_error") { _this.md5_error(json); }
+	    else if (json.name == "scan_process") { _this.scan_process(json); }
+        else if (json.name == "scan_complete") { _this.scan_complete(json); }
 	    else if (json.name == "load_complete") { _this.load_complete(json);}
         else if (json.name == "extension_complete") { 
             setTimeout(function () {
@@ -651,6 +662,13 @@ function HttpUploaderMgr()
             var param = { name: "check_folder", config: _this.Config };
             jQuery.extend(param, fd);
             param.name = "check_folder";
+            this.postMessage(param);
+        }
+        , scanFolder: function (fd)
+        {
+            var param = { name: "scan_folder", config: _this.Config };
+            jQuery.extend(param, fd);
+            param.name = "scan_folder";
             this.postMessage(param);
         }
         , postFile: function (f)
@@ -1138,7 +1156,7 @@ function HttpUploaderMgr()
 		var btnStop     = ui.find("a[name='stop']");
 		var btnDel      = ui.find("a[name='del']");
 		var divPercent	= ui.find("div[name='percent']");
-		var ui_eles = { msg: divMsg, process: divProcess, percent: divPercent, btn: { del: btnDel, cancel: btnCancel, post: btnPost, stop: btnStop }, split: sp, div: ui };
+		var ui_eles = { msg: divMsg,size:uiSize, process: divProcess, percent: divPercent, btn: { del: btnDel, cancel: btnCancel, post: btnPost, stop: btnStop }, split: sp, div: ui };
 
 		divPercent.text("("+fdLoc.perSvr+")");
 		divProcess.css("width",fdLoc.perSvr);
@@ -1154,8 +1172,7 @@ function HttpUploaderMgr()
 	    btnCancel.click(function()
 		{
 			fdTask.stop();
-			fdTask.remove();
-							
+			fdTask.remove();							
 	    });
 	    btnPost.click(function ()
 	    {
@@ -1186,7 +1203,8 @@ function HttpUploaderMgr()
 	this.ResumeFolder = function (fileSvr)
 	{
 	    var fd = this.addFolderLoc(fileSvr);
-		fd.folderInit = true;
+        fd.folderInit = true;
+        fd.folderScan = true;
 	    //
 		if (null == fileSvr.files)
 		{

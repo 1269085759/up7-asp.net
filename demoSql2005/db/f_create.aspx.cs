@@ -46,7 +46,6 @@ namespace up7.demoSql2005.db
             fileSvr.deleted = false;
             fileSvr.nameSvr = fileSvr.nameLoc;
 
-            //所有单个文件均以md5方式存储
             PathGuidBuilder pb = new PathGuidBuilder();
             fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.sign,fileSvr.nameLoc);
 
