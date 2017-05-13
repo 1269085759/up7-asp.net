@@ -48,8 +48,7 @@ namespace up7.demoSql2005.db.biz
                 }
             }
 
-            //删除文件块目录
-            Directory.Delete(fd,true);
+            Directory.Delete(fileSvr.blockPath, true);
         }
     }
 }

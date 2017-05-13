@@ -117,7 +117,6 @@ namespace up7.demoSql2005.db.biz.redis
             foreach (fd_file_redis f in this.m_root.files)
             {
                 mg.merge(f);
-                //f.merge();
             }
         }
 

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.biz;
+using System.IO;
 
 namespace up7.demoSql2005.db
 {
@@ -102,7 +103,7 @@ namespace up7.demoSql2005.db
             f.uid = int.Parse( uid);
             //生成路径
             PathGuidBuilder pb = new PathGuidBuilder();
-            f.pathSvr = pb.genFolder(f.uid,f.sign);
+            f.pathSvr = Path.Combine( pb.genFolder(f.uid,f.sign),f.nameLoc);
             System.IO.Directory.CreateDirectory(f.pathSvr);
 
             var j = RedisConfig.getCon();

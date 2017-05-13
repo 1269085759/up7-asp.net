@@ -68,6 +68,7 @@ namespace up7.demoSql2005.db
         }
         void savePartFolder()
         {
+            HttpPostedFile part = Request.Files.Get(0);
             var con = RedisConfig.getCon();
 
             FileRedis fr = new FileRedis(ref con);
@@ -102,7 +103,6 @@ namespace up7.demoSql2005.db
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
 
-            HttpPostedFile part = Request.Files.Get(0);
             part.SaveAs(partPath);
 
 
