@@ -97,7 +97,7 @@ namespace up7.demoSql2005.db
             f.pathLoc = pathLoc;
             f.sizeLoc = sizeLoc;
             f.lenLoc = long.Parse(lenLoc);
-            f.filesCount = int.Parse(fCount);
+            f.fileCount = int.Parse(fCount);
             f.f_fdTask = true;
             f.uid = int.Parse( uid);
             //生成路径

@@ -105,7 +105,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.m_root.sizeLoc = j.HGet(idSign, "sizeLoc");
             this.m_root.pathLoc = j.HGet(idSign, "pathLoc");
             this.m_root.pathSvr = j.HGet(idSign, "pathSvr");
-            this.m_root.filesCount = int.Parse(j.HGet(idSign, "filesCount"));
+            this.m_root.fileCount = int.Parse(j.HGet(idSign, "filesCount"));
             //
             this.loadFiles();//加载文件列表		
             this.loadFolders();//加载目录列表
@@ -113,9 +113,11 @@ namespace up7.demoSql2005.db.biz.redis
 
         public void mergeAll()
         {
+            PartMeger mg = new PartMeger();
             foreach (fd_file_redis f in this.m_root.files)
             {
-                f.merge();
+                mg.merge(f);
+                //f.merge();
             }
         }
 
@@ -188,7 +190,7 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.m_root.idSign, "sizeLoc", this.m_root.sizeLoc);//格式化的
             j.HSet(this.m_root.idSign, "pathLoc", this.m_root.pathLoc);//
             j.HSet(this.m_root.idSign, "pathSvr", this.m_root.pathSvr);//
-            j.HSet(this.m_root.idSign, "filesCount", this.m_root.filesCount);
+            j.HSet(this.m_root.idSign, "filesCount", this.m_root.fileCount);
 
             fd_files_redis rfs = new fd_files_redis(ref j, this.m_root.idSign);
             rfs.add(m_root.files);

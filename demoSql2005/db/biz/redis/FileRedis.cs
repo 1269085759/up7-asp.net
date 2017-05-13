@@ -24,6 +24,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.con.HSet(f.idSign, "rootSign", f.rootSign);
             this.con.HSet(f.idSign, "pathLoc", f.pathLoc);
             this.con.HSet(f.idSign, "pathSvr", f.pathSvr);
+            this.con.HSet(f.idSign, "pathRel", f.pathRel);
             this.con.HSet(f.idSign, "blockPath", f.blockPath);
             this.con.HSet(f.idSign, "nameLoc", f.nameLoc);
             this.con.HSet(f.idSign, "nameSvr", f.nameSvr);
@@ -31,7 +32,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.con.HSet(f.idSign, "lenSvr", "0");
             this.con.HSet(f.idSign, "blockCount", f.blockCount);
             this.con.HSet(f.idSign, "sizeLoc", f.sizeLoc);
-            this.con.HSet(f.idSign, "filesCount", f.filesCount);
+            this.con.HSet(f.idSign, "filesCount", f.fileCount);
             this.con.HSet(f.idSign, "foldersCount", "0");
         }
 
@@ -49,7 +50,7 @@ namespace up7.demoSql2005.db.biz.redis
             f.lenLoc = long.Parse(this.con.HGet(id, "lenLoc"));
             f.sizeLoc = this.con.HGet(id, "sizeLoc");
             f.blockCount = int.Parse(this.con.HGet(id, "blockCount"));
-            f.filesCount = int.Parse(this.con.HGet(id, "filesCount"));
+            f.fileCount = int.Parse(this.con.HGet(id, "filesCount"));
             return f;
         }
         public String getPartPath(String idSign, String blockIndex,String blockCount)

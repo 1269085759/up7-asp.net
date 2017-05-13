@@ -79,7 +79,7 @@ namespace up7.demoSql2005.db.biz.folder
                 cmd.Parameters[6].Value = this.root.pathLoc;//
                 cmd.Parameters[7].Value = this.root.pathSvr;//
                 cmd.Parameters[8].Value = this.root.folders;//
-                cmd.Parameters[9].Value = this.root.filesCount;//
+                cmd.Parameters[9].Value = this.root.fileCount;//
                 cmd.Parameters[10].Value = this.root.rootSign;//
                 cmd.ExecuteNonQuery();
 
@@ -94,8 +94,8 @@ namespace up7.demoSql2005.db.biz.folder
                     cmd.Parameters[5].Value = fd.sizeLoc;//fd_pathLoc
                     cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
                     cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
-                    cmd.Parameters[8].Value = fd.folders;//fd_files
-                    cmd.Parameters[9].Value = fd.filesCount;//fd_pidRoot
+                    cmd.Parameters[8].Value = fd.folderCount;//fd_files
+                    cmd.Parameters[9].Value = fd.fileCount;//fd_pidRoot
                     cmd.Parameters[10].Value = fd.rootSign;//fd_id
                     cmd.ExecuteNonQuery();
                 }

@@ -16,6 +16,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.sizeLoc = j.HGet(idSign, "sizeLoc");
             this.pathLoc = j.HGet(idSign, "pathLoc");
             this.pathSvr = j.HGet(idSign, "pathSvr");
+            this.blockPath = j.HGet(idSign, "blockPath");
             this.perSvr = j.HGet(idSign, "perSvr");
             this.nameLoc = j.HGet(idSign, "nameLoc");
             this.nameSvr = j.HGet(idSign, "nameSvr");
@@ -35,6 +36,7 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.idSign, "sizeLoc", this.sizeLoc);//格式化的
             j.HSet(this.idSign, "pathLoc", this.pathLoc);//
             j.HSet(this.idSign, "pathSvr", this.pathSvr);//
+            j.HSet(this.idSign, "blockPath", this.blockPath);//
             j.HSet(this.idSign, "perSvr", this.lenLoc > 0 ? this.perSvr : "100%");//
             j.HSet(this.idSign, "nameLoc", this.nameLoc);//
             j.HSet(this.idSign, "nameSvr", this.nameSvr);//
@@ -43,45 +45,6 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.idSign, "fdTask", this.fdTask);//
             j.HSet(this.idSign, "complete", this.lenLoc > 0 ? "false" : "true");//
             j.HSet(this.idSign, "sign", this.sign);//
-        }
-
-        //合并所有块
-        public void merge()
-        {
-            if (File.Exists(pathSvr)) return;//文件已存在
-
-            var fd = Path.GetDirectoryName(pathSvr);
-            if(!Directory.Exists(fd)) Directory.CreateDirectory(fd);
-
-            //取文件块路径
-            fd = fd + "/" + this.idSign + "/";//f:/files/folder/guid/
-            String[] parts = Directory.GetFiles(fd);
-            long prevLen = 0;
-
-            using (var mapFile = MemoryMappedFile.CreateFromFile(pathSvr,FileMode.CreateNew,this.idSign,this.lenLoc))
-            {
-
-                for (int i = 0, l = parts.Length; i < l; ++i)
-                {
-                    String partName = fd + (i + 1) + ".part";
-                    var partData = File.ReadAllBytes(partName);
-                    //每一个文件块为64mb，最后一个文件块<=64mb
-                    long partOffset = prevLen;
-                    using (var ss = mapFile.CreateViewStream(partOffset, partData.Length))
-                    {
-                        ss.Write(partData, 0, partData.Length);
-                    }
-                    prevLen += partData.Length;
-                }
-            }
-
-            //删除文件块
-            foreach (var part in parts)
-            {
-                System.IO.File.Delete(part);
-            }
-            //删除文件块目录
-            System.IO.Directory.Delete(fd);
         }
     }
 }

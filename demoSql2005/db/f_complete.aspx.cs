@@ -1,4 +1,5 @@
 ﻿using System;
+using up7.demoSql2005.db.biz;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
@@ -27,7 +28,8 @@ namespace up7.demoSql2005.db
                 var j = RedisConfig.getCon();
                 var f_svr = new fd_file_redis();
                 f_svr.read(j, fid);
-                f_svr.merge();
+                PartMeger pm = new PartMeger();
+                pm.merge(f_svr);
                 j.Del(fid);
 
                 //从任务列表（未完成）中删除

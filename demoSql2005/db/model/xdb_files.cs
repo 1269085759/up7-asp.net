@@ -10,7 +10,7 @@ namespace up7.demoSql2005.db
         public string rootSign = string.Empty;
         public bool fdTask = false;//是否是一个文件夹
         public int blockCount = 0;
-        public int filesCount = 0;
+        public int fileCount = 0;
         public int idSvr = 0;
         /// <summary>
         /// 文件夹ID

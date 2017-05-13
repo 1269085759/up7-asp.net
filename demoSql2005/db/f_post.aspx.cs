@@ -81,6 +81,9 @@ namespace up7.demoSql2005.db
             fileSvr.lenLoc = long.Parse(lenLoc);
             fileSvr.sizeLoc = sizeLoc;
             fileSvr.pathLoc = pathLoc.Replace("\\", "/");//路径规范化处理
+            fileSvr.pathSvr = pathLoc.Replace(fd.pathLoc, fd.pathSvr);
+            fileSvr.pathSvr = fileSvr.pathSvr.Replace("\\", "/");
+            fileSvr.pathRel = pathLoc.Replace(fd.pathLoc, string.Empty);
             fileSvr.rootSign = fd_idSign;
             fileSvr.blockCount = int.Parse(rangeCount);
             BlockPathBuilder bpb = new BlockPathBuilder();

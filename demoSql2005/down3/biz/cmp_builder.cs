@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
-using up7.demoSql2005.db;
 
 namespace up7.demoSql2005.down3.biz
 {

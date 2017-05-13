@@ -19,7 +19,7 @@ namespace up7.demoSql2005.db.biz
         /// <param name="pathSvr"></param>
         /// <param name="blockPath"></param>
         /// <param name="blockCount">文件块总数</param>
-        public void merge(ref xdb_files fileSvr)
+        public void merge(xdb_files fileSvr)
         {
             if (File.Exists(fileSvr.pathSvr)) return;//文件已存在
 
@@ -36,7 +36,7 @@ namespace up7.demoSql2005.db.biz
 
                 for (int i = 0, l = parts.Length; i < l; ++i)
                 {
-                    String partName = fd + (i + 1) + ".part";
+                    String partName = Path.Combine(fd,fileSvr.idSign,(i + 1) + ".part");
                     var partData = File.ReadAllBytes(partName);
                     //每一个文件块为64mb，最后一个文件块<=64mb
                     long partOffset = prevLen;
@@ -48,13 +48,8 @@ namespace up7.demoSql2005.db.biz
                 }
             }
 
-            //删除文件块
-            foreach (var part in parts)
-            {
-                File.Delete(part);
-            }
             //删除文件块目录
-            Directory.Delete(fd);
+            Directory.Delete(fd,true);
         }
     }
 }
