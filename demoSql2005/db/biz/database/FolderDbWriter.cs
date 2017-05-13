@@ -47,17 +47,17 @@ namespace up7.demoSql2005.db.biz.folder
             DbHelper db = new DbHelper();
             var cmd = con.CreateCommand();
             cmd.CommandText = sb.ToString();
+            db.AddString(ref cmd, "@fd_sign", string.Empty, 512);
             db.AddString(ref cmd, "@fd_name", string.Empty, 50);
             db.AddString(ref cmd, "@fd_pidSign", string.Empty, 36);
             db.AddInt(ref cmd, "@fd_uid", 0);
             db.AddInt(ref cmd, "@fd_length", 0);
-            db.AddInt(ref cmd, "@fd_size", 0);
+            db.AddString(ref cmd, "@fd_size", string.Empty,50);
             db.AddString(ref cmd, "@fd_pathLoc", string.Empty, 512);
             db.AddString(ref cmd, "@fd_pathSvr", string.Empty, 512);
             db.AddInt(ref cmd, "@fd_folders", 0);
             db.AddInt(ref cmd, "@fd_files", 0);
             db.AddString(ref cmd, "@fd_rootSign", string.Empty, 512);
-            db.AddString(ref cmd, "@fd_sign", string.Empty, 512);
 
             return cmd;
         }
@@ -76,7 +76,7 @@ namespace up7.demoSql2005.db.biz.folder
                 cmd.Parameters[5].Value = this.root.sizeLoc;//
                 cmd.Parameters[6].Value = this.root.pathLoc;//
                 cmd.Parameters[7].Value = this.root.pathSvr;//
-                cmd.Parameters[8].Value = this.root.folders;//
+                cmd.Parameters[8].Value = this.root.folderCount;//
                 cmd.Parameters[9].Value = this.root.fileCount;//
                 cmd.Parameters[10].Value = this.root.rootSign;//
                 cmd.ExecuteNonQuery();
