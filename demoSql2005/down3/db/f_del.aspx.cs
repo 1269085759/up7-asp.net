@@ -1,4 +1,6 @@
 ﻿using System;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
 
 namespace up6.demoSql2005.down2.db
 {
@@ -6,7 +8,7 @@ namespace up6.demoSql2005.down2.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fid = Request.QueryString["idSvr"];
+            string fid = Request.QueryString["signSvr"];
             string uid = Request.QueryString["uid"];
             string cbk = Request.QueryString["callback"];
 
@@ -17,8 +19,9 @@ namespace up6.demoSql2005.down2.db
                 return;
             }
 
-            DnFile db = new DnFile();
-            db.Delete(int.Parse(fid), int.Parse(uid));
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks(uid,j);
+            svr.del(fid);
 
             Response.Write(cbk + "({\"value\":1})");
         }
