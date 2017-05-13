@@ -64,8 +64,6 @@ namespace up7.demoSql2005.db.biz.folder
 
         public void save()
         {
-            if (this.root.folders == null) return;
-            if (this.root.folders.Count < 1) return;
             using (var cmd = this.makeCmd(con))
             {
 
@@ -83,6 +81,8 @@ namespace up7.demoSql2005.db.biz.folder
                 cmd.Parameters[10].Value = this.root.rootSign;//
                 cmd.ExecuteNonQuery();
 
+                if (this.root.folders == null) return;
+                if (this.root.folders.Count < 1) return;
                 //写子目录列表
                 foreach (var fd in this.root.folders)
                 {

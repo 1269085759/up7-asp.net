@@ -144,8 +144,8 @@
     <Compile Include="demoSql2005\db\biz\folder\fd_child.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_file.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_root.cs" />
-    <Compile Include="demoSql2005\db\biz\folder\FileDbWriter.cs" />
-    <Compile Include="demoSql2005\db\biz\folder\FolderDbWriter.cs" />
+    <Compile Include="demoSql2005\db\biz\database\FileDbWriter.cs" />
+    <Compile Include="demoSql2005\db\biz\database\FolderDbWriter.cs" />
     <Compile Include="demoSql2005\db\biz\PartMeger.cs" />
     <Compile Include="demoSql2005\db\biz\PathBuilder.cs" />
     <Compile Include="demoSql2005\db\biz\PathGuidBuilder.cs" />

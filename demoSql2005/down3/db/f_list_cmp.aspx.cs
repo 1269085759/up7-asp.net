@@ -20,8 +20,8 @@ namespace up7.demoSql2005.down3.db
                 var j = RedisConfig.getCon();
                 tasks svr = new tasks(uid,j);
 
-                cmp_builder cb = new cmp_builder();
-                string json = cb.read(int.Parse(uid));
+                CompleteReader cr = new CompleteReader();
+                string json = cr.all(int.Parse(uid));
                 if (!string.IsNullOrEmpty(json))
                 {
                     System.Diagnostics.Debug.WriteLine(json);
