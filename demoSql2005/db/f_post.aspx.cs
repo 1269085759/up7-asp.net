@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web;
 using up7.demoSql2005.db;
+using up7.demoSql2005.db.biz;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 

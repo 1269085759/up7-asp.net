@@ -51,6 +51,11 @@ namespace up7.demoSql2005.db
         /// </summary>
         public string pathSvr = string.Empty;
         /// <summary>
+        /// 文件块根目录
+        /// f:/webapps/files/年/月/日/guid/file-guid/
+        /// </summary>
+        public string blockPath = string.Empty;
+        /// <summary>
         /// 文件在服务器中的相对路径。示例：/www/web/upload/md5.exe
         /// </summary>
         public string pathRel = string.Empty;

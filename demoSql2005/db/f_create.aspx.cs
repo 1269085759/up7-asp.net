@@ -48,6 +48,8 @@ namespace up7.demoSql2005.db
 
             PathGuidBuilder pb = new PathGuidBuilder();
             fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.sign,fileSvr.nameLoc);
+            BlockPathBuilder bpb = new BlockPathBuilder();
+            fileSvr.blockPath = bpb.root(idSign, fileSvr.pathSvr);
 
             //添加到redis
             var con = RedisConfig.getCon();

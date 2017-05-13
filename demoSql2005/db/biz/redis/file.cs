@@ -25,6 +25,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.con.HSet(f.idSign, "rootSign", f.rootSign);
             this.con.HSet(f.idSign, "pathLoc", f.pathLoc);
             this.con.HSet(f.idSign, "pathSvr", f.pathSvr);
+            this.con.HSet(f.idSign, "blockPath", f.blockPath);
             this.con.HSet(f.idSign, "nameLoc", f.nameLoc);
             this.con.HSet(f.idSign, "nameSvr", f.nameSvr);
             this.con.HSet(f.idSign, "lenLoc", f.lenLoc);
@@ -43,6 +44,7 @@ namespace up7.demoSql2005.db.biz.redis
             f.idSign = id;
             f.pathLoc = this.con.HGet(id, "pathLoc");
             f.pathSvr = this.con.HGet(id, "pathSvr");
+            f.blockPath = this.con.HGet(id, "blockPath");
             f.nameLoc = this.con.HGet(id, "nameLoc");
             f.nameSvr = this.con.HGet(id, "nameSvr");
             f.lenLoc = long.Parse(this.con.HGet(id, "lenLoc"));
