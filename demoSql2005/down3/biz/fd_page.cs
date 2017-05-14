@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using up7.demoSql2005.db;
-using up7.demoSql2005.db.biz.folder;
 
 namespace up7.demoSql2005.down3.biz
 {
@@ -22,10 +21,10 @@ namespace up7.demoSql2005.down3.biz
             int pageEnd = index * pageSize;
             string sql = string.Format(@"select * from 
                                         (
-	                                        select f_nameLoc,f_pathLoc,f_pathSvr,f_lenLoc,f_sizeLoc,f_blockPath,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_idSign='{0}'
+	                                        select f_nameLoc,f_pathLoc,f_pathSvr,f_pathRel,f_lenLoc,f_sizeLoc,f_blockPath,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_idSign='{0}'
                                         )a
                                         where RowNumber BETWEEN {1} and {2}
-                                        ", id, pageStart,pageStart+pageSize);
+                                        ", id, pageStart, pageEnd);
 
             List<xdb_files> files = new List<xdb_files>();
             DbHelper db = new DbHelper();
@@ -39,9 +38,10 @@ namespace up7.demoSql2005.down3.biz
                         f.nameLoc = r.GetString(0);//f_nameLoc
                         f.pathLoc = r.GetString(1);//f_pathLoc
                         f.pathSvr = r.GetString(2);
-                        f.lenLoc = r.GetInt64(3);
-                        f.sizeLoc = r.GetString(4);
-                        f.blockPath = r.GetString(5);
+                        f.pathRel = r.GetString(3);
+                        f.lenLoc = r.GetInt64(4);
+                        f.sizeLoc = r.GetString(5);
+                        f.blockPath = r.GetString(6);
                         files.Add(f);
                     }
                     r.Close();

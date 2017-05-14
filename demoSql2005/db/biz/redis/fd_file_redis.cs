@@ -16,6 +16,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.sizeLoc = j.HGet(idSign, "sizeLoc");
             this.pathLoc = j.HGet(idSign, "pathLoc");
             this.pathSvr = j.HGet(idSign, "pathSvr");
+            this.pathRel = j.HGet(idSign, "pathRel");
             this.blockPath = j.HGet(idSign, "blockPath");
             this.perSvr = j.HGet(idSign, "perSvr");
             this.nameLoc = j.HGet(idSign, "nameLoc");
@@ -36,6 +37,7 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.idSign, "sizeLoc", this.sizeLoc);//格式化的
             j.HSet(this.idSign, "pathLoc", this.pathLoc);//
             j.HSet(this.idSign, "pathSvr", this.pathSvr);//
+            j.HSet(this.idSign, "pathRel", this.pathRel);//
             j.HSet(this.idSign, "blockPath", this.blockPath);//
             j.HSet(this.idSign, "perSvr", this.lenLoc > 0 ? this.perSvr : "100%");//
             j.HSet(this.idSign, "nameLoc", this.nameLoc);//

@@ -58,7 +58,9 @@ namespace up7.demoSql2005.db
         /// </summary>
         public string blockPath = string.Empty;
         /// <summary>
-        /// 文件在服务器中的相对路径。示例：/www/web/upload/md5.exe
+        /// 本地路径：D:/soft/safe/360.exe
+        /// 相对路径 soft/safe/360.exe
+        /// 文件在服务器中的相对路径。
         /// </summary>
         public string pathRel = string.Empty;
         /// <summary>
