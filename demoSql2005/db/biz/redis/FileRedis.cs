@@ -53,21 +53,7 @@ namespace up7.demoSql2005.db.biz.redis
             f.fileCount = int.Parse(this.con.HGet(id, "filesCount"));
             return f;
         }
-        public String getPartPath(String idSign, String blockIndex,String blockCount)
-        {
-            var j = this.con;
-            if (!j.Exists(idSign)) return "";
 
-            String pathSvr = j.HGet(idSign, "pathSvr");//f:/files/guid/QQ2013.exe
-            System.IO.FileInfo f = new System.IO.FileInfo(pathSvr);
-            if (blockCount == "1") return pathSvr;//只有一块时不分块
-
-            pathSvr = f.DirectoryName;//d:\\soft
-            pathSvr = pathSvr + "/" + idSign + "/";
-            pathSvr = pathSvr + blockIndex + ".part";
-            pathSvr = pathSvr.Replace("\\", "/");
-            return pathSvr;
-        }
         public String makePathFile(String idSign, String fdSign)
         {
             var j = this.con;
