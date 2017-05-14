@@ -23,6 +23,7 @@ namespace up7.demoSql2005.down3.db
             biz.fd_page p = new biz.fd_page();
             string json = p.read(index,id);
             json = HttpUtility.UrlEncode(json);
+            json = json.Replace("+", "%20");
             Response.Write(json);
         }
     }
