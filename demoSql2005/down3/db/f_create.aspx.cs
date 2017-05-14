@@ -14,7 +14,7 @@ namespace up7.demoSql2005.down3.db
             string uid      = Request.QueryString["uid"];
             string idSign   = Request.QueryString["idSign"];
             string signSvr  = Request.QueryString["signSvr"];
-            string nameLoc  = Request.QueryString["nameCustom"];//客户端使用的是encodeURIComponent编码，
+            string nameLoc  = Request.QueryString["nameLoc"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
             string pathSvr  = Request.QueryString["pathSvr"];
             string fileUrl  = Request.QueryString["fileUrl"];
