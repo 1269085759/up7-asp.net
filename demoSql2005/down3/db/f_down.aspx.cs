@@ -23,6 +23,7 @@ namespace up7.demoSql2005.down3.db
         String fd_signSvr   = string.Empty;
         String fd_lenLoc    = string.Empty;
         String fd_sizeLoc   = string.Empty;
+        String fd_percent   = string.Empty;
         String uid          = string.Empty;
         String percent      = string.Empty;
         DnFileInf fileSvr   = null;
@@ -40,11 +41,12 @@ namespace up7.demoSql2005.down3.db
             this.rangeSize      = Request.Headers["f-rangeSize"];//当前请求的块大小
             this.lenLoc         = Request.Headers["f-lenLoc"];
             this.signSvr        = Request.Headers["f-signSvr"];
+            this.percent        = Request.Headers["f-percent"];
+            this.uid            = Request.Headers["f-uid"];
             this.fd_signSvr     = Request.Headers["fd-signSvr"];
             this.fd_lenLoc      = Request.Headers["fd-lenLoc"];
             this.fd_sizeLoc     = Request.Headers["fd-sizeLoc"];
-            this.uid            = Request.Headers["f-uid"];
-            this.percent        = Request.Headers["f-percent"];
+            this.fd_percent     = Request.Headers["fd-percent"];
 
             pathSvr = pathSvr.Replace("+", "%20");
             pathLoc = pathLoc.Replace("+", "%20");
@@ -96,10 +98,21 @@ namespace up7.demoSql2005.down3.db
             fileSvr.pathLoc = pathLoc;
             fileSvr.nameLoc = nameLoc == null ? "" : nameLoc;
 
-            //添加到缓存
-            var j = RedisConfig.getCon();
-            tasks svr = new tasks(uid, j);
-            svr.add(fileSvr);
+            //仅添加单文件下载
+            if (string.IsNullOrEmpty(fd_signSvr))
+            {
+                //添加到缓存
+                var j = RedisConfig.getCon();
+                tasks svr = new tasks(uid, j);
+                svr.add(fileSvr);
+            }//更新文件夹进度
+            else
+            {
+                //仅更新文件夹进度
+                var j = RedisConfig.getCon();
+                FileRedis fr = new FileRedis(ref j);
+                fr.process(fd_signSvr, fd_percent, fd_lenLoc);
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using up7.demoSql2005.db.redis;
+using up7.demoSql2005.down3.biz;
+using up7.demoSql2005.down3.model;
 
 namespace up7.demoSql2005.down3.db
 {
@@ -21,6 +25,11 @@ namespace up7.demoSql2005.down3.db
                 Response.End();
                 return;
             }
+
+            DnFileInf file = JsonConvert.DeserializeObject<DnFileInf>(fdStr);
+            var j = RedisConfig.getCon();
+            tasks svr = new tasks(uid,j);
+            svr.add(file);
         }
     }
 }

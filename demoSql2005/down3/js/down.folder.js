@@ -124,21 +124,19 @@
     //添加记录
     this.svr_create = function ()
     {
-        return;
         this.ui.btn.down.hide();
         this.ui.msg.text("正在初始化...");
         var param = jQuery.extend({}, this.fields, {time: new Date().getTime() });
         jQuery.extend(param, {folder: encodeURIComponent(JSON.stringify(this.fileSvr) ) });
         var ptr = this;
         $.ajax({
-            type: "POST"
+            type: "get"
+            , dataType: 'jsonp'
             , jsonp: "callback" //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
             , url: _this.Config["UrlFdCreate"]
             , data: param
             , success: function (msg)
             {
-                //var json = JSON.parse(decodeURIComponent(msg));
-                //jQuery.extend(true, _this.fileSvr, json);
                 ptr.ui.btn.down.show();
                 ptr.ui.msg.text("初始化完毕...");
             }

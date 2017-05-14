@@ -284,7 +284,8 @@ function DownloaderMgr()
 	    obj.ui.ico.fd.show();
         jQuery.extend(obj.fileSvr, fileSvr);//
         jQuery.extend(obj.fileSvr, { fileUrl: this.Config["UrlDown"] });
-	    obj.addQueue();
+        obj.addQueue();
+        obj.init_end();
 	    return obj;
 	};
 	this.exist_url = function (url)
