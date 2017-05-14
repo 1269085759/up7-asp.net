@@ -17,9 +17,6 @@ namespace up7.demoSql2005.down3.db
 
             if (!string.IsNullOrEmpty(uid))
             {
-                var j = RedisConfig.getCon();
-                tasks svr = new tasks(uid,j);
-
                 CompleteReader cr = new CompleteReader();
                 string json = cr.all(int.Parse(uid));
                 if (!string.IsNullOrEmpty(json))
