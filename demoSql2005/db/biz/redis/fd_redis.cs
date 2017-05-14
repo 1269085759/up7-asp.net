@@ -42,20 +42,6 @@ namespace up7.demoSql2005.db.biz.redis
                 //添加当前路径
                 parentPathMap.Add(fd.idSign, fd.pathSvr);
             }
-
-            //更新文件路径（Server）
-            foreach (var f in this.m_root.files)
-            {
-                if (parentPathMap.ContainsKey(f.pidSign))
-                {
-                    String path;
-                    parentPathMap.TryGetValue(f.pidSign, out path);//
-                    f.pathSvr = System.IO.Path.Combine(path, f.nameLoc);
-                    //创建空文件（原始大小）
-                    //FileBlockWriter fr = new FileBlockWriter();
-                    //fr.make(f.pathSvr, f.lenLoc);
-                }
-            }
         }
 
         //创建目录

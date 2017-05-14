@@ -36,15 +36,6 @@ namespace up7.demoSql2005.db.biz.redis
             }
         }
 
-        public void add(List<fd_file> fs)
-        {
-            String key = this.getKey();
-            foreach (var f in fs)
-            {
-                this.con.SAdd(key, f.idSign);
-            }
-        }
-
         public String[] all()
         {
             return this.con.SMembers(this.getKey());
