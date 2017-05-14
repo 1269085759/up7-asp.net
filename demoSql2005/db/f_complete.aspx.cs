@@ -26,10 +26,12 @@ namespace up7.demoSql2005.db
             else
             {
                 var j = RedisConfig.getCon();
-                var f_svr = new fd_file_redis();
-                f_svr.read(j, fid);
-                PartMeger pm = new PartMeger();
-                pm.merge(f_svr);
+                FileRedis cache = new FileRedis(ref j);
+                var fileSvr = cache.read(fid);
+
+                //合并块
+                BlockMeger pm = new BlockMeger();
+                pm.merge(fileSvr);
                 j.Del(fid);
 
                 //从任务列表（未完成）中删除
@@ -37,6 +39,10 @@ namespace up7.demoSql2005.db
                 svr.uid = uid;
                 svr.del(fid);
                 j.Dispose();
+
+                //添加到数据库
+                DBFile db = new DBFile();
+                db.addComplete(ref fileSvr);
                 ret = 1;
             }
             

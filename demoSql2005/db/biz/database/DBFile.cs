@@ -415,6 +415,57 @@ namespace up7.demoSql2005.db
             db.ExecuteNonQuery(cmd);
         }
 
+        public void addComplete(ref xdb_files model)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("insert into up7_files(");
+            sb.Append(" f_idSign");
+            sb.Append(",f_uid");
+            sb.Append(",f_nameLoc");
+            sb.Append(",f_nameSvr");
+            sb.Append(",f_pathLoc");
+            sb.Append(",f_pathSvr");
+            sb.Append(",f_pathRel");
+            sb.Append(",f_lenLoc");
+            sb.Append(",f_sizeLoc");
+            sb.Append(",f_lenSvr");
+            sb.Append(",f_perSvr");
+            sb.Append(",f_complete");
+
+            sb.Append(") values (");
+
+            sb.Append(" @f_idSign");
+            sb.Append(",@f_uid");
+            sb.Append(",@f_nameLoc");
+            sb.Append(",@f_nameSvr");
+            sb.Append(",@f_pathLoc");
+            sb.Append(",@f_pathSvr");
+            sb.Append(",@f_pathRel");
+            sb.Append(",@f_lenLoc");
+            sb.Append(",@f_sizeLoc");
+            sb.Append(",@f_lenSvr");
+            sb.Append(",@f_perSvr");
+            sb.Append(",true");
+            sb.Append(") ;");
+
+            DbHelper db = new DbHelper();
+            DbCommand cmd = db.GetCommand(sb.ToString());
+
+            db.AddString(ref cmd, "@f_idSign", model.idSign, 36);
+            db.AddInt(ref cmd, "@f_uid", model.uid);
+            db.AddString(ref cmd, "@f_nameLoc", model.nameLoc, 255);
+            db.AddString(ref cmd, "@f_nameSvr", model.nameSvr, 255);
+            db.AddString(ref cmd, "@f_pathLoc", model.pathLoc, 512);
+            db.AddString(ref cmd, "@f_pathSvr", model.pathSvr, 512);
+            db.AddString(ref cmd, "@f_pathRel", model.pathRel, 512);
+            db.AddInt64(ref cmd, "@f_lenLoc", model.lenLoc);
+            db.AddString(ref cmd, "@f_sizeLoc", model.sizeLoc, 15);
+            db.AddInt64(ref cmd, "@f_lenSvr", model.lenSvr);
+            db.AddString(ref cmd, "@f_perSvr", model.perSvr, 6);
+
+            db.ExecuteNonQuery(cmd);
+        }
+
         public void complete(int uid,int idSvr)
         {
             string sql = "update up7_files set f_lenSvr=f_lenLoc,f_perSvr='100%',f_complete=1 where f_id=@f_id and f_uid=@f_uid";

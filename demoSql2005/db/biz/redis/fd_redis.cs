@@ -98,7 +98,7 @@ namespace up7.demoSql2005.db.biz.redis
 
         public void mergeAll()
         {
-            PartMeger mg = new PartMeger();
+            BlockMeger mg = new BlockMeger();
             foreach (fd_file_redis f in this.m_root.files)
             {
                 mg.merge(f);

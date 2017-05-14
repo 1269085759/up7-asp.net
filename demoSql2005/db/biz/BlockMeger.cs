@@ -7,7 +7,7 @@ namespace up7.demoSql2005.db.biz
     /// <summary>
     /// 文件块合并逻辑
     /// </summary>
-    public class PartMeger
+    public class BlockMeger
     {
         /// <summary>
         /// 将所有文件块合并成一个文件
