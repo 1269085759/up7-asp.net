@@ -45,7 +45,7 @@ namespace up7.demoSql2005.down3.biz
                     //如果是文件夹则pathSvr保存本地路径，用来替换
                     if (fi.fdTask) fi.pathSvr = fi.pathLoc;
                     fi.signSvr  = Guid.NewGuid().ToString();//服务端生成，唯一标识
-                    fi.filesCount = r.GetInt32(7);
+                    fi.filesCount = r.IsDBNull(7) ? 0 : r.GetInt32(7);
                     files.Add(fi);
                 }
             }
