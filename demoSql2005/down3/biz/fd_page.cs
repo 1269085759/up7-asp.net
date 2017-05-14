@@ -20,10 +20,14 @@ namespace up7.demoSql2005.down3.biz
             index = Math.Max(index, 1);//基于1
             int pageStart = ((index - 1) * pageSize) + 1;
             int pageEnd = index * pageSize;
-            String sqlData = "select f_nameLoc,f_pathLoc,f_pathSvr,f_lenLoc,f_sizeLoc from up7_files where f_rootSign='" + id + "'";
-            String sql = String.Format("select * from (select a.*, rownum rn from (%s) a where rownum <= %d) where rn >= %d", sqlData, pageEnd, pageStart);
+            string sql = string.Format(@"select * from 
+                                        (
+	                                        select f_nameLoc,f_pathLoc,f_pathSvr,f_lenLoc,f_sizeLoc,f_blockPath,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_idSign='{0}'
+                                        )a
+                                        where RowNumber BETWEEN {1} and {2}
+                                        ", id, pageStart,pageStart+pageSize);
 
-            List<fd_file> files = new List<fd_file>();
+            List<xdb_files> files = new List<xdb_files>();
             DbHelper db = new DbHelper();
             using (var cmd = db.GetCommand(sql))
             {
@@ -31,12 +35,13 @@ namespace up7.demoSql2005.down3.biz
                 {
                     while (r.Read())
                     {
-                        fd_file f = new fd_file();
-                        f.nameLoc = r.GetString(1);//f_nameLoc
-                        f.pathLoc = r.GetString(2);//f_pathLoc
-                        f.pathSvr = r.GetString(3);
-                        f.lenLoc = r.GetInt64(4);
-                        f.sizeLoc = r.GetString(5);
+                        var f = new xdb_files();
+                        f.nameLoc = r.GetString(0);//f_nameLoc
+                        f.pathLoc = r.GetString(1);//f_pathLoc
+                        f.pathSvr = r.GetString(2);
+                        f.lenLoc = r.GetInt64(3);
+                        f.sizeLoc = r.GetString(4);
+                        f.blockPath = r.GetString(5);
                         files.Add(f);
                     }
                     r.Close();

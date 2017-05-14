@@ -7,17 +7,6 @@ namespace up7.demoSql2005.down3.debug
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var p = System.IO.Path.Combine("d:\\soft\\", "image");
-            Response.Write(p);
-            Response.Write("<br/>");
-
-            p = System.IO.Path.Combine("d:\\soft", "image2");
-            Response.Write(p);
-            Response.Write("<br/>");
-
-            p = System.IO.Path.Combine("d:/soft/", "image2");
-            Response.Write(p);
-            Response.Write("<br/>");
         }
     }
 }

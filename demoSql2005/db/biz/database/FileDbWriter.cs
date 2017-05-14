@@ -34,6 +34,7 @@ namespace up7.demoSql2005.db.biz.folder
             sb.Append(",f_sign");
             sb.Append(",f_complete");
             sb.Append(",f_fdTask");
+            sb.Append(",f_blockPath");
 
             sb.Append(") values(");
 
@@ -53,6 +54,7 @@ namespace up7.demoSql2005.db.biz.folder
             sb.Append(",@f_sign");//f_sign
             sb.Append(",1");//f_complete
             sb.Append(",@f_fdTask");//f_fdTask
+            sb.Append(",@f_blockPath");//f_blockPath
             sb.Append(")");
 
             var cmd = con.CreateCommand();
@@ -73,6 +75,7 @@ namespace up7.demoSql2005.db.biz.folder
             db.AddString(ref cmd, "@f_perSvr", string.Empty, 36);
             db.AddString(ref cmd, "@f_sign", string.Empty, 36);
             db.AddBool(ref cmd, "@f_fdTask", false);
+            db.AddString(ref cmd, "@f_blockPath", string.Empty,2000);
             return cmd;
         }
 
@@ -99,6 +102,7 @@ namespace up7.demoSql2005.db.biz.folder
                 cmd.Parameters[12].Value = "100%";
                 cmd.Parameters[13].Value = this.root.sign;
                 cmd.Parameters[14].Value = true;
+                cmd.Parameters[15].Value = string.Empty;
                 cmd.ExecuteNonQuery();
 
                 //写子文件列表
@@ -119,6 +123,7 @@ namespace up7.demoSql2005.db.biz.folder
                     cmd.Parameters[12].Value = "100%";//perSvr
                     cmd.Parameters[13].Value = string.IsNullOrEmpty(f.sign)?string.Empty:f.sign;//sign
                     cmd.Parameters[14].Value = false;//fdTask
+                    cmd.Parameters[15].Value = f.blockPath;//
                     cmd.ExecuteNonQuery();
                 }
             }
