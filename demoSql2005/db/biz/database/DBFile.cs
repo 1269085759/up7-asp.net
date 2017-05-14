@@ -426,6 +426,7 @@ namespace up7.demoSql2005.db
             sb.Append(",f_pathLoc");
             sb.Append(",f_pathSvr");
             sb.Append(",f_pathRel");
+            sb.Append(",f_blockPath");
             sb.Append(",f_lenLoc");
             sb.Append(",f_sizeLoc");
             sb.Append(",f_lenSvr");
@@ -441,11 +442,12 @@ namespace up7.demoSql2005.db
             sb.Append(",@f_pathLoc");
             sb.Append(",@f_pathSvr");
             sb.Append(",@f_pathRel");
+            sb.Append(",@f_blockPath");
             sb.Append(",@f_lenLoc");
             sb.Append(",@f_sizeLoc");
             sb.Append(",@f_lenSvr");
             sb.Append(",@f_perSvr");
-            sb.Append(",true");
+            sb.Append(",1");
             sb.Append(") ;");
 
             DbHelper db = new DbHelper();
@@ -458,6 +460,7 @@ namespace up7.demoSql2005.db
             db.AddString(ref cmd, "@f_pathLoc", model.pathLoc, 512);
             db.AddString(ref cmd, "@f_pathSvr", model.pathSvr, 512);
             db.AddString(ref cmd, "@f_pathRel", model.pathRel, 512);
+            db.AddString(ref cmd, "@f_blockPath", model.blockPath, 512);
             db.AddInt64(ref cmd, "@f_lenLoc", model.lenLoc);
             db.AddString(ref cmd, "@f_sizeLoc", model.sizeLoc, 15);
             db.AddInt64(ref cmd, "@f_lenSvr", model.lenSvr);
