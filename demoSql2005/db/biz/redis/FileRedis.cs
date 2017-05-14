@@ -44,6 +44,7 @@ namespace up7.demoSql2005.db.biz.redis
             f.idSign = id;
             f.pathLoc = this.con.HGet(id, "pathLoc");
             f.pathSvr = this.con.HGet(id, "pathSvr");
+            f.pathRel = this.con.HGet(id, "pathRel");
             f.blockPath = this.con.HGet(id, "blockPath");
             f.nameLoc = this.con.HGet(id, "nameLoc");
             f.nameSvr = this.con.HGet(id, "nameSvr");
