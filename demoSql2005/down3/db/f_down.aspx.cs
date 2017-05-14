@@ -26,7 +26,6 @@ namespace up7.demoSql2005.down3.db
         String fd_percent   = string.Empty;
         String uid          = string.Empty;
         String percent      = string.Empty;
-        DnFileInf fileSvr   = null;
 
         void recvParam()
         {
