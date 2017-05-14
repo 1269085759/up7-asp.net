@@ -53,50 +53,5 @@ namespace up7.demoSql2005.db.biz.redis
             f.fileCount = int.Parse(this.con.HGet(id, "filesCount"));
             return f;
         }
-
-        public String makePathFile(String idSign, String fdSign)
-        {
-            var j = this.con;
-            String pathSvrF = "";
-            String fPath = j.HGet(idSign, "pathSvr");
-            if (string.IsNullOrEmpty(fPath))
-            {
-                String pathLocFD = j.HGet(fdSign, "pathLoc");
-                String pathSvrFD = j.HGet(fdSign, "pathSvr");
-                String pathLocF = j.HGet(idSign, "pathLoc");
-
-
-                //将文件的本地根路径替换为服务器路径
-                pathLocFD = pathLocFD.Replace("\\", "/");
-                pathSvrFD = pathSvrFD.Replace("\\", "/");
-                pathSvrF = pathLocF.Replace(pathLocFD, pathSvrFD);
-                j.HSet(idSign, "pathSvr", pathSvrF);
-            }
-            else
-            {
-                pathSvrF = j.HGet(idSign, "pathSvr");
-            }
-            return pathSvrF;
-        }
-
-        public String getPartPath(String idSign, String blockIndex, String blockCount, String fdSign)
-        {
-            String pathSvr = "";
-            var j = this.con;
-            Boolean hasData = j.Exists(idSign);
-            if (hasData) hasData = j.Exists(fdSign);
-            if (hasData)
-            {
-                pathSvr = this.makePathFile(idSign, fdSign);
-                //需要分块			
-                if ( blockCount!="1" )
-                {
-                    var index = pathSvr.LastIndexOf("/");
-                    if (index != -1) pathSvr = pathSvr.Substring(0, index);
-                    pathSvr = pathSvr + "/" + idSign + "/" + blockIndex + ".part";
-                }
-            }
-            return pathSvr;
-        }
     }
 }
