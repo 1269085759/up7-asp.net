@@ -142,7 +142,6 @@
     <Compile Include="demoSql2005\db\biz\BlockPathBuilder.cs" />
     <Compile Include="demoSql2005\db\biz\file_part.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_child.cs" />
-    <Compile Include="demoSql2005\db\biz\folder\fd_file.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_root.cs" />
     <Compile Include="demoSql2005\db\biz\database\FileDbWriter.cs" />
     <Compile Include="demoSql2005\db\biz\database\FolderDbWriter.cs" />
@@ -266,14 +265,11 @@
     <Compile Include="demoSql2005\debug\check_config.aspx.designer.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down3\biz\cmp_file.cs" />
     <Compile Include="demoSql2005\down3\biz\CompleteReader.cs" />
     <Compile Include="demoSql2005\down3\biz\fd_page.cs" />
     <Compile Include="demoSql2005\down3\biz\redis\FileRedis.cs" />
     <Compile Include="demoSql2005\down3\biz\redis\tasks.cs" />
-    <Compile Include="demoSql2005\down3\biz\un_builder.cs" />
     <Compile Include="demoSql2005\down3\biz\folder_appender.cs" />
-    <Compile Include="demoSql2005\down3\biz\un_file.cs" />
     <Compile Include="demoSql2005\down3\db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -281,7 +277,6 @@
     <Compile Include="demoSql2005\down3\db\clear.aspx.designer.cs">
       <DependentUpon>clear.aspx</DependentUpon>
     </Compile>
-    <Compile Include="demoSql2005\down3\biz\DnFile.cs" />
     <Compile Include="demoSql2005\down3\db\fd_page.aspx.cs">
       <DependentUpon>fd_page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -311,9 +306,7 @@
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\down3\model\DnFileInf.cs" />
-    <Compile Include="demoSql2005\down3\biz\DnFolder.cs" />
     <Compile Include="demoSql2005\down3\model\DnFolderInf.cs" />
-    <Compile Include="demoSql2005\down3\biz\cmp_builder.cs" />
     <Compile Include="demoSql2005\down3\db\f_list.aspx.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

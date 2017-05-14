@@ -8,6 +8,7 @@ namespace up7.demoSql2005.db
         public string idSign = string.Empty;
         public string pidSign = string.Empty;
         public string rootSign = string.Empty;
+        public string signSvr = string.Empty;
         public bool fdTask = false;//是否是一个文件夹
         public int blockCount = 0;
         public int fileCount = 0;
@@ -76,6 +77,7 @@ namespace up7.demoSql2005.db
         /// 格式化的文件尺寸。示例：10.03MB
         /// </summary>
         public string sizeLoc = string.Empty;
+        public string sizeSvr = string.Empty;
         /// <summary>
         /// 文件续传位置。
         /// 文件大小可能超过2G，所以使用long

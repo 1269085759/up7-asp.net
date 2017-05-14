@@ -10,7 +10,6 @@ namespace up7.demoSql2005.down3.biz
     {
         public String all(int uid)
         {
-            List<cmp_file> files = new List<cmp_file>();
             StringBuilder sb = new StringBuilder();
             sb.Append("select ");
             sb.Append(" f_idSign");//0
@@ -30,11 +29,12 @@ namespace up7.demoSql2005.down3.biz
             DbHelper db = new DbHelper();
             var cmd = db.GetCommand(sb.ToString());
             db.AddInt(ref cmd,"@uid",uid);
+            List<xdb_files> files = new List<xdb_files>();
             using (var r = db.ExecuteReader(cmd))
             {
                 while (r.Read())
                 {
-                    cmp_file fi = new cmp_file();
+                    xdb_files fi = new xdb_files();
                     fi.idSign   = r.GetString(0);//与up7_files表对应
                     fi.nameLoc  = r.GetString(1);
                     fi.lenSvr   = r.GetInt64(2);
@@ -45,7 +45,7 @@ namespace up7.demoSql2005.down3.biz
                     //如果是文件夹则pathSvr保存本地路径，用来替换
                     if (fi.fdTask) fi.pathSvr = fi.pathLoc;
                     fi.signSvr  = Guid.NewGuid().ToString();//服务端生成，唯一标识
-                    fi.filesCount = r.IsDBNull(7) ? 0 : r.GetInt32(7);
+                    fi.fileCount = r.IsDBNull(7) ? 0 : r.GetInt32(7);
                     files.Add(fi);
                 }
             }
