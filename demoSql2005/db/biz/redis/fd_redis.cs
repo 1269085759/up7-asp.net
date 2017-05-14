@@ -45,7 +45,6 @@ namespace up7.demoSql2005.db.biz.redis
 
             //更新文件路径（Server）
             foreach (var f in this.m_root.files)
-
             {
                 if (parentPathMap.ContainsKey(f.pidSign))
                 {
