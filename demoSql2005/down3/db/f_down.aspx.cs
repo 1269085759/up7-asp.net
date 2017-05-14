@@ -84,27 +84,13 @@ namespace up7.demoSql2005.down3.db
 
         void saveToRedis()
         {
-            this.fileSvr = new DnFileInf();
-            fileSvr.signSvr = signSvr;
-            //子文件项时仅保存文件夹信息
-            if (fd_signSvr != null) fileSvr.signSvr = fd_signSvr;
-            fileSvr.uid = uid == null ? 0 : int.Parse(uid);
-            fileSvr.lenLoc = long.Parse(lenLoc);
-            if (fd_lenLoc != null) fileSvr.lenLoc = long.Parse(fd_lenLoc);
-            fileSvr.lenSvr = long.Parse(lenSvr);
-            fileSvr.sizeSvr = sizeSvr == null ? "" : sizeSvr;
-            fileSvr.perLoc = percent;
-            fileSvr.pathSvr = pathSvr;
-            fileSvr.pathLoc = pathLoc;
-            fileSvr.nameLoc = nameLoc == null ? "" : nameLoc;
-
             //仅添加单文件下载
             if (string.IsNullOrEmpty(fd_signSvr))
             {
                 //添加到缓存
                 var j = RedisConfig.getCon();
-                tasks svr = new tasks(uid, j);
-                svr.add(fileSvr);
+                FileRedis fr = new FileRedis(ref j);
+                fr.process(this.signSvr, this.percent, this.lenLoc);
             }//更新文件夹进度
             else
             {

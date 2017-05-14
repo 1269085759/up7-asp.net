@@ -271,6 +271,7 @@ function DownloaderMgr()
 	{
         var obj = this.add_ui(false, fileSvr);
 	    if (obj != null) obj.addQueue();
+        if (obj != null) obj.svr_create();
 	    return obj;
 	};
     this.add_folder = function (fileSvr)
