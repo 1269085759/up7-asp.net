@@ -16,7 +16,7 @@ namespace up7.demoSql2005.down3.biz
         /// </summary>
         string space = "down3";
         /// <summary>
-        /// 用户的下载列表，包含文件和文件夹列表
+        /// 用户的下载列表（未下载完成的），包含文件和文件夹列表
         /// tasks-down3-uid
         /// </summary>
         string keyUser = "tasks-down3-";
