@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Web;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
 using up7.demoSql2005.down3.model;
@@ -13,23 +14,34 @@ namespace up7.demoSql2005.down3.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string uid      = Request.Form["uid"];
-            string fdStr    = Request.Form["folder"];//客户端使用的是encodeURIComponent编码，
-            if (!string.IsNullOrEmpty(fdStr)) fdStr = fdStr.Replace("%20", "+");
-            if (!string.IsNullOrEmpty(fdStr)) fdStr = Server.UrlDecode(fdStr);
+            string uid     = Request.QueryString["uid"];
+            string cbk     = Request.QueryString["callback"];
+            string signSvr = Request.QueryString["signSvr"];
+            string nameLoc = Request.QueryString["nameLoc"];
+            string pathLoc = Request.QueryString["pathLoc"];
+
+            pathLoc = pathLoc.Replace("+", "%20");
+            nameLoc = nameLoc.Replace("+", "%20");
+            pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
+            nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
 
             if (string.IsNullOrEmpty(uid)
-               || string.IsNullOrEmpty(fdStr))
+               || string.IsNullOrEmpty(nameLoc)
+               || string.IsNullOrEmpty(pathLoc)
+               )
             {
-                Response.Write(0);
-                Response.End();
+                Response.Write(cbk+"(0)");
                 return;
             }
 
-            DnFileInf file = JsonConvert.DeserializeObject<DnFileInf>(fdStr);
+            DnFileInf fd = new DnFileInf();
+            fd.nameLoc = nameLoc;
+            fd.pathLoc = pathLoc;
+            fd.signSvr = signSvr;
             var j = RedisConfig.getCon();
             tasks svr = new tasks(uid,j);
-            svr.add(file);
+            svr.add(fd);
+            Response.Write(cbk+"(1)");
         }
     }
 }

@@ -9,7 +9,7 @@
     this.State = HttpDownloaderState.None;
     this.event = mgr.event;
     this.fileSvr = {
-          id:0//累加，唯一标识
+          signSvr:0//累加，唯一标识
         , idSvr: 0
         , uid: 0
         , nameLoc: ""//自定义文件名称
@@ -126,8 +126,10 @@
     {
         this.ui.btn.down.hide();
         this.ui.msg.text("正在初始化...");
-        var param = jQuery.extend({}, this.fields, {time: new Date().getTime() });
-        jQuery.extend(param, {folder: encodeURIComponent(JSON.stringify(this.fileSvr) ) });
+        var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
+        jQuery.extend(param, { nameLoc: encodeURIComponent(this.fileSvr.nameLoc) });
+        jQuery.extend(param, { pathLoc: encodeURIComponent(this.fileSvr.pathLoc) });
+        jQuery.extend(param, { signSvr: this.fileSvr.signSvr});
         var ptr = this;
         $.ajax({
             type: "get"
