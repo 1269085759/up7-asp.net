@@ -1,5 +1,6 @@
 ﻿using System;
 using up7.demoSql2005.db;
+using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
 namespace up7.demoSql2005.db
@@ -21,7 +22,8 @@ namespace up7.demoSql2005.db
             else
             {
                 var j = RedisConfig.getCon();
-                j.Del(fid);
+                tasks cache = new tasks(ref j);
+                cache.delFd(fid);
                 ret = 1;
             }
             Response.Write(cbk + "({\"value\":" + ret + "})");//返回jsonp格式数据
