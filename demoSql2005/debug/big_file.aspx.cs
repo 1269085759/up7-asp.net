@@ -27,13 +27,9 @@ namespace up7.demoSql2005.debug
             }
             bw.Close();
         }
-        void create2()
-        {
-        }
 
         void file_create()
         {
-            long mb = 1048576;
             long gb = 1073741824;
             FileBlockWriter fw = new FileBlockWriter();
             fw.make("d:\\test.db", gb * 10);

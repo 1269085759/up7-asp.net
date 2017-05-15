@@ -123,14 +123,14 @@ namespace up7.demoSql2005.db
             return obj.ToString();
         }
 
-        static public void update(int idSvr,string perSvr,long lenSvr,int uid)
+        static public void update(string idSign,string perSvr,long lenSvr,int uid)
         {
-            string sql = "update up7_files set f_perSvr=@f_perSvr,f_lenSvr=@f_lenSvr where f_id=@f_id;";
+            string sql = "update up7_files set f_perSvr=@f_perSvr,f_lenSvr=@f_lenSvr where f_idSign=@f_id;";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@f_perSvr", perSvr,6);
             db.AddInt64(ref cmd, "@f_lenSvr", lenSvr);
-            db.AddInt(ref cmd, "@f_id", idSvr);
+            db.AddString(ref cmd, "@f_id", idSign,36);
             db.ExecuteNonQuery(cmd);
         }
 

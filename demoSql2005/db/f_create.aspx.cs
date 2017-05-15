@@ -63,22 +63,5 @@ namespace up7.demoSql2005.db
             string json = callback + "({\"value\":\"" + jv + "\"})";//返回jsonp格式数据。
             Response.Write(json);
         }
-
-        bool try_make(string cbk,string pathSvr,long lenLoc)
-        {
-            bool ret = false;
-            try
-            {
-                //2.0创建器。仅创建一个空白文件
-                FileBlockWriter fr = new FileBlockWriter();
-                fr.make(pathSvr, lenLoc);
-                ret = true;
-            }
-            catch (Exception e)
-            {
-                Response.Write(cbk + "({\"value\":null,\"err\":true,\"inf\":\"创建文件错误，请检查存储路径是否正确，磁盘空间是否不足。\"})");
-            }
-            return ret;
-        }
     }
 }

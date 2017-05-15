@@ -210,7 +210,6 @@
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\db\biz\redis\RedisConfig.cs" />
-    <Compile Include="demoSql2005\db\utils\MapBlockWriter.cs" />
     <Compile Include="demoSql2005\db\model\FileInf.cs" />
     <Compile Include="demoSql2005\db\utils\FileBlockWriter.cs" />
     <Compile Include="demoSql2005\db\model\FolderInf.cs" />

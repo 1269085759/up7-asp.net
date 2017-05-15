@@ -92,7 +92,7 @@ namespace up7.demoSql2005.db
             String callback = Request.QueryString["callback"];
 
             xdb_files f = new xdb_files();
-            f.nameLoc = System.IO.Path.GetFileName(pathLoc);
+            f.nameLoc = Path.GetFileName(pathLoc);
             f.nameSvr = f.nameLoc;
             f.idSign = idSign;
             f.pathLoc = pathLoc;

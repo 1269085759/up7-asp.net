@@ -53,17 +53,17 @@ namespace up7.demoSql2005.db.biz.redis
 
         public void clear() { this.con.FlushDb(); }
 
-        public List<fd_file_redis> all()
+        public List<xdb_files> all()
         {
-            List<fd_file_redis> arr = null;
+            List<xdb_files> arr = null;
             var ls = this.con.SMembers(this.getKey());
 
-            if (ls.Length > 0) arr = new List<fd_file_redis>();
+            if (ls.Length > 0) arr = new List<xdb_files>();
+            FileRedis cache = new FileRedis(ref this.con);
 
             foreach(String s in ls)
             {
-                fd_file_redis f = new fd_file_redis();
-                f.read(this.con, s);
+                var f = cache.read(s);                
                 arr.Add(f);
             }
             return arr;
@@ -71,7 +71,7 @@ namespace up7.demoSql2005.db.biz.redis
 
         public String toJson()
         {
-            List<fd_file_redis> fs = this.all();
+            var fs = this.all();
             if (fs == null) return "";
 
             var v = JsonConvert.SerializeObject(fs);
