@@ -50,6 +50,8 @@ namespace up7.demoSql2005.db.biz.redis
             f.nameLoc = this.con.HGet(id, "nameLoc");
             f.nameSvr = this.con.HGet(id, "nameSvr");
             f.lenLoc = long.Parse(this.con.HGet(id, "lenLoc"));
+            f.lenSvr = long.Parse(this.con.HGet(id,"lenSvr"));
+            f.perSvr = this.con.HGet(id, "perSvr");
             f.sizeLoc = this.con.HGet(id, "sizeLoc");
             f.blockCount = int.Parse(this.con.HGet(id, "blockCount"));
             f.fileCount = int.Parse(this.con.HGet(id, "filesCount"));
