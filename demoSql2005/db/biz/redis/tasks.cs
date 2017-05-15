@@ -63,8 +63,8 @@ namespace up7.demoSql2005.db.biz.redis
 
             foreach(String s in ls)
             {
-                var f = cache.read(s);                
-                arr.Add(f);
+                var f = cache.read(s);
+                if(f!=null)arr.Add(f);
             }
             return arr;
         }
