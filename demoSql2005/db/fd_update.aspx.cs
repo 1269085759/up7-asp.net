@@ -1,5 +1,7 @@
 ﻿using System;
 using up7.demoSql2005.db;
+using up7.demoSql2005.db.biz.redis;
+using up7.demoSql2005.db.redis;
 
 namespace up7.demoSql2005.db
 {
@@ -27,8 +29,9 @@ namespace up7.demoSql2005.db
                 return;
             }
 
-            //文件夹进度
-            DBFolder.update(id, perSvr, long.Parse(lenSvr), int.Parse(uid));
+            var j = RedisConfig.getCon();
+            FileRedis fr = new FileRedis(ref j);
+            fr.process(id, perSvr, lenSvr, "0");
         }
     }
 }
