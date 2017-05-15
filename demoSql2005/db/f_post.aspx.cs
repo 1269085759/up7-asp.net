@@ -84,11 +84,12 @@ namespace up7.demoSql2005.db
             fileSvr.pathLoc = pathLoc.Replace("\\", "/");//路径规范化处理
             fileSvr.pathSvr = pathLoc.Replace(fd.pathLoc, fd.pathSvr);
             fileSvr.pathSvr = fileSvr.pathSvr.Replace("\\", "/");
-            fileSvr.pathRel = pathLoc.Replace(fd.pathLoc, string.Empty);
+            fileSvr.pathRel = pathLoc.Replace(fd.pathLoc+"\\", string.Empty);
             fileSvr.rootSign = fd_idSign;
             fileSvr.blockCount = int.Parse(rangeCount);
             BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath = bpb.rootFd(this.idSign, this.rangeIndex, ref fd);
+            fileSvr.blockPath = bpb.rootFd(ref fileSvr, this.rangeIndex, ref fd);
+            if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
 
             FileRedis f_svr = new FileRedis(ref con);
             f_svr.create(fileSvr);//添加到缓存
@@ -98,7 +99,7 @@ namespace up7.demoSql2005.db
             root.add(idSign);
 
             //块路径
-            string partPath = bpb.partFd(this.idSign, this.rangeIndex, ref fd);
+            string partPath = Path.Combine(fileSvr.blockPath,rangeIndex+".part");
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));

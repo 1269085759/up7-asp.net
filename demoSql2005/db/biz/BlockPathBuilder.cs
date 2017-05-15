@@ -52,26 +52,36 @@ namespace up7.demoSql2005.db.biz
         /// <param name="blockIndex"></param>
         /// <param name="pathSvr"></param>
         /// <returns></returns>
-        public string partFd(string idSign,string blockIndex,ref xdb_files fd)
+        public string partFd(ref xdb_files f,string blockIndex,ref xdb_files fd)
         {
             string pathSvr = fd.pathSvr;
-            pathSvr = Path.Combine(pathSvr, idSign);
+            pathSvr = Path.Combine(pathSvr, f.pathRel);
             pathSvr = Path.Combine(pathSvr, blockIndex + ".part");
             return pathSvr;
         }
 
         /// <summary>
         /// 文件夹子文件块根目录
-        /// d:/webapps/files/年/月/日/folder/file-guid/
+        /// d:/webapps/files/年/月/日/folder/folder-child/file-guid/
         /// </summary>
         /// <param name="idSign"></param>
         /// <param name="blockIndex"></param>
         /// <param name="fd"></param>
         /// <returns></returns>
-        public string rootFd(string idSign,string blockIndex,ref xdb_files fd)
+        public string rootFd(ref xdb_files f,string blockIndex,ref xdb_files fd)
         {
             string pathSvr = fd.pathSvr;
-            pathSvr = Path.Combine(pathSvr, idSign);
+            int pos = f.pathRel.LastIndexOf("\\");
+            if(pos==-1)
+            {
+                pathSvr = Path.Combine(pathSvr, f.idSign);
+            }
+            else
+            {
+                string rel = f.pathRel.Substring(0, pos);
+                pathSvr = Path.Combine(pathSvr, rel);
+                pathSvr = Path.Combine(pathSvr, f.idSign);
+            }
             return pathSvr;
         }
     }
