@@ -386,7 +386,13 @@ function DownloaderMgr()
 	    else if (json.name == "queue_complete") { _this.event.queueComplete(); }
 	    else if (json.name == "queue_begin") { _this.queue_begin(json); }
 	    else if (json.name == "queue_end") { _this.queue_end(json); }
-	    else if (json.name == "load_complete") { _this.load_complete(json); }
+        else if (json.name == "load_complete") { _this.load_complete(json); }
+        else if (json.name == "extension_complete") {
+            setTimeout(function () {
+                var param = { name: "init", config: _this.Config };
+                _this.browser.postMessage(param);
+            }, 1000);
+        }
 	};
 
     //浏览器对象
