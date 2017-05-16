@@ -43,7 +43,7 @@ function DownloaderMgr()
 		, "Debug"		: false//调试模式
 		, "LogFile"		: "f:\\log.txt"//日志文件路径。
 		, "Company"		: "荆门泽优软件有限公司"
-		, "Version"		: "1,2,56,31650"
+		, "Version"		: "1,2,99,50964"
 		, "License"		: ""//
 		, "Cookie"		: ""//
 		, "ThreadCount"	: 1//并发数
@@ -569,16 +569,6 @@ function DownloaderMgr()
 	    }
 	};
 	this.checkVersion();
-	this.setup_tip = function ()
-	{
-	    this.btnSetup.attr("href", this.Config.ExePath);
-	    this.btnSetup.show();
-	};
-	this.setup_check = function ()
-	{
-	    if (!_this.browser.check()) { this.setup_tip(); /*_this.browser.Setup();*/ }
-	    else { this.btnSetup.hide();}
-    };
 
     //升级通知
     this.update_notice = function () {
@@ -652,7 +642,6 @@ function DownloaderMgr()
 
 	    //this.LoadData();
 		this.safeCheck();//
-		this.setup_check();
 	};
 
     //加载未未完成列表
