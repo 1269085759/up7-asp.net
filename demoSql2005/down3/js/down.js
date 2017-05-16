@@ -359,8 +359,15 @@ function DownloaderMgr()
 	this.queue_end = function (json) { this.working = false;};
     this.load_complete = function (json)
     {
-        this.nat_load = true;
         this.btnSetup.hide();
+        var needUpdate = true;
+        if (typeof (json.version) != "undefined") {
+            if (json.version == this.Config.Version) {
+                needUpdate = false;
+            }
+        }
+        if (needUpdate) this.update_notice();
+        else { this.btnSetup.hide(); }
     };
 	this.recvMessage = function (str)
 	{
@@ -411,12 +418,6 @@ function DownloaderMgr()
                 return mimetype.enabledPlugin;
             }
             return false;
-        }
-        , checkChr: function () { return false;}
-        , checkNat: function () { return false; }
-        , NeedUpdate: function ()
-        {
-            return this.GetVersion() != _this.Config.Version;
         }
 		, GetVersion: function ()
 		{
@@ -511,7 +512,10 @@ function DownloaderMgr()
         }
         , postMessage: function (json)
         {
-            _this.parter.postMessage(JSON.stringify(json));
+            try {
+                _this.parter.postMessage(JSON.stringify(json));
+            }
+            catch (e) { console.log("调用postMessage失败，请检查控件是否安装成功"); }
         }
         , postMessageNat: function (par)
         {
