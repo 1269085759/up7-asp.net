@@ -107,6 +107,8 @@
     <Content Include="demoSql2005\js\json2.min.js" />
     <Content Include="demoSql2005\js\post.png" />
     <Content Include="demoSql2005\js\stop.png" />
+    <Content Include="demoSql2005\js\up7.app.js" />
+    <Content Include="demoSql2005\js\up7.edge.js" />
     <Content Include="demoSql2005\js\up7-single.js" />
     <Content Include="demoSql2005\js\up7.config.js" />
     <Content Include="demoSql2005\js\up7.css" />
