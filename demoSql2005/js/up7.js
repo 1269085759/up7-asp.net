@@ -560,7 +560,7 @@ function HttpUploaderMgr()
         else if (json.name == "extension_complete") { 
             setTimeout(function () {
                 var param = { name: "init", config: _this.Config };
-                _this.browser.postMessage(param);
+                _this.app.postMessage(param);
             }, 1000);
         }
 	};
@@ -583,7 +583,7 @@ function HttpUploaderMgr()
 	    }
 	    else if (this.chrome)
 	    {
-	        this.browser.check = this.browser.checkFF;
+	        this.app.check = this.app.checkFF;
 	        jQuery.extend(this.Config.firefox, this.Config.chrome);
 	        //_this.Config["XpiPath"] = _this.Config["CrxPath"];
 	        //_this.Config["XpiType"] = _this.Config["CrxType"];
@@ -611,20 +611,6 @@ function HttpUploaderMgr()
         this.btnSetup.css("color", "red");
         this.btnSetup.show();
     };
-
-	//安装控件
-	this.Install = function ()
-	{
-	    if (!_this.browser.Check())
-		{
-	        _this.browser.Setup();
-		}
-		else
-		{
-			$("body").empty();
-			$("body").append("插件安装成功");
-		}
-	};
 
 	//安全检查，在用户关闭网页时自动停止所有上传任务。
 	this.SafeCheck = function(event)
@@ -911,19 +897,19 @@ function HttpUploaderMgr()
 	//打开文件选择对话框
 	this.openFile = function()
 	{
-	    _this.browser.openFiles();
+	    _this.app.openFiles();
 	};
 	
 	//打开文件夹选择对话框
 	this.openFolder = function()
 	{
-	    _this.browser.openFolders();
+	    _this.app.openFolders();
 	};
 
 	//粘贴文件
 	this.pasteFiles = function()
 	{
-	    _this.browser.pasteFiles();
+	    _this.app.pasteFiles();
 	};
 
 	this.ResumeFile = function (fileSvr)

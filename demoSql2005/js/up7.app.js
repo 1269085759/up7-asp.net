@@ -101,6 +101,12 @@ var up6_app = {
         param.name = "check_folder";
         this.postMessage(param);
     }
+    , scanFolder: function (fd) {
+        var param = { name: "scan_folder", config: _this.Config };
+        jQuery.extend(param, fd);
+        param.name = "scan_folder";
+        this.postMessage(param);
+    }
     , checkFolderNat: function (fd)
     {
         var param = { name: "check_folder", config: this.Config, folder: JSON.stringify(fd) };
@@ -121,7 +127,11 @@ var up6_app = {
     }
     , stopFile: function (f)
     {
-        var param = { name: "stop_file", id: f.id, config: this.Config};
+        var param = { name: "stop_file", idSign: f.idSign, config: _this.Config };
+        this.postMessage(param);
+    }
+    , delFolder: function (f) {
+        var param = { name: "del_folder", idSign: f.idSign };
         this.postMessage(param);
     }
     , postMessage:function(json)
