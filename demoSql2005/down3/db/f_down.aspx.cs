@@ -151,6 +151,7 @@ namespace up7.demoSql2005.down3.db
                         dataToRead = -1;
                     }
                 }
+                Response.AddHeader("f-ret", "ok");
             }
             catch (Exception ex)
             {
