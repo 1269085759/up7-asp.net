@@ -19,7 +19,9 @@ namespace up7.demoSql2005.down3.biz
             sb.Append(",f_fdTask");//4
             sb.Append(",f_pathLoc");//5
             sb.Append(",f_pathSvr");//6
-            sb.Append(",fd_files");//7
+            sb.Append(",f_blockSize");//7
+            sb.Append(",f_blockPath");//8
+            sb.Append(",fd_files");//9
                                    //
             sb.Append(" from up7_files");
             sb.Append(" left join up7_folders on up7_folders.fd_sign=up7_files.f_idSign");
@@ -45,7 +47,9 @@ namespace up7.demoSql2005.down3.biz
                     //如果是文件夹则pathSvr保存本地路径，用来替换
                     if (fi.fdTask) fi.pathSvr = fi.pathLoc;
                     fi.signSvr  = Guid.NewGuid().ToString();//服务端生成，唯一标识
-                    fi.fileCount = r.IsDBNull(7) ? 0 : r.GetInt32(7);
+                    fi.blockSize = r.GetInt32(7);
+                    fi.blockPath = r.GetString(8);
+                    fi.fileCount = r.IsDBNull(9) ? 0 : r.GetInt32(9);
                     files.Add(fi);
                 }
             }
