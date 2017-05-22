@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
 
@@ -18,12 +13,13 @@ namespace up7.demoSql2005.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string uid          = Request.QueryString["uid"];
-            string sign         = Request.QueryString["sign"];
-            string idSign       = Request.QueryString["idSign"];
-            string perSvr       = Request.QueryString["perSvr"];//文件百分比
-            string lenSvr       = Request.QueryString["lenSvr"];//已传大小
-            string lenLoc       = Request.QueryString["lenLoc"];//本地文件大小
+            string uid      = Request.QueryString["uid"];
+            string sign     = Request.QueryString["sign"];
+            string idSign   = Request.QueryString["idSign"];
+            string perSvr   = Request.QueryString["perSvr"];//文件百分比
+            string lenSvr   = Request.QueryString["lenSvr"];//已传大小
+            string lenLoc   = Request.QueryString["lenLoc"];//本地文件大小
+            string blockSize= Request.QueryString["blockSize"];//本地文件大小
 
             //参数为空
             if (string.IsNullOrEmpty(lenLoc)
@@ -41,7 +37,7 @@ namespace up7.demoSql2005.db
             //更新redis进度
             var con = RedisConfig.getCon();
             FileRedis rf = new FileRedis(ref con);
-            rf.process(idSign, perSvr, lenSvr,"0");
+            rf.process(idSign, perSvr, lenSvr,"0",blockSize);
         }
     }
 }

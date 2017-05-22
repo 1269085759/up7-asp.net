@@ -31,7 +31,7 @@ namespace up7.demoSql2005.db
 
             var j = RedisConfig.getCon();
             FileRedis fr = new FileRedis(ref j);
-            fr.process(id, perSvr, lenSvr, "0");
+            fr.process(id, perSvr, lenSvr, "0","0");
         }
     }
 }
