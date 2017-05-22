@@ -146,7 +146,7 @@ function FileUploader(fileLoc, mgr)
         //从未上传列表中删除
         this.Manager.RemoveQueueWait(this.fileSvr.idSign);
 
-        var param = { idSign: this.fileSvr.idSign, uid: this.uid, time: new Date().getTime() };
+        var param = { idSign: this.fileSvr.idSign, uid: this.uid, merge: this.Config.AutoMerge, time: new Date().getTime() };
 
         $.ajax({
             type: "GET"
