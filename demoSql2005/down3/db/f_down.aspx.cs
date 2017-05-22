@@ -157,6 +157,7 @@ namespace up7.demoSql2005.down3.db
             {
                 // Trap the error, if any.
                 Response.Write("Error : " + ex.Message);
+                Response.StatusCode = 500;
             }
             finally
             {
