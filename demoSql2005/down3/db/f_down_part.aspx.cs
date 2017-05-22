@@ -128,12 +128,12 @@ namespace up7.demoSql2005.down3.db
                         dataToRead = -1;
                     }
                 }
-                Response.AddHeader("f-ret", "ok");//提供给控件使用
             }
             catch (Exception ex)
             {
                 // Trap the error, if any.
                 Response.Write("Error : " + ex.Message);
+                Response.StatusCode = 500;
             }
             finally
             {
