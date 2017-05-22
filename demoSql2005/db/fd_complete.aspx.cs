@@ -10,6 +10,7 @@ namespace up7.demoSql2005.db
         {
             string id  = Request.QueryString["idSign"];
             string uid = Request.QueryString["uid"];
+            string merge = Request.QueryString["merge"];
             string cak = Request.QueryString["callback"];
             int ret = 0;
 
@@ -25,7 +26,10 @@ namespace up7.demoSql2005.db
                 svr.uid = uid;
                 svr.delFd(id);
 
-                fd.mergeAll();//合并文件块
+                if (merge == "1")
+                {
+                    fd.mergeAll();//合并文件块
+                }
                 fd.saveToDb();//保存到数据库
                 con.Dispose();
                 ret = 1;
