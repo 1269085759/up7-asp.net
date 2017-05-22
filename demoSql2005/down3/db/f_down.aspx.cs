@@ -15,6 +15,7 @@ namespace up7.demoSql2005.down3.db
         String pathSvr      = string.Empty;
         String pathLoc      = string.Empty;
         String blockIndex   = string.Empty;
+        String fileOffset   = string.Empty;
         String blockOffset  = string.Empty;
         String blockSize    = string.Empty;
         String rangeSize    = string.Empty;
@@ -34,8 +35,9 @@ namespace up7.demoSql2005.down3.db
             this.sizeSvr        = Request.Headers["f-sizeSvr"];
             this.pathSvr        = Request.Headers["f-pathSvr"];
             this.pathLoc        = Request.Headers["f-pathLoc"];
-            this.blockIndex     = Request.Headers["f-blockIndex"];
-            this.blockOffset    = Request.Headers["f-blockOffset"];
+            this.blockIndex     = Request.Headers["f-blockIndex"];//块索引基于1
+            this.fileOffset     = Request.Headers["f-fileOffset"];//基于文件的位置
+            this.blockOffset    = Request.Headers["f-blockOffset"];//基于块的位置
             this.blockSize      = Request.Headers["f-blockSize"];//逻辑块大小
             this.rangeSize      = Request.Headers["f-rangeSize"];//当前请求的块大小
             this.lenLoc         = Request.Headers["f-lenLoc"];
@@ -118,7 +120,7 @@ namespace up7.demoSql2005.down3.db
             {
                 // Open the file.
                 iStream = new FileStream(pathSvr, FileMode.Open, FileAccess.Read, FileShare.Read);
-                iStream.Seek(long.Parse(blockOffset), SeekOrigin.Begin);
+                iStream.Seek(long.Parse(fileOffset), SeekOrigin.Begin);
 
                 // Total bytes to read:
                 long dataToRead = long.Parse(rangeSize);

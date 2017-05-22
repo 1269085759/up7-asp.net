@@ -14,29 +14,32 @@ namespace up7.demoSql2005.down3.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String lenSvr = Request.Headers["f-lenSvr"];
-            String nameLoc = Request.Headers["f-nameLoc"];
-            String sizeSvr = Request.Headers["f-sizeSvr"];
-            String pathSvr = Request.Headers["f-pathSvr"];
-            String pathLoc = Request.Headers["f-pathLoc"];
-            String blockIndex = Request.Headers["f-blockIndex"];
-            String blockOffset = Request.Headers["f-blockOffset"];
-            String blockSize = Request.Headers["f-blockSize"];//逻辑块大小
-            String rangeSize = Request.Headers["f-rangeSize"];//当前请求的块大小
-            String lenLoc = Request.Headers["f-lenLoc"];
-            String signSvr = Request.Headers["f-signSvr"];
-            String fd_signSvr = Request.Headers["fd-signSvr"];
-            String fd_lenLoc = Request.Headers["fd-lenLoc"];
-            String fd_sizeLoc = Request.Headers["fd-sizeLoc"];
-            String uid = Request.Headers["f-uid"];
-            String percent = Request.Headers["f-percent"];
+            String lenSvr       = Request.Headers["f-lenSvr"];
+            String nameLoc      = Request.Headers["f-nameLoc"];
+            String sizeSvr      = Request.Headers["f-sizeSvr"];
+            String pathSvr      = Request.Headers["f-pathSvr"];
+            String pathLoc      = Request.Headers["f-pathLoc"];
+            String blockPath    = Request.Headers["f-blockPath"];
+            String blockIndex   = Request.Headers["f-blockIndex"];//基于1
+            String blockOffset  = Request.Headers["f-blockOffset"];//基于块的位置
+            String blockSize    = Request.Headers["f-blockSize"];//逻辑块大小
+            String rangeSize    = Request.Headers["f-rangeSize"];//当前请求的块大小
+            String lenLoc       = Request.Headers["f-lenLoc"];
+            String signSvr      = Request.Headers["f-signSvr"];
+            String fd_signSvr   = Request.Headers["fd-signSvr"];
+            String fd_lenLoc    = Request.Headers["fd-lenLoc"];
+            String fd_sizeLoc   = Request.Headers["fd-sizeLoc"];
+            String uid          = Request.Headers["f-uid"];
+            String percent      = Request.Headers["f-percent"];
 
-            pathSvr = pathSvr.Replace("+", "%20");
-            pathLoc = pathLoc.Replace("+", "%20");
-            nameLoc = nameLoc.Replace("+", "%20");
-            pathSvr = HttpUtility.UrlDecode(pathSvr);//utf-8解码
-            pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
-            nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
+            blockPath   = blockPath.Replace("+", "%20");
+            pathSvr     = pathSvr.Replace("+", "%20");
+            pathLoc     = pathLoc.Replace("+", "%20");
+            nameLoc     = nameLoc.Replace("+", "%20");
+            blockPath   = HttpUtility.UrlDecode(blockPath);//utf-8解码
+            pathSvr     = HttpUtility.UrlDecode(pathSvr);//utf-8解码
+            pathLoc     = HttpUtility.UrlDecode(pathLoc);//utf-8解码
+            nameLoc     = HttpUtility.UrlDecode(nameLoc);//utf-8解码
 
             if (string.IsNullOrEmpty(lenSvr)
                 || string.IsNullOrEmpty(pathSvr)
@@ -91,6 +94,7 @@ namespace up7.demoSql2005.down3.db
             Stream iStream = null;
             try
             {
+                pathSvr = Path.Combine(blockPath, blockIndex + ".part");
                 // Open the file.
                 iStream = new FileStream(pathSvr, FileMode.Open, FileAccess.Read, FileShare.Read);
                 iStream.Seek(long.Parse(blockOffset), SeekOrigin.Begin);
