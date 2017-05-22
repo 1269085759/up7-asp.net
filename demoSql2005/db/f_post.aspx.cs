@@ -19,8 +19,9 @@ namespace up7.demoSql2005.db
         string pathLoc  = string.Empty;
         string sizeLoc  = string.Empty;
         string f_pos    = string.Empty;
-        string rangeIndex = string.Empty;
-        string rangeCount = string.Empty;
+        string blockIndex = string.Empty;
+        string blockCount = string.Empty;
+        string blockSize = string.Empty;
         string fd_idSign = string.Empty;
         string fd_lenSvr = string.Empty;
         string fd_perSvr = string.Empty;
@@ -36,8 +37,9 @@ namespace up7.demoSql2005.db
             this.pathLoc    = Request.Headers["f-pathLoc"];//
             this.sizeLoc    = Request.Headers["f-sizeLoc"];//
             this.f_pos      = Request.Headers["f-RangePos"];
-            this.rangeIndex = Request.Headers["f-rangeIndex"];
-            this.rangeCount = Request.Headers["f-rangeCount"];
+            this.blockIndex = Request.Headers["f-rangeIndex"];
+            this.blockCount = Request.Headers["f-rangeCount"];
+            this.blockSize  = Request.Headers["f-rangeSize"];
             //string complete     = Request.Headers["complete"];//true/false
             this.fd_idSign  = Request.Headers["fd-idSign"];//文件夹标识(guid)
             this.fd_lenSvr  = Request.Headers["fd-lenSvr"];//文件夹已传大小
@@ -55,7 +57,7 @@ namespace up7.demoSql2005.db
             var fileSvr = f_svr.read(this.idSign);
 
             BlockPathBuilder bpb = new BlockPathBuilder();
-            string partPath = bpb.part(this.idSign, this.rangeIndex, fileSvr.pathSvr);
+            string partPath = bpb.part(this.idSign, this.blockIndex, fileSvr.pathSvr);
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
@@ -64,7 +66,7 @@ namespace up7.demoSql2005.db
             part.SaveAs(partPath);
 
             //更新缓存进度
-            f_svr.process(idSign, perSvr, lenSvr, rangeCount);
+            f_svr.process(idSign, perSvr, lenSvr, blockCount);
         }
         void savePartFolder()
         {
@@ -75,7 +77,6 @@ namespace up7.demoSql2005.db
             var fd = fr.read(this.fd_idSign);
 
             xdb_files fileSvr = new xdb_files();
-            fileSvr.blockCount = int.Parse(rangeCount);
             fileSvr.idSign = idSign;
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.nameSvr = nameLoc;
@@ -86,9 +87,10 @@ namespace up7.demoSql2005.db
             fileSvr.pathSvr = fileSvr.pathSvr.Replace("\\", "/");
             fileSvr.pathRel = pathLoc.Replace(fd.pathLoc+"\\", string.Empty);
             fileSvr.rootSign = fd_idSign;
-            fileSvr.blockCount = int.Parse(rangeCount);
+            fileSvr.blockCount = int.Parse(blockCount);
+            fileSvr.blockSize = int.Parse(blockSize);
             BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath = bpb.rootFd(ref fileSvr, this.rangeIndex, ref fd);
+            fileSvr.blockPath = bpb.rootFd(ref fileSvr, this.blockIndex, ref fd);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
 
             FileRedis f_svr = new FileRedis(ref con);
@@ -99,7 +101,7 @@ namespace up7.demoSql2005.db
             root.add(idSign);
 
             //块路径
-            string partPath = Path.Combine(fileSvr.blockPath,rangeIndex+".part");
+            string partPath = Path.Combine(fileSvr.blockPath,blockIndex+".part");
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));

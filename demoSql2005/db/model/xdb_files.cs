@@ -11,6 +11,7 @@ namespace up7.demoSql2005.db
         public string signSvr = string.Empty;
         public bool fdTask = false;//是否是一个文件夹
         public int blockCount = 0;
+        public int blockSize = 0;//块大小
         public int fileCount = 0;
         public int idSvr = 0;
         /// <summary>

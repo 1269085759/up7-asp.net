@@ -31,6 +31,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.con.HSet(f.idSign, "lenLoc", f.lenLoc);
             this.con.HSet(f.idSign, "lenSvr", "0");
             this.con.HSet(f.idSign, "blockCount", f.blockCount);
+            this.con.HSet(f.idSign, "blockSize", f.blockSize);
             this.con.HSet(f.idSign, "sizeLoc", f.sizeLoc);
             this.con.HSet(f.idSign, "filesCount", f.fileCount);
             this.con.HSet(f.idSign, "foldersCount", "0");
@@ -54,7 +55,8 @@ namespace up7.demoSql2005.db.biz.redis
             f.perSvr = this.con.HGet(id, "perSvr");
             f.sizeLoc = this.con.HGet(id, "sizeLoc");
             f.blockCount = int.Parse(this.con.HGet(id, "blockCount"));
-            f.fileCount = int.Parse(this.con.HGet(id, "filesCount"));
+            f.blockSize  = int.Parse(this.con.HGet(id, "blockSize"));
+            f.fileCount  = int.Parse(this.con.HGet(id, "filesCount"));
             return f;
         }
     }

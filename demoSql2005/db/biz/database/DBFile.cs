@@ -34,6 +34,7 @@ namespace up7.demoSql2005.db
             sb.Append(",f_pathLoc");
             sb.Append(",f_pathSvr");
             sb.Append(",f_pathRel");
+            sb.Append(",f_blockSize");
             sb.Append(",f_blockPath");
             sb.Append(",f_lenLoc");
             sb.Append(",f_sizeLoc");
@@ -50,6 +51,7 @@ namespace up7.demoSql2005.db
             sb.Append(",@f_pathLoc");
             sb.Append(",@f_pathSvr");
             sb.Append(",@f_pathRel");
+            sb.Append(",@f_blockSize");
             sb.Append(",@f_blockPath");
             sb.Append(",@f_lenLoc");
             sb.Append(",@f_sizeLoc");
@@ -68,6 +70,7 @@ namespace up7.demoSql2005.db
             db.AddString(ref cmd, "@f_pathLoc", model.pathLoc, 512);
             db.AddString(ref cmd, "@f_pathSvr", model.pathSvr, 512);
             db.AddString(ref cmd, "@f_pathRel", model.pathRel, 512);
+            db.AddInt(ref cmd, "@f_blockSize", model.blockSize);
             db.AddString(ref cmd, "@f_blockPath", model.blockPath, 512);
             db.AddInt64(ref cmd, "@f_lenLoc", model.lenLoc);
             db.AddString(ref cmd, "@f_sizeLoc", model.sizeLoc, 15);

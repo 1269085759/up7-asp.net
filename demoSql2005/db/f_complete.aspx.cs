@@ -14,6 +14,7 @@ namespace up7.demoSql2005.db
         {
             string uid = Request.QueryString["uid"];
             string fid = Request.QueryString["idSign"];
+            string merge = Request.QueryString["merge"];
             string cbk = Request.QueryString["callback"];
 
             //返回值。1表示成功
@@ -30,8 +31,11 @@ namespace up7.demoSql2005.db
                 var fileSvr = cache.read(fid);
 
                 //合并块
-                BlockMeger pm = new BlockMeger();
-                pm.merge(fileSvr);
+                if (merge == "1")
+                {
+                    BlockMeger pm = new BlockMeger();
+                    pm.merge(fileSvr);
+                }
                 j.Del(fid);
 
                 //从任务列表（未完成）中删除
