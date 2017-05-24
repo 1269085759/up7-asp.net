@@ -82,14 +82,14 @@ namespace up7.demoSql2005.down3.db
             tasks svr = new tasks(uid, j);
             svr.add(fileSvr);
 
-            long fileLen = fileSvr.lenSvr;
+            long fileLen = long.Parse(rangeSize) - long.Parse(blockOffset);
 
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Pragma", "No-cache");
             Response.AddHeader("Cache-Control", "no-cache");
             Response.AddHeader("Expires", "0");
             Response.AddHeader("Content-Disposition", "attachment;filename=" + nameLoc);
-            Response.AddHeader("Content-Length", rangeSize.ToString());
+            Response.AddHeader("Content-Length", fileLen.ToString());
 
             Stream iStream = null;
             try
