@@ -248,6 +248,7 @@ function DownloaderMgr()
         f.ui.name.text(fileSvr.nameLoc);
 	    f.ui.process.css("width", fileSvr.perLoc);
 	    f.ui.percent.text("(" + fileSvr.perLoc + ")");
+	    f.inited = true;
 	    //jQuery.extend(f.fileSvr, fileSvr);
 	    f.addQueue();//添加到队列
 	};
@@ -262,6 +263,7 @@ function DownloaderMgr()
 	    obj.ui.size.text(fdSvr.sizeSvr);
 	    obj.ui.process.css("width", fdSvr.perLoc);
 	    obj.ui.percent.text("(" + fdSvr.perLoc + ")");
+	    obj.inited = true;//
 	    jQuery.extend(true, obj.fileSvr, fdSvr);//
 	    
 	    obj.addQueue();
@@ -269,9 +271,8 @@ function DownloaderMgr()
 	};
 	this.add_file = function (fileSvr)
 	{
-        var obj = this.add_ui(false, fileSvr);
-	    if (obj != null) obj.addQueue();
-        if (obj != null) obj.svr_create();
+        var obj = this.add_ui(false, fileSvr);        
+	    if (obj != null) obj.addQueue();        
 	    return obj;
 	};
     this.add_folder = function (fileSvr)
@@ -285,8 +286,7 @@ function DownloaderMgr()
 	    obj.ui.ico.fd.show();
         jQuery.extend(obj.fileSvr, fileSvr);//
         jQuery.extend(obj.fileSvr, { fileUrl: this.Config["UrlDown"] });
-        obj.addQueue();
-        obj.init_end();
+	    obj.addQueue();        
 	    return obj;
 	};
 	this.exist_url = function (url)
@@ -309,6 +309,11 @@ function DownloaderMgr()
 	{
 	    var p = this.filesMap[json.signSvr];
 	    p.init_end(json);
+	};
+	this.add_end = function (json)
+	{
+	    var p = this.filesMap[json.signSvr];
+	    p.add_end(json);
 	};
 	this.down_begin = function (json)
 	{
@@ -377,6 +382,7 @@ function DownloaderMgr()
 	    else if (json.name == "down_recv_size") { _this.down_recv_size(json); }
 	    else if (json.name == "down_recv_name") { _this.down_recv_name(json); }
 	    else if (json.name == "init_end") { _this.init_end(json); }
+	    else if (json.name == "add_end") { _this.add_end(json); }
 	    else if (json.name == "down_begin") { _this.down_begin(json); }
 	    else if (json.name == "down_process") { _this.down_process(json); }
 	    else if (json.name == "down_part") { _this.down_part(json); }
@@ -478,18 +484,18 @@ function DownloaderMgr()
         }
 		, openPath:function(f)
 		{
-            var param = { name: "open_path", config: _this.Config };            
+            var param = { name: "open_path"};            
             this.postMessage(param);
 		}
 		, openFile:function(f)
 		{
-            var param = { name: "open_file", config: _this.Config };            
+            var param = { name: "open_file"};            
             this.postMessage(param);
 		}
         , addFile: function (f)
         {
             _this.queueCount++;
-            var param = { name: "add_file", config: _this.Config };
+            var param = { name: "add_file"};
             jQuery.extend(param, f);
             this.postMessage(param);
         }
