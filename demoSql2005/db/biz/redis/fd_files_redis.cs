@@ -12,19 +12,19 @@ namespace up7.demoSql2005.db.biz.redis
     public class fd_files_redis
     {
         public string idSign = string.Empty;
-        CSRedis.RedisClient con = null;
+        CSRedis.RedisClient cache = null;
 
-        public fd_files_redis(ref CSRedis.RedisClient c, string id) { this.con = c;this.idSign = id; }
+        public fd_files_redis(ref CSRedis.RedisClient c, string id) { this.cache = c;this.idSign = id; }
         string getKey()
         {
             string key = idSign + "-files";
             return key;
         }
 
-        public void del() { this.con.Del(this.getKey()); }
+        public void del() { this.cache.Del(this.getKey()); }
         public void add(string id)
         {
-            this.con.SAdd(this.getKey(), id);
+            this.cache.LPush(this.getKey(), id);
         }
 
         public void add(List<xdb_files> fs)
@@ -32,13 +32,8 @@ namespace up7.demoSql2005.db.biz.redis
             String key = this.getKey();
             foreach (var f in fs)
             {
-                this.con.SAdd(key, f.idSign);
+                this.cache.LPush(key, f.idSign);
             }
-        }
-
-        public String[] all()
-        {
-            return this.con.SMembers(this.getKey());
         }
     }
 }
