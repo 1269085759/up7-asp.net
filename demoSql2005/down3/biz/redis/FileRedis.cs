@@ -1,4 +1,5 @@
-﻿using up7.demoSql2005.down3.model;
+﻿using System;
+using up7.demoSql2005.down3.model;
 
 namespace up7.demoSql2005.down3.biz
 {
@@ -21,6 +22,7 @@ namespace up7.demoSql2005.down3.biz
             j.HSet(f.signSvr, "lenSvr", f.lenSvr);//文件大小
             j.HSet(f.signSvr, "sizeSvr", f.sizeSvr);
             j.HSet(f.signSvr, "perLoc", f.perLoc);//已下载百分比	
+            j.HSet(f.signSvr, "fdTask", Convert.ToString(f.fdTask));
         }
 
         public DnFileInf read(string signSvr)
@@ -35,13 +37,13 @@ namespace up7.demoSql2005.down3.biz
             f.pathSvr = this.con.HGet(signSvr, "pathSvr");//服务器文件地址
             f.sizeSvr = this.con.HGet(signSvr, "sizeSvr");//
             f.nameLoc = this.con.HGet(signSvr, "nameLoc");//
+            f.fdTask = this.con.HGet(signSvr,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             return f;
         }
 
         public void process(string signSvr,string perLoc,string lenLoc)
         {
             var j = this.con;
-            if (j.Exists(signSvr)) return;
 
             j.HSet(signSvr, "lenLoc", lenLoc);//已下载大小		
             j.HSet(signSvr, "perLoc", perLoc);//已下载百分比
