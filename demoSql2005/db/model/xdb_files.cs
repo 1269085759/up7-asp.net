@@ -15,18 +15,6 @@ namespace up7.demoSql2005.db
         public int fileCount = 0;
         public int idSvr = 0;
         /// <summary>
-        /// 文件夹ID
-        /// </summary>
-        public int pid = 0;
-        /// <summary>
-        /// 根级文件夹ID
-        /// </summary>
-        public int pidRoot = 0;
-        /// <summary>
-        /// 与xdb_folders.fd_id对应
-        /// </summary>
-        public int f_fdID = 0;
-        /// <summary>
         /// 是否是文件夹中的子文件
         /// </summary>
         public bool f_fdChild = false;
