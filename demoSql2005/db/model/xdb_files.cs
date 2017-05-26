@@ -25,7 +25,7 @@ namespace up7.demoSql2005.db
         /// <summary>
         /// 表示当前项是否是一个文件夹项。
         /// </summary>
-        public bool f_fdTask = false;
+        public bool folder = false;
         /// <summary>
         /// 与xdb_folders.fd_id对应
         /// </summary>

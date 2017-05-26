@@ -21,7 +21,7 @@ namespace up7.demoSql2005.db.biz.redis
         {
             if (this.con.Exists(f.idSign)) return;
 
-            this.con.HSet(f.idSign, "fdTask", f.f_fdTask);
+            this.con.HSet(f.idSign, "fdTask", f.folder);
             this.con.HSet(f.idSign, "rootSign", f.rootSign);
             this.con.HSet(f.idSign, "pathLoc", f.pathLoc);
             this.con.HSet(f.idSign, "pathSvr", f.pathSvr);
