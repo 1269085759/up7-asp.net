@@ -33,16 +33,13 @@ namespace up7.demoSql2005.down3.db
             String percent      = Request.Headers["f-percent"];
 
             blockPath   = blockPath.Replace("+", "%20");
-            pathSvr     = pathSvr.Replace("+", "%20");
             pathLoc     = pathLoc.Replace("+", "%20");
             nameLoc     = nameLoc.Replace("+", "%20");
             blockPath   = HttpUtility.UrlDecode(blockPath);//utf-8解码
-            pathSvr     = HttpUtility.UrlDecode(pathSvr);//utf-8解码
             pathLoc     = HttpUtility.UrlDecode(pathLoc);//utf-8解码
             nameLoc     = HttpUtility.UrlDecode(nameLoc);//utf-8解码
 
             if (string.IsNullOrEmpty(lenSvr)
-                || string.IsNullOrEmpty(pathSvr)
                 || string.IsNullOrEmpty(pathLoc)
                 || string.IsNullOrEmpty(blockIndex)
                 || string.IsNullOrEmpty(lenLoc)
@@ -60,6 +57,8 @@ namespace up7.demoSql2005.down3.db
                 System.Diagnostics.Debug.WriteLine("signSvr:" + signSvr);
                 System.Diagnostics.Debug.WriteLine("percent:" + percent);
                 System.Diagnostics.Debug.WriteLine("f_down.jsp 业务逻辑参数为空。");
+                Response.Write("param is null");
+                Response.StatusCode = 500;
                 return;
             }
 
