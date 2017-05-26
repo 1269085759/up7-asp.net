@@ -14,6 +14,10 @@ namespace up7.demoSql2005.db.biz.redis
         public String data;
         fd_root m_root = null;
         CSRedis.RedisClient con = null;
+        /// <summary>
+        /// 合并文件
+        /// </summary>
+        public bool fileMerge = true;
         Dictionary<String/*guid*/, String/*pathSvr*/> parentPathMap = new Dictionary<String, String>();
 
         public fd_redis() { }
@@ -92,7 +96,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.m_root.pathSvr = j.HGet(idSign, "pathSvr");
             this.m_root.fileCount = int.Parse(j.HGet(idSign, "filesCount"));
             //
-            this.loadFiles();//加载文件列表		
+            //this.loadFiles();//加载文件列表		
             this.loadFolders();//加载目录列表
         }
 
@@ -129,26 +133,13 @@ namespace up7.demoSql2005.db.biz.redis
                 FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
                 fd.save();
 
-                FileDbWriter fw = new FileDbWriter(con, this.m_root);
+                FileDbWriter fw = new FileDbWriter(con, this.m_root,this.con);
+                fw.merge = this.fileMerge;
                 fw.save();
                 con.Close();
             }                
         }
 
-        void loadFiles()
-        {
-            //取文件ID列表
-            fd_files_redis rfs = new fd_files_redis(ref this.con, this.m_root.idSign);
-            var fs = rfs.all();
-            this.m_root.files = new List<xdb_files>();
-            
-            foreach(String s in fs)
-            {
-                fd_file_redis file = new fd_file_redis();
-                file.read(this.con,s);
-                this.m_root.files.Add(file);
-            }
-        }
 
         void loadFolders()
         {

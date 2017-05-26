@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
 
 namespace up7.demoSql2005.db.biz.folder
@@ -7,11 +8,14 @@ namespace up7.demoSql2005.db.biz.folder
     {
         fd_root root;
         DbConnection con = null;
+        CSRedis.RedisClient m_cache = null;
+        public bool merge = true;//合并文件
 
-        public FileDbWriter(DbConnection con, fd_root fd)
+        public FileDbWriter(DbConnection con, fd_root fd,CSRedis.RedisClient c)
         {
             this.con = con;
             this.root = fd;
+            this.m_cache = c;
         }
 
         DbCommand makeCmd(DbConnection con)
@@ -85,57 +89,70 @@ namespace up7.demoSql2005.db.biz.folder
             return cmd;
         }
 
+        void save(ref DbCommand cmd,xdb_files f)
+        {
+            cmd.Parameters[0].Value = f.idSign;//idSign
+            cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pidSign) ? string.Empty : f.pidSign;//pidSign
+            cmd.Parameters[2].Value = string.IsNullOrEmpty(f.rootSign) ? string.Empty : f.rootSign;//rootSign
+            cmd.Parameters[3].Value = true;//fdChild
+            cmd.Parameters[4].Value = f.uid;//uid
+            cmd.Parameters[5].Value = f.nameLoc;//nameLoc
+            cmd.Parameters[6].Value = f.nameSvr;//nameSvr
+            cmd.Parameters[7].Value = f.pathLoc;//pathLoc
+            cmd.Parameters[8].Value = f.pathSvr;//pathSvr
+            cmd.Parameters[9].Value = f.pathRel;//pathRel
+            cmd.Parameters[10].Value = f.lenLoc;//lenLoc
+            cmd.Parameters[11].Value = f.sizeLoc;//sizeLoc
+            cmd.Parameters[12].Value = f.lenLoc;//lenSvr
+            cmd.Parameters[13].Value = "100%";//perSvr
+            cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign) ? string.Empty : f.sign;//sign
+            cmd.Parameters[15].Value = false;//fdTask
+            cmd.Parameters[16].Value = f.blockPath;//
+            cmd.Parameters[17].Value = f.blockSize;//
+            cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// 每次从缓存中读取100数据写入数据库，
+        /// 防止一次性加载全部文件项导致内存不足，比如10w+
+        /// </summary>
         public void save()
         {
-            if (this.root.files == null) return;
-            if (this.root.files.Count < 1) return;
-            using (var cmd = this.makeCmd(con))
+            var cmd = this.makeCmd(con);
+            //保存文件夹
+            this.save(ref cmd, this.root);
+
+            string key = this.root.idSign + "-files";
+            int index = 0;
+            long len = this.m_cache.LLen(key);
+            redis.FileRedis svr = new redis.FileRedis(ref this.m_cache);
+            BlockMeger bm = new BlockMeger();
+            List<xdb_files> files = null;
+
+            while (index < len)
             {
-
-                //写根目录
-                cmd.Parameters[0].Value = this.root.idSign;
-                cmd.Parameters[1].Value = this.root.pidSign;
-                cmd.Parameters[2].Value = string.Empty;
-                cmd.Parameters[3].Value = false;
-                cmd.Parameters[4].Value = this.root.uid;
-                cmd.Parameters[5].Value = this.root.nameLoc;
-                cmd.Parameters[6].Value = this.root.nameSvr;
-                cmd.Parameters[7].Value = this.root.pathLoc;
-                cmd.Parameters[8].Value = this.root.pathSvr;
-                cmd.Parameters[9].Value = this.root.pathRel;
-                cmd.Parameters[10].Value = this.root.lenLoc;
-                cmd.Parameters[11].Value = this.root.sizeLoc;
-                cmd.Parameters[12].Value = this.root.lenLoc;
-                cmd.Parameters[13].Value = "100%";
-                cmd.Parameters[14].Value = this.root.sign;
-                cmd.Parameters[15].Value = true;
-                cmd.Parameters[16].Value = string.Empty;
-                cmd.ExecuteNonQuery();
-
-                //写子文件列表
-                foreach (var f in this.root.files)
+                var keys = this.m_cache.LRange(key, index, index + 100);
+                index += keys.Length;
+                files = new List<xdb_files>();
+                foreach(var k in keys)
                 {
-                    cmd.Parameters[0].Value = f.idSign;//idSign
-                    cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pidSign) ? string.Empty : f.pidSign;//pidSign
-                    cmd.Parameters[2].Value = string.IsNullOrEmpty(f.rootSign) ?string.Empty:f.rootSign;//rootSign
-                    cmd.Parameters[3].Value = true;//fdChild
-                    cmd.Parameters[4].Value = f.uid;//uid
-                    cmd.Parameters[5].Value = f.nameLoc;//nameLoc
-                    cmd.Parameters[6].Value = f.nameSvr;//nameSvr
-                    cmd.Parameters[7].Value = f.pathLoc;//pathLoc
-                    cmd.Parameters[8].Value = f.pathSvr;//pathSvr
-                    cmd.Parameters[9].Value = f.pathRel;//pathRel
-                    cmd.Parameters[10].Value = f.lenLoc;//lenLoc
-                    cmd.Parameters[11].Value = f.sizeLoc;//sizeLoc
-                    cmd.Parameters[12].Value = f.lenLoc;//lenSvr
-                    cmd.Parameters[13].Value = "100%";//perSvr
-                    cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign)?string.Empty:f.sign;//sign
-                    cmd.Parameters[15].Value = false;//fdTask
-                    cmd.Parameters[16].Value = f.blockPath;//
-                    cmd.Parameters[17].Value = f.blockSize;//
-                    cmd.ExecuteNonQuery();
+                    xdb_files f = svr.read(k);
+                    f.f_fdChild = true;
+                    this.save(ref cmd,f);//添加到数据库
+                    files.Add(f);
                 }
+
+                //合并文件
+                if(this.merge)
+                {
+                    foreach(var f in files)
+                    {
+                        bm.merge(f);
+                    }
+                }
+                files.Clear();
             }
+            cmd.Dispose();
         }
     }
 }

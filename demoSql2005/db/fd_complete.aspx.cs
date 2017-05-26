@@ -19,18 +19,19 @@ namespace up7.demoSql2005.db
             {
                 var con = RedisConfig.getCon();
                 fd_redis fd = new fd_redis(ref con);
+                fd.fileMerge = merge.Equals("1");
                 fd.read(id);
+                fd.saveToDb();//保存到数据库
 
                 //清除缓存
                 tasks svr = new tasks(ref con);
                 svr.uid = uid;
                 svr.delFd(id);
 
-                if (merge == "1")
-                {
-                    fd.mergeAll();//合并文件块
-                }
-                fd.saveToDb();//保存到数据库
+                //if (merge == "1")
+                //{
+                    //fd.mergeAll();//合并文件块
+                //}
                 con.Dispose();
                 ret = 1;
             }
