@@ -30,7 +30,7 @@ namespace up7.demoSql2005.down3.model
         /// 本地文件名称，用来显示用的。
         /// </summary>
         public string nameLoc { get { return this.m_name; } set { this.m_name = value; } }
-        public bool fdTask { get { return this.m_fdTask; } set { this.m_fdTask = value; } }
+        public bool folder { get { return this.m_fdTask; } set { this.m_fdTask = value; } }
         public int fdID { get { return this.m_fdID; } set { this.m_fdID = value; } }
         public int pidRoot { get { return this.m_pidRoot; } set { this.m_pidRoot = value; } }
 

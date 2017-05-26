@@ -22,7 +22,7 @@ namespace up7.demoSql2005.down3.biz
             j.HSet(f.signSvr, "lenSvr", f.lenSvr);//文件大小
             j.HSet(f.signSvr, "sizeSvr", f.sizeSvr);
             j.HSet(f.signSvr, "perLoc", f.perLoc);//已下载百分比	
-            j.HSet(f.signSvr, "fdTask", Convert.ToString(f.fdTask));
+            j.HSet(f.signSvr, "fdTask", Convert.ToString(f.folder));
         }
 
         public DnFileInf read(string signSvr)
@@ -37,7 +37,7 @@ namespace up7.demoSql2005.down3.biz
             f.pathSvr = this.con.HGet(signSvr, "pathSvr");//服务器文件地址
             f.sizeSvr = this.con.HGet(signSvr, "sizeSvr");//
             f.nameLoc = this.con.HGet(signSvr, "nameLoc");//
-            f.fdTask = this.con.HGet(signSvr,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
+            f.folder = this.con.HGet(signSvr,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             return f;
         }
 

@@ -45,6 +45,7 @@ namespace up7.demoSql2005.down3.biz
             while (len > 0)
             {
                 var keys = this.con.SScan(this.space, 0, null, 500);
+                len -= keys.Items.Length;
                 foreach (var k in keys.Items)
                 {
                     this.con.Del(k);

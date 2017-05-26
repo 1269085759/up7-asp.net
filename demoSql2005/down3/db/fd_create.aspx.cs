@@ -38,6 +38,7 @@ namespace up7.demoSql2005.down3.db
             fd.nameLoc = nameLoc;
             fd.pathLoc = pathLoc;
             fd.signSvr = signSvr;
+            fd.folder = true;
             var j = RedisConfig.getCon();
             tasks svr = new tasks(uid,j);
             svr.add(fd);

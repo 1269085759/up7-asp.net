@@ -58,7 +58,7 @@ namespace up7.demoSql2005.down3.biz
                         
             //更新文件夹
             fd.idSvr = int.Parse( ids[0]);
-            fd.fdTask = true;
+            fd.folder = true;
             this.update_file(ref cmd, fd);
 
             //更新文件
@@ -80,7 +80,7 @@ namespace up7.demoSql2005.down3.biz
             cmd.Parameters[3].Value = f.lenSvr;
             cmd.Parameters[4].Value = f.sizeSvr;
             cmd.Parameters[5].Value = f.pidRoot;
-            cmd.Parameters[6].Value = f.fdTask;
+            cmd.Parameters[6].Value = f.folder;
             cmd.Parameters[7].Value = f.idSvr;
             cmd.ExecuteNonQuery();
         }
