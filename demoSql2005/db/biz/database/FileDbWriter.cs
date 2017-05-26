@@ -151,6 +151,8 @@ namespace up7.demoSql2005.db.biz.folder
                         bm.merge(f);
                     }
                 }
+                //清除文件项缓存信息
+                this.m_cache.Del(keys);
                 files.Clear();
             }
             cmd.Dispose();
