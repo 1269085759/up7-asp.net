@@ -27,6 +27,7 @@ function FileDownloader(fileLoc, mgr)
     this.browser = mgr.browser;
     this.Manager = mgr;
     this.Config = mgr.Config;
+    this.inited = false;
     this.fields = jQuery.extend({}, mgr.Fields, { nameLoc: encodeURIComponent(fileLoc.nameLoc), sizeSvr: fileLoc.sizeSvr });//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
     this.event = mgr.event;
@@ -76,14 +77,22 @@ function FileDownloader(fileLoc, mgr)
         this.browser.addFile(this.fileSvr);
     };
 
+    this.add_end = function (json) {
+        //续传不初始化
+        if (this.inited) return;
+        this.fileSvr.pathLoc = json.pathLoc;
+        this.svr_create();//
+    };
+
     //方法-开始下载
     this.down = function ()
     {
+        //续传
+        if (this.State == HttpDownloaderState.Stop) this.browser.addFile(this.fileSvr);
         this.hideBtns();
         this.ui.btn.stop.show();
         this.ui.msg.text("开始连接服务器...");
         this.State = HttpDownloaderState.Posting;
-        this.browser.addFile(this.fileSvr);
         this.Manager.start_queue();//下载队列
     };
 
