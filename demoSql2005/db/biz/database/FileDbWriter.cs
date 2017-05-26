@@ -36,6 +36,7 @@ namespace up7.demoSql2005.db.biz.folder
             sb.Append(",f_complete");
             sb.Append(",f_fdTask");
             sb.Append(",f_blockPath");
+            sb.Append(",f_blockSize");
 
             sb.Append(") values(");
 
@@ -57,6 +58,7 @@ namespace up7.demoSql2005.db.biz.folder
             sb.Append(",1");//f_complete
             sb.Append(",@f_fdTask");//f_fdTask
             sb.Append(",@f_blockPath");//f_blockPath
+            sb.Append(",@f_blockSize");//f_blockSize
             sb.Append(")");
 
             var cmd = con.CreateCommand();
@@ -79,6 +81,7 @@ namespace up7.demoSql2005.db.biz.folder
             db.AddString(ref cmd, "@f_sign", string.Empty, 32);
             db.AddBool(ref cmd, "@f_fdTask", false);
             db.AddString(ref cmd, "@f_blockPath", string.Empty,2000);
+            db.AddInt(ref cmd, "@f_blockSize", 0);
             return cmd;
         }
 
@@ -129,6 +132,7 @@ namespace up7.demoSql2005.db.biz.folder
                     cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign)?string.Empty:f.sign;//sign
                     cmd.Parameters[15].Value = false;//fdTask
                     cmd.Parameters[16].Value = f.blockPath;//
+                    cmd.Parameters[17].Value = f.blockSize;//
                     cmd.ExecuteNonQuery();
                 }
             }
