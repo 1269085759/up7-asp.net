@@ -9,7 +9,7 @@ namespace up7.demoSql2005.db
         public string pidSign = string.Empty;
         public string rootSign = string.Empty;
         public string signSvr = string.Empty;
-        public bool fdTask = false;//是否是一个文件夹
+        public bool folder = false;//是否是一个文件夹
         public int blockCount = 0;
         public int blockSize = 0;//块大小
         public int fileCount = 0;
@@ -22,10 +22,6 @@ namespace up7.demoSql2005.db
         /// 根级文件夹ID
         /// </summary>
         public int pidRoot = 0;
-        /// <summary>
-        /// 表示当前项是否是一个文件夹项。
-        /// </summary>
-        public bool folder = false;
         /// <summary>
         /// 与xdb_folders.fd_id对应
         /// </summary>

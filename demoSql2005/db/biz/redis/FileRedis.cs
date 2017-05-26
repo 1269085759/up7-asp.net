@@ -44,7 +44,7 @@ namespace up7.demoSql2005.db.biz.redis
 
             xdb_files f = new xdb_files();
             f.idSign = id;
-            f.fdTask  = this.con.HGet(id, "fdTask")=="True";
+            f.folder  = this.con.HGet(id, "fdTask")=="True";
             f.pathLoc = this.con.HGet(id, "pathLoc");
             f.pathSvr = this.con.HGet(id, "pathSvr");
             f.pathRel = this.con.HGet(id, "pathRel");

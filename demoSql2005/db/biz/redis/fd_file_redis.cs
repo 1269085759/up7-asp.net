@@ -24,7 +24,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.nameSvr = j.HGet(idSign, "nameSvr");
             this.pidSign = j.HGet(idSign, "pidSign");
             this.rootSign = j.HGet(idSign, "rootSign");
-            this.fdTask = j.HGet(idSign, "fdTask") == "True";
+            this.folder = j.HGet(idSign, "fdTask") == "True";
             this.complete = j.HGet(idSign, "complete") == "true";
             this.sign = j.HGet(idSign, "sign");
         }
@@ -46,7 +46,7 @@ namespace up7.demoSql2005.db.biz.redis
             j.HSet(this.idSign, "nameSvr", this.nameSvr);//
             j.HSet(this.idSign, "pidSign", this.pidSign);//
             j.HSet(this.idSign, "rootSign", this.rootSign);//		
-            j.HSet(this.idSign, "fdTask", this.fdTask);//
+            j.HSet(this.idSign, "fdTask", this.folder);//
             j.HSet(this.idSign, "complete", this.lenLoc > 0 ? "false" : "true");//
             j.HSet(this.idSign, "sign", this.sign);//
         }
