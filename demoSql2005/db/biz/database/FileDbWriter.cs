@@ -138,6 +138,7 @@ namespace up7.demoSql2005.db.biz.folder
                 {
                     xdb_files f = svr.read(k);
                     f.f_fdChild = true;
+                    f.rootSign = this.root.idSign;
                     this.save(ref cmd,f);//添加到数据库
                     files.Add(f);
                 }
