@@ -13,7 +13,7 @@ namespace up7.demoSql2005.db.biz.redis
         //文件夹json数据
         public String data;
         fd_root m_root = null;
-        CSRedis.RedisClient con = null;
+        CSRedis.RedisClient cache = null;
         /// <summary>
         /// 合并文件
         /// </summary>
@@ -21,7 +21,7 @@ namespace up7.demoSql2005.db.biz.redis
         Dictionary<String/*guid*/, String/*pathSvr*/> parentPathMap = new Dictionary<String, String>();
 
         public fd_redis() { }
-        public fd_redis(ref CSRedis.RedisClient j) { this.con = j; }
+        public fd_redis(ref CSRedis.RedisClient j) { this.cache = j; }
 
 
         void parse()
@@ -78,7 +78,7 @@ namespace up7.demoSql2005.db.biz.redis
         //从redis中读取数据
         public void read(String idSign)
         {
-            var j = this.con;
+            var j = this.cache;
             //folder不存在
             if (!j.Exists(idSign))
             {
@@ -111,13 +111,13 @@ namespace up7.demoSql2005.db.biz.redis
 
         public void del(String idSign)
         {
-            var j = this.con;
+            var j = this.cache;
             //清除文件列表
-            fd_files_redis fs = new fd_files_redis(ref this.con, idSign);
+            fd_files_redis fs = new fd_files_redis(ref this.cache, idSign);
             fs.del();
 
             //清除目录列表
-            fd_folders_redis ds = new fd_folders_redis(ref this.con, idSign);
+            fd_folders_redis ds = new fd_folders_redis(ref this.cache, idSign);
             ds.del();
 
             //清除文件夹
@@ -133,7 +133,7 @@ namespace up7.demoSql2005.db.biz.redis
                 FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
                 fd.save();
 
-                FileDbWriter fw = new FileDbWriter(con, this.m_root,this.con);
+                FileDbWriter fw = new FileDbWriter(con, this.m_root,this.cache);
                 fw.merge = this.fileMerge;
                 fw.save();
                 con.Close();
@@ -144,20 +144,20 @@ namespace up7.demoSql2005.db.biz.redis
         void loadFolders()
         {
             //取文件ID列表
-            fd_folders_redis rfs = new fd_folders_redis(ref this.con, this.m_root.idSign);
+            fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.m_root.idSign);
             this.m_root.folders = new List<fd_child>();
             var fs = rfs.all();
             foreach (String s in fs)
             {
                 fd_child_redis fd = new fd_child_redis();
-                fd.read(this.con, s);
+                fd.read(this.cache, s);
                 this.m_root.folders.Add(fd);
             }
         }
 
         void saveRoot()
         {
-            var j = this.con;
+            var j = this.cache;
             j.Del(this.m_root.idSign);
 
             j.HSet(this.m_root.idSign, "lenLoc", this.m_root.lenLoc);//数字化的长度
@@ -179,7 +179,7 @@ namespace up7.demoSql2005.db.biz.redis
         {
             foreach (fd_file_redis f in this.m_root.files)
             {
-                f.write(this.con);
+                f.write(this.cache);
             }
         }
 
@@ -187,7 +187,7 @@ namespace up7.demoSql2005.db.biz.redis
         {
             foreach (fd_child_redis fd in this.m_root.folders)
             {
-                fd.write(this.con);
+                fd.write(this.cache);
             }
         }
 
