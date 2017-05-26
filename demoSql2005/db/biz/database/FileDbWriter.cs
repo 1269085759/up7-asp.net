@@ -94,7 +94,7 @@ namespace up7.demoSql2005.db.biz.folder
             cmd.Parameters[0].Value = f.idSign;//idSign
             cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pidSign) ? string.Empty : f.pidSign;//pidSign
             cmd.Parameters[2].Value = string.IsNullOrEmpty(f.rootSign) ? string.Empty : f.rootSign;//rootSign
-            cmd.Parameters[3].Value = true;//fdChild
+            cmd.Parameters[3].Value = f.f_fdChild;//fdChild
             cmd.Parameters[4].Value = f.uid;//uid
             cmd.Parameters[5].Value = f.nameLoc;//nameLoc
             cmd.Parameters[6].Value = f.nameSvr;//nameSvr
@@ -106,7 +106,7 @@ namespace up7.demoSql2005.db.biz.folder
             cmd.Parameters[12].Value = f.lenLoc;//lenSvr
             cmd.Parameters[13].Value = "100%";//perSvr
             cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign) ? string.Empty : f.sign;//sign
-            cmd.Parameters[15].Value = false;//fdTask
+            cmd.Parameters[15].Value = f.folder;//fdTask
             cmd.Parameters[16].Value = f.blockPath;//
             cmd.Parameters[17].Value = f.blockSize;//
             cmd.ExecuteNonQuery();

@@ -95,6 +95,7 @@ namespace up7.demoSql2005.db.biz.redis
             this.m_root.pathLoc = j.HGet(idSign, "pathLoc");
             this.m_root.pathSvr = j.HGet(idSign, "pathSvr");
             this.m_root.fileCount = int.Parse(j.HGet(idSign, "filesCount"));
+            this.m_root.folder = true;
             //
             //this.loadFiles();//加载文件列表		
             this.loadFolders();//加载目录列表
