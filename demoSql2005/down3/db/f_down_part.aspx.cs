@@ -78,8 +78,8 @@ namespace up7.demoSql2005.down3.db
 
             //添加到缓存
             var j = RedisConfig.getCon();
-            tasks svr = new tasks(uid, j);
-            svr.add(fileSvr);
+            FileRedis fr = new FileRedis(ref j);
+            fr.process(fileSvr.signSvr, percent, fileSvr.lenLoc);
 
             long fileLen = long.Parse(rangeSize) - long.Parse(blockOffset);
 

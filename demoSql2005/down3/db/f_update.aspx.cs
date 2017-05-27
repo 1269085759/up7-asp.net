@@ -28,7 +28,7 @@ namespace up7.demoSql2005.down3.db
             }
             var j = RedisConfig.getCon();
             FileRedis f = new FileRedis(ref j);
-            f.process(fid, per, lenLoc);//更新文件或文件夹进度
+            f.process(fid, per, long.Parse(lenLoc));//更新文件或文件夹进度
             
             Response.Write(cbk + "({\"value\":1})");
         }

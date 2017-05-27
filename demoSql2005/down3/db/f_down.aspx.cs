@@ -91,14 +91,14 @@ namespace up7.demoSql2005.down3.db
                 //添加到缓存
                 var j = RedisConfig.getCon();
                 FileRedis fr = new FileRedis(ref j);
-                fr.process(this.signSvr, this.percent, this.lenLoc);
+                fr.process(this.signSvr, this.percent, long.Parse(this.lenLoc));
             }//更新文件夹进度
             else
             {
                 //仅更新文件夹进度
                 var j = RedisConfig.getCon();
                 FileRedis fr = new FileRedis(ref j);
-                fr.process(fd_signSvr, fd_percent, fd_lenLoc);
+                fr.process(fd_signSvr, fd_percent, long.Parse(fd_lenLoc));
             }
         }
 

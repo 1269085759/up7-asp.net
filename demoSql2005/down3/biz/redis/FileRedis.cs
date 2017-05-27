@@ -41,7 +41,7 @@ namespace up7.demoSql2005.down3.biz
             return f;
         }
 
-        public void process(string signSvr,string perLoc,string lenLoc)
+        public void process(string signSvr,string perLoc,long lenLoc)
         {
             var j = this.con;
 
