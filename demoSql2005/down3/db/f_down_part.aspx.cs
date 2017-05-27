@@ -30,7 +30,8 @@ namespace up7.demoSql2005.down3.db
             String fd_lenLoc    = Request.Headers["fd-lenLoc"];
             String fd_sizeLoc   = Request.Headers["fd-sizeLoc"];
             if (!string.IsNullOrEmpty(fd_sizeLoc)) sizeLoc = fd_sizeLoc;
-            String uid          = Request.Headers["f-uid"];
+            if (!string.IsNullOrEmpty(fd_signSvr)) signSvr = fd_signSvr;
+            if (!string.IsNullOrEmpty(fd_lenLoc)) lenLoc = fd_lenLoc;
             String percent      = Request.Headers["f-percent"];
 
             blockPath   = blockPath.Replace("+", "%20");
@@ -63,18 +64,10 @@ namespace up7.demoSql2005.down3.db
                 return;
             }
 
-            DnFileInf fileSvr = new DnFileInf();
-            fileSvr.signSvr = signSvr;
-            //子文件项时仅保存文件夹信息
-            if (fd_signSvr != null) fileSvr.signSvr = fd_signSvr;
-            fileSvr.uid = uid == null ? 0 : int.Parse(uid);
-            fileSvr.lenLoc = long.Parse(lenLoc);
-            if (fd_lenLoc != null) fileSvr.lenLoc = long.Parse(fd_lenLoc);
-
-            //添加到缓存
+            //更新进度信息
             var j = RedisConfig.getCon();
             FileRedis fr = new FileRedis(ref j);
-            fr.process(fileSvr.signSvr, percent, fileSvr.lenLoc,sizeLoc);
+            fr.process(signSvr, percent, long.Parse(lenLoc),sizeLoc);
 
             long fileLen = long.Parse(rangeSize) - long.Parse(blockOffset);
 
