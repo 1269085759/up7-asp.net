@@ -70,11 +70,6 @@ namespace up7.demoSql2005.down3.db
             fileSvr.uid = uid == null ? 0 : int.Parse(uid);
             fileSvr.lenLoc = long.Parse(lenLoc);
             if (fd_lenLoc != null) fileSvr.lenLoc = long.Parse(fd_lenLoc);
-            fileSvr.lenSvr = long.Parse(lenSvr);
-            fileSvr.perLoc = percent;
-            fileSvr.pathSvr = pathSvr;
-            fileSvr.pathLoc = pathLoc;
-            fileSvr.nameLoc = nameLoc == null ? "" : nameLoc;
 
             //添加到缓存
             var j = RedisConfig.getCon();
