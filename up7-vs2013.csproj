@@ -269,6 +269,7 @@
     <Compile Include="demoSql2005\down3\biz\CompleteReader.cs" />
     <Compile Include="demoSql2005\down3\biz\fd_page.cs" />
     <Compile Include="demoSql2005\down3\biz\redis\FileRedis.cs" />
+    <Compile Include="demoSql2005\down3\biz\redis\KeyMaker.cs" />
     <Compile Include="demoSql2005\down3\biz\redis\tasks.cs" />
     <Compile Include="demoSql2005\down3\biz\folder_appender.cs" />
     <Compile Include="demoSql2005\down3\db\clear.aspx.cs">

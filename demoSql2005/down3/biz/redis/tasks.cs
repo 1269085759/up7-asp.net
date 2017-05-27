@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using up7.demoSql2005.down3.biz.redis;
 using up7.demoSql2005.down3.model;
 
 namespace up7.demoSql2005.down3.biz
@@ -11,15 +12,6 @@ namespace up7.demoSql2005.down3.biz
     /// </summary>
     public class tasks
     {
-        /// <summary>
-        /// 下载缓存的命名空间，所有下载相关的key都保存在此空间下。
-        /// </summary>
-        string space = "down3";
-        /// <summary>
-        /// 用户的下载列表（未下载完成的），包含文件和文件夹列表
-        /// tasks-down3-uid
-        /// </summary>
-        string keyUser = "tasks-down3-";
         CSRedis.RedisClient con = null;
         string uid = string.Empty;
 
@@ -29,48 +21,56 @@ namespace up7.demoSql2005.down3.biz
             this.con = c;
         }
 
-        string getKey()
-        {
-            return this.keyUser + this.uid;
-        }
-
-        void addSpace(string key)
-        {
-            this.con.SAdd(this.space, key);
-        }
-
         public void clear()
         {
-            var len = this.con.SCard(this.space);
+            //找出所有用户下载队列
+            var keys = this.con.Keys("d-*");
+            foreach (var k in keys)
+            {
+                this.clearUser(k);
+            }
+        }
+
+        public void clearUser(string key)
+        {
+            var len = this.con.SCard(key);
             while (len > 0)
             {
-                var keys = this.con.SScan(this.space, 0, null, 500);
+                var keys = this.con.SScan(key, 0, null, 500);
                 len -= keys.Items.Length;
                 foreach (var k in keys.Items)
                 {
                     this.con.Del(k);
                 }
             }
+            this.con.Del(key);
         }
 
         public void add(DnFileInf f)
         {
+            //string taskKey = this.keyUser + this.uid;
             //添加到队列（当前用户下载列表）
-            this.con.SAdd(this.getKey(), f.signSvr);
+            //this.con.SAdd("udt-v", 12);
+            //this.con.SAdd(taskKey, 1);
+
             //添加一条信息
             FileRedis f_svr = new FileRedis(ref this.con);
             f_svr.create(ref f);
 
-            this.addSpace(this.getKey());
-            this.addSpace(f.signSvr);
+            KeyMaker km = new KeyMaker();
+            string space = km.space(this.uid);
+            this.con.SAdd(space, f.signSvr);
+            //this.addSpace(taskKey);
+            //this.addSpace(f.signSvr);
         }
 
         public void del(string signSvr)
         {
+            KeyMaker km = new KeyMaker();
+            string space = km.space(this.uid);
+
             //从队列中删除（当前用户的下载列表）
-            this.con.SRem(this.getKey(), signSvr);
-            //从空间中删除
-            this.con.SRem(this.space, signSvr);
+            this.con.SRem(space, signSvr);
 
             //删除文件信息
             this.con.Del(signSvr);
@@ -82,7 +82,9 @@ namespace up7.demoSql2005.down3.biz
         /// <returns></returns>
         public string toJson()
         {
-            var keys = this.con.SMembers(this.getKey());
+            KeyMaker km = new KeyMaker();
+            string space = km.space(this.uid);
+            var keys = this.con.SMembers(space);
             List<DnFileInf> files = new List<DnFileInf>();
             foreach (var key in keys)
             {
