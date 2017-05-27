@@ -109,7 +109,7 @@
     this.svr_update = function (json)
     {       
         var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
-        jQuery.extend(param, { signSvr: this.fileSvr.signSvr, lenLoc: this.fileSvr.lenLoc, perLoc: this.fileSvr.perLoc,sizeLoc:this.fileSvr.sizeLoc });
+        jQuery.extend(param, { signSvr: this.fileSvr.signSvr, lenLoc: this.fileSvr.lenLoc, perLoc: this.fileSvr.perLoc, sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
 
         $.ajax({
             type: "GET"

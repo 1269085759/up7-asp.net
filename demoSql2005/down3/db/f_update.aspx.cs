@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using up7.demoSql2005.db.redis;
 using up7.demoSql2005.down3.biz;
 
@@ -17,6 +18,8 @@ namespace up7.demoSql2005.down3.db
             string sizeLoc   = Request.QueryString["sizeLoc"];
             string per      = Request.QueryString["perLoc"];
             string cbk      = Request.QueryString["callback"];
+            sizeLoc = sizeLoc.Replace("+", "%20");
+            sizeLoc = HttpUtility.UrlDecode(sizeLoc);//utf-8解码
             //
             if (    string.IsNullOrEmpty(uid)
                 ||  string.IsNullOrEmpty(fid)
