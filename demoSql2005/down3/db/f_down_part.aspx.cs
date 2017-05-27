@@ -16,7 +16,7 @@ namespace up7.demoSql2005.down3.db
         {
             String lenSvr       = Request.Headers["f-lenSvr"];
             String nameLoc      = Request.Headers["f-nameLoc"];
-            String sizeSvr      = Request.Headers["f-sizeSvr"];
+            String sizeLoc      = Request.Headers["f-sizeLoc"];
             String pathSvr      = Request.Headers["f-pathSvr"];
             String pathLoc      = Request.Headers["f-pathLoc"];
             String blockPath    = Request.Headers["f-blockPath"];
@@ -29,6 +29,7 @@ namespace up7.demoSql2005.down3.db
             String fd_signSvr   = Request.Headers["fd-signSvr"];
             String fd_lenLoc    = Request.Headers["fd-lenLoc"];
             String fd_sizeLoc   = Request.Headers["fd-sizeLoc"];
+            if (!string.IsNullOrEmpty(fd_sizeLoc)) sizeLoc = fd_sizeLoc;
             String uid          = Request.Headers["f-uid"];
             String percent      = Request.Headers["f-percent"];
 
@@ -49,7 +50,7 @@ namespace up7.demoSql2005.down3.db
                 System.Diagnostics.Debug.WriteLine("lenSvr:" + lenSvr);
                 System.Diagnostics.Debug.WriteLine("lenLoc:" + lenLoc);
                 System.Diagnostics.Debug.WriteLine("nameLoc:" + nameLoc);
-                System.Diagnostics.Debug.WriteLine("sizeSvr:" + sizeSvr);
+                System.Diagnostics.Debug.WriteLine("sizeLoc:" + sizeLoc);
                 System.Diagnostics.Debug.WriteLine("pathSvr:" + pathSvr);
                 System.Diagnostics.Debug.WriteLine("pathLoc:" + pathLoc);
                 System.Diagnostics.Debug.WriteLine("blockIndex:" + blockIndex);
@@ -70,7 +71,6 @@ namespace up7.demoSql2005.down3.db
             fileSvr.lenLoc = long.Parse(lenLoc);
             if (fd_lenLoc != null) fileSvr.lenLoc = long.Parse(fd_lenLoc);
             fileSvr.lenSvr = long.Parse(lenSvr);
-            fileSvr.sizeSvr = sizeSvr == null ? "" : sizeSvr;
             fileSvr.perLoc = percent;
             fileSvr.pathSvr = pathSvr;
             fileSvr.pathLoc = pathLoc;
@@ -79,7 +79,7 @@ namespace up7.demoSql2005.down3.db
             //添加到缓存
             var j = RedisConfig.getCon();
             FileRedis fr = new FileRedis(ref j);
-            fr.process(fileSvr.signSvr, percent, fileSvr.lenLoc);
+            fr.process(fileSvr.signSvr, percent, fileSvr.lenLoc,sizeLoc);
 
             long fileLen = long.Parse(rangeSize) - long.Parse(blockOffset);
 

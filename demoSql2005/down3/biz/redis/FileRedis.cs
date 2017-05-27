@@ -22,7 +22,7 @@ namespace up7.demoSql2005.down3.biz
             j.HSet(f.signSvr, "lenSvr", f.lenSvr);//文件大小
             j.HSet(f.signSvr, "sizeSvr", f.sizeSvr);
             j.HSet(f.signSvr, "perLoc", f.perLoc);//已下载百分比	
-            j.HSet(f.signSvr, "fdTask", f.folder);
+            j.HSet(f.signSvr, "fdTask", f.folder.ToString());
         }
 
         public DnFileInf read(string signSvr)
@@ -41,12 +41,13 @@ namespace up7.demoSql2005.down3.biz
             return f;
         }
 
-        public void process(string signSvr,string perLoc,long lenLoc)
+        public void process(string signSvr,string perLoc,long lenLoc,string sizeLoc)
         {
             var j = this.con;
 
             j.HSet(signSvr, "lenLoc", lenLoc);//已下载大小		
             j.HSet(signSvr, "perLoc", perLoc);//已下载百分比
+            j.HSet(signSvr, "sizeLoc", sizeLoc);//已下载百分比
         }
     }
 }

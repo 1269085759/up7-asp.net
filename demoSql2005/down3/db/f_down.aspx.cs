@@ -12,6 +12,7 @@ namespace up7.demoSql2005.down3.db
         String lenSvr       = string.Empty;
         String nameLoc      = string.Empty;
         String sizeSvr      = string.Empty;
+        String sizeLoc      = string.Empty;
         String pathSvr      = string.Empty;
         String pathLoc      = string.Empty;
         String blockIndex   = string.Empty;
@@ -32,7 +33,7 @@ namespace up7.demoSql2005.down3.db
         {
             this.lenSvr         = Request.Headers["f-lenSvr"];
             this.nameLoc        = Request.Headers["f-nameLoc"];
-            this.sizeSvr        = Request.Headers["f-sizeSvr"];
+            this.sizeLoc        = Request.Headers["f-sizeLoc"];
             this.pathSvr        = Request.Headers["f-pathSvr"];
             this.pathLoc        = Request.Headers["f-pathLoc"];
             this.blockIndex     = Request.Headers["f-blockIndex"];//块索引基于1
@@ -91,14 +92,14 @@ namespace up7.demoSql2005.down3.db
                 //添加到缓存
                 var j = RedisConfig.getCon();
                 FileRedis fr = new FileRedis(ref j);
-                fr.process(this.signSvr, this.percent, long.Parse(this.lenLoc));
+                fr.process(this.signSvr, this.percent, long.Parse(this.lenLoc),this.sizeLoc);
             }//更新文件夹进度
             else
             {
                 //仅更新文件夹进度
                 var j = RedisConfig.getCon();
                 FileRedis fr = new FileRedis(ref j);
-                fr.process(fd_signSvr, fd_percent, long.Parse(fd_lenLoc));
+                fr.process(fd_signSvr, fd_percent, long.Parse(fd_lenLoc),fd_sizeLoc);
             }
         }
 

@@ -21,6 +21,7 @@ namespace up7.demoSql2005.down3.model
         public long lenLoc { get { return this.m_lengthLoc; } set { this.m_lengthLoc = value; } }
         public long lenSvr { get { return this.m_lengthSvr; } set { this.m_lengthSvr = value; } }
         public string sizeSvr { get { return this.m_sizeSvr; } set { this.m_sizeSvr= value; } }
+        public string sizeLoc = string.Empty;
         public string perLoc { get { return this.m_percent; } set { this.m_percent = value; } }
         /// <summary>
         /// 是否已下载完成

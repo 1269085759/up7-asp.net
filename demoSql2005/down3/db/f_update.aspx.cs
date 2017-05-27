@@ -14,6 +14,7 @@ namespace up7.demoSql2005.down3.db
             string fid      = Request.QueryString["signSvr"];
             string uid      = Request.QueryString["uid"];
             string lenLoc   = Request.QueryString["lenLoc"];
+            string sizeLoc   = Request.QueryString["sizeLoc"];
             string per      = Request.QueryString["perLoc"];
             string cbk      = Request.QueryString["callback"];
             //
@@ -28,7 +29,7 @@ namespace up7.demoSql2005.down3.db
             }
             var j = RedisConfig.getCon();
             FileRedis f = new FileRedis(ref j);
-            f.process(fid, per, long.Parse(lenLoc));//更新文件或文件夹进度
+            f.process(fid, per, long.Parse(lenLoc),sizeLoc);//更新文件或文件夹进度
             
             Response.Write(cbk + "({\"value\":1})");
         }
