@@ -19,11 +19,14 @@ namespace up7.demoSql2005.down3.db
             string signSvr = Request.QueryString["signSvr"];
             string nameLoc = Request.QueryString["nameLoc"];
             string pathLoc = Request.QueryString["pathLoc"];
+            string sizeSvr = Request.QueryString["sizeSvr"];
 
+            sizeSvr = sizeSvr.Replace("+", "%20");
             pathLoc = pathLoc.Replace("+", "%20");
             nameLoc = nameLoc.Replace("+", "%20");
             pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
             nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
+            sizeSvr = HttpUtility.UrlDecode(sizeSvr);//utf-8解码
 
             if (string.IsNullOrEmpty(uid)
                || string.IsNullOrEmpty(nameLoc)
@@ -38,6 +41,7 @@ namespace up7.demoSql2005.down3.db
             fd.nameLoc = nameLoc;
             fd.pathLoc = pathLoc;
             fd.signSvr = signSvr;
+            fd.sizeSvr = sizeSvr;
             fd.folder = true;
             var j = RedisConfig.getCon();
             tasks svr = new tasks(uid,j);
