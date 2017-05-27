@@ -48,20 +48,14 @@ namespace up7.demoSql2005.down3.biz
 
         public void add(DnFileInf f)
         {
-            //string taskKey = this.keyUser + this.uid;
-            //添加到队列（当前用户下载列表）
-            //this.con.SAdd("udt-v", 12);
-            //this.con.SAdd(taskKey, 1);
-
-            //添加一条信息
+            //将文件信息添加到缓存
             FileRedis f_svr = new FileRedis(ref this.con);
             f_svr.create(ref f);
 
+            //添加到下载队列缓存
             KeyMaker km = new KeyMaker();
             string space = km.space(this.uid);
             this.con.SAdd(space, f.signSvr);
-            //this.addSpace(taskKey);
-            //this.addSpace(f.signSvr);
         }
 
         public void del(string signSvr)
@@ -84,6 +78,7 @@ namespace up7.demoSql2005.down3.biz
         {
             KeyMaker km = new KeyMaker();
             string space = km.space(this.uid);
+
             var keys = this.con.SMembers(space);
             List<DnFileInf> files = new List<DnFileInf>();
             foreach (var key in keys)

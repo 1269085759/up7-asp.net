@@ -22,7 +22,7 @@ namespace up7.demoSql2005.down3.biz
             j.HSet(f.signSvr, "lenSvr", f.lenSvr);//文件大小
             j.HSet(f.signSvr, "sizeSvr", f.sizeSvr);
             j.HSet(f.signSvr, "perLoc", f.perLoc);//已下载百分比	
-            j.HSet(f.signSvr, "fdTask", Convert.ToString(f.folder));
+            j.HSet(f.signSvr, "fdTask", f.folder);
         }
 
         public DnFileInf read(string signSvr)
