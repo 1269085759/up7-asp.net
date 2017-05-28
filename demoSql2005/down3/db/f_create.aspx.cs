@@ -36,6 +36,7 @@ namespace up7.demoSql2005.down3.db
             }
 
             DnFileInf inf = new DnFileInf();
+            inf.signSvr = signSvr;
             inf.uid = int.Parse(uid);
             inf.nameLoc = nameLoc;
             inf.pathLoc = pathLoc;//记录本地存储位置
