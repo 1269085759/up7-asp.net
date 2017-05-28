@@ -64,14 +64,14 @@ namespace up7.demoSql2005.down3.db
             FileRedis fr = new FileRedis(ref j);
             fr.process(signSvr, percent, long.Parse(lenLoc),sizeLoc);
 
-            long fileLen = long.Parse(rangeSize) - long.Parse(blockOffset);
+            long dataToRead = long.Parse(rangeSize) - long.Parse(blockOffset);
 
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Pragma", "No-cache");
             Response.AddHeader("Cache-Control", "no-cache");
             Response.AddHeader("Expires", "0");
             Response.AddHeader("Content-Disposition", "attachment;filename=" + nameLoc);
-            Response.AddHeader("Content-Length", fileLen.ToString());
+            Response.AddHeader("Content-Length", dataToRead.ToString());
 
             Stream iStream = null;
             try
@@ -80,9 +80,6 @@ namespace up7.demoSql2005.down3.db
                 // Open the file.
                 iStream = new FileStream(pathSvr, FileMode.Open, FileAccess.Read, FileShare.Read);
                 iStream.Seek(long.Parse(blockOffset), SeekOrigin.Begin);
-
-                // Total bytes to read:
-                long dataToRead = long.Parse(rangeSize);
 
                 byte[] buffer = new Byte[10000];
                 int length;
