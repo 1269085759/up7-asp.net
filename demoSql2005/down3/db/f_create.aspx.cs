@@ -12,7 +12,6 @@ namespace up7.demoSql2005.down3.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid      = Request.QueryString["uid"];
-            string idSign   = Request.QueryString["idSign"];
             string signSvr  = Request.QueryString["signSvr"];
             string nameLoc  = Request.QueryString["nameLoc"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
