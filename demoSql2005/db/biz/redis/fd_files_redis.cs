@@ -24,7 +24,7 @@ namespace up7.demoSql2005.db.biz.redis
         public void del() { this.cache.Del(this.getKey()); }
         public void add(string id)
         {
-            this.cache.SAdd(this.getKey(), id);
+            this.cache.LPush(this.getKey(), id);
         }
     }
 }

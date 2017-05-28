@@ -92,13 +92,16 @@ namespace up7.demoSql2005.db
             BlockPathBuilder bpb = new BlockPathBuilder();
             fileSvr.blockPath = bpb.rootFd(ref fileSvr, this.blockIndex, ref fd);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
-
+            
             FileRedis f_svr = new FileRedis(ref con);
-            f_svr.create(fileSvr);//添加到缓存
+            if(!con.Exists(idSign))
+            {
+                //添加到文件夹
+                fd_files_redis root = new fd_files_redis(ref con, fd_idSign);
+                root.add(idSign);
 
-            //添加到文件夹
-            fd_files_redis root = new fd_files_redis(ref con, fd_idSign);
-            root.add(idSign);
+                f_svr.create(fileSvr);//添加到缓存
+            }
 
             //块路径
             string partPath = Path.Combine(fileSvr.blockPath,blockIndex+".part");

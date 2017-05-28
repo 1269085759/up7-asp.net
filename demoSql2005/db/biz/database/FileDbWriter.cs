@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
@@ -129,13 +130,15 @@ namespace up7.demoSql2005.db.biz.folder
             BlockMeger bm = new BlockMeger();
             List<xdb_files> files = null;
 
-            while (index < len)
+            while (index<len)
             {
-                var keys = this.m_cache.LRange(key, index, index + 100);
+                var keys = this.m_cache.LRange(key,len,len+100);
                 index += keys.Length;
+
                 files = new List<xdb_files>();
                 foreach(var k in keys)
                 {
+                System.Diagnostics.Debug.WriteLine(k);
                     xdb_files f = svr.read(k);
                     f.f_fdChild = true;
                     f.rootSign = this.root.idSign;
@@ -151,11 +154,10 @@ namespace up7.demoSql2005.db.biz.folder
                         bm.merge(f);
                     }
                 }
-                //清除文件项缓存信息
-                this.m_cache.Del(keys);
                 files.Clear();
             }
+            this.m_cache.Del(key);
             cmd.Dispose();
-        }
+        }        
     }
 }
