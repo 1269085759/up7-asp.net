@@ -132,7 +132,7 @@ namespace up7.demoSql2005.db.biz.folder
 
             while (index<len)
             {
-                var keys = this.m_cache.LRange(key,len,len+100);
+                var keys = this.m_cache.LRange(key, index, index + 100);
                 index += keys.Length;
 
                 files = new List<xdb_files>();
@@ -154,6 +154,8 @@ namespace up7.demoSql2005.db.biz.folder
                         bm.merge(f);
                     }
                 }
+                //清除文件缓存
+                this.m_cache.Del(keys);
                 files.Clear();
             }
             this.m_cache.Del(key);
