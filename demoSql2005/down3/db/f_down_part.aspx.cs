@@ -18,7 +18,6 @@ namespace up7.demoSql2005.down3.db
             String nameLoc      = Request.Headers["f-nameLoc"];
             String sizeLoc      = Request.Headers["f-sizeLoc"];
             String pathSvr      = Request.Headers["f-pathSvr"];
-            String pathLoc      = Request.Headers["f-pathLoc"];
             String blockPath    = Request.Headers["f-blockPath"];
             String blockIndex   = Request.Headers["f-blockIndex"];//基于1
             String blockOffset  = Request.Headers["f-blockOffset"];//基于块的位置
@@ -35,14 +34,11 @@ namespace up7.demoSql2005.down3.db
             String percent      = Request.Headers["f-percent"];
 
             blockPath   = blockPath.Replace("+", "%20");
-            pathLoc     = pathLoc.Replace("+", "%20");
             nameLoc     = nameLoc.Replace("+", "%20");
             blockPath   = HttpUtility.UrlDecode(blockPath);//utf-8解码
-            pathLoc     = HttpUtility.UrlDecode(pathLoc);//utf-8解码
             nameLoc     = HttpUtility.UrlDecode(nameLoc);//utf-8解码
 
             if (string.IsNullOrEmpty(lenSvr)
-                || string.IsNullOrEmpty(pathLoc)
                 || string.IsNullOrEmpty(blockIndex)
                 || string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(percent)
@@ -53,7 +49,6 @@ namespace up7.demoSql2005.down3.db
                 System.Diagnostics.Debug.WriteLine("nameLoc:" + nameLoc);
                 System.Diagnostics.Debug.WriteLine("sizeLoc:" + sizeLoc);
                 System.Diagnostics.Debug.WriteLine("pathSvr:" + pathSvr);
-                System.Diagnostics.Debug.WriteLine("pathLoc:" + pathLoc);
                 System.Diagnostics.Debug.WriteLine("blockIndex:" + blockIndex);
                 System.Diagnostics.Debug.WriteLine("blockSize:" + blockSize);
                 System.Diagnostics.Debug.WriteLine("signSvr:" + signSvr);

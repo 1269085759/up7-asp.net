@@ -15,7 +15,7 @@ namespace up7.demoSql2005.down3.db
             string fid      = Request.QueryString["signSvr"];
             string uid      = Request.QueryString["uid"];
             string lenLoc   = Request.QueryString["lenLoc"];
-            string sizeLoc   = Request.QueryString["sizeLoc"];
+            string sizeLoc  = Request.QueryString["sizeLoc"];
             string per      = Request.QueryString["perLoc"];
             string cbk      = Request.QueryString["callback"];
             sizeLoc = sizeLoc.Replace("+", "%20");
