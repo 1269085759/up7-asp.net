@@ -251,6 +251,7 @@
       <DependentUpon>f_post.aspx</DependentUpon>
     </Compile>
     <Compile Include="demoSql2005\db\model\xdb_files.cs" />
+    <Compile Include="demoSql2005\db\utils\PathTool.cs" />
     <Compile Include="demoSql2005\db\utils\XDebug.cs" />
     <Compile Include="demoSql2005\debug\big_file.aspx.cs">
       <DependentUpon>big_file.aspx</DependentUpon>
