@@ -28,10 +28,6 @@ namespace up7.demoSql2005.db
                 svr.uid = uid;
                 svr.delFd(id);
 
-                //if (merge == "1")
-                //{
-                    //fd.mergeAll();//合并文件块
-                //}
                 con.Dispose();
                 ret = 1;
             }
