@@ -14,8 +14,7 @@ namespace up7.demoSql2005.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid      = Request.QueryString["uid"];
-            string sign     = Request.QueryString["sign"];
-            string idSign   = Request.QueryString["idSign"];
+            string id       = Request.QueryString["signSvr"];
             string perSvr   = Request.QueryString["perSvr"];//文件百分比
             string lenSvr   = Request.QueryString["lenSvr"];//已传大小
             string lenLoc   = Request.QueryString["lenLoc"];//本地文件大小
@@ -24,12 +23,12 @@ namespace up7.demoSql2005.db
             //参数为空
             if (string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(uid)
-                || string.IsNullOrEmpty(idSign)
+                || string.IsNullOrEmpty(id)
                 )
             {
                 XDebug.Output("lenLoc", lenLoc);
                 XDebug.Output("uid", uid);
-                XDebug.Output("idSvr", idSign);
+                XDebug.Output("idSvr", id);
                 Response.Write("param is null");
                 return;
             }
@@ -37,7 +36,7 @@ namespace up7.demoSql2005.db
             //更新redis进度
             var con = RedisConfig.getCon();
             FileRedis rf = new FileRedis(ref con);
-            rf.process(idSign, perSvr, lenSvr,"0",blockSize);
+            rf.process(id, perSvr, lenSvr,"0",blockSize);
         }
     }
 }

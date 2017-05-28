@@ -131,7 +131,11 @@ function FileDownloader(fileLoc, mgr)
     //在出错，停止中调用
     this.svr_update = function ()
     {
-        var param = jQuery.extend({}, this.fields, this.fileSvr, { time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
+        jQuery.extend(param, { singSvr: this.fileSvr.signSvr });
+        jQuery.extend(param, { lenLoc: this.fileSvr.lenLoc});
+        jQuery.extend(param, { sizeLoc: this.fileSvr.sizeLoc});
+        jQuery.extend(param, { perLoc: this.fileSvr.perLoc});
         $.ajax({
             type: "GET"
             , dataType: 'jsonp'
