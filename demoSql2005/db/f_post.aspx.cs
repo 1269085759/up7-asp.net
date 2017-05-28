@@ -101,6 +101,10 @@ namespace up7.demoSql2005.db
                 root.add(idSign);
 
                 f_svr.create(fileSvr);//添加到缓存
+            }//更新文件夹进度
+            else if (f_pos == "0")
+            {                
+                 f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr, "0", "0");
             }
 
             //块路径
@@ -110,10 +114,6 @@ namespace up7.demoSql2005.db
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
 
             part.SaveAs(partPath);
-
-
-            //更新文件夹进度
-            if (f_pos == "0") f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr, "0","0");
         }
 
         bool checkParam()
