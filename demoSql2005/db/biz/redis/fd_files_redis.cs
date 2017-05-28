@@ -24,16 +24,7 @@ namespace up7.demoSql2005.db.biz.redis
         public void del() { this.cache.Del(this.getKey()); }
         public void add(string id)
         {
-            this.cache.LPush(this.getKey(), id);
-        }
-
-        public void add(List<xdb_files> fs)
-        {
-            String key = this.getKey();
-            foreach (var f in fs)
-            {
-                this.cache.LPush(key, f.idSign);
-            }
+            this.cache.SAdd(this.getKey(), id);
         }
     }
 }

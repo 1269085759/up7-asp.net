@@ -23,58 +23,6 @@ namespace up7.demoSql2005.db.biz.redis
         public fd_redis() { }
         public fd_redis(ref CSRedis.RedisClient j) { this.cache = j; }
 
-
-        void parse()
-        {
-            this.m_root = JsonConvert.DeserializeObject<fd_root>(this.data);
-        }
-
-        void init()
-        {
-            //更新文件夹路径（Server）
-            foreach (fd_child fd in this.m_root.folders)
-
-            {
-                //取父级文件夹路径
-                if (parentPathMap.ContainsKey(fd.rootSign))
-                {
-                    String path;
-                    parentPathMap.TryGetValue(fd.rootSign, out path);//
-                    fd.pathSvr = System.IO.Path.Combine(path, fd.nameLoc);
-                }
-
-                //添加当前路径
-                parentPathMap.Add(fd.idSign, fd.pathSvr);
-            }
-        }
-
-        //创建目录
-        void makePath()
-        {
-            PathGuidBuilder pb = new PathGuidBuilder();
-            this.m_root.pathRel = this.m_root.nameLoc;//
-
-            this.m_root.pathSvr = pb.genFolder(this.m_root.uid, this.m_root.nameLoc);
-            System.IO.Directory.CreateDirectory(this.m_root.pathSvr);
-            parentPathMap.Add(this.m_root.idSign, this.m_root.pathSvr);
-        }
-
-        //保存到redis中
-        public void save()
-        {
-            this.parse();//解析
-            this.makePath();//创建根级目录
-
-            this.init();//初始化
-
-            var j = RedisConfig.getCon();
-            this.saveRoot();
-            this.saveFiles();
-            this.saveFolders();
-
-            //保存到队列
-        }
-
         //从redis中读取数据
         public void read(String idSign)
         {
@@ -99,30 +47,6 @@ namespace up7.demoSql2005.db.biz.redis
             //
             //this.loadFiles();//加载文件列表		
             this.loadFolders();//加载目录列表
-        }
-
-        public void mergeAll()
-        {
-            BlockMeger mg = new BlockMeger();
-            foreach (fd_file_redis f in this.m_root.files)
-            {
-                mg.merge(f);
-            }
-        }
-
-        public void del(String idSign)
-        {
-            var j = this.cache;
-            //清除文件列表
-            fd_files_redis fs = new fd_files_redis(ref this.cache, idSign);
-            fs.del();
-
-            //清除目录列表
-            fd_folders_redis ds = new fd_folders_redis(ref this.cache, idSign);
-            ds.del();
-
-            //清除文件夹
-            j.Del(idSign);
         }
 
         //保存到数据库
@@ -154,50 +78,6 @@ namespace up7.demoSql2005.db.biz.redis
                 fd.read(this.cache, s);
                 this.m_root.folders.Add(fd);
             }
-        }
-
-        void saveRoot()
-        {
-            var j = this.cache;
-            j.Del(this.m_root.idSign);
-
-            j.HSet(this.m_root.idSign, "lenLoc", this.m_root.lenLoc);//数字化的长度
-            j.HSet(this.m_root.idSign, "lenSvr", "0");//格式化的
-            j.HSet(this.m_root.idSign, "sizeLoc", this.m_root.sizeLoc);//格式化的
-            j.HSet(this.m_root.idSign, "pathLoc", this.m_root.pathLoc);//
-            j.HSet(this.m_root.idSign, "pathSvr", this.m_root.pathSvr);//
-            j.HSet(this.m_root.idSign, "filesCount", this.m_root.fileCount);
-
-            fd_files_redis rfs = new fd_files_redis(ref j, this.m_root.idSign);
-            rfs.add(m_root.files);
-
-            //保存目录
-            fd_folders_redis rds = new fd_folders_redis(ref j, this.m_root.idSign);
-            rds.add(this.m_root.folders);
-        }
-
-        void saveFiles()
-        {
-            foreach (fd_file_redis f in this.m_root.files)
-            {
-                f.write(this.cache);
-            }
-        }
-
-        void saveFolders()
-        {
-            foreach (fd_child_redis fd in this.m_root.folders)
-            {
-                fd.write(this.cache);
-            }
-        }
-
-        public String toJson()
-        {
-            String json = JsonConvert.SerializeObject(this.m_root);
-            json = HttpUtility.UrlEncode(json);
-            json = json.Replace("+", "%20");
-            return json;
         }
     }
 }
