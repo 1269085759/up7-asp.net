@@ -361,6 +361,11 @@ function DownloaderMgr()
         if (needUpdate) this.update_notice();
         else { this.btnSetup.hide(); }
     };
+    this.load_complete_edge = function (json) {
+        this.edge_load = true;
+        this.btnSetup.hide();
+        _this.app.init();
+    };
 	this.recvMessage = function (str)
 	{
 	    var json = JSON.parse(str);
@@ -380,7 +385,8 @@ function DownloaderMgr()
 	    else if (json.name == "queue_begin") { _this.queue_begin(json); }
 	    else if (json.name == "queue_end") { _this.queue_end(json); }
         else if (json.name == "load_complete") { _this.load_complete(json); }
-        else if (json.name == "extension_complete") {
+	    else if (json.name == "load_complete_edge") { _this.load_complete_edge(json); }
+        else if (json.name == "extension_complete") { 
             setTimeout(function () {
                 var param = { name: "init", config: _this.Config };
                 _this.app.postMessage(param);

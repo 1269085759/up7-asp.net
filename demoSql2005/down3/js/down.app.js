@@ -64,7 +64,7 @@ var up6_app = {
         $(window).bind("beforeunload", function () { obj.exit(); });
     }
     , openFolder: function () {
-        var param = { name: "open_folder", config: this.Config };
+        var param = { name: "open_folder"};
         this.postMessage(param);
     }
     , openPath: function (f) {
@@ -83,21 +83,21 @@ var up6_app = {
     }
     , addFolder: function (f) {
         this.queueCount++;
-        var param = { name: "add_folder", config: this.Config };
+        var param = { name: "add_folder"};
         jQuery.extend(param, f, { name: "add_folder" });
         this.postMessage(param);
     }
     , stopFile: function (f) {
         this.queueCount--;
-        var param = { name: "stop_file", signSvr: f.signSvr, config: this.Config };
+        var param = { name: "stop_file", signSvr: f.signSvr};
         this.postMessage(param);
     }
     , startQueue: function () {
-        var param = { name: "start_queue", config: this.Config };
+        var param = { name: "start_queue"};
         this.postMessage(param);
     }
     , stopQueue: function () {
-        var param = { name: "stop_queue", config: this.Config };
+        var param = { name: "stop_queue"};
         this.postMessage(param);
     }
     , postMessage:function(json)
