@@ -132,7 +132,7 @@ function FileDownloader(fileLoc, mgr)
     this.svr_update = function ()
     {
         var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
-        jQuery.extend(param, { singSvr: this.fileSvr.signSvr });
+        jQuery.extend(param, { signSvr: this.fileSvr.signSvr });
         jQuery.extend(param, { lenLoc: this.fileSvr.lenLoc});
         jQuery.extend(param, { sizeLoc: this.fileSvr.sizeLoc });
         jQuery.extend(param, { perLoc: encodeURIComponent(this.fileSvr.perLoc) });

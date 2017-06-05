@@ -22,8 +22,7 @@ namespace up7.demoSql2005.down3.db
             sizeLoc = PathTool.url_decode(sizeLoc);
             per = PathTool.url_decode(per);
             //
-            if (    string.IsNullOrEmpty(uid)
-                ||  string.IsNullOrEmpty(fid)
+            if (    string.IsNullOrEmpty(fid)
                 ||  string.IsNullOrEmpty(cbk)
                 ||  string.IsNullOrEmpty(lenLoc))
             {
