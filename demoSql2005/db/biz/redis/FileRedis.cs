@@ -7,13 +7,12 @@ namespace up7.demoSql2005.db.biz.redis
         CSRedis.RedisClient con = null;
         public FileRedis(ref CSRedis.RedisClient c) { this.con = c; }
 
-        public void process(String idSign, String perSvr, String lenSvr,String blockCount,String blockSize)
+        public void process(String idSign, String perSvr, String lenSvr,String blockCount)
         {
             var j = this.con;
             j.HSet(idSign, "perSvr", perSvr);
             j.HSet(idSign, "lenSvr", lenSvr);
             j.HSet(idSign, "blockCount", blockCount);
-            j.HSet(idSign, "blockSize", blockSize);
         }
 
         public void complete(string id) { this.con.Del(id); }

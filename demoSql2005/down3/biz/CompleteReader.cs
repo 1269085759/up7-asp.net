@@ -21,7 +21,8 @@ namespace up7.demoSql2005.down3.biz
             sb.Append(",f_pathSvr");//6
             sb.Append(",f_blockSize");//7
             sb.Append(",f_blockPath");//8
-            sb.Append(",fd_files");//9
+            sb.Append(",f_blockCount");//9
+            sb.Append(",fd_files");//10
                                    //
             sb.Append(" from up7_files");
             sb.Append(" left join up7_folders on up7_folders.fd_sign=up7_files.f_idSign");
@@ -49,7 +50,8 @@ namespace up7.demoSql2005.down3.biz
                     fi.signSvr  = Guid.NewGuid().ToString();//服务端生成，唯一标识
                     fi.blockSize = r.GetInt32(7);
                     fi.blockPath = r.GetString(8);
-                    fi.fileCount = r.IsDBNull(9) ? 0 : r.GetInt32(9);
+                    fi.blockCount = r.GetInt32(9);
+                    fi.fileCount = r.IsDBNull(10) ? 0 : r.GetInt32(10);
                     files.Add(fi);
                 }
             }

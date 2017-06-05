@@ -23,6 +23,7 @@ namespace up7.demoSql2005.db
             string idSign       = Request.QueryString["idSign"];
             string lenLoc       = Request.QueryString["lenLoc"];
             string sizeLoc      = Request.QueryString["sizeLoc"];
+            string blockSize    = Request.QueryString["blockSize"];
             string callback     = Request.QueryString["callback"];//jsonp参数
             //客户端使用的是encodeURIComponent编码，
             string pathLoc      = HttpUtility.UrlDecode(Request.QueryString["pathLoc"]);//utf-8解码
@@ -43,6 +44,7 @@ namespace up7.demoSql2005.db
             fileSvr.pathLoc = pathLoc;
             fileSvr.lenLoc = Convert.ToInt64(lenLoc);
             fileSvr.sizeLoc = sizeLoc;
+            fileSvr.blockSize = int.Parse(blockSize);
             fileSvr.deleted = false;
             fileSvr.nameSvr = fileSvr.nameLoc;
 
