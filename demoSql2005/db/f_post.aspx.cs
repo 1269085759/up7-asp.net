@@ -66,7 +66,7 @@ namespace up7.demoSql2005.db
             part.SaveAs(partPath);
 
             //更新缓存进度
-            f_svr.process(idSign, perSvr, lenSvr, blockCount,blockSize);
+            f_svr.process(idSign, perSvr, lenSvr, blockCount);
         }
         void savePartFolder()
         {
@@ -104,7 +104,7 @@ namespace up7.demoSql2005.db
             }//更新文件夹进度
             else if (f_pos == "0")
             {                
-                 f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr, "0", "0");
+                 f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr, "0");
             }
 
             //块路径
