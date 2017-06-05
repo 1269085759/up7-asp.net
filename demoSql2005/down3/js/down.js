@@ -522,7 +522,7 @@ function DownloaderMgr()
     //加载未未完成列表
 	this.loadFiles = function ()
 	{
-	    var param = jQuery.extend({}, this.Fields, { time: new Date().getTime()});
+	    var param = jQuery.extend({}, this.Config.Fields, { time: new Date().getTime()});
 	    $.ajax({
 	        type: "GET"
             , dataType: 'jsonp'
