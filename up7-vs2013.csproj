@@ -90,7 +90,9 @@
     <Content Include="demoSql2005\down3\debug\test.aspx" />
     <Content Include="demoSql2005\down3\index.htm" />
     <Content Include="demoSql2005\down3\js\down-single.js" />
+    <Content Include="demoSql2005\down3\js\down.app.js" />
     <Content Include="demoSql2005\down3\js\down.css" />
+    <Content Include="demoSql2005\down3\js\down.edge.js" />
     <Content Include="demoSql2005\down3\js\down.file.js" />
     <Content Include="demoSql2005\down3\js\down.folder.js" />
     <Content Include="demoSql2005\down3\js\down.js" />
