@@ -27,7 +27,7 @@ function FileDownloader(fileLoc, mgr)
     this.app = mgr.app;
     this.Manager = mgr;
     this.Config = mgr.Config;
-    this.fields = jQuery.extend({}, mgr.Fields, { nameLoc: encodeURIComponent(fileLoc.nameLoc), sizeSvr: fileLoc.sizeSvr });//每一个对象自带一个fields幅本
+    this.fields = jQuery.extend({}, mgr.Config.Fields, { nameLoc: encodeURIComponent(fileLoc.nameLoc), sizeSvr: fileLoc.sizeSvr });//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
     this.inited = false;
     this.event = mgr.event;

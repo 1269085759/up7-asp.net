@@ -5,7 +5,7 @@
     this.app = mgr.app;
     this.Manager = mgr;
     this.Config = mgr.Config;
-    this.fields = jQuery.extend({},mgr.Fields);//每一个对象自带一个fields幅本
+    this.fields = jQuery.extend({},mgr.Config.Fields);//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
     this.inited = false;
     this.event = mgr.event;
