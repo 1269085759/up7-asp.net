@@ -21,7 +21,7 @@ namespace up7.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid          = Request.QueryString["uid"];
-            string idSign       = Request.QueryString["idSign"];
+            string id           = Request.QueryString["id"];
             string lenLoc       = Request.QueryString["lenLoc"];
             string sizeLoc      = Request.QueryString["sizeLoc"];
             string blockSize    = Request.QueryString["blockSize"];
@@ -39,7 +39,7 @@ namespace up7.db
             }
 
             xdb_files fileSvr = new xdb_files();
-            fileSvr.id = idSign;
+            fileSvr.id = id;
             fileSvr.uid = int.Parse(uid);//将当前文件UID设置为当前用户UID
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.pathLoc = pathLoc;
@@ -52,7 +52,7 @@ namespace up7.db
             PathGuidBuilder pb = new PathGuidBuilder();
             fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.sign,fileSvr.nameLoc);
             BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath = bpb.root(idSign, fileSvr.pathSvr);
+            fileSvr.blockPath = bpb.root(id, fileSvr.pathSvr);
 
             //添加到任务表
             DBFileQueue db = new DBFileQueue();
