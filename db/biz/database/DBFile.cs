@@ -63,7 +63,7 @@ namespace up7.db.biz.database
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
-            db.AddString(ref cmd, "@f_idSign", model.idSign, 36);
+            db.AddString(ref cmd, "@f_idSign", model.id, 36);
             db.AddInt(ref cmd, "@f_uid", model.uid);
             db.AddString(ref cmd, "@f_nameLoc", model.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", model.nameSvr, 255);
@@ -113,7 +113,7 @@ namespace up7.db.biz.database
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
-            db.AddString(ref cmd, "@f_idSign", f.idSign, 36);
+            db.AddString(ref cmd, "@f_idSign", f.id, 36);
             db.AddInt(ref cmd, "@f_uid", f.uid);
             db.AddString(ref cmd, "@f_nameLoc", f.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", f.nameSvr, 255);
@@ -143,7 +143,7 @@ namespace up7.db.biz.database
             while(r.Read())
             {
                 xdb_files f = new xdb_files();
-                f.idSign = r.GetString(0);
+                f.id = r.GetString(0);
                 f.nameLoc = r.GetString(1);
                 f.pathLoc = r.GetString(2);
                 f.pathSvr = r.GetString(3);

@@ -94,7 +94,7 @@ namespace up7.db
             xdb_files f = new xdb_files();
             f.nameLoc = Path.GetFileName(pathLoc);
             f.nameSvr = f.nameLoc;
-            f.idSign = idSign;
+            f.id = idSign;
             f.pathLoc = pathLoc;
             f.sizeLoc = sizeLoc;
             f.lenLoc = long.Parse(lenLoc);

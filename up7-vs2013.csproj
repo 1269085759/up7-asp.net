@@ -276,7 +276,6 @@
     <Compile Include="down3\biz\redis\FileRedis.cs" />
     <Compile Include="down3\biz\redis\KeyMaker.cs" />
     <Compile Include="down3\biz\redis\tasks.cs" />
-    <Compile Include="down3\biz\folder_appender.cs" />
     <Compile Include="down3\db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

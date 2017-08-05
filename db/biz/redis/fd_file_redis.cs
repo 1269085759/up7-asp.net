@@ -7,7 +7,7 @@ namespace up7.db.biz.redis
     {
         public void read(CSRedis.RedisClient j, String idSign)
         {
-            this.idSign = idSign;
+            this.id = idSign;
             if (!j.Exists(idSign)) return;
 
             this.lenLoc = long.Parse(j.HGet(idSign, "lenLoc"));
@@ -21,8 +21,8 @@ namespace up7.db.biz.redis
             this.perSvr = j.HGet(idSign, "perSvr");
             this.nameLoc = j.HGet(idSign, "nameLoc");
             this.nameSvr = j.HGet(idSign, "nameSvr");
-            this.pidSign = j.HGet(idSign, "pidSign");
-            this.rootSign = j.HGet(idSign, "rootSign");
+            this.pid = j.HGet(idSign, "pidSign");
+            this.pidRoot = j.HGet(idSign, "rootSign");
             this.folder = j.HGet(idSign, "fdTask") == "True";
             this.complete = j.HGet(idSign, "complete") == "true";
             this.sign = j.HGet(idSign, "sign");
@@ -30,24 +30,24 @@ namespace up7.db.biz.redis
 
         public void write(CSRedis.RedisClient j)
         {
-            j.Del(this.idSign);
+            j.Del(this.id);
 
-            j.HSet(this.idSign, "lenLoc", this.lenLoc);//数字化的长度
-            j.HSet(this.idSign, "lenSvr", this.lenSvr);//数字化的长度
-            j.HSet(this.idSign, "sizeLoc", this.sizeLoc);//格式化的
-            j.HSet(this.idSign, "pathLoc", this.pathLoc);//
-            j.HSet(this.idSign, "pathSvr", this.pathSvr);//
-            j.HSet(this.idSign, "pathRel", this.pathRel);//
-            j.HSet(this.idSign, "blockPath", this.blockPath);//
-            j.HSet(this.idSign, "blockSize", this.blockSize);
-            j.HSet(this.idSign, "perSvr", this.lenLoc > 0 ? this.perSvr : "100%");//
-            j.HSet(this.idSign, "nameLoc", this.nameLoc);//
-            j.HSet(this.idSign, "nameSvr", this.nameSvr);//
-            j.HSet(this.idSign, "pidSign", this.pidSign);//
-            j.HSet(this.idSign, "rootSign", this.rootSign);//		
-            j.HSet(this.idSign, "fdTask", this.folder);//
-            j.HSet(this.idSign, "complete", this.lenLoc > 0 ? "false" : "true");//
-            j.HSet(this.idSign, "sign", this.sign);//
+            j.HSet(this.id, "lenLoc", this.lenLoc);//数字化的长度
+            j.HSet(this.id, "lenSvr", this.lenSvr);//数字化的长度
+            j.HSet(this.id, "sizeLoc", this.sizeLoc);//格式化的
+            j.HSet(this.id, "pathLoc", this.pathLoc);//
+            j.HSet(this.id, "pathSvr", this.pathSvr);//
+            j.HSet(this.id, "pathRel", this.pathRel);//
+            j.HSet(this.id, "blockPath", this.blockPath);//
+            j.HSet(this.id, "blockSize", this.blockSize);
+            j.HSet(this.id, "perSvr", this.lenLoc > 0 ? this.perSvr : "100%");//
+            j.HSet(this.id, "nameLoc", this.nameLoc);//
+            j.HSet(this.id, "nameSvr", this.nameSvr);//
+            j.HSet(this.id, "pidSign", this.pid);//
+            j.HSet(this.id, "rootSign", this.pidRoot);//		
+            j.HSet(this.id, "fdTask", this.folder);//
+            j.HSet(this.id, "complete", this.lenLoc > 0 ? "false" : "true");//
+            j.HSet(this.id, "sign", this.sign);//
         }
     }
 }

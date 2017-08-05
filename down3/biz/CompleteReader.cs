@@ -39,7 +39,7 @@ namespace up7.down3.biz
                 while (r.Read())
                 {
                     xdb_files fi = new xdb_files();
-                    fi.idSign   = r.GetString(0);//与up7_files表对应
+                    fi.id   = r.GetString(0);//与up7_files表对应
                     fi.nameLoc  = r.GetString(1);
                     fi.lenSvr   = r.GetInt64(2);
                     fi.sizeSvr  = r.GetString(3);
@@ -48,7 +48,6 @@ namespace up7.down3.biz
                     fi.pathSvr  = r.GetString(6);
                     //如果是文件夹则pathSvr保存本地路径，用来替换
                     if (fi.folder) fi.pathSvr = fi.pathLoc;
-                    fi.signSvr  = Guid.NewGuid().ToString();//服务端生成，唯一标识
                     fi.blockSize = r.GetInt32(7);
                     fi.blockPath = r.GetString(8);
                     fi.blockCount = r.GetInt32(9);

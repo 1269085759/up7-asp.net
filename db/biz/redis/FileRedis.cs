@@ -19,23 +19,23 @@ namespace up7.db.biz.redis
         public void complete(string id) { this.con.Del(id); }
         public void create(xdb_files f)
         {
-            if (this.con.Exists(f.idSign)) return;
+            if (this.con.Exists(f.id)) return;
 
-            this.con.HSet(f.idSign, "fdTask", f.folder);
-            this.con.HSet(f.idSign, "rootSign", f.rootSign);
-            this.con.HSet(f.idSign, "pathLoc", f.pathLoc);
-            this.con.HSet(f.idSign, "pathSvr", f.pathSvr);
-            this.con.HSet(f.idSign, "pathRel", f.pathRel);
-            this.con.HSet(f.idSign, "blockPath", f.blockPath);
-            this.con.HSet(f.idSign, "nameLoc", f.nameLoc);
-            this.con.HSet(f.idSign, "nameSvr", f.nameSvr);
-            this.con.HSet(f.idSign, "lenLoc", f.lenLoc);
-            this.con.HSet(f.idSign, "lenSvr", "0");
-            this.con.HSet(f.idSign, "blockCount", f.blockCount);
-            this.con.HSet(f.idSign, "blockSize", f.blockSize);
-            this.con.HSet(f.idSign, "sizeLoc", f.sizeLoc);
-            this.con.HSet(f.idSign, "filesCount", f.fileCount);
-            this.con.HSet(f.idSign, "foldersCount", "0");
+            this.con.HSet(f.id, "fdTask", f.folder);
+            this.con.HSet(f.id, "rootSign", f.pidRoot);
+            this.con.HSet(f.id, "pathLoc", f.pathLoc);
+            this.con.HSet(f.id, "pathSvr", f.pathSvr);
+            this.con.HSet(f.id, "pathRel", f.pathRel);
+            this.con.HSet(f.id, "blockPath", f.blockPath);
+            this.con.HSet(f.id, "nameLoc", f.nameLoc);
+            this.con.HSet(f.id, "nameSvr", f.nameSvr);
+            this.con.HSet(f.id, "lenLoc", f.lenLoc);
+            this.con.HSet(f.id, "lenSvr", "0");
+            this.con.HSet(f.id, "blockCount", f.blockCount);
+            this.con.HSet(f.id, "blockSize", f.blockSize);
+            this.con.HSet(f.id, "sizeLoc", f.sizeLoc);
+            this.con.HSet(f.id, "filesCount", f.fileCount);
+            this.con.HSet(f.id, "foldersCount", "0");
         }
 
         public xdb_files read(string id)
@@ -43,7 +43,7 @@ namespace up7.db.biz.redis
             if (!this.con.Exists(id)) return null;
 
             xdb_files f = new xdb_files();
-            f.idSign = id;
+            f.id = id;
             f.folder  = this.con.HGet(id, "fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             f.pathLoc = this.con.HGet(id, "pathLoc");
             f.pathSvr = this.con.HGet(id, "pathSvr");

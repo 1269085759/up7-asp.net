@@ -15,7 +15,7 @@ namespace up7.down3.db
         {
             string uid     = Request.QueryString["uid"];
             string cbk     = Request.QueryString["callback"];
-            string signSvr = Request.QueryString["signSvr"];
+            string id      = Request.QueryString["id"];
             string nameLoc = Request.QueryString["nameLoc"];
             string pathLoc = Request.QueryString["pathLoc"];
             string sizeSvr = Request.QueryString["sizeSvr"];
@@ -39,7 +39,7 @@ namespace up7.down3.db
             DnFileInf fd = new DnFileInf();
             fd.nameLoc = nameLoc;
             fd.pathLoc = pathLoc;
-            fd.signSvr = signSvr;
+            fd.id = id;
             fd.sizeSvr = sizeSvr;
             fd.folder = true;
             var j = RedisConfig.getCon();

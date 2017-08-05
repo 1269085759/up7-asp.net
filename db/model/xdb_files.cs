@@ -4,15 +4,13 @@ namespace up7.db.model
 {
     public class xdb_files
     {
-        public string idSign = string.Empty;
-        public string pidSign = string.Empty;
-        public string rootSign = string.Empty;
-        public string signSvr = string.Empty;
+        public string id = string.Empty;
+        public string pid = string.Empty;
+        public string pidRoot = string.Empty;
         public bool folder = false;//是否是一个文件夹
         public int blockCount = 0;
         public int blockSize = 0;//块大小
         public int fileCount = 0;
-        public int idSvr = 0;
         /// <summary>
         /// 是否是文件夹中的子文件
         /// </summary>

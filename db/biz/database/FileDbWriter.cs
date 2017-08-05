@@ -93,9 +93,9 @@ namespace up7.db.biz.database
 
         void save(ref DbCommand cmd,xdb_files f)
         {
-            cmd.Parameters[0].Value = f.idSign;//idSign
-            cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pidSign) ? string.Empty : f.pidSign;//pidSign
-            cmd.Parameters[2].Value = string.IsNullOrEmpty(f.rootSign) ? string.Empty : f.rootSign;//rootSign
+            cmd.Parameters[0].Value = f.id;//idSign
+            cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pid) ? string.Empty : f.pid;//pidSign
+            cmd.Parameters[2].Value = string.IsNullOrEmpty(f.pidRoot) ? string.Empty : f.pidRoot;//rootSign
             cmd.Parameters[3].Value = f.f_fdChild;//fdChild
             cmd.Parameters[4].Value = f.uid;//uid
             cmd.Parameters[5].Value = f.nameLoc;//nameLoc
@@ -124,7 +124,7 @@ namespace up7.db.biz.database
             //保存文件夹
             this.save(ref cmd, this.root);
 
-            string key = this.root.idSign + "-files";
+            string key = this.root.id + "-files";
             int index = 0;
             long len = this.m_cache.LLen(key);
             redis.FileRedis svr = new redis.FileRedis(ref this.m_cache);
@@ -142,7 +142,7 @@ namespace up7.db.biz.database
                 System.Diagnostics.Debug.WriteLine(k);
                     xdb_files f = svr.read(k);
                     f.f_fdChild = true;
-                    f.rootSign = this.root.idSign;
+                    f.pidRoot = this.root.id;
                     this.save(ref cmd,f);//添加到数据库
                     files.Add(f);
                 }

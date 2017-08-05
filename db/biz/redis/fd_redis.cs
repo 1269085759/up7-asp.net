@@ -32,7 +32,7 @@ namespace up7.db.biz.redis
             }
 
             this.m_root = new fd_root();
-            this.m_root.idSign = idSign;
+            this.m_root.id = idSign;
             this.m_root.nameLoc = j.HGet(idSign, "nameLoc");
             this.m_root.nameSvr = this.m_root.nameLoc;
             this.m_root.lenLoc = long.Parse(j.HGet(idSign, "lenLoc"));
@@ -67,7 +67,7 @@ namespace up7.db.biz.redis
         void loadFolders()
         {
             //取文件ID列表
-            fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.m_root.idSign);
+            fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.m_root.id);
             this.m_root.folders = new List<fd_child>();
             var fs = rfs.all();
             foreach (String s in fs)

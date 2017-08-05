@@ -15,39 +15,39 @@ namespace up7.down3.biz.redis
         public void create(ref DnFileInf f)
         {
             var j = this.con;
-            j.HSet(f.signSvr, "nameLoc", f.nameLoc);
-            j.HSet(f.signSvr, "pathLoc", f.pathLoc);
-            j.HSet(f.signSvr, "pathSvr", f.pathSvr);
-            j.HSet(f.signSvr, "lenLoc", f.lenLoc);//已下载大小		
-            j.HSet(f.signSvr, "lenSvr", f.lenSvr);//文件大小
-            j.HSet(f.signSvr, "sizeSvr", f.sizeSvr);
-            j.HSet(f.signSvr, "perLoc", f.perLoc);//已下载百分比	
-            j.HSet(f.signSvr, "fdTask", f.folder.ToString());
+            j.HSet(f.id, "nameLoc", f.nameLoc);
+            j.HSet(f.id, "pathLoc", f.pathLoc);
+            j.HSet(f.id, "pathSvr", f.pathSvr);
+            j.HSet(f.id, "lenLoc", f.lenLoc);//已下载大小		
+            j.HSet(f.id, "lenSvr", f.lenSvr);//文件大小
+            j.HSet(f.id, "sizeSvr", f.sizeSvr);
+            j.HSet(f.id, "perLoc", f.perLoc);//已下载百分比	
+            j.HSet(f.id, "fdTask", f.folder.ToString());
         }
 
-        public DnFileInf read(string signSvr)
+        public DnFileInf read(string id)
         {
-            if (!this.con.Exists(signSvr)) return null;
+            if (!this.con.Exists(id)) return null;
             DnFileInf f = new DnFileInf();
-            f.signSvr = signSvr;
-            f.lenLoc = long.Parse(this.con.HGet(signSvr, "lenLoc"));//已经下载的大小
-            f.lenSvr = long.Parse(this.con.HGet(signSvr, "lenSvr"));//服务器文件大小。
-            f.perLoc = this.con.HGet(signSvr, "perLoc");
-            f.pathLoc = this.con.HGet(signSvr, "pathLoc");//本地下载地址
-            f.pathSvr = this.con.HGet(signSvr, "pathSvr");//服务器文件地址
-            f.sizeSvr = this.con.HGet(signSvr, "sizeSvr");//
-            f.nameLoc = this.con.HGet(signSvr, "nameLoc");//
-            f.folder = this.con.HGet(signSvr,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
+            f.id = id;
+            f.lenLoc = long.Parse(this.con.HGet(id, "lenLoc"));//已经下载的大小
+            f.lenSvr = long.Parse(this.con.HGet(id, "lenSvr"));//服务器文件大小。
+            f.perLoc = this.con.HGet(id, "perLoc");
+            f.pathLoc = this.con.HGet(id, "pathLoc");//本地下载地址
+            f.pathSvr = this.con.HGet(id, "pathSvr");//服务器文件地址
+            f.sizeSvr = this.con.HGet(id, "sizeSvr");//
+            f.nameLoc = this.con.HGet(id, "nameLoc");//
+            f.folder = this.con.HGet(id,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             return f;
         }
 
-        public void process(string signSvr,string perLoc,long lenLoc,string sizeLoc)
+        public void process(string id,string perLoc,long lenLoc,string sizeLoc)
         {
             var j = this.con;
 
-            j.HSet(signSvr, "lenLoc", lenLoc);//已下载大小		
-            j.HSet(signSvr, "perLoc", perLoc);//已下载百分比
-            j.HSet(signSvr, "sizeLoc", sizeLoc);//已下载百分比
+            j.HSet(id, "lenLoc", lenLoc);//已下载大小		
+            j.HSet(id, "perLoc", perLoc);//已下载百分比
+            j.HSet(id, "sizeLoc", sizeLoc);//已下载百分比
         }
     }
 }

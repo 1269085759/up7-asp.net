@@ -13,7 +13,7 @@ namespace up7.down3.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid      = Request.QueryString["uid"];
-            string signSvr  = Request.QueryString["signSvr"];
+            string id       = Request.QueryString["id"];
             string nameLoc  = Request.QueryString["nameLoc"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
             string pathSvr  = Request.QueryString["pathSvr"];
@@ -35,7 +35,7 @@ namespace up7.down3.db
             }
 
             DnFileInf inf = new DnFileInf();
-            inf.signSvr = signSvr;
+            inf.id = id;
             inf.uid = int.Parse(uid);
             inf.nameLoc = nameLoc;
             inf.pathLoc = pathLoc;//记录本地存储位置

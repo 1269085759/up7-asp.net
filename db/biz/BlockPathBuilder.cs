@@ -75,13 +75,13 @@ namespace up7.db.biz
             int pos = f.pathRel.LastIndexOf("\\");
             if(pos==-1)
             {
-                pathSvr = Path.Combine(pathSvr, f.idSign);
+                pathSvr = Path.Combine(pathSvr, f.id);
             }
             else
             {
                 string rel = f.pathRel.Substring(0, pos);
                 pathSvr = Path.Combine(pathSvr, rel);
-                pathSvr = Path.Combine(pathSvr, f.idSign);
+                pathSvr = Path.Combine(pathSvr, f.id);
             }
             return pathSvr;
         }

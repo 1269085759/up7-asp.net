@@ -10,9 +10,7 @@ namespace up7.down3.model
             this.m_fdTask = false;
         }
 
-        public int idSvr { get { return this.m_fid; } set { this.m_fid = value; } }
-        public string signSvr = string.Empty;
-        public string idSign = string.Empty;
+        public string id = string.Empty;
         public int uid { get { return this.m_uid; } set { this.m_uid = value; } }
         public string mac { get { return this.m_mac; } set { this.m_mac = value; } }
         public string pathLoc { get { return this.m_pathLoc; } set { this.m_pathLoc = value; } }
@@ -32,19 +30,12 @@ namespace up7.down3.model
         /// </summary>
         public string nameLoc { get { return this.m_name; } set { this.m_name = value; } }
         public bool folder { get { return this.m_fdTask; } set { this.m_fdTask = value; } }
-        public int fdID { get { return this.m_fdID; } set { this.m_fdID = value; } }
-        public int pidRoot { get { return this.m_pidRoot; } set { this.m_pidRoot = value; } }
 
         public List<DnFileInf> files { get { return this.m_files; } set { this.m_files = value; } }
 
         private string m_name=string.Empty;
         private bool m_fdTask=false;//是否是文件夹
-        private int m_fdID=0;
-        private int m_pidRoot=0;
         private bool m_complete = false;
-
-        [JsonIgnore]
-        public int m_fid=0;
 
         /// <summary>
         /// 用户ID

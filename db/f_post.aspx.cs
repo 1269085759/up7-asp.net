@@ -75,7 +75,7 @@ namespace up7.db
             var fd = fr.read(this.fd_idSign);
 
             xdb_files fileSvr = new xdb_files();
-            fileSvr.idSign = idSign;
+            fileSvr.id = idSign;
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.nameSvr = nameLoc;
             fileSvr.lenLoc = long.Parse(lenLoc);
@@ -84,7 +84,7 @@ namespace up7.db
             fileSvr.pathSvr = pathLoc.Replace(fd.pathLoc, fd.pathSvr);
             fileSvr.pathSvr = fileSvr.pathSvr.Replace("\\", "/");
             fileSvr.pathRel = pathLoc.Replace(fd.pathLoc+"\\", string.Empty);
-            fileSvr.rootSign = fd_idSign;
+            fileSvr.pidRoot = fd_idSign;
             fileSvr.blockCount = int.Parse(blockCount);
             fileSvr.blockSize = int.Parse(blockSize);
             BlockPathBuilder bpb = new BlockPathBuilder();

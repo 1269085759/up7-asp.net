@@ -32,12 +32,12 @@ namespace up7.db.biz
             String[] parts = Directory.GetFiles(fileSvr.blockPath);
             long prevLen = 0;
 
-            using (var mapFile = MemoryMappedFile.CreateFromFile(fileSvr.pathSvr, FileMode.CreateNew, fileSvr.idSign, fileSvr.lenLoc))
+            using (var mapFile = MemoryMappedFile.CreateFromFile(fileSvr.pathSvr, FileMode.CreateNew, fileSvr.id, fileSvr.lenLoc))
             {
 
                 for (int i = 0, l = parts.Length; i < l; ++i)
                 {
-                    String partName = Path.Combine(fd,fileSvr.idSign,(i + 1) + ".part");
+                    String partName = Path.Combine(fd,fileSvr.id,(i + 1) + ".part");
                     var partData = File.ReadAllBytes(partName);
                     //每一个文件块为64mb，最后一个文件块<=64mb
                     long partOffset = prevLen;

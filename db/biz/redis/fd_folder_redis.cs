@@ -30,7 +30,7 @@ namespace up7.db.biz.redis
             String key = this.getKey();
             foreach(fd_child_redis f in fs)
             {
-                this.con.LPush(key, f.idSign);
+                this.con.LPush(key, f.id);
             }
         }
 
@@ -39,7 +39,7 @@ namespace up7.db.biz.redis
             String key = this.getKey();
             foreach (var f in fs)
             {
-                this.con.LPush(key, f.idSign);
+                this.con.LPush(key, f.id);
             }
         }
 

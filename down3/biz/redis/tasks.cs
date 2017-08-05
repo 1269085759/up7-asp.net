@@ -54,19 +54,19 @@ namespace up7.down3.biz.redis
             //添加到下载队列缓存
             KeyMaker km = new KeyMaker();
             string space = km.space(this.uid);
-            this.con.SAdd(space, f.signSvr);
+            this.con.SAdd(space, f.id);
         }
 
-        public void del(string signSvr)
+        public void del(string id)
         {
             KeyMaker km = new KeyMaker();
             string space = km.space(this.uid);
 
             //从队列中删除（当前用户的下载列表）
-            this.con.SRem(space, signSvr);
+            this.con.SRem(space, id);
 
             //删除文件信息
-            this.con.Del(signSvr);
+            this.con.Del(id);
         }
 
         /// <summary>

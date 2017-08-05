@@ -172,7 +172,7 @@ function HttpUploaderMgr()
 		, filesUI: null //文件列表容器,JQuery
 		, filesUiMap: new Object()//ui映射表,JQuery
         , filesSvr: new Array()//服务器文件列表(json obj)
-        , filesSvrMap:new Object()//服务器文件映射表：(idSign,json obj)
+        , filesSvrMap:new Object()//服务器文件映射表：(id,json obj)
 		, "GetHtml": function ()//加载控件
 		{
 			var html = '<div class="file-list-view" name="file-list-view">\
@@ -224,7 +224,7 @@ function HttpUploaderMgr()
 			            var files = JSON.parse(decodeURIComponent(msg.value));
 			            for (var i = 0, l = files.length; i < l; ++i)
 			            {
-			                ref.filesSvr.push(files[i].idSign);
+			                ref.filesSvr.push(files[i].id);
 			                ref.addFileSvr(files[i]);
 			            }
 			        }
@@ -236,8 +236,8 @@ function HttpUploaderMgr()
         , "addFileSvr": function (fileSvr)
         {
             var ref = this;
-            var idSign = fileSvr.idSign;
-            this.filesSvrMap[idSign] = fileSvr;
+            var id = fileSvr.id;
+            this.filesSvrMap[id] = fileSvr;
             var ui = this.FileItemTemp.clone();
             var liName = ui.find('li[name="fname"]');
             var liSize = ui.find('li[name="fsize"]');
@@ -251,7 +251,7 @@ function HttpUploaderMgr()
 
             if (fileSvr.complete)
             {
-                liOp.html('<span fid="' + idSign + '">删除</span>').css("cursor", "pointer").click(function ()
+                liOp.html('<span fid="' + id + '">删除</span>').css("cursor", "pointer").click(function ()
                 {
                     ref.RemoveFile(fileSvr);
                 });
@@ -263,17 +263,17 @@ function HttpUploaderMgr()
                 liOp.find('span[name="btnDel"]').click(function () { ref.RemoveFile(fileSvr); });
             }
             //添加到文件列表项集合
-            this.filesUiMap[fileSvr.idSign] = ui;
+            this.filesUiMap[fileSvr.id] = ui;
             this.filesUI.append(ui);
         }
 		, "UploadComplete": function (fileSvr)//上传完成，将操作改为删除。
 		{
             //文件已存在
-            if (this.filesSvrMap[fileSvr.idSign] != null)
+            if (this.filesSvrMap[fileSvr.id] != null)
 		    {
                 var ref = this;
-                var idSign = fileSvr.idSign;
-                var ui = this.filesUiMap[idSign];
+                var id = fileSvr.id;
+                var ui = this.filesUiMap[id];
 		        var liPer = ui.find('li[name="fper"]');
 		        var liOp = ui.find('li[name="fop"]');
 
@@ -297,7 +297,7 @@ function HttpUploaderMgr()
 		        _this.ResumeFile(fileSvr);
 			}
             _this.OpenPnlUpload(); //打开上传面板
-            this.RemoveFileCache(fileSvr.idSign); //从内存中删除
+            this.RemoveFileCache(fileSvr.id); //从内存中删除
 			this.UploaderMgr.PostFirst();
 		}
 		, "RemoveFile": function (fileSvr)//删除文件
@@ -308,16 +308,16 @@ function HttpUploaderMgr()
 		        return;
 		    }
 		    var ref = this;
-            var idSign = fileSvr.idSign;
-            var item = this.filesSvrMap[idSign];
-            var ui = this.filesUiMap[idSign];
+            var id = fileSvr.id;
+            var item = this.filesSvrMap[id];
+            var ui = this.filesUiMap[id];
 
 			$.ajax({
 				type: "GET"
 				, dataType: 'jsonp'
 				, jsonp: "callback" //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
                 , url: this.Config["UrlDel"]
-                , data: { uid: fileSvr.uid, idSign: fileSvr.idSign, time: new Date().getTime() }
+                , data: { uid: fileSvr.uid, id: fileSvr.id, time: new Date().getTime() }
 				, success: function (msg) {if (msg == 1) {ui.empty();}}
 				, error: function () { alert("发送删除文件信息失败！"+req.responseText); }
 				, complete: function (req, sta) { req = null; }
@@ -326,25 +326,25 @@ function HttpUploaderMgr()
         , "RemoveFolder": function (fileSvr)
         {
             var ref = this;
-            var idSign = fileSvr.idSign;
-            var ui = this.filesUiMap[idSign];
+            var id = fileSvr.id;
+            var ui = this.filesUiMap[id];
 
             $.ajax({
                 type: "GET"
 				, dataType: 'jsonp'
 				, jsonp: "callback" //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
 				, url: this.Config["UrlFdDel"]
-                , data: { uid: fileSvr.uid, idSign: fileSvr.idSign,time: new Date().getTime() }
+                , data: { uid: fileSvr.uid, id: fileSvr.id,time: new Date().getTime() }
 			    , success:function (msg){if (msg.value == 1){ui.empty();}}
 			    , error: function () { alert("发送删除文件信息失败！"); }
 			    , complete: function (req, sta) { req = null; }
             });
         }
-		, "RemoveFileCache": function (idSign)
+		, "RemoveFileCache": function (id)
 		{
-            this.filesSvrMap[idSign] = null;
-            this.filesUiMap[idSign].empty();
-            this.filesUiMap[idSign] = null;
+            this.filesSvrMap[id] = null;
+            this.filesUiMap[id].empty();
+            this.filesUiMap[id] = null;
 		}
 	};
 
@@ -482,45 +482,45 @@ function HttpUploaderMgr()
     };
 	this.post_process = function (json)
 	{
-	    var p = this.filesMap[json.idSign];
+	    var p = this.filesMap[json.id];
 	    p.post_process(json);
 	};
 	this.post_error = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.post_error(json);
 	};
 	this.post_stoped = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.post_stoped(json);
 	};
 	this.post_complete = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.post_complete(json);
 	};
 	this.md5_process = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.md5_process(json);
 	};
 	this.md5_complete = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.md5_complete(json);
 	};
 	this.md5_error = function (json)
 	{
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
 	    p.md5_error(json);
     };
     this.scan_process = function (json) {
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
         p.scan_process(json);
     };
     this.scan_complete = function (json) {
-        var p = this.filesMap[json.idSign];
+        var p = this.filesMap[json.id];
         p.scan_complete(json);
     };
     this.load_complete = function (json)
@@ -865,11 +865,11 @@ function HttpUploaderMgr()
 	参数:
 		fid 上传项ID。唯一标识
 	*/
-	this.Delete = function(idSign)
+	this.Delete = function(id)
 	{
-        _this.filesMap[idSign].LocalFile = null;
-        _this.RemoveQueue(idSign); //从队列中删除
-        _this.RemoveQueueWait(idSign);//从未上传列表中删除
+        _this.filesMap[id].LocalFile = null;
+        _this.RemoveQueue(id); //从队列中删除
+        _this.RemoveQueueWait(id);//从未上传列表中删除
 	};
 
 	/*
@@ -932,7 +932,7 @@ function HttpUploaderMgr()
 		if (_this.NeedFilter(fileLoc.ext)) return;
 
 		var nameLoc = fileLoc.nameLoc;
-        _this.AppendQueue(fileLoc.idSign);//添加到队列
+        _this.AppendQueue(fileLoc.id);//添加到队列
 
 		var ui = _this.tmpFile.clone();//文件信息
 		var sp = _this.tmpSpliter.clone();//分隔线
@@ -952,7 +952,7 @@ function HttpUploaderMgr()
 		var uiPercent	= ui.find("div[name='percent']");
 		
 		var upFile = new FileUploader(fileLoc, _this);
-        this.filesMap[fileLoc.idSign] = upFile;//添加到映射表
+        this.filesMap[fileLoc.id] = upFile;//添加到映射表
 		var ui_eles = { msg: uiMsg, process: uiProcess,percent:uiPercent, btn: { del: btnDel, cancel: btnCancel,post:btnPost,stop:btnStop }, div: ui, split: sp };
 		upFile.ui = ui_eles;
 
@@ -980,7 +980,7 @@ function HttpUploaderMgr()
 		    {
 		        upFile.Ready();
 		        //添加到队列
-                _this.AppendQueue(fileLoc.idSign);
+                _this.AppendQueue(fileLoc.id);
 		    }
 		});
 		btnStop.click(function ()
@@ -1003,7 +1003,7 @@ function HttpUploaderMgr()
 	    if (json.files == null) jQuery.extend(fdLoc,{files:[]});
 	    //if (json.lenLoc == 0) return;
 
-        this.AppendQueue(json.idSign);//添加到队列
+        this.AppendQueue(json.id);//添加到队列
 
 		var ui = this.tmpFolder.clone();//文件夹信息
 		var sp = this.tmpSpliter.clone();//分隔线
@@ -1032,7 +1032,7 @@ function HttpUploaderMgr()
 		uiSize.text(fdLoc.sizeLoc);
 
 		var fdTask = new FolderUploader(fdLoc, this);
-        this.filesMap[json.idSign] = fdTask;//添加到映射表
+        this.filesMap[json.id] = fdTask;//添加到映射表
 		fdTask.ui = ui_eles;
 	    btnCancel.click(function()
 		{
@@ -1053,7 +1053,7 @@ function HttpUploaderMgr()
 	        else
 	        {
 	            fdTask.Ready();
-                _this.AppendQueue(json.idSign);
+                _this.AppendQueue(json.id);
 	        }
 	    });
 	    btnStop.click(function ()

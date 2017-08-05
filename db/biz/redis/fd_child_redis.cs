@@ -7,29 +7,29 @@ namespace up7.db.biz.redis
     {
         public void read(CSRedis.RedisClient j, String idSign)
         {
-            this.idSign = idSign;
+            this.id = idSign;
             if (!j.Exists(idSign)) return;
 
             this.pathLoc = j.HGet(idSign, "pathLoc");
             this.pathSvr = j.HGet(idSign, "pathSvr");
             this.nameLoc = j.HGet(idSign, "nameLoc");
             this.nameSvr = j.HGet(idSign, "nameSvr");
-            this.pidSign = j.HGet(idSign, "pidSign");
-            this.rootSign = j.HGet(idSign, "rootSign");
+            this.pid = j.HGet(idSign, "pidSign");
+            this.pidRoot = j.HGet(idSign, "rootSign");
         }
 
         public void write(CSRedis.RedisClient j)
         {
 
-            j.Del(this.idSign);
+            j.Del(this.id);
 
 
-            j.HSet(this.idSign, "pathLoc", this.pathLoc);//
-            j.HSet(this.idSign, "pathSvr", this.pathSvr);//
-            j.HSet(this.idSign, "nameLoc", this.nameLoc);//
-            j.HSet(this.idSign, "nameSvr", this.nameSvr);//
-            j.HSet(this.idSign, "pidSign", this.pidSign);//
-            j.HSet(this.idSign, "rootSign", this.rootSign);//
+            j.HSet(this.id, "pathLoc", this.pathLoc);//
+            j.HSet(this.id, "pathSvr", this.pathSvr);//
+            j.HSet(this.id, "nameLoc", this.nameLoc);//
+            j.HSet(this.id, "nameSvr", this.nameSvr);//
+            j.HSet(this.id, "pidSign", this.pid);//
+            j.HSet(this.id, "rootSign", this.pidRoot);//
         }
     }
 }

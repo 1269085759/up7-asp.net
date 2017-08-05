@@ -21,7 +21,7 @@ namespace up7.db.biz.redis
 
         public void add(xdb_files f)
         {
-            this.add(f.idSign);
+            this.add(f.id);
 
             FileRedis fs = new FileRedis(ref this.con);
             fs.create(f);
