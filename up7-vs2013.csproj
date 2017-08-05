@@ -134,6 +134,7 @@
     <Content Include="demoSql2005\js\up7.file.js" />
     <Content Include="demoSql2005\js\up7.folder.js" />
     <Content Include="demoSql2005\sql\up7_files.sql" />
+    <Content Include="demoSql2005\sql\up7_files_queue.sql" />
     <Content Include="demoSql2005\sql\up7_folders.sql" />
     <Content Include="readme.txt" />
     <Content Include="demoSql2005\index.htm" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="demoSql2005\db\biz\BlockPathBuilder.cs" />
+    <Compile Include="demoSql2005\db\biz\database\DBFileQueue.cs" />
     <Compile Include="demoSql2005\db\biz\file_part.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_child.cs" />
     <Compile Include="demoSql2005\db\biz\folder\fd_root.cs" />
