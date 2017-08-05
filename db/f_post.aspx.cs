@@ -11,7 +11,7 @@ namespace up7.db
     public partial class f_post : System.Web.UI.Page
     {
         string uid      = string.Empty;
-        string idSign   = string.Empty;
+        string id   = string.Empty;
         string perSvr   = string.Empty;
         string lenSvr   = string.Empty;
         string lenLoc   = string.Empty;
@@ -31,7 +31,7 @@ namespace up7.db
         void recvParam()
         {
             this.uid        = Request.Headers["f-uid"];
-            this.idSign     = Request.Headers["f-idSign"];//
+            this.id         = Request.Headers["id"];//
             this.perSvr     = Request.Headers["f-perSvr"];//文件百分比
             this.lenSvr     = Request.Headers["f-lenSvr"];//已传大小
             this.lenLoc     = Request.Headers["f-lenLoc"];//本地文件大小
@@ -58,7 +58,7 @@ namespace up7.db
         void savePart()
         {
             BlockPathBuilder bpb = new BlockPathBuilder();
-            string partPath = bpb.part(this.idSign, this.blockIndex, pathSvr);
+            string partPath = bpb.part(this.id, this.blockIndex, pathSvr);
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
@@ -75,7 +75,7 @@ namespace up7.db
             var fd = fr.read(this.fd_idSign);
 
             xdb_files fileSvr = new xdb_files();
-            fileSvr.id = idSign;
+            fileSvr.id = id;
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.nameSvr = nameLoc;
             fileSvr.lenLoc = long.Parse(lenLoc);
@@ -92,11 +92,11 @@ namespace up7.db
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
             
             FileRedis f_svr = new FileRedis(ref con);
-            if(!con.Exists(idSign))
+            if(!con.Exists(id))
             {
                 //添加到文件夹
                 fd_files_redis root = new fd_files_redis(ref con, fd_idSign);
-                root.add(idSign);
+                root.add(id);
 
                 f_svr.create(fileSvr);//添加到缓存
             }//更新文件夹进度
@@ -118,13 +118,13 @@ namespace up7.db
         {
             if (string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(uid)
-                || string.IsNullOrEmpty(idSign)
+                || string.IsNullOrEmpty(id)
                 || string.IsNullOrEmpty(f_pos)
                 || string.IsNullOrEmpty(nameLoc))
             {
                 XDebug.Output("lenLoc", lenLoc);
                 XDebug.Output("uid", uid);
-                XDebug.Output("idSvr", idSign);
+                XDebug.Output("idSvr", id);
                 XDebug.Output("nameLoc", nameLoc);
                 XDebug.Output("pathLoc", pathLoc);
                 XDebug.Output("fd-idSvr", fd_idSign);
