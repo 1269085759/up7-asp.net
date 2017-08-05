@@ -120,7 +120,7 @@ function HttpUploaderMgr()
         , edge: {protocol:"up7",port:9600,visible:false}
         , exe: { path: "http://www.ncmem.com/download/up7/up7.exe" }
 		, "SetupPath": "http://localhost:4955/demoAccess/js/setup.htm"
-        , "Fields": {"uname": "test","upass": "test","uid":"0","fid":"0"}
+        , "Fields": {"uname": "test","upass": "test","uid":"0"}
 	};
 
     //biz event
