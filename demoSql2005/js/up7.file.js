@@ -5,7 +5,7 @@ function FileUploader(fileLoc, mgr)
     //fileLoc:{nameLoc,ext,lenLoc,sizeLoc,pathLoc,md5,lenSvr},控件传递的值
     this.ui = { msg: null, process: null, percent: null, btn: { del: null, cancel: null,post:null,stop:null }, div: null, split: null };
     this.isFolder = false; //不是文件夹
-    this.root = null;//根级文件夹对象。一般为FolderUploader
+    this.svrInited = false;
     this.app = mgr.app;
     this.Manager = mgr; //上传管理器指针
     this.event = mgr.event;
@@ -62,7 +62,7 @@ function FileUploader(fileLoc, mgr)
         {
             this.svr_error(sv); return;
         }
-
+        this.svrInited = true;
         var str = decodeURIComponent(sv.value);//
         this.fileSvr = JSON.parse(str);//
         //服务器已存在相同文件，且已上传完成
@@ -72,8 +72,8 @@ function FileUploader(fileLoc, mgr)
         } //服务器文件没有上传完成
         else
         {
-            if (null == this.root) this.ui.process.css("width", this.fileSvr.perSvr);
-            if (null == this.root) this.ui.percent.text(this.fileSvr.perSvr);
+            this.ui.process.css("width", this.fileSvr.perSvr);
+            this.ui.percent.text(this.fileSvr.perSvr);
             this.post_file();
         }
     };
@@ -219,12 +219,6 @@ function FileUploader(fileLoc, mgr)
     };
     this.md5_process = function (json)
     {
-        if (this.root)
-        {
-            this.root.md5_process(json);
-            return;
-        }
-
         var msg = "正在扫描本地文件，已完成：" + json.percent;
         this.ui.msg.text(msg);
     };
@@ -289,7 +283,7 @@ function FileUploader(fileLoc, mgr)
     this.post = function ()
     {
         this.Manager.AppendQueuePost(this.fileSvr.idSign);
-        if (this.fileSvr.lenSvr > 0)
+        if (this.svrInited)
         {
             this.post_file();
         }
@@ -303,12 +297,6 @@ function FileUploader(fileLoc, mgr)
         this.ui.btn.cancel.hide();
         this.ui.btn.stop.show();
         this.State = HttpUploaderState.Posting;//
-        this.fields["pathSvr"] = encodeURIComponent(this.fileSvr.pathSvr);
-        this.fields["lenLoc"] = this.fileSvr.lenLoc;
-        this.fields["idSvr"] = this.fileSvr.idSvr;
-        this.fields["md5"] = this.fileSvr.md5;
-        this.fields["sign"] = this.fileSvr.sign;
-        this.fields["idSign"] = this.fileSvr.idSign;
         this.app.postFile( jQuery.extend({},this.fileSvr,{fields: this.fields }) );
     };
     this.check_file = function ()
@@ -337,7 +325,7 @@ function FileUploader(fileLoc, mgr)
         this.app.stopFile(this.fileSvr);
 
         //从上传列表中删除
-        if (null == this.root) this.Manager.RemoveQueuePost(this.fileSvr.idSign);
+        this.Manager.RemoveQueuePost(this.fileSvr.idSign);
         //传输下一个
         //this.post_next();
     };

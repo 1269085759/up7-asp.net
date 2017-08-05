@@ -22,6 +22,7 @@ namespace up7.demoSql2005.db
         string blockIndex = string.Empty;
         string blockCount = string.Empty;
         string blockSize = string.Empty;
+        string blockSizeLogic = string.Empty;
         string fd_idSign = string.Empty;
         string fd_lenSvr = string.Empty;
         string fd_perSvr = string.Empty;
@@ -37,9 +38,10 @@ namespace up7.demoSql2005.db
             this.pathLoc    = Request.Headers["f-pathLoc"];//
             this.sizeLoc    = Request.Headers["f-sizeLoc"];//
             this.f_pos      = Request.Headers["f-RangePos"];
-            this.blockIndex = Request.Headers["f-rangeIndex"];
-            this.blockCount = Request.Headers["f-rangeCount"];
-            this.blockSize  = Request.Headers["f-rangeSize"];
+            this.blockIndex = Request.Headers["blockIndex"];//块偏移，相对于文件
+            this.blockCount = Request.Headers["blockCount"];//块总数
+            this.blockSize  = Request.Headers["blockSize"];//块大小
+            this.blockSizeLogic = Request.Headers["blockSizeLogic"];//逻辑块大小（定义的块大小）
             //string complete     = Request.Headers["complete"];//true/false
             this.fd_idSign  = Request.Headers["fd-idSign"];//文件夹标识(guid)
             this.fd_lenSvr  = Request.Headers["fd-lenSvr"];//文件夹已传大小
@@ -66,7 +68,7 @@ namespace up7.demoSql2005.db
             part.SaveAs(partPath);
 
             //更新缓存进度
-            f_svr.process(idSign, perSvr, lenSvr, blockCount);
+            //f_svr.process(idSign, perSvr, lenSvr, blockCount);
         }
         void savePartFolder()
         {

@@ -26,7 +26,7 @@ namespace up7.demoSql2005.db
             string blockSize    = Request.QueryString["blockSize"];
             string callback     = Request.QueryString["callback"];//jsonp参数
             //客户端使用的是encodeURIComponent编码，
-            string pathLoc      = HttpUtility.UrlDecode(Request.QueryString["pathLoc"]);//utf-8解码
+            string pathLoc      = PathTool.url_decode(Request.QueryString["pathLoc"]);//utf-8解码
 
             //参数为空
             if (    string.IsNullOrEmpty(uid)
