@@ -5,6 +5,7 @@ using up7.demoSql2005.db;
 using up7.demoSql2005.db.biz;
 using up7.demoSql2005.db.biz.redis;
 using up7.demoSql2005.db.redis;
+using up7.demoSql2005.db.utils;
 
 namespace up7.demoSql2005.db
 {
@@ -23,6 +24,7 @@ namespace up7.demoSql2005.db
         string blockCount = string.Empty;
         string blockSize = string.Empty;
         string blockSizeLogic = string.Empty;
+        string pathSvr = string.Empty;
         string fd_idSign = string.Empty;
         string fd_lenSvr = string.Empty;
         string fd_perSvr = string.Empty;
@@ -42,6 +44,8 @@ namespace up7.demoSql2005.db
             this.blockCount = Request.Headers["blockCount"];//块总数
             this.blockSize  = Request.Headers["blockSize"];//块大小
             this.blockSizeLogic = Request.Headers["blockSizeLogic"];//逻辑块大小（定义的块大小）
+            this.pathSvr    = Request.Headers["pathSvr"];
+            this.pathSvr    = PathTool.url_decode(this.pathSvr);
             //string complete     = Request.Headers["complete"];//true/false
             this.fd_idSign  = Request.Headers["fd-idSign"];//文件夹标识(guid)
             this.fd_lenSvr  = Request.Headers["fd-lenSvr"];//文件夹已传大小
@@ -54,12 +58,8 @@ namespace up7.demoSql2005.db
 
         void savePart()
         {
-            var con = RedisConfig.getCon();
-            FileRedis f_svr = new FileRedis(ref con);
-            var fileSvr = f_svr.read(this.idSign);
-
             BlockPathBuilder bpb = new BlockPathBuilder();
-            string partPath = bpb.part(this.idSign, this.blockIndex, fileSvr.pathSvr);
+            string partPath = bpb.part(this.idSign, this.blockIndex, pathSvr);
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
