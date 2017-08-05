@@ -63,7 +63,7 @@ namespace up7.db.biz.database
         public void complete(string id)
         {
             string sql = "select * into up7_files from up7_files_queue where f_idSign=@id;" +
-                "delete from up7_files_queue where f_id=@id;";
+                "delete from up7_files_queue where f_idSign=@id;";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@id", id, 32);
