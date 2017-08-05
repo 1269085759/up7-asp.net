@@ -39,6 +39,7 @@ namespace up7.demoSql2005.db.biz
             path = Path.Combine(path, timeCur.ToString("dd"));
             path = Path.Combine(path, guid);
             path = Path.Combine(path, nameLoc);
+            path = path.Replace("\\", "/");
 
             return path;
         }
