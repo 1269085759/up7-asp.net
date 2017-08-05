@@ -66,9 +66,6 @@ namespace up7.demoSql2005.db
 
             HttpPostedFile part = Request.Files.Get(0);
             part.SaveAs(partPath);
-
-            //更新缓存进度
-            //f_svr.process(idSign, perSvr, lenSvr, blockCount);
         }
         void savePartFolder()
         {
