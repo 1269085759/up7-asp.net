@@ -127,11 +127,11 @@ var up6_app = {
     }
     , stopFile: function (f)
     {
-        var param = { name: "stop_file", idSign: f.idSign};
+        var param = jQuery.extend({},f,{ name: "stop_file"});
         this.postMessage(param);
     }
     , delFolder: function (f) {
-        var param = { name: "del_folder", idSign: f.idSign };
+        var param = jQuery.extend({},f,{ name: "del_folder"});
         this.postMessage(param);
     }
     , postMessage:function(json)
