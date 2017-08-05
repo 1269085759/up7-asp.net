@@ -23,7 +23,7 @@ namespace up7.demoSql2005.db
             //删除upload文件夹
             PathBuilder pb = new PathBuilder();
             string pathSvr = pb.getRoot();
-            if(Directory.Exists(pathSvr)) Directory.Delete(pathSvr,true);
+            //if(Directory.Exists(pathSvr)) Directory.Delete(pathSvr,true);
         }
     }
 }
