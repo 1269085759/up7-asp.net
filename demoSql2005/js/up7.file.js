@@ -64,7 +64,7 @@ function FileUploader(fileLoc, mgr)
         }
         this.svrInited = true;
         var str = decodeURIComponent(sv.value);//
-        this.fileSvr = JSON.parse(str);//
+        jQuery.extend(this.fileSvr,JSON.parse(str),true);//
         //服务器已存在相同文件，且已上传完成
         if (this.fileSvr.complete)
         {
@@ -92,6 +92,8 @@ function FileUploader(fileLoc, mgr)
             , data: param
             , success: function (sv)
             {
+                var str = decodeURIComponent(sv.value);
+                jQuery.extend(_this.fileSvr, JSON.parse(str));
                 _this.post_file();
             }
             , error: function (req, txt, err)
