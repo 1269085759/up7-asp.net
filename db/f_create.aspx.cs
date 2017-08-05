@@ -6,6 +6,7 @@ using up7.db.biz;
 using up7.db.biz.redis;
 using up7.db.model;
 using up7.db.utils;
+using up7.db.biz.database;
 
 namespace up7.db
 {
@@ -53,11 +54,9 @@ namespace up7.db
             BlockPathBuilder bpb = new BlockPathBuilder();
             fileSvr.blockPath = bpb.root(idSign, fileSvr.pathSvr);
 
-            //添加到redis
-            var con = RedisConfig.getCon();
-            tasks svr = new tasks(ref con);
-            svr.uid = uid;
-            svr.add(fileSvr);            
+            //添加到任务表
+            DBFileQueue db = new DBFileQueue();
+            db.add(ref fileSvr);
 
             string jv = JsonConvert.SerializeObject(fileSvr);
             jv = HttpUtility.UrlEncode(jv);

@@ -10,6 +10,7 @@ namespace up7.db
         protected void Page_Load(object sender, EventArgs e)
         {
             DBFile.Clear();
+            DBFileQueue.clear();
             DBFolder.Clear();
 
 
