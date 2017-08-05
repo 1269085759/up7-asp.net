@@ -1,5 +1,5 @@
 /*
-	版权所有 2009-2016 荆门泽优软件有限公司
+	版权所有 2009-2017 荆门泽优软件有限公司
 	保留所有权利
 	官方网站：http://www.ncmem.com/
 	产品首页：http://www.ncmem.com/webplug/http-uploader6/
@@ -13,6 +13,7 @@
 	VC运行库：http://www.microsoft.com/en-us/download/details.aspx?id=29
 	联系信箱：1085617561@qq.com
 	联系QQ：1085617561
+    版本：7.1
 	更新记录：
 		2015-07-31 优化更新进度逻辑
 */
@@ -57,13 +58,7 @@ Array.prototype.remove = function(val)
 	this.length -= 1;
 }
 function debugMsg(m) { $("#msg").append(m); }
-/*
-	文件管理类
-	属性：
-		UpFileList
-	更新记录：
-		2009-11-05 创建。
-*/
+//文件管理类
 function HttpUploaderMgr()
 {
 	var _this = this;
