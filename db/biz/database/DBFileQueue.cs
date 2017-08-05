@@ -12,7 +12,7 @@ namespace up7.db.biz.database
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files_queue(");
-            sb.Append(" f_idSign");
+            sb.Append(" f_id");
             sb.Append(",f_uid");
             sb.Append(",f_nameLoc");
             sb.Append(",f_nameSvr");
@@ -27,7 +27,7 @@ namespace up7.db.biz.database
 
             sb.Append(") values (");
 
-            sb.Append(" @f_idSign");
+            sb.Append(" @f_id");
             sb.Append(",@f_uid");
             sb.Append(",@f_nameLoc");
             sb.Append(",@f_nameSvr");
@@ -44,7 +44,7 @@ namespace up7.db.biz.database
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
-            db.AddString(ref cmd, "@f_idSign", f.id, 36);
+            db.AddString(ref cmd, "@f_id", f.id, 36);
             db.AddInt(ref cmd, "@f_uid", f.uid);
             db.AddString(ref cmd, "@f_nameLoc", f.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", f.nameSvr, 255);
@@ -62,8 +62,8 @@ namespace up7.db.biz.database
 
         public void complete(string id)
         {
-            string sql = "select * into up7_files from up7_files_queue where f_idSign=@id;" +
-                "delete from up7_files_queue where f_idSign=@id;";
+            string sql = "select * into up7_files from up7_files_queue where f_id=@id;" +
+                "delete from up7_files_queue where f_id=@id;";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@id", id, 32);
@@ -72,7 +72,7 @@ namespace up7.db.biz.database
 
         public void process(string id,string perSvr)
         {
-            string sql = "update up7_files_queue set f_perSvr=@perSvr where f_idSign=@id;";
+            string sql = "update up7_files_queue set f_perSvr=@perSvr where f_id=@id;";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@perSvr", perSvr, 6);
@@ -84,7 +84,7 @@ namespace up7.db.biz.database
         {
             List<xdb_files> files = new List<xdb_files>();
             StringBuilder sb = new StringBuilder();
-            sb.Append("select f_idSign,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath,f_sizeLoc,f_perSvr from up7_files_queue where f_uid=@uid and f_complete=0 and f_deleted=0;");
+            sb.Append("select f_id,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath,f_sizeLoc,f_perSvr from up7_files_queue where f_uid=@uid and f_complete=0 and f_deleted=0;");
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
