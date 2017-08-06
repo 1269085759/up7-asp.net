@@ -164,7 +164,14 @@ function FolderUploader(fdLoc, mgr)
     };
     this.post_error = function (json)
     {
-        this.ui.msg.text("错误数：" + json.errors + " " + json.msg + " " + json.pathLoc);
+        if (json.code == "6") {
+            this.ui.msg.text(HttpUploaderErrorCode[json.code] + ":" + json.pathLoc);
+        }
+        else
+        {
+            this.ui.msg.text(HttpUploaderErrorCode[json.code]);
+        }
+        //this.ui.msg.text("错误数：" + json.errors + " " + json.msg + " " + json.pathLoc);
         //文件大小超过限制,文件大小为0
         //if (4 == json.value || 5 == json.value){}
         //if (6 == json.value){this.ui.msg.text("文件被占用:"+json.pathLoc);}
