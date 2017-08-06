@@ -13,6 +13,23 @@ namespace up7.db.biz.database
     /// </summary>
     public class DBFileQueue
     {
+        public FileInf read(string id)
+        {
+            FileInf f = new FileInf();
+            string sql = "select * from up7_files where f_id=@id;";
+            DbHelper db = new DbHelper();
+            var cmd = db.GetCommand(sql);
+            db.AddString(ref cmd, "@id", id, 32);
+            var r = db.ExecuteReader(cmd);
+            r.Read();
+            f.id = id;
+            f.pathSvr = r.GetString(9);
+            f.lenLoc = r.GetInt64(12);
+            f.blockPath = r.GetString(17);
+            r.Close();
+            return f;
+        }
+
         public void add(ref FileInf f)
         {
             StringBuilder sb = new StringBuilder();
