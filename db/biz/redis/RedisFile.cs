@@ -16,7 +16,6 @@ namespace up7.db.biz.redis
             j.HSet(idSign, "blockCount", blockCount);
         }
 
-        public void complete(string id) { this.con.Del(id); }
         public void create(FileInf f)
         {
             if (this.con.Exists(f.id)) return;
