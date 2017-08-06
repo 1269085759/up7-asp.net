@@ -147,7 +147,6 @@
     <Compile Include="db\biz\BlockPathBuilder.cs" />
     <Compile Include="db\biz\database\DBFileQueue.cs" />
     <Compile Include="db\biz\file_part.cs" />
-    <Compile Include="db\biz\folder\fd_root.cs" />
     <Compile Include="db\biz\database\FileDbWriter.cs" />
     <Compile Include="db\biz\database\FolderDbWriter.cs" />
     <Compile Include="db\biz\BlockMeger.cs" />

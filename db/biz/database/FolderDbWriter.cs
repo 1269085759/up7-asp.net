@@ -1,15 +1,15 @@
 ﻿using System.Data.Common;
 using System.Text;
-using up7.db.biz.folder;
+using up7.db.model;
 
 namespace up7.db.biz.database
 {
     public class FolderDbWriter
     {
-        fd_root root;//根目录
+        FolderInf root;//根目录
         DbConnection con = null;
 
-        public FolderDbWriter(DbConnection con, fd_root fd)
+        public FolderDbWriter(DbConnection con, FolderInf fd)
         {
             this.con = con;
             this.root = fd;
@@ -77,29 +77,29 @@ namespace up7.db.biz.database
                 cmd.Parameters[5].Value = this.root.sizeLoc;//
                 cmd.Parameters[6].Value = this.root.pathLoc;//
                 cmd.Parameters[7].Value = this.root.pathSvr;//
-                cmd.Parameters[8].Value = this.root.folderCount;//
+                cmd.Parameters[8].Value = 0;//
                 cmd.Parameters[9].Value = this.root.fileCount;//
                 cmd.Parameters[10].Value = this.root.pidRoot;//
                 cmd.ExecuteNonQuery();
 
-                if (this.root.folders == null) return;
-                if (this.root.folders.Count < 1) return;
+                //if (this.root.folders == null) return;
+                //if (this.root.folders.Count < 1) return;
                 //写子目录列表
-                foreach (var fd in this.root.folders)
-                {
-                    cmd.Parameters[0].Value = fd.id;
-                    cmd.Parameters[1].Value = fd.nameLoc;//fd_pid
-                    cmd.Parameters[2].Value = fd.pid;//fd_uid
-                    cmd.Parameters[3].Value = fd.uid;//fd_length
-                    cmd.Parameters[4].Value = fd.lenLoc;//fd_size
-                    cmd.Parameters[5].Value = fd.sizeLoc;//fd_pathLoc
-                    cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
-                    cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
-                    //cmd.Parameters[8].Value = fd.folderCount;//fd_files
-                    cmd.Parameters[9].Value = fd.fileCount;//fd_pidRoot
-                    cmd.Parameters[10].Value = fd.pidRoot;//fd_id
-                    cmd.ExecuteNonQuery();
-                }
+                //foreach (var fd in this.root.folders)
+                //{
+                //    cmd.Parameters[0].Value = fd.id;
+                //    cmd.Parameters[1].Value = fd.nameLoc;//fd_pid
+                //    cmd.Parameters[2].Value = fd.pid;//fd_uid
+                //    cmd.Parameters[3].Value = fd.uid;//fd_length
+                //    cmd.Parameters[4].Value = fd.lenLoc;//fd_size
+                //    cmd.Parameters[5].Value = fd.sizeLoc;//fd_pathLoc
+                //    cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
+                //    cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
+                //    //cmd.Parameters[8].Value = fd.folderCount;//fd_files
+                //    cmd.Parameters[9].Value = fd.fileCount;//fd_pidRoot
+                //    cmd.Parameters[10].Value = fd.pidRoot;//fd_id
+                //    cmd.ExecuteNonQuery();
+                //}
             }
         }
     }

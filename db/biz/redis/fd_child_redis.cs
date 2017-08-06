@@ -1,5 +1,4 @@
 ﻿using System;
-using up7.db.biz.folder;
 using up7.db.model;
 
 namespace up7.db.biz.redis

@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
-using up7.db.biz.folder;
 using up7.db.model;
 
 namespace up7.db.biz.database
 {
     public class FileDbWriter
     {
-        fd_root root;
+        FolderInf root;
         DbConnection con = null;
         CSRedis.RedisClient m_cache = null;
         public bool merge = true;//合并文件
 
-        public FileDbWriter(DbConnection con, fd_root fd,CSRedis.RedisClient c)
+        public FileDbWriter(DbConnection con, FolderInf fd,CSRedis.RedisClient c)
         {
             this.con = con;
             this.root = fd;

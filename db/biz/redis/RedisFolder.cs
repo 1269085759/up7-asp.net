@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using up7.db.biz.database;
-using up7.db.biz.folder;
 using up7.db.model;
 
 namespace up7.db.biz.redis
@@ -11,7 +10,7 @@ namespace up7.db.biz.redis
 
         //文件夹json数据
         public String data;
-        fd_root m_root = null;
+        FolderInf m_root = null;
         CSRedis.RedisClient cache = null;
         /// <summary>
         /// 合并文件
@@ -28,8 +27,8 @@ namespace up7.db.biz.redis
             using (var con = DbHelper.CreateConnection())
             {
                 con.Open();
-                FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
-                fd.save();
+                //FolderDbWriter fd = new FolderDbWriter(con, this.m_root);
+                //fd.save();
 
                 FileDbWriter fw = new FileDbWriter(con, this.m_root,this.cache);
                 fw.merge = this.fileMerge;
@@ -43,13 +42,13 @@ namespace up7.db.biz.redis
         {
             //取文件ID列表
             fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.m_root.id);
-            this.m_root.folders = new List<FileInf>();
+            //this.m_root.folders = new List<FileInf>();
             var fs = rfs.all();
             foreach (String s in fs)
             {
                 fd_child_redis fd = new fd_child_redis();
-                fd.read(this.cache, s);
-                this.m_root.folders.Add(fd);
+                //fd.read(this.cache, s);
+                //this.m_root.folders.Add(fd);
             }
         }
     }
