@@ -154,8 +154,6 @@
     <Compile Include="db\biz\PathGuidBuilder.cs" />
     <Compile Include="db\biz\PathMd5Builder.cs" />
     <Compile Include="db\biz\PathUuidBuilder.cs" />
-    <Compile Include="db\biz\redis\fd_files_redis.cs" />
-    <Compile Include="db\biz\redis\fd_folder_redis.cs" />
     <Compile Include="db\biz\redis\RedisFolder.cs" />
     <Compile Include="db\biz\redis\RedisFile.cs" />
     <Compile Include="db\biz\redis\tasks.cs" />

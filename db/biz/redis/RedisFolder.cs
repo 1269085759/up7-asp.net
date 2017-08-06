@@ -34,20 +34,5 @@ namespace up7.db.biz.redis
                 con.Close();
             }                
         }
-
-
-        void loadFolders()
-        {
-            //取文件ID列表
-            fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.id);
-            //this.m_root.folders = new List<FileInf>();
-            var fs = rfs.all();
-            foreach (String s in fs)
-            {
-                //fd_child_redis fd = new fd_child_redis();
-                //fd.read(this.cache, s);
-                //this.m_root.folders.Add(fd);
-            }
-        }
     }
 }
