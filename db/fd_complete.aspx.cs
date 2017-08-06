@@ -18,8 +18,8 @@ namespace up7.db
             {
                 var con = RedisConfig.getCon();
                 RedisFolder fd = new RedisFolder(ref con);
+                fd.id = id;
                 fd.fileMerge = merge.Equals("1");
-                //fd.read(id);
                 fd.saveToDb();//保存到数据库
 
                 //清除缓存

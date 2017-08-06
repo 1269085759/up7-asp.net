@@ -7,15 +7,14 @@ namespace up7.db.biz.database
 {
     public class FileDbWriter
     {
-        FolderInf root;
+        public string pidRoot = string.Empty;
         DbConnection con = null;
         CSRedis.RedisClient m_cache = null;
         public bool merge = true;//合并文件
 
-        public FileDbWriter(DbConnection con, FolderInf fd,CSRedis.RedisClient c)
+        public FileDbWriter(DbConnection con, CSRedis.RedisClient c)
         {
             this.con = con;
-            this.root = fd;
             this.m_cache = c;
         }
 
@@ -23,9 +22,9 @@ namespace up7.db.biz.database
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files(");
-            sb.Append(" f_idSign");
-            sb.Append(",f_pidSign");
-            sb.Append(",f_rootSign");
+            sb.Append(" f_id");
+            sb.Append(",f_pid");
+            sb.Append(",f_pidRoot");
             sb.Append(",f_fdChild");
             sb.Append(",f_uid");
             sb.Append(",f_nameLoc");
@@ -45,9 +44,9 @@ namespace up7.db.biz.database
 
             sb.Append(") values(");
 
-            sb.Append(" @f_idSign");//f_idSign
-            sb.Append(",@f_pidSign");//f_pidSign
-            sb.Append(",@f_rootSign");//f_rootSign
+            sb.Append(" @f_id");//f_id
+            sb.Append(",@f_pid");//f_pid
+            sb.Append(",@f_pidRoot");//f_pidRoot
             sb.Append(",@f_fdChild");//f_fdChild
             sb.Append(",@f_uid");//f_uid
             sb.Append(",@f_nameLoc");//f_nameLoc
@@ -69,32 +68,32 @@ namespace up7.db.biz.database
             var cmd = con.CreateCommand();
             cmd.CommandText = sb.ToString();
             DbHelper db = new DbHelper();
-            db.AddString(ref cmd, "@f_idSign", string.Empty, 36);
-            db.AddString(ref cmd, "@f_pidSign", string.Empty, 36);
-            db.AddString(ref cmd, "@f_rootSign", string.Empty, 36);
-            db.AddBool(ref cmd, "@f_fdChild",false);
-            db.AddInt(ref cmd, "@f_uid", 0);
+            db.AddString(ref cmd, "@f_id", string.Empty, 32);
+            db.AddString(ref cmd, "@f_pid", string.Empty, 32);
+            db.AddString(ref cmd, "@f_pidRoot", string.Empty, 32);
+            db.AddBool(ref cmd  , "@f_fdChild",false);
+            db.AddInt(ref cmd   , "@f_uid", 0);
             db.AddString(ref cmd, "@f_nameLoc", string.Empty, 255);
             db.AddString(ref cmd, "@f_nameSvr", string.Empty, 255);
             db.AddString(ref cmd, "@f_pathLoc", string.Empty, 512);
             db.AddString(ref cmd, "@f_pathSvr", string.Empty, 512);
             db.AddString(ref cmd, "@f_pathRel", string.Empty, 512);
-            db.AddInt64(ref cmd, "@f_lenLoc", 0);
+            db.AddInt64(ref cmd , "@f_lenLoc", 0);
             db.AddString(ref cmd, "@f_sizeLoc", string.Empty, 15);
-            db.AddInt64(ref cmd, "@f_lenSvr",0);
+            db.AddInt64(ref cmd , "@f_lenSvr",0);
             db.AddString(ref cmd, "@f_perSvr", string.Empty, 6);
             db.AddString(ref cmd, "@f_sign", string.Empty, 32);
-            db.AddBool(ref cmd, "@f_fdTask", false);
+            db.AddBool(ref cmd  , "@f_fdTask", false);
             db.AddString(ref cmd, "@f_blockPath", string.Empty,2000);
-            db.AddInt(ref cmd, "@f_blockSize", 0);
+            db.AddInt(ref cmd   , "@f_blockSize", 0);
             return cmd;
         }
 
         void save(ref DbCommand cmd,FileInf f)
         {
             cmd.Parameters[0].Value = f.id;//idSign
-            cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pid) ? string.Empty : f.pid;//pidSign
-            cmd.Parameters[2].Value = string.IsNullOrEmpty(f.pidRoot) ? string.Empty : f.pidRoot;//rootSign
+            cmd.Parameters[1].Value = f.pid;//pidSign
+            cmd.Parameters[2].Value = f.pidRoot;//rootSign
             cmd.Parameters[3].Value = f.f_fdChild;//fdChild
             cmd.Parameters[4].Value = f.uid;//uid
             cmd.Parameters[5].Value = f.nameLoc;//nameLoc
@@ -120,19 +119,15 @@ namespace up7.db.biz.database
         public void save()
         {
             var cmd = this.makeCmd(con);
-            //保存文件夹
-            //this.save(ref cmd, this.root);
-
-            //string key = this.root.id + "-files";
             int index = 0;
-            long len = this.m_cache.LLen(this.root.id);
+            long len = this.m_cache.LLen(this.pidRoot);
             redis.RedisFile svr = new redis.RedisFile(ref this.m_cache);
             BlockMeger bm = new BlockMeger();
             List<FileInf> files = null;
 
             while (index<len)
             {
-                var keys = this.m_cache.LRange(this.root.id, index, index + 100);
+                var keys = this.m_cache.LRange(this.pidRoot, index, index + 1000);
                 index += keys.Length;
 
                 files = new List<FileInf>();
@@ -141,7 +136,6 @@ namespace up7.db.biz.database
                     System.Diagnostics.Debug.WriteLine(k);
                     FileInf f = svr.read(k);
                     f.f_fdChild = true;
-                    f.pidRoot = this.root.id;
                     this.save(ref cmd,f);//添加到数据库
                     files.Add(f);
                 }
@@ -158,7 +152,7 @@ namespace up7.db.biz.database
                 this.m_cache.Del(keys);
                 files.Clear();
             }
-            this.m_cache.Del(this.root.id);
+            this.m_cache.Del(this.pidRoot);
             cmd.Dispose();
         }        
     }
