@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using up7.db.biz.database;
-using up7.db.biz.redis;
 
 namespace up7.db
 {
@@ -21,10 +20,6 @@ namespace up7.db
             {
                 DBFileQueue db = new DBFileQueue();
                 var json = db.all_uncmp(int.Parse(uid));
-                //var j = RedisConfig.getCon();
-                //tasks svr = new tasks(ref j);
-                //svr.uid = uid;
-                //var json = svr.toJson();
                 
                 if (!string.IsNullOrEmpty(json))
                 {
