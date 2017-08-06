@@ -8,9 +8,9 @@ GO
 SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[up7_folders](
-	[fd_sign] [char](36) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	[fd_id] [char](36) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	[fd_name] [varchar](100) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_name]  DEFAULT (''),
-	[fd_pidSign] [char](32) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_pidSign]  DEFAULT (''),
+	[fd_pid] [char](32) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_pid]  DEFAULT (''),
 	[fd_uid] [int] NULL CONSTRAINT [DF_up7_folders_fd_uid]  DEFAULT ((0)),
 	[fd_length] [bigint] NULL CONSTRAINT [DF_up7_folders_fd_length]  DEFAULT ((0)),
 	[fd_size] [varchar](50) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_size]  DEFAULT (''),
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[up7_folders](
 	[fd_delete] [bit] NULL CONSTRAINT [DF_up7_folders_fd_delete]  DEFAULT ((0)),
 	[fd_json] [varchar](max) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_json]  DEFAULT (''),
 	[timeUpload] [datetime] NULL CONSTRAINT [DF_up7_folders_timeUpload]  DEFAULT (getdate()),
-	[fd_rootSign] [char](36) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_rootSign]  DEFAULT (''),
+	[fd_pidRoot] [char](36) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_pidRoot]  DEFAULT (''),
 	[fd_pathRel] [nvarchar](255) COLLATE Chinese_PRC_CI_AS NULL CONSTRAINT [DF_up7_folders_fd_pathRel]  DEFAULT ('')
 ) ON [PRIMARY]
 
