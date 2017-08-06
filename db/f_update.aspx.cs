@@ -1,6 +1,5 @@
 ﻿using System;
 using up7.db.biz.database;
-using up7.db.biz.redis;
 using up7.db.utils;
 
 namespace up7.db

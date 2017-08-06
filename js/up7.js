@@ -87,7 +87,6 @@ function HttpUploaderMgr()
         , "AutoMerge"       : 0//自动合并文件？1:合并,0:不合并
         //文件夹操作相关
 		, "UrlFdCreate"		: "http://localhost:88/db/fd_create.aspx"
-		, "UrlFdUpdate"		: "http://localhost:88/db/fd_update.aspx"
 		, "UrlFdComplete"	: "http://localhost:88/db/fd_complete.aspx"
 		, "UrlFdDel"	    : "http://localhost:88/db/fd_del.aspx"
 		//文件操作相关

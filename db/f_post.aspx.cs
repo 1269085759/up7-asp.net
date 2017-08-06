@@ -11,7 +11,7 @@ namespace up7.db
     public partial class f_post : System.Web.UI.Page
     {
         string uid      = string.Empty;
-        string id   = string.Empty;
+        string id       = string.Empty;
         string perSvr   = string.Empty;
         string lenSvr   = string.Empty;
         string lenLoc   = string.Empty;
@@ -29,11 +29,11 @@ namespace up7.db
 
         void recvParam()
         {
-            this.uid        = Request.Headers["f-uid"];
+            this.uid        = Request.Headers["uid"];
             this.id         = Request.Headers["id"];//
-            this.perSvr     = Request.Headers["f-perSvr"];//文件百分比
-            this.lenSvr     = Request.Headers["f-lenSvr"];//已传大小
-            this.lenLoc     = Request.Headers["f-lenLoc"];//本地文件大小
+            this.perSvr     = Request.Headers["perSvr"];//文件百分比
+            this.lenSvr     = Request.Headers["lenSvr"];//已传大小
+            this.lenLoc     = Request.Headers["lenLoc"];//本地文件大小
             this.nameLoc    = Request.Headers["nameLoc"];//
             this.sizeLoc    = Request.Headers["sizeLoc"];//
             this.blockOffset= Request.Headers["blockOffset"];

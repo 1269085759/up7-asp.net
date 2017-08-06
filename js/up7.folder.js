@@ -55,12 +55,12 @@ function FolderUploader(fdLoc, mgr)
     };
     this.svr_update = function ()
     {
-        var param = jQuery.extend({}, this.fields, { uid: this.folderSvr.uid, sign: this.folderSvr.sign, id: this.folderSvr.id, lenSvr: this.folderSvr.lenSvr, perSvr: this.folderSvr.perSvr, time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields, { uid: this.folderSvr.uid, id: this.folderSvr.id, lenSvr: this.folderSvr.lenSvr, perSvr: this.folderSvr.perSvr, time: new Date().getTime() });
         $.ajax({
             type: "GET"
             , dataType: 'jsonp'
             , jsonp: "callback" //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
-            , url: this.Config["UrlFdUpdate"]
+            , url: this.Config["UrlUpdate"]
             , data: param
             , success: function (sv) { }
             , error: function (req, txt, err) { }
