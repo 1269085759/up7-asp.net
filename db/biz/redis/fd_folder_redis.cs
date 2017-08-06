@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using up7.db.model;
 
 namespace up7.db.biz.redis
 {
@@ -15,32 +13,9 @@ namespace up7.db.biz.redis
             return key;
         }
 
-        public void add(String fSign)
-        {
-            this.con.LPush(this.getKey(), fSign);
-        }
-
         public void del()
         {
             this.con.Del(this.getKey());
-        }
-
-        public void add(List<fd_child_redis> fs)
-        {
-            String key = this.getKey();
-            foreach(fd_child_redis f in fs)
-            {
-                this.con.LPush(key, f.id);
-            }
-        }
-
-        public void add(List<FileInf> fs)
-        {
-            String key = this.getKey();
-            foreach (var f in fs)
-            {
-                this.con.LPush(key, f.id);
-            }
         }
 
         public String[] all()
