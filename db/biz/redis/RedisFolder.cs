@@ -44,7 +44,7 @@ namespace up7.db.biz.redis
             var fs = rfs.all();
             foreach (String s in fs)
             {
-                fd_child_redis fd = new fd_child_redis();
+                //fd_child_redis fd = new fd_child_redis();
                 //fd.read(this.cache, s);
                 //this.m_root.folders.Add(fd);
             }

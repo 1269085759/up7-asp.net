@@ -22,11 +22,6 @@ namespace up7.db
                 fd.fileMerge = merge.Equals("1");
                 fd.saveToDb();//保存到数据库
 
-                //清除缓存
-                tasks svr = new tasks(ref con);
-                svr.uid = uid;
-                svr.delFd(id);
-
                 con.Dispose();
                 ret = 1;
             }

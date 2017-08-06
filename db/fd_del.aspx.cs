@@ -7,7 +7,7 @@ namespace up7.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fid = Request.QueryString["idSign"];
+            string fid = Request.QueryString["id"];
             string uid = Request.QueryString["uid"];
             string cbk = Request.QueryString["callback"];
             int ret = 0;

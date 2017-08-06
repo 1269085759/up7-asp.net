@@ -14,19 +14,6 @@ namespace up7.db.biz.redis
         public tasks(ref CSRedis.RedisClient c) { this.con = c; }
         string getKey() { return this.keyName + "-" + this.uid; }
 
-        public void add(string id)
-        {
-            this.con.SAdd(this.getKey(), id);
-        }
-
-        public void add(FileInf f)
-        {
-            this.add(f.id);
-
-            RedisFile fs = new RedisFile(ref this.con);
-            fs.create(f);
-        }
-
         public void del(string id)
         {
             //从队列中删除
@@ -35,45 +22,26 @@ namespace up7.db.biz.redis
             this.con.Del(id);
         }
 
-        public void delFd(String sign)
+        /// <summary>
+        /// 清除所有子文件信息
+        /// 清除文件夹信息
+        /// </summary>
+        /// <param name="id"></param>
+        public void delFd(String id)
         {
-            //清除文件列表缓存
-            fd_files_redis files = new fd_files_redis(ref this.con, sign);
-            files.del();
-
-            //清除目录列表缓存
-            var folders = new fd_folders_redis(ref this.con, sign);
-            folders.del();
-
-            //从队列中清除
-            this.del(sign);
+            long len = this.con.LLen(id);
+            long index = 0;
+            while (index < len)
+            {
+                var keys = this.con.LRange(id, index, index + 1000);
+                index += keys.Length;
+                
+                //清除文件缓存
+                this.con.Del(keys);
+            }
+            this.con.Del(id);
         }
 
         public void clear() { this.con.FlushDb(); }
-
-        public List<FileInf> all()
-        {
-            List<FileInf> arr = null;
-            var ls = this.con.SMembers(this.getKey());
-
-            if (ls.Length > 0) arr = new List<FileInf>();
-            RedisFile cache = new RedisFile(ref this.con);
-
-            foreach(String s in ls)
-            {
-                var f = cache.read(s);
-                if(f!=null)arr.Add(f);
-            }
-            return arr;
-        }
-
-        public String toJson()
-        {
-            var fs = this.all();
-            if (fs == null) return "";
-
-            var v = JsonConvert.SerializeObject(fs);
-            return v;
-        }
     }
 }
