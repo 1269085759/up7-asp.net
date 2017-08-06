@@ -16,9 +16,5 @@
         }
 
         public void del() { this.cache.Del(this.getKey()); }
-        public void add(string id)
-        {
-            this.cache.LPush(this.getKey(), id);
-        }
     }
 }
