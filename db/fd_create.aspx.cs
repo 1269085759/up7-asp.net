@@ -39,6 +39,7 @@ namespace up7.db
             //生成路径，格式：upload/年/月/日/guid/文件夹名称
             PathGuidBuilder pb = new PathGuidBuilder();
             f.pathSvr = Path.Combine( pb.genFolder(f.uid,f.sign),f.nameLoc);
+            f.pathSvr = f.pathSvr.Replace("\\", "/");
             Directory.CreateDirectory(f.pathSvr);
 
             //添加到队列表
@@ -48,7 +49,7 @@ namespace up7.db
             string json = JsonConvert.SerializeObject(f);
             json = HttpUtility.UrlEncode(json);
             json = json.Replace("+", "%20");
-            Response.Write(callback + "({\"ret\":\""+json+"\"})");
+            Response.Write(callback + "({\"value\":\""+json+"\"})");
         }
     }
 }

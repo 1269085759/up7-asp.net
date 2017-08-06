@@ -115,6 +115,9 @@ function FolderUploader(fdLoc, mgr)
                 , data: f_data
                 , success: function (msg)
                 {
+                    var str = decodeURIComponent(msg.value);
+                    var fv = JSON.parse(str);
+                    _this.folderSvr.pathSvr = fv.pathSvr;
                     _this.svr_create();
                 }
                 , error: function (req, txt, err)
