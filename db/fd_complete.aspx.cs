@@ -7,10 +7,10 @@ namespace up7.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id  = Request.QueryString["idSign"];
-            string uid = Request.QueryString["uid"];
+            string id    = Request.QueryString["id"];
+            string uid   = Request.QueryString["uid"];
             string merge = Request.QueryString["merge"];
-            string cak = Request.QueryString["callback"];
+            string cak   = Request.QueryString["callback"];
             int ret = 0;
 
             //参数为空
