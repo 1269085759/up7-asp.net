@@ -7,6 +7,8 @@ namespace up7.db.biz
     {
         /// <summary>
         /// 不创建文件夹，所有文件统一以日期格式存储
+        /// 格式：upload/年/月/日/guid
+        /// 示例：upload/2017/08/06/guid
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="fd"></param>

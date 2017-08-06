@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using up7.db.biz.redis;
+using up7.db.utils;
 using up7.down3.model;
 using tasks = up7.down3.biz.redis.tasks;
 
@@ -20,12 +21,9 @@ namespace up7.down3.db
             string pathLoc = Request.QueryString["pathLoc"];
             string sizeSvr = Request.QueryString["sizeSvr"];
 
-            sizeSvr = sizeSvr.Replace("+", "%20");
-            pathLoc = pathLoc.Replace("+", "%20");
-            nameLoc = nameLoc.Replace("+", "%20");
-            pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
-            nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
-            sizeSvr = HttpUtility.UrlDecode(sizeSvr);//utf-8解码
+            sizeSvr = PathTool.url_decode(sizeSvr);
+            pathLoc = PathTool.url_decode(pathLoc);
+            nameLoc = PathTool.url_decode(nameLoc);
 
             if (string.IsNullOrEmpty(uid)
                || string.IsNullOrEmpty(nameLoc)

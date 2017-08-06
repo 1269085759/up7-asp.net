@@ -6,6 +6,11 @@ using up7.db.model;
 
 namespace up7.db.biz.database
 {
+    /// <summary>
+    /// 队列表，保存未上传完的任务列表(文件，文件夹)
+    /// 文件或文件夹上传完毕后才会保存到up7_files中。
+    /// 未上传完的数据和已上传完毕的数据区分开
+    /// </summary>
     public class DBFileQueue
     {
         public void add(ref xdb_files f)
