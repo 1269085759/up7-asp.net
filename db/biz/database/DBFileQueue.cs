@@ -30,6 +30,15 @@ namespace up7.db.biz.database
             return f;
         }
 
+        public void remove(string id)
+        {
+            string sql = "delete from up7_files where f_id=@id;";
+            DbHelper db = new DbHelper();
+            var cmd = db.GetCommand(sql);
+            db.AddString(ref cmd, "@id", id, 32);
+            db.ExecuteNonQuery(cmd);
+        }
+
         public void add(ref FileInf f)
         {
             StringBuilder sb = new StringBuilder();
