@@ -12,6 +12,7 @@ namespace up7.db
     {
         string uid      = string.Empty;
         string id       = string.Empty;
+        string pid       = string.Empty;
         string perSvr   = string.Empty;
         string lenSvr   = string.Empty;
         string lenLoc   = string.Empty;
@@ -31,6 +32,7 @@ namespace up7.db
         {
             this.uid        = Request.Headers["uid"];
             this.id         = Request.Headers["id"];//
+            this.pid        = Request.Headers["pid"];//
             this.perSvr     = Request.Headers["perSvr"];//文件百分比
             this.lenSvr     = Request.Headers["lenSvr"];//已传大小
             this.lenLoc     = Request.Headers["lenLoc"];//本地文件大小
@@ -75,7 +77,7 @@ namespace up7.db
             fileSvr.pathLoc = this.pathLoc;
             fileSvr.pathSvr = this.pathSvr;
             fileSvr.pathRel = this.pathRel;
-            fileSvr.pid     = pidRoot;
+            fileSvr.pid     = this.pid;
             fileSvr.pidRoot = pidRoot;
             fileSvr.blockCount = int.Parse(blockCount);
             fileSvr.blockSize = int.Parse(blockSize);
