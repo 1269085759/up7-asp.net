@@ -91,7 +91,7 @@ namespace up7.db.biz.database
             return cmd;
         }
 
-        void save(ref DbCommand cmd,xdb_files f)
+        void save(ref DbCommand cmd,FileInf f)
         {
             cmd.Parameters[0].Value = f.id;//idSign
             cmd.Parameters[1].Value = string.IsNullOrEmpty(f.pid) ? string.Empty : f.pid;//pidSign
@@ -129,18 +129,18 @@ namespace up7.db.biz.database
             long len = this.m_cache.LLen(this.root.id);
             redis.RedisFile svr = new redis.RedisFile(ref this.m_cache);
             BlockMeger bm = new BlockMeger();
-            List<xdb_files> files = null;
+            List<FileInf> files = null;
 
             while (index<len)
             {
                 var keys = this.m_cache.LRange(this.root.id, index, index + 100);
                 index += keys.Length;
 
-                files = new List<xdb_files>();
+                files = new List<FileInf>();
                 foreach(var k in keys)
                 {
                     System.Diagnostics.Debug.WriteLine(k);
-                    xdb_files f = svr.read(k);
+                    FileInf f = svr.read(k);
                     f.f_fdChild = true;
                     f.pidRoot = this.root.id;
                     this.save(ref cmd,f);//添加到数据库

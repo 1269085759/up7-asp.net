@@ -215,7 +215,6 @@
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\biz\redis\RedisConfig.cs" />
-    <Compile Include="db\model\FileInf.cs" />
     <Compile Include="db\utils\FileBlockWriter.cs" />
     <Compile Include="db\model\FolderInf.cs" />
     <Compile Include="db\f_complete.aspx.cs">
@@ -253,7 +252,7 @@
     <Compile Include="db\f_post.aspx.designer.cs">
       <DependentUpon>f_post.aspx</DependentUpon>
     </Compile>
-    <Compile Include="db\model\xdb_files.cs" />
+    <Compile Include="db\model\FileInf.cs" />
     <Compile Include="db\utils\PathTool.cs" />
     <Compile Include="db\utils\XDebug.cs" />
     <Compile Include="debug\big_file.aspx.cs">

@@ -19,7 +19,7 @@ namespace up7.db.biz.redis
             this.con.SAdd(this.getKey(), id);
         }
 
-        public void add(xdb_files f)
+        public void add(FileInf f)
         {
             this.add(f.id);
 
@@ -51,12 +51,12 @@ namespace up7.db.biz.redis
 
         public void clear() { this.con.FlushDb(); }
 
-        public List<xdb_files> all()
+        public List<FileInf> all()
         {
-            List<xdb_files> arr = null;
+            List<FileInf> arr = null;
             var ls = this.con.SMembers(this.getKey());
 
-            if (ls.Length > 0) arr = new List<xdb_files>();
+            if (ls.Length > 0) arr = new List<FileInf>();
             RedisFile cache = new RedisFile(ref this.con);
 
             foreach(String s in ls)

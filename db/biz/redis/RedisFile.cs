@@ -17,7 +17,7 @@ namespace up7.db.biz.redis
         }
 
         public void complete(string id) { this.con.Del(id); }
-        public void create(xdb_files f)
+        public void create(FileInf f)
         {
             if (this.con.Exists(f.id)) return;
 
@@ -39,11 +39,11 @@ namespace up7.db.biz.redis
             this.con.HSet(f.id, "foldersCount", "0");
         }
 
-        public xdb_files read(string id)
+        public FileInf read(string id)
         {
             if (!this.con.Exists(id)) return null;
 
-            xdb_files f = new xdb_files();
+            FileInf f = new FileInf();
             f.id = id;
             f.folder  = this.con.HGet(id, "fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             f.pid= this.con.HGet(id, "pid");

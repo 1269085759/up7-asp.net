@@ -23,7 +23,7 @@ namespace up7.db.biz.database
             db.ExecuteNonQuery(cmd);
         }
 
-        public void addComplete(ref xdb_files model)
+        public void addComplete(ref FileInf model)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files(");
@@ -77,7 +77,7 @@ namespace up7.db.biz.database
 
             db.ExecuteNonQuery(cmd);
         }
-        public void add(ref xdb_files f)
+        public void add(ref FileInf f)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files(");
@@ -131,7 +131,7 @@ namespace up7.db.biz.database
 
         public string all_uncmp(int uid)
         {
-            List<xdb_files> files = new List<xdb_files>();
+            List<FileInf> files = new List<FileInf>();
             StringBuilder sb = new StringBuilder();
             sb.Append("select f_idSign,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath from up7_files where uid=@uid and f_complete=0 and f_delete=0;");
             DbHelper db = new DbHelper();
@@ -142,7 +142,7 @@ namespace up7.db.biz.database
             var r = db.ExecuteReader(cmd);
             while(r.Read())
             {
-                xdb_files f = new xdb_files();
+                FileInf f = new FileInf();
                 f.id = r.GetString(0);
                 f.nameLoc = r.GetString(1);
                 f.pathLoc = r.GetString(2);

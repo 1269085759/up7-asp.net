@@ -30,7 +30,7 @@ namespace up7.db.biz
         /// <param name="uid"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-        public override string genFile(int uid, ref xdb_files f)
+        public override string genFile(int uid, ref FileInf f)
         {
             DateTime timeCur = DateTime.Now;
             string path = Path.Combine(this.getRoot(), timeCur.ToString("yyyy"));

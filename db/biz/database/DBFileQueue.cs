@@ -13,7 +13,7 @@ namespace up7.db.biz.database
     /// </summary>
     public class DBFileQueue
     {
-        public void add(ref xdb_files f)
+        public void add(ref FileInf f)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files_queue(");
@@ -87,7 +87,7 @@ namespace up7.db.biz.database
 
         public string all_uncmp(int uid)
         {
-            List<xdb_files> files = new List<xdb_files>();
+            List<FileInf> files = new List<FileInf>();
             StringBuilder sb = new StringBuilder();
             sb.Append("select f_id,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath,f_sizeLoc,f_perSvr from up7_files_queue where f_uid=@uid and f_complete=0 and f_deleted=0;");
             DbHelper db = new DbHelper();
@@ -98,7 +98,7 @@ namespace up7.db.biz.database
             var r = db.ExecuteReader(cmd);
             while (r.Read())
             {
-                xdb_files f = new xdb_files();
+                FileInf f = new FileInf();
                 f.id = r.GetString(0);
                 f.nameLoc = r.GetString(1);
                 f.pathLoc = r.GetString(2);

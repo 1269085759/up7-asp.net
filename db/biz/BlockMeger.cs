@@ -20,7 +20,7 @@ namespace up7.db.biz
         /// <param name="pathSvr"></param>
         /// <param name="blockPath"></param>
         /// <param name="blockCount">文件块总数</param>
-        public void merge(xdb_files fileSvr)
+        public void merge(FileInf fileSvr)
         {
             if (File.Exists(fileSvr.pathSvr)) return;//文件已存在
 

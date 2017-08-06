@@ -2,84 +2,84 @@
 
 namespace up7.db.model
 {
-    /// <summary>
-    /// 文件信息，与FolderInf配合使用。
-    /// </summary>
     public class FileInf
     {
-        public FileInf()
-        {
-            this.nameLoc = this.pathLoc = this.pathSvr = this.sizeLoc = string.Empty;
-            this.uid = this.pidLoc = this.pidSvr = this.idLoc = this.idSvr = 0;
-            this.lenLoc = 0;
-        }
-
+        public string id = string.Empty;
+        public string pid = string.Empty;
+        public string pidRoot = string.Empty;
+        public bool folder = false;//是否是一个文件夹
+        public int blockCount = 0;
+        public int blockSize = 0;//块大小
+        public int fileCount = 0;
         /// <summary>
-        /// 文件名称。示例：QQ2014.exe
+        /// 是否是文件夹中的子文件
         /// </summary>
-        public string nameLoc;
+        public bool f_fdChild = false;
         /// <summary>
-        /// 文件在客户端中的路径。示例：D:\\Soft\\QQ2013.exe
-        /// </summary>
-        public string pathLoc;
+        /// 用户ID。与第三方系统整合使用。
+        /// </summary>	
+        public int uid = 0;
         /// <summary>
-        /// 文件在服务器上面的路径。示例：E:\\Web\\Upload\\QQ2013.exe
+        /// 文件在本地电脑中的名称。
         /// </summary>
-        public string pathSvr;
+        public string nameLoc = string.Empty;
+        /// <summary>
+        /// 文件在服务器中的名称。
+        /// </summary>
+        public string nameSvr = string.Empty;
+        /// <summary>
+        /// 文件在本地电脑中的完整路径。示例：D:\Soft\QQ2012.exe
+        /// </summary>
+        public string pathLoc = string.Empty;
+        /// <summary>
+        /// 文件在服务器中的完整路径。示例：F:\ftp\uer\md5.exe
+        /// </summary>
+        public string pathSvr = string.Empty;
+        /// <summary>
+        /// 文件块根目录
+        /// f:/webapps/files/年/月/日/guid/file-guid/
+        /// </summary>
+        public string blockPath = string.Empty;
+        /// <summary>
+        /// 本地路径：D:/soft/safe/360.exe
+        /// 相对路径 soft/safe/360.exe
+        /// 文件在服务器中的相对路径。
+        /// </summary>
+        public string pathRel = string.Empty;
         /// <summary>
         /// 文件MD5
         /// </summary>
         public string md5 = string.Empty;
         /// <summary>
-        /// 客户端父ID(文件夹ID)
-        /// </summary>
-        public int pidLoc;
-        /// <summary>
-        /// 服务端父ID(文件夹在数据库中的ID)
-        /// </summary>
-        public int pidSvr;
-        /// <summary>
-        /// 根级文件夹ID，数据库ID，与xdb_folders.fd_id对应
-        /// </summary>
-        public int pidRoot = 0;
-        /// <summary>
-        /// 本地文件ID。
-        /// </summary>
-        public int idLoc = 0;
-        /// <summary>
-        /// 文件在服务器中的ID。
-        /// </summary>
-        public int idSvr = 0;
-        /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int uid = 0;
-        /// <summary>
-        /// 数字化的长度。以字节为单位，示例：1021021
+        /// 数字化的文件长度。以字节为单位，示例：120125
+        /// 文件大小可能超过2G，所以使用long
         /// </summary>
         public long lenLoc = 0;
         /// <summary>
-        /// 格式化的长度。示例：10G
+        /// 格式化的文件尺寸。示例：10.03MB
         /// </summary>
-        public string sizeLoc = "0bytes";
+        public string sizeLoc = string.Empty;
+        public string sizeSvr = string.Empty;
         /// <summary>
-        /// 已上传大小
+        /// 已上传大小。以字节为单位
+        /// 文件大小可能超过2G，所以使用long
         /// </summary>
         public long lenSvr = 0;
         /// <summary>
-        /// 文件上传位置。
-        /// </summary>
-        public long postPos = 0;
-        /// <summary>
-        /// 上传百分比
+        /// 已上传百分比。示例：10%
         /// </summary>
         public string perSvr = "0%";
         /// <summary>
-        /// 相对路径。root\\child\\folderName\\fileName.txt
+        /// PostComplete
         /// </summary>
-        public string pathRel = string.Empty;
         public bool complete = false;
-        public string nameSvr = string.Empty;
-        public string sign = Guid.NewGuid().ToString("N");
+        /// <summary>
+        /// PostedTime
+        /// </summary>
+        public DateTime time = DateTime.Now;
+        /// <summary>
+        /// IsDeleted
+        /// </summary>
+        public bool deleted = false;
     }
 }

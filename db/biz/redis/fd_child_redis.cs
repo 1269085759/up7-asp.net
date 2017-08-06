@@ -4,7 +4,7 @@ using up7.db.model;
 
 namespace up7.db.biz.redis
 {
-    public class fd_child_redis : xdb_files
+    public class fd_child_redis : FileInf
     {
         public void read(CSRedis.RedisClient j, String idSign)
         {

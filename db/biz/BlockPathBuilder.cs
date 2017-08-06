@@ -53,7 +53,7 @@ namespace up7.db.biz
         /// <param name="blockIndex"></param>
         /// <param name="pathSvr"></param>
         /// <returns></returns>
-        public string partFd(ref xdb_files f,string blockIndex,ref xdb_files fd)
+        public string partFd(ref FileInf f,string blockIndex,ref FileInf fd)
         {
             string pathSvr = fd.pathSvr;
             pathSvr = Path.Combine(pathSvr, f.pathRel);
@@ -69,7 +69,7 @@ namespace up7.db.biz
         /// <param name="blockIndex"></param>
         /// <param name="fd"></param>
         /// <returns></returns>
-        public string rootFd(ref xdb_files f,string blockIndex,ref xdb_files fd)
+        public string rootFd(ref FileInf f,string blockIndex,ref FileInf fd)
         {
             string pathSvr = fd.pathSvr;
             int pos = f.pathRel.LastIndexOf("\\");

@@ -35,7 +35,7 @@ namespace up7.db.biz.redis
             }
         }
 
-        public void add(List<xdb_files> fs)
+        public void add(List<FileInf> fs)
         {
             String key = this.getKey();
             foreach (var f in fs)

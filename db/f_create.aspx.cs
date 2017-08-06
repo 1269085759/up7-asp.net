@@ -38,7 +38,7 @@ namespace up7.db
                 return;
             }
 
-            xdb_files fileSvr = new xdb_files();
+            FileInf fileSvr = new FileInf();
             fileSvr.id = id;
             fileSvr.uid = int.Parse(uid);//将当前文件UID设置为当前用户UID
             fileSvr.nameLoc = Path.GetFileName(pathLoc);

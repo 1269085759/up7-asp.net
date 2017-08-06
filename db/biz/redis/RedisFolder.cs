@@ -43,7 +43,7 @@ namespace up7.db.biz.redis
         {
             //取文件ID列表
             fd_folders_redis rfs = new fd_folders_redis(ref this.cache, this.m_root.id);
-            this.m_root.folders = new List<xdb_files>();
+            this.m_root.folders = new List<FileInf>();
             var fs = rfs.all();
             foreach (String s in fs)
             {

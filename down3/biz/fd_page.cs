@@ -27,7 +27,7 @@ namespace up7.down3.biz
                                         where RowNumber BETWEEN {1} and {2}
                                         ", id, pageStart, pageEnd);
 
-            List<xdb_files> files = new List<xdb_files>();
+            List<FileInf> files = new List<FileInf>();
             DbHelper db = new DbHelper();
             using (var cmd = db.GetCommand(sql))
             {
@@ -35,7 +35,7 @@ namespace up7.down3.biz
                 {
                     while (r.Read())
                     {
-                        var f = new xdb_files();
+                        var f = new FileInf();
                         f.nameLoc = r.GetString(0);//f_nameLoc
                         f.pathLoc = r.GetString(1);//f_pathLoc
                         f.pathSvr = r.GetString(2);

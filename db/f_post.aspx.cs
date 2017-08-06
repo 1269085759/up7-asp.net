@@ -66,7 +66,7 @@ namespace up7.db
         {
             HttpPostedFile part = Request.Files.Get(0);
 
-            xdb_files fileSvr = new xdb_files();
+            FileInf fileSvr = new FileInf();
             fileSvr.id = id;
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.nameSvr = nameLoc;

@@ -26,7 +26,7 @@ namespace up7.db
             String callback = Request.QueryString["callback"];
             pathLoc         = PathTool.url_decode(pathLoc);
 
-            xdb_files f = new xdb_files();
+            FileInf f = new FileInf();
             f.nameLoc = Path.GetFileName(pathLoc);
             f.nameSvr = f.nameLoc;
             f.id = id;

@@ -33,12 +33,12 @@ namespace up7.down3.biz
             DbHelper db = new DbHelper();
             var cmd = db.GetCommand(sb.ToString());
             db.AddInt(ref cmd,"@uid",uid);
-            List<xdb_files> files = new List<xdb_files>();
+            List<FileInf> files = new List<FileInf>();
             using (var r = db.ExecuteReader(cmd))
             {
                 while (r.Read())
                 {
-                    xdb_files fi = new xdb_files();
+                    FileInf fi = new FileInf();
                     fi.id   = r.GetString(0);//与up7_files表对应
                     fi.nameLoc  = r.GetString(1);
                     fi.lenSvr   = r.GetInt64(2);
