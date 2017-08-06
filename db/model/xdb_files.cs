@@ -64,7 +64,7 @@ namespace up7.db.model
         /// 文件续传位置。
         /// 文件大小可能超过2G，所以使用long
         /// </summary>
-        public long FilePos = 0;
+        public long blockOffset = 0;
         /// <summary>
         /// 已上传大小。以字节为单位
         /// 文件大小可能超过2G，所以使用long
