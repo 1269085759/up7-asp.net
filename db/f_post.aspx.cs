@@ -18,15 +18,14 @@ namespace up7.db
         string nameLoc  = string.Empty;
         string pathLoc  = string.Empty;
         string sizeLoc  = string.Empty;
-        string f_pos    = string.Empty;
+        string blockOffset= string.Empty;
         string blockIndex = string.Empty;
         string blockCount = string.Empty;
         string blockSize = string.Empty;
         string blockSizeLogic = string.Empty;
         string pathSvr = string.Empty;
-        string fd_idSign = string.Empty;
-        string fd_lenSvr = string.Empty;
-        string fd_perSvr = string.Empty;
+        string pathRel = string.Empty;
+        string pidRoot = string.Empty;
 
         void recvParam()
         {
@@ -35,24 +34,21 @@ namespace up7.db
             this.perSvr     = Request.Headers["f-perSvr"];//文件百分比
             this.lenSvr     = Request.Headers["f-lenSvr"];//已传大小
             this.lenLoc     = Request.Headers["f-lenLoc"];//本地文件大小
-            this.nameLoc    = Request.Headers["f-nameLoc"];//
-            this.pathLoc    = Request.Headers["f-pathLoc"];//
-            this.sizeLoc    = Request.Headers["f-sizeLoc"];//
-            this.f_pos      = Request.Headers["f-RangePos"];
+            this.nameLoc    = Request.Headers["nameLoc"];//
+            this.sizeLoc    = Request.Headers["sizeLoc"];//
+            this.blockOffset= Request.Headers["blockOffset"];
             this.blockIndex = Request.Headers["blockIndex"];//块偏移，相对于文件
             this.blockCount = Request.Headers["blockCount"];//块总数
             this.blockSize  = Request.Headers["blockSize"];//块大小
             this.blockSizeLogic = Request.Headers["blockSizeLogic"];//逻辑块大小（定义的块大小）
+            this.pathLoc    = Request.Headers["pathLoc"];//
             this.pathSvr    = Request.Headers["pathSvr"];
+            this.pathRel    = Request.Headers["pathRel"];
+            this.pidRoot    = Request.Headers["pidRoot"];//文件夹标识(guid)
+            this.pathLoc    = PathTool.url_decode(this.pathLoc);
+            this.nameLoc    = PathTool.url_decode(this.nameLoc);
             this.pathSvr    = PathTool.url_decode(this.pathSvr);
-            //string complete     = Request.Headers["complete"];//true/false
-            this.fd_idSign  = Request.Headers["fd-idSign"];//文件夹标识(guid)
-            this.fd_lenSvr  = Request.Headers["fd-lenSvr"];//文件夹已传大小
-            this.fd_perSvr  = Request.Headers["fd-perSvr"];//文件夹百分比
-            this.pathLoc    = pathLoc.Replace("+", "%20");
-            this.pathLoc    = HttpUtility.UrlDecode(pathLoc);
-            this.nameLoc    = pathLoc.Replace("+", "%20");
-            this.nameLoc    = HttpUtility.UrlDecode(nameLoc);
+            this.pathRel    = PathTool.url_decode(this.pathRel);
         }
 
         void savePart()
@@ -71,45 +67,36 @@ namespace up7.db
             HttpPostedFile part = Request.Files.Get(0);
             var con = RedisConfig.getCon();
 
-            FileRedis fr = new FileRedis(ref con);
-            var fd = fr.read(this.fd_idSign);
-
             xdb_files fileSvr = new xdb_files();
             fileSvr.id = id;
             fileSvr.nameLoc = Path.GetFileName(pathLoc);
             fileSvr.nameSvr = nameLoc;
             fileSvr.lenLoc = long.Parse(lenLoc);
             fileSvr.sizeLoc = sizeLoc;
-            fileSvr.pathLoc = pathLoc.Replace("\\", "/");//路径规范化处理
-            fileSvr.pathSvr = pathLoc.Replace(fd.pathLoc, fd.pathSvr);
-            fileSvr.pathSvr = fileSvr.pathSvr.Replace("\\", "/");
-            fileSvr.pathRel = pathLoc.Replace(fd.pathLoc+"\\", string.Empty);
-            fileSvr.pidRoot = fd_idSign;
+            fileSvr.pathLoc = this.pathLoc;
+            fileSvr.pathSvr = this.pathSvr;
+            fileSvr.pathRel = this.pathRel;
+            fileSvr.pid     = pidRoot;
+            fileSvr.pidRoot = pidRoot;
             fileSvr.blockCount = int.Parse(blockCount);
             fileSvr.blockSize = int.Parse(blockSize);
-            BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath = bpb.rootFd(ref fileSvr, this.blockIndex, ref fd);
+            //块路径：d:/webapps/files/年/月/日/folder/folder-child/file-guid/
+            fileSvr.blockPath = Path.GetDirectoryName(fileSvr.pathSvr);
+            fileSvr.blockPath = Path.Combine(fileSvr.blockPath, id);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
             
             FileRedis f_svr = new FileRedis(ref con);
             if(!con.Exists(id))
             {
                 //添加到文件夹
-                fd_files_redis root = new fd_files_redis(ref con, fd_idSign);
+                fd_files_redis root = new fd_files_redis(ref con, pidRoot);
                 root.add(id);
 
                 f_svr.create(fileSvr);//添加到缓存
-            }//更新文件夹进度
-            else if (f_pos == "0")
-            {                
-                 f_svr.process(fd_idSign, fd_perSvr, fd_lenSvr, "0");
             }
 
             //块路径
             string partPath = Path.Combine(fileSvr.blockPath,blockIndex+".part");
-
-            //自动创建目录
-            if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
 
             part.SaveAs(partPath);
         }
@@ -119,7 +106,7 @@ namespace up7.db
             if (string.IsNullOrEmpty(lenLoc)
                 || string.IsNullOrEmpty(uid)
                 || string.IsNullOrEmpty(id)
-                || string.IsNullOrEmpty(f_pos)
+                || string.IsNullOrEmpty(blockOffset)
                 || string.IsNullOrEmpty(nameLoc))
             {
                 XDebug.Output("lenLoc", lenLoc);
@@ -127,8 +114,7 @@ namespace up7.db
                 XDebug.Output("idSvr", id);
                 XDebug.Output("nameLoc", nameLoc);
                 XDebug.Output("pathLoc", pathLoc);
-                XDebug.Output("fd-idSvr", fd_idSign);
-                XDebug.Output("fd-lenSvr", fd_lenSvr);
+                XDebug.Output("fd-idSvr", pidRoot);
                 Response.Write("param is null");
                 return false;
             }
@@ -158,7 +144,7 @@ namespace up7.db
             if (Request.Files.Count > 0)
             {
                 //文件块
-                if (string.IsNullOrEmpty(fd_idSign))
+                if (string.IsNullOrEmpty(pidRoot))
                 {
                     this.savePart();
                 }//子文件块
