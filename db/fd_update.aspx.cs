@@ -29,7 +29,7 @@ namespace up7.db
             }
 
             var j = RedisConfig.getCon();
-            FileRedis fr = new FileRedis(ref j);
+            RedisFile fr = new RedisFile(ref j);
             fr.process(id, perSvr, lenSvr, "0");
         }
     }

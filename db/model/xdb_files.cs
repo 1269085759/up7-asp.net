@@ -86,13 +86,5 @@ namespace up7.db.model
         /// IsDeleted
         /// </summary>
         public bool deleted = false;
-        /// <summary>
-        /// 文件唯一标识
-        /// </summary>
-        public string sign = Guid.NewGuid().ToString("N");
-        /// <summary>
-        /// 文件夹JSON信息
-        /// </summary>
-        public string fd_json = string.Empty;
     }
 }

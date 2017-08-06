@@ -1,9 +1,10 @@
 ﻿using System;
 using up7.db.biz.folder;
+using up7.db.model;
 
 namespace up7.db.biz.redis
 {
-    public class fd_child_redis : fd_child
+    public class fd_child_redis : xdb_files
     {
         public void read(CSRedis.RedisClient j, String idSign)
         {

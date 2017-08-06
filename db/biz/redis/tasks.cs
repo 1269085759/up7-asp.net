@@ -23,7 +23,7 @@ namespace up7.db.biz.redis
         {
             this.add(f.id);
 
-            FileRedis fs = new FileRedis(ref this.con);
+            RedisFile fs = new RedisFile(ref this.con);
             fs.create(f);
         }
 
@@ -57,7 +57,7 @@ namespace up7.db.biz.redis
             var ls = this.con.SMembers(this.getKey());
 
             if (ls.Length > 0) arr = new List<xdb_files>();
-            FileRedis cache = new FileRedis(ref this.con);
+            RedisFile cache = new RedisFile(ref this.con);
 
             foreach(String s in ls)
             {

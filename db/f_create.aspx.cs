@@ -50,7 +50,7 @@ namespace up7.db
             fileSvr.nameSvr = fileSvr.nameLoc;
 
             PathGuidBuilder pb = new PathGuidBuilder();
-            fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.sign,fileSvr.nameLoc);
+            fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.id,fileSvr.nameLoc);
             BlockPathBuilder bpb = new BlockPathBuilder();
             fileSvr.blockPath = bpb.root(id, fileSvr.pathSvr);
 

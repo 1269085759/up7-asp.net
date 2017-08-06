@@ -38,7 +38,7 @@ namespace up7.db
             f.uid = int.Parse( uid);
             //生成路径，格式：upload/年/月/日/guid/文件夹名称
             PathGuidBuilder pb = new PathGuidBuilder();
-            f.pathSvr = Path.Combine( pb.genFolder(f.uid,f.sign),f.nameLoc);
+            f.pathSvr = Path.Combine( pb.genFolder(f.uid,f.id),f.nameLoc);
             f.pathSvr = f.pathSvr.Replace("\\", "/");
             Directory.CreateDirectory(f.pathSvr);
 

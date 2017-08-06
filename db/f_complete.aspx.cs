@@ -27,7 +27,7 @@ namespace up7.db
             else
             {
                 var j = RedisConfig.getCon();
-                FileRedis cache = new FileRedis(ref j);
+                RedisFile cache = new RedisFile(ref j);
                 var fileSvr = cache.read(fid);
 
                 //合并块

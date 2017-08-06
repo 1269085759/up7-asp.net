@@ -17,9 +17,9 @@ namespace up7.db
             if (!string.IsNullOrEmpty(id) )
             {
                 var con = RedisConfig.getCon();
-                fd_redis fd = new fd_redis(ref con);
+                RedisFolder fd = new RedisFolder(ref con);
                 fd.fileMerge = merge.Equals("1");
-                fd.read(id);
+                //fd.read(id);
                 fd.saveToDb();//保存到数据库
 
                 //清除缓存

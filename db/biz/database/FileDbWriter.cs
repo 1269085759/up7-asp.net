@@ -107,7 +107,7 @@ namespace up7.db.biz.database
             cmd.Parameters[11].Value = f.sizeLoc;//sizeLoc
             cmd.Parameters[12].Value = f.lenLoc;//lenSvr
             cmd.Parameters[13].Value = "100%";//perSvr
-            cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign) ? string.Empty : f.sign;//sign
+            //cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign) ? string.Empty : f.sign;//sign
             cmd.Parameters[15].Value = f.folder;//fdTask
             cmd.Parameters[16].Value = f.blockPath;//
             cmd.Parameters[17].Value = f.blockSize;//
@@ -122,24 +122,24 @@ namespace up7.db.biz.database
         {
             var cmd = this.makeCmd(con);
             //保存文件夹
-            this.save(ref cmd, this.root);
+            //this.save(ref cmd, this.root);
 
-            string key = this.root.id + "-files";
+            //string key = this.root.id + "-files";
             int index = 0;
-            long len = this.m_cache.LLen(key);
-            redis.FileRedis svr = new redis.FileRedis(ref this.m_cache);
+            long len = this.m_cache.LLen(this.root.id);
+            redis.RedisFile svr = new redis.RedisFile(ref this.m_cache);
             BlockMeger bm = new BlockMeger();
             List<xdb_files> files = null;
 
             while (index<len)
             {
-                var keys = this.m_cache.LRange(key, index, index + 100);
+                var keys = this.m_cache.LRange(this.root.id, index, index + 100);
                 index += keys.Length;
 
                 files = new List<xdb_files>();
                 foreach(var k in keys)
                 {
-                System.Diagnostics.Debug.WriteLine(k);
+                    System.Diagnostics.Debug.WriteLine(k);
                     xdb_files f = svr.read(k);
                     f.f_fdChild = true;
                     f.pidRoot = this.root.id;
@@ -159,7 +159,7 @@ namespace up7.db.biz.database
                 this.m_cache.Del(keys);
                 files.Clear();
             }
-            this.m_cache.Del(key);
+            this.m_cache.Del(this.root.id);
             cmd.Dispose();
         }        
     }

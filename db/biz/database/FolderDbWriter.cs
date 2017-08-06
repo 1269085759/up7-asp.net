@@ -95,7 +95,7 @@ namespace up7.db.biz.database
                     cmd.Parameters[5].Value = fd.sizeLoc;//fd_pathLoc
                     cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
                     cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
-                    cmd.Parameters[8].Value = fd.folderCount;//fd_files
+                    //cmd.Parameters[8].Value = fd.folderCount;//fd_files
                     cmd.Parameters[9].Value = fd.fileCount;//fd_pidRoot
                     cmd.Parameters[10].Value = fd.pidRoot;//fd_id
                     cmd.ExecuteNonQuery();

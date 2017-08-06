@@ -6,10 +6,11 @@ namespace up7.db.biz.folder
     /// <summary>
     /// 文件夹
     /// </summary>
-    public class fd_root : fd_child
+    public class fd_root : xdb_files
     {
-        public List<fd_child> folders;
+        public List<xdb_files> folders;
         public List<xdb_files> files;
-        public int idFile = 0;//
+        public int folderCount = 0;
+        public fd_root() { this.folder = true; }
     }
 }

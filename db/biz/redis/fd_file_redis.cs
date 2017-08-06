@@ -25,7 +25,6 @@ namespace up7.db.biz.redis
             this.pidRoot = j.HGet(idSign, "rootSign");
             this.folder = j.HGet(idSign, "fdTask") == "True";
             this.complete = j.HGet(idSign, "complete") == "true";
-            this.sign = j.HGet(idSign, "sign");
         }
 
         public void write(CSRedis.RedisClient j)
@@ -47,7 +46,6 @@ namespace up7.db.biz.redis
             j.HSet(this.id, "rootSign", this.pidRoot);//		
             j.HSet(this.id, "fdTask", this.folder);//
             j.HSet(this.id, "complete", this.lenLoc > 0 ? "false" : "true");//
-            j.HSet(this.id, "sign", this.sign);//
         }
     }
 }

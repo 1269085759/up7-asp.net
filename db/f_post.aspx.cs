@@ -65,7 +65,6 @@ namespace up7.db
         void savePartFolder()
         {
             HttpPostedFile part = Request.Files.Get(0);
-            var con = RedisConfig.getCon();
 
             xdb_files fileSvr = new xdb_files();
             fileSvr.id = id;
@@ -85,14 +84,15 @@ namespace up7.db
             fileSvr.blockPath = Path.Combine(fileSvr.blockPath, id);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
             
-            FileRedis f_svr = new FileRedis(ref con);
-            if(!con.Exists(id))
+            //将文件列表添加到缓存
+            if(blockOffset=="0")
             {
-                //添加到文件夹
-                fd_files_redis root = new fd_files_redis(ref con, pidRoot);
-                root.add(id);
-
-                f_svr.create(fileSvr);//添加到缓存
+                var con = RedisConfig.getCon();
+                //保存文件信息
+                RedisFile f_svr = new RedisFile(ref con);
+                f_svr.create(fileSvr);
+                //保存到文件夹
+                con.LPush(pidRoot, id);
             }
 
             //块路径

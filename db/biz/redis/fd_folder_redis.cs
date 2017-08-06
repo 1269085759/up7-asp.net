@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using up7.db.biz.folder;
+using up7.db.model;
 
 namespace up7.db.biz.redis
 {
@@ -34,7 +35,7 @@ namespace up7.db.biz.redis
             }
         }
 
-        public void add(List<fd_child> fs)
+        public void add(List<xdb_files> fs)
         {
             String key = this.getKey();
             foreach (var f in fs)

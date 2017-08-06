@@ -147,7 +147,6 @@
     <Compile Include="db\biz\BlockPathBuilder.cs" />
     <Compile Include="db\biz\database\DBFileQueue.cs" />
     <Compile Include="db\biz\file_part.cs" />
-    <Compile Include="db\biz\folder\fd_child.cs" />
     <Compile Include="db\biz\folder\fd_root.cs" />
     <Compile Include="db\biz\database\FileDbWriter.cs" />
     <Compile Include="db\biz\database\FolderDbWriter.cs" />
@@ -160,8 +159,8 @@
     <Compile Include="db\biz\redis\fd_files_redis.cs" />
     <Compile Include="db\biz\redis\fd_file_redis.cs" />
     <Compile Include="db\biz\redis\fd_folder_redis.cs" />
-    <Compile Include="db\biz\redis\fd_redis.cs" />
-    <Compile Include="db\biz\redis\FileRedis.cs" />
+    <Compile Include="db\biz\redis\RedisFolder.cs" />
+    <Compile Include="db\biz\redis\RedisFile.cs" />
     <Compile Include="db\biz\redis\tasks.cs" />
     <Compile Include="db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
