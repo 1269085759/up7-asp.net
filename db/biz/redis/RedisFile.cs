@@ -20,7 +20,7 @@ namespace up7.db.biz.redis
         {
             if (this.con.Exists(f.id)) return;
 
-            this.con.HSet(f.id, "fdTask", f.folder);
+            this.con.HSet(f.id, "fdTask", f.fdTask);
             this.con.HSet(f.id, "pid", f.pid);
             this.con.HSet(f.id, "pidRoot", f.pidRoot);
             this.con.HSet(f.id, "pathLoc", f.pathLoc);
@@ -44,7 +44,7 @@ namespace up7.db.biz.redis
 
             FileInf f = new FileInf();
             f.id = id;
-            f.folder  = this.con.HGet(id, "fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
+            f.fdTask  = this.con.HGet(id, "fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             f.pid= this.con.HGet(id, "pid");
             f.pidRoot = this.con.HGet(id, "pidRoot");
             f.pathLoc = this.con.HGet(id, "pathLoc");

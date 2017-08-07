@@ -44,6 +44,7 @@ namespace up7.db.biz.database
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files_queue(");
             sb.Append(" f_id");
+            sb.Append(",f_fdTask");
             sb.Append(",f_uid");
             sb.Append(",f_nameLoc");
             sb.Append(",f_nameSvr");
@@ -59,6 +60,7 @@ namespace up7.db.biz.database
             sb.Append(") values (");
 
             sb.Append(" @f_id");
+            sb.Append(",@f_fdTask");
             sb.Append(",@f_uid");
             sb.Append(",@f_nameLoc");
             sb.Append(",@f_nameSvr");
@@ -76,6 +78,7 @@ namespace up7.db.biz.database
             DbCommand cmd = db.GetCommand(sb.ToString());
 
             db.AddString(ref cmd, "@f_id", f.id, 36);
+            db.AddBool(ref cmd, "@f_fdTask", f.fdTask);
             db.AddInt(ref cmd, "@f_uid", f.uid);
             db.AddString(ref cmd, "@f_nameLoc", f.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", f.nameSvr, 255);
@@ -93,7 +96,7 @@ namespace up7.db.biz.database
 
         public void complete(string id)
         {
-            string sql = "select * into up7_files from up7_files_queue where f_id=@id;" +
+            string sql = "insert into up7_files select * from up7_files_queue where f_id=@id;" +
                 "delete from up7_files_queue where f_id=@id;";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);

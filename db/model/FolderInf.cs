@@ -7,7 +7,7 @@
     {
         public FolderInf()
         {
-            this.folder = true;
+            this.fdTask = true;
         }
 
         public int foldersCount = 0;

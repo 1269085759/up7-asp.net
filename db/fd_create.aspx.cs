@@ -34,7 +34,7 @@ namespace up7.db
             f.sizeLoc = sizeLoc;
             f.lenLoc = long.Parse(lenLoc);
             f.fileCount = int.Parse(fCount);
-            f.folder = true;
+            f.fdTask = true;
             f.uid = int.Parse( uid);
             //生成路径，格式：upload/年/月/日/guid/文件夹名称
             PathGuidBuilder pb = new PathGuidBuilder();

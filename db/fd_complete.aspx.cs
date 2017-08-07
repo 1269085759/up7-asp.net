@@ -1,4 +1,5 @@
 ﻿using System;
+using up7.db.biz.database;
 using up7.db.biz.redis;
 
 namespace up7.db
@@ -16,13 +17,16 @@ namespace up7.db
             //参数为空
             if (!string.IsNullOrEmpty(id) )
             {
-                var con = RedisConfig.getCon();
-                RedisFolder fd = new RedisFolder(ref con);
+                DBFileQueue db = new DBFileQueue();
+                db.complete(id);
+
+                var rd = RedisConfig.getCon();
+                RedisFolder fd = new RedisFolder(ref rd);
                 fd.id = id;
                 fd.fileMerge = merge.Equals("1");
                 fd.saveToDb();//保存到数据库
 
-                con.Dispose();
+                rd.Dispose();
                 ret = 1;
             }
             Response.Write(cak + "(" + ret + ")");

@@ -7,7 +7,7 @@ namespace up7.db.model
         public string id = string.Empty;
         public string pid = string.Empty;
         public string pidRoot = string.Empty;
-        public bool folder = false;//是否是一个文件夹
+        public bool fdTask = false;//是否是一个文件夹
         public int blockCount = 0;
         public int blockSize = 0;//块大小
         public int fileCount = 0;
