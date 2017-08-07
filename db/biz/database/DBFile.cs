@@ -223,7 +223,7 @@ namespace up7.db.biz.database
 
         public void merged(string id)
         {
-            string sql = "update up7_files set f_merged=1 where f_id=@id";
+            string sql = "update up7_files set f_perSvr='100%',f_complete=1,f_merged=1 where f_id=@id";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
 
