@@ -118,7 +118,7 @@ namespace up7.db.biz.database
         {
             List<FileInf> files = new List<FileInf>();
             StringBuilder sb = new StringBuilder();
-            sb.Append("select f_id,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath,f_sizeLoc,f_perSvr from up7_files_queue where f_uid=@uid and f_complete=0 and f_deleted=0;");
+            sb.Append("select f_id,f_fdTask,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath,f_sizeLoc,f_perSvr from up7_files_queue where f_uid=@uid and f_complete=0 and f_deleted=0;");
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
@@ -129,12 +129,13 @@ namespace up7.db.biz.database
             {
                 FileInf f = new FileInf();
                 f.id = r.GetString(0);
-                f.nameLoc = r.GetString(1);
-                f.pathLoc = r.GetString(2);
-                f.pathSvr = r.GetString(3);
-                f.blockPath = r.GetString(4);
-                f.sizeLoc = r.GetString(5);
-                f.perSvr = r.GetString(6);
+                f.fdTask = r.GetBoolean(1);
+                f.nameLoc = r.GetString(2);
+                f.pathLoc = r.GetString(3);
+                f.pathSvr = r.GetString(4);
+                f.blockPath = r.GetString(5);
+                f.sizeLoc = r.GetString(6);
+                f.perSvr = r.GetString(7);
                 files.Add(f);
             }
             r.Close();

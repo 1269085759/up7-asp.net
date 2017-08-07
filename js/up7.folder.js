@@ -10,7 +10,7 @@ function FolderUploader(fdLoc, mgr)
     this.isFolder = true; //是文件夹
     this.folderInit = false;//文件夹已初始化
     this.folderScan = false;//已经扫描
-    this.folderSvr = { nameLoc: "",nameSvr:"",lenLoc:0,sizeLoc: "0byte", lenSvr: 0,perSvr:"0%", id: "", uid: 0, foldersCount: 0, filesCount: 0, filesComplete: 0, pathLoc: "", pathSvr: "", pathRel: "", pidRoot: 0, complete: false, folders: [], files: [] };
+    this.folderSvr = { nameLoc: "",initLoc:false,nameSvr:"",lenLoc:0,sizeLoc: "0byte", lenSvr: 0,perSvr:"0%", id: "", uid: 0, foldersCount: 0, filesCount: 0, filesComplete: 0, pathLoc: "", pathSvr: "", pathRel: "", pidRoot: 0, complete: false, folders: [], files: [] };
     jQuery.extend(true,this.folderSvr, fdLoc);//续传信息
     this.manager = mgr;
     this.event = mgr.event;
@@ -40,6 +40,7 @@ function FolderUploader(fdLoc, mgr)
         this.ui.btn.post.hide();
         this.ui.btn.del.hide();
         this.folderInit = true;
+        this.folderSvr.initLoc = true;//
         this.post_fd();
     };
     this.svr_create_err = function ()
