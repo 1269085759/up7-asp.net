@@ -22,7 +22,7 @@ namespace up7.down3.biz
             int pageEnd = index * pageSize;
             string sql = string.Format(@"select * from 
                                         (
-	                                        select f_nameLoc,f_pathLoc,f_pathSvr,f_pathRel,f_lenLoc,f_sizeLoc,f_blockPath,f_blockSize,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_rootSign='{0}'
+	                                        select f_nameLoc,f_pathLoc,f_pathSvr,f_pathRel,f_lenLoc,f_sizeLoc,f_blockPath,f_blockSize,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_pidRoot='{0}'
                                         )a
                                         where RowNumber BETWEEN {1} and {2}
                                         ", id, pageStart, pageEnd);
