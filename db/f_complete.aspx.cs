@@ -1,7 +1,6 @@
 ﻿using System;
 using up7.db.biz;
 using up7.db.biz.database;
-using up7.db.biz.redis;
 
 namespace up7.db
 {
@@ -14,7 +13,7 @@ namespace up7.db
         protected void Page_Load(object sender, EventArgs e)
         {
             string uid = Request.QueryString["uid"];
-            string id = Request.QueryString["id"];
+            string id  = Request.QueryString["id"];
             string merge = Request.QueryString["merge"];
             string cbk = Request.QueryString["callback"];
 
@@ -30,6 +29,9 @@ namespace up7.db
                 DBFileQueue db = new DBFileQueue();
                 var fileSvr = db.read(id);
 
+                //添加到数据库
+                db.complete(id);
+
                 //合并块
                 if (merge == "1")
                 {
@@ -37,9 +39,9 @@ namespace up7.db
                     pm.merge(fileSvr);
                 }
 
-                //添加到数据库
-                DBFileQueue q = new DBFileQueue();
-                q.complete(id);
+                //合并完毕
+                DBFile dbf = new DBFile();
+                dbf.merged(id);
                 ret = 1;
             }
             
