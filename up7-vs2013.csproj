@@ -257,6 +257,7 @@
       <DependentUpon>check_config.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\biz\CompleteReader.cs" />
+    <Compile Include="down3\biz\DnFile.cs" />
     <Compile Include="down3\biz\fd_page.cs" />
     <Compile Include="down3\biz\redis\FileRedis.cs" />
     <Compile Include="down3\biz\redis\KeyMaker.cs" />
@@ -297,7 +298,6 @@
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\model\DnFileInf.cs" />
-    <Compile Include="down3\model\DnFolderInf.cs" />
     <Compile Include="down3\db\f_list.aspx.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
