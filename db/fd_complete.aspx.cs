@@ -27,6 +27,10 @@ namespace up7.db
                 fd.saveToDb();//保存到数据库
 
                 rd.Dispose();
+
+                //合并完毕
+                DBFile dbf = new DBFile();
+                dbf.merged(id);
                 ret = 1;
             }
             Response.Write(cak + "(" + ret + ")");
