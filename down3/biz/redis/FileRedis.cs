@@ -22,7 +22,6 @@ namespace up7.down3.biz.redis
             j.HSet(f.id, "lenSvr", f.lenSvr);//文件大小
             j.HSet(f.id, "sizeSvr", f.sizeSvr);
             j.HSet(f.id, "perLoc", f.perLoc);//已下载百分比	
-            j.HSet(f.id, "fdTask", f.folder.ToString());
         }
 
         public DnFileInf read(string id)
@@ -37,7 +36,6 @@ namespace up7.down3.biz.redis
             f.pathSvr = this.con.HGet(id, "pathSvr");//服务器文件地址
             f.sizeSvr = this.con.HGet(id, "sizeSvr");//
             f.nameLoc = this.con.HGet(id, "nameLoc");//
-            f.folder = this.con.HGet(id,"fdTask").Equals("true",StringComparison.CurrentCultureIgnoreCase);
             return f;
         }
 

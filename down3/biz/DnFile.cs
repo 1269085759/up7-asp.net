@@ -87,7 +87,7 @@ namespace up7.down3.biz
         }
 
         /// <summary>
-        /// 
+        /// 列出未下载完的任务
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
@@ -100,12 +100,12 @@ namespace up7.down3.biz
             sb.Append(",f_nameLoc");//1
             sb.Append(",f_pathLoc");//2
             sb.Append(",f_perLoc");//3
-            sb.Append(",f_sizeSvr");//7
-            sb.Append(",f_fdTask");//10
+            sb.Append(",f_sizeLoc");//4
+            sb.Append(",f_fdTask");//5
             //
             sb.Append(" from down3_files");
             //
-            sb.Append(" where f_uid=@f_uid and f_complete=0");
+            sb.Append(" where f_uid=@f_uid ");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
@@ -119,7 +119,7 @@ namespace up7.down3.biz
                 f.nameLoc = r.GetString(1);
                 f.pathLoc = r.GetString(2);
                 f.perLoc = r.GetString(3);
-                f.sizeSvr = r.GetString(4);
+                f.sizeLoc = r.GetString(4);
                 f.fdTask = r.GetBoolean(5);
                 files.Add(f);
             }

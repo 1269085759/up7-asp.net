@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Web;
-using up7.db.biz.redis;
-using tasks = up7.down3.biz.redis.tasks;
+using up7.down3.biz;
 
 namespace up7.down3.db
 {
     /// <summary>
-    /// 列出未完成的文件和文件夹下载任务。
-    /// 从redis缓存中取数据，
-    /// 格式：json
-    ///     [f1,f2,f3,f4]
-    /// f1为xdb_files对象
+    /// 列出未下载完的任务
     /// </summary>
     public partial class f_list : System.Web.UI.Page
     {
@@ -26,9 +21,8 @@ namespace up7.down3.db
                 return;
             }
 
-            var j = RedisConfig.getCon();
-            tasks svr = new tasks(uid,j);
-            string json = svr.toJson();
+            DnFile df = new DnFile();
+            string json = df.all_uncmp(int.Parse(uid));
             if (!string.IsNullOrEmpty(json))
             {
                 json = HttpUtility.UrlEncode(json);

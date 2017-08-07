@@ -39,7 +39,6 @@ namespace up7.down3.db
             fd.pathLoc = pathLoc;
             fd.id = id;
             fd.sizeSvr = sizeSvr;
-            fd.folder = true;
             var j = RedisConfig.getCon();
             tasks svr = new tasks(uid,j);
             svr.add(fd);
