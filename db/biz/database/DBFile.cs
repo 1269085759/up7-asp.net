@@ -27,7 +27,7 @@ namespace up7.db.biz.database
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files(");
-            sb.Append(" f_idSign");
+            sb.Append(" f_id");
             sb.Append(",f_uid");
             sb.Append(",f_nameLoc");
             sb.Append(",f_nameSvr");
@@ -44,7 +44,7 @@ namespace up7.db.biz.database
 
             sb.Append(") values (");
 
-            sb.Append(" @f_idSign");
+            sb.Append(" @f_id");
             sb.Append(",@f_uid");
             sb.Append(",@f_nameLoc");
             sb.Append(",@f_nameSvr");
@@ -63,7 +63,7 @@ namespace up7.db.biz.database
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
-            db.AddString(ref cmd, "@f_idSign", model.id, 36);
+            db.AddString(ref cmd, "@f_id", model.id, 32);
             db.AddInt(ref cmd, "@f_uid", model.uid);
             db.AddString(ref cmd, "@f_nameLoc", model.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", model.nameSvr, 255);
@@ -81,7 +81,7 @@ namespace up7.db.biz.database
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_files(");
-            sb.Append(" f_idSign");
+            sb.Append(" f_id");
             sb.Append(",f_uid");
             sb.Append(",f_nameLoc");
             sb.Append(",f_nameSvr");
@@ -96,7 +96,7 @@ namespace up7.db.biz.database
 
             sb.Append(") values (");
 
-            sb.Append(" @f_idSign");
+            sb.Append(" @f_id");
             sb.Append(",@f_uid");
             sb.Append(",@f_nameLoc");
             sb.Append(",@f_nameSvr");
@@ -113,7 +113,7 @@ namespace up7.db.biz.database
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
-            db.AddString(ref cmd, "@f_idSign", f.id, 36);
+            db.AddString(ref cmd, "@f_id", f.id, 32);
             db.AddInt(ref cmd, "@f_uid", f.uid);
             db.AddString(ref cmd, "@f_nameLoc", f.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", f.nameSvr, 255);
@@ -133,7 +133,7 @@ namespace up7.db.biz.database
         {
             List<FileInf> files = new List<FileInf>();
             StringBuilder sb = new StringBuilder();
-            sb.Append("select f_idSign,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath from up7_files where uid=@uid and f_complete=0 and f_delete=0;");
+            sb.Append("select f_id,f_nameLoc,f_pathLoc,f_pathSvr,f_blockPath from up7_files where uid=@uid and f_complete=0 and f_delete=0;");
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
 
@@ -158,11 +158,21 @@ namespace up7.db.biz.database
 
         public void delete(string id)
         {
-            string sql = "update up7_files set f_deleted=1 where f_idSign=@f_id";
+            string sql = "update up7_files set f_deleted=1 where f_id=@f_id";
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sql);
 
-            db.AddString(ref cmd, "@f_id", id,36);
+            db.AddString(ref cmd, "@f_id", id,32);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        public void merged(string id)
+        {
+            string sql = "update up7_files set f_merged=1 where f_id=@id";
+            DbHelper db = new DbHelper();
+            DbCommand cmd = db.GetCommand(sql);
+
+            db.AddString(ref cmd, "@id", id, 32);
             db.ExecuteNonQuery(cmd);
         }
     }
