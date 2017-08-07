@@ -16,17 +16,13 @@ namespace up7.db
             string uid      = Request.QueryString["uid"];
             string id       = Request.QueryString["id"];
             string perSvr   = Request.QueryString["perSvr"];//文件百分比
-            string lenSvr   = Request.QueryString["lenSvr"];//已传大小
-            string lenLoc   = Request.QueryString["lenLoc"];//本地文件大小
             string blockSize= Request.QueryString["blockSize"];//本地文件大小
 
             //参数为空
-            if (string.IsNullOrEmpty(lenLoc)
-                || string.IsNullOrEmpty(uid)
-                || string.IsNullOrEmpty(id)
+            if (    string.IsNullOrEmpty(uid)
+                ||  string.IsNullOrEmpty(id)
                 )
             {
-                XDebug.Output("lenLoc", lenLoc);
                 XDebug.Output("uid", uid);
                 XDebug.Output("idSvr", id);
                 Response.Write("param is null");
