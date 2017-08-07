@@ -5,6 +5,7 @@ using up7.db.biz.redis;
 using up7.db.utils;
 using up7.down3.model;
 using tasks = up7.down3.biz.redis.tasks;
+using up7.down3.biz;
 
 namespace up7.down3.db
 {
@@ -18,11 +19,11 @@ namespace up7.down3.db
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
             string pathSvr  = Request.QueryString["pathSvr"];
             string fileUrl  = Request.QueryString["fileUrl"];
-            pathLoc         = PathTool.url_decode(pathLoc);
-            nameLoc         = PathTool.url_decode(nameLoc);
-            string lenSvr = Request.QueryString["lenSvr"];
+            string lenSvr   = Request.QueryString["lenSvr"];
             string sizeSvr  = Request.QueryString["sizeSvr"];
             string cbk      = Request.QueryString["callback"];//应用于jsonp数据
+            pathLoc = PathTool.url_decode(pathLoc);
+            nameLoc = PathTool.url_decode(nameLoc);
 
             if (string.IsNullOrEmpty(uid)
                 || string.IsNullOrEmpty(pathLoc)
@@ -43,9 +44,8 @@ namespace up7.down3.db
             inf.lenSvr = long.Parse(lenSvr);
             inf.sizeSvr = sizeSvr;
 
-            var j = RedisConfig.getCon();
-            tasks svr = new tasks(uid,j);
-            svr.add(inf);//添加到缓存
+            DnFile df = new DnFile();
+            df.Add(ref inf);
 
             string json = JsonConvert.SerializeObject(inf);
             json = HttpUtility.UrlEncode(json);

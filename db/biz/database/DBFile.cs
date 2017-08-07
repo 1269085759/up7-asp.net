@@ -178,7 +178,7 @@ namespace up7.db.biz.database
             sb.Append(",fd_files");//10
                                    //
             sb.Append(" from up7_files");
-            sb.Append(" left join up7_folders on up7_folders.fd_sign=up7_files.f_id");
+            sb.Append(" left join up7_folders on up7_folders.fd_id=up7_files.f_id");
             //
             sb.Append(" where f_uid=@uid and f_complete=1 and f_fdChild=0");
 
