@@ -118,7 +118,6 @@
     <Content Include="db\fd_complete.aspx" />
     <Content Include="db\fd_create.aspx" />
     <Content Include="db\fd_del.aspx" />
-    <Content Include="db\fd_json.aspx" />
     <Content Include="db\f_complete.aspx" />
     <Content Include="db\f_create.aspx" />
     <Content Include="db\f_del.aspx" />
@@ -187,13 +186,6 @@
     </Compile>
     <Compile Include="db\fd_del.aspx.designer.cs">
       <DependentUpon>fd_del.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="db\fd_json.aspx.cs">
-      <DependentUpon>fd_json.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="db\fd_json.aspx.designer.cs">
-      <DependentUpon>fd_json.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\fd_update.aspx.cs">
       <DependentUpon>fd_update.aspx</DependentUpon>

@@ -46,6 +46,10 @@ namespace up7.db
             DBFileQueue db = new DBFileQueue();
             db.add(ref f);
 
+            //添加到文件夹表
+            DBFolder dbf = new DBFolder();
+            dbf.add(ref f);
+
             string json = JsonConvert.SerializeObject(f);
             json = HttpUtility.UrlEncode(json);
             json = json.Replace("+", "%20");
