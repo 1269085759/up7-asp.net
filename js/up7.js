@@ -287,7 +287,7 @@ function HttpUploaderMgr()
 		, "ResumerFile": function (fileSvr)//续传文件
         {
 			//文件夹任务
-		    if (fileSvr.folder)
+		    if (fileSvr.fdTask)
 			{
 		        _this.ResumeFolder(fileSvr);
 			}
@@ -301,7 +301,7 @@ function HttpUploaderMgr()
 		}
 		, "RemoveFile": function (fileSvr)//删除文件
 		{
-		    if (fileSvr.folder)
+		    if (fileSvr.fdTask)
 		    {
 		        this.RemoveFolder(fileSvr);
 		        return;
