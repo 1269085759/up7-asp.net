@@ -149,7 +149,9 @@ namespace up7.down3.biz
             sb.Append(",f_lenSvr");//4
             sb.Append(",f_pathSvr");//5
             sb.Append(",f_blockPath");//6
+            sb.Append(",fd_files");//7
             sb.Append(" from up7_files ");
+            sb.Append(" left join up7_folders on up7_folders.fd_id=up7_files.f_id");
             //
             sb.Append(" where f_uid=@f_uid and f_deleted=0 and f_complete=1 and f_merged=1 and f_fdChild=0");
 
@@ -170,6 +172,7 @@ namespace up7.down3.biz
                 f.lenSvr = r.GetInt64(4);
                 f.pathSvr = r.GetString(5);
                 f.blockPath = r.GetString(6);
+                f.fileCount = r.IsDBNull(7) ? 0 : r.GetInt32(7);
                 fs.Add(f);
             }
             r.Close();

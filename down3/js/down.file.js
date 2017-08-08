@@ -68,6 +68,14 @@ function FileDownloader(fileLoc, mgr)
         this.ui.msg.text("正在下载队列中等待...");
         this.State = HttpDownloaderState.Ready;
     };
+    //自定义配置,
+    this.reset_fields = function (v) {
+        if (v == null) return;
+        jQuery.extend(this.fields, v);
+        //单独拼接url
+        var url = this.Config["UrlDown"] + "?" + this.Manager.to_params(this.fields);
+        jQuery.extend(this.fileSvr, { fileUrl: url });//覆盖配置
+    };
 
     this.addQueue = function ()
     {
