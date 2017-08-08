@@ -29,7 +29,7 @@ function FileDownloader(fileLoc, mgr)
     this.Config = mgr.Config;
     this.fields = jQuery.extend({}, mgr.Config.Fields, { nameLoc: encodeURIComponent(fileLoc.nameLoc), sizeSvr: fileLoc.sizeSvr });//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
-    this.inited = false;
+    this.svr_inited = false;
     this.event = mgr.event;
     this.fileSvr = {
           id:""//累加，唯一标识
@@ -78,7 +78,7 @@ function FileDownloader(fileLoc, mgr)
     this.add_end = function(json)
     {
     	//续传不初始化
-    	if(this.inited) return;
+    	if(this.svr_inited) return;
     	this.fileSvr.pathLoc = json.pathLoc;    	
     	this.svr_create();//
     };
@@ -119,6 +119,10 @@ function FileDownloader(fileLoc, mgr)
     this.open = function ()
     {
         this.app.openFile(this.fileSvr);
+    };
+    this.init_complete = function (json) {
+        jQuery.extend(this.fileSvr, json);
+        if (!this.svr_inited) this.svr_create();//
     };
 
     this.openPath = function ()
@@ -162,7 +166,7 @@ function FileDownloader(fileLoc, mgr)
             {
                 if (msg.value == null) return;
                 var json = JSON.parse(decodeURIComponent(msg.value));
-                _this.inited = true;
+                _this.svr_inited = true;
                 _this.svr_create_cmp();
             }
             , error: function (req, txt, err) { alert("创建信息失败！" + req.responseText); }

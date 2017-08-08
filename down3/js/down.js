@@ -220,8 +220,9 @@ function DownloaderMgr()
         uiName.text(fileSvr.nameLoc);
         uiName.attr("title", fileSvr.fileUrl);
 	    uiMsg.text("");
-	    uiSize.text("0字节");
-	    uiPercent.text("(0%)");
+	    uiSize.text(fileSvr.sizeSvr);
+        uiPercent.text("(" + fileSvr.perLoc + ")");
+        uiProcess.width(fileSvr.perLoc);
 	    btnDel.click(function () { downer.remove(); });
 	    btnStop.click(function () { downer.stop(); });
 	    btnDown.click(function () { downer.down(); });
@@ -233,49 +234,38 @@ function DownloaderMgr()
 	this.resume_file = function (fileSvr)
 	{
         var f = this.add_ui(fileSvr);
-        f.ui.size.text(fileSvr.sizeSvr);
-        f.ui.name.text(fileSvr.nameLoc);
-	    f.ui.process.css("width", fileSvr.perLoc);
-	    f.ui.percent.text("(" + fileSvr.perLoc + ")");
-	    f.inited = true;
-	    //jQuery.extend(f.fileSvr, fileSvr);
-	    f.addQueue();//添加到队列
-	};
+	    if (null == obj) return;
+	    f.svr_inited = true;
+	    return f;
+    };
 	this.resume_folder = function (fdSvr)
 	{	    
         var obj = this.add_ui(fdSvr);
 	    if (null == obj) return;
-
-	    obj.ui.ico.file.hide();
-	    obj.ui.ico.fd.show();
-	    obj.ui.name.text(fdSvr.nameLoc);
-	    obj.ui.size.text(fdSvr.sizeSvr);
-	    obj.ui.process.css("width", fdSvr.perLoc);
-	    obj.ui.percent.text("(" + fdSvr.perLoc + ")");
-	    obj.inited = true;//
-	    jQuery.extend(true, obj.fileSvr, fdSvr);//
-	    
-	    obj.addQueue();
+	    obj.svr_inited = true;//
 	    return obj;
-	};
+    };
+    this.init_file = function (f) {
+        this.app.initFile(f);
+    };
+    this.init_folder = function (f) {
+        this.app.initFolder(jQuery.extend({}, this.Config, f));
+    };
+    this.init_file_cmp = function (json) {
+        var p = this.filesMap[json.id];
+        p.init_complete(json);
+    };
 	this.add_file = function (fileSvr)
 	{
         var obj = this.add_ui(fileSvr);        
-	    if (obj != null) obj.addQueue();        
+        if (obj != null) obj.addQueue();
+        this.init_file(obj.fileSvr);//
 	    return obj;
 	};
     this.add_folder = function (fileSvr)
 	{
         var obj = this.add_ui(fileSvr);
 	    if (null == obj) return;
-
-	    obj.ui.name.text(fileSvr.nameLoc);
-	    obj.ui.size.text(fileSvr.sizeSvr);
-	    obj.ui.ico.file.hide();
-	    obj.ui.ico.fd.show();
-        jQuery.extend(obj.fileSvr, fileSvr);//
-        jQuery.extend(obj.fileSvr, { fileUrl: this.Config["UrlDown"] });
-	    obj.addQueue();        
 	    return obj;
 	};
 	this.exist_url = function (url)
