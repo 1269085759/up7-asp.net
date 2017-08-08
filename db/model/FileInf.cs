@@ -58,8 +58,8 @@ namespace up7.db.model
         /// <summary>
         /// 格式化的文件尺寸。示例：10.03MB
         /// </summary>
-        public string sizeLoc = string.Empty;
-        public string sizeSvr = string.Empty;
+        public string sizeLoc = "0byte";
+        public string sizeSvr = "0byte";
         /// <summary>
         /// 已上传大小。以字节为单位
         /// 文件大小可能超过2G，所以使用long

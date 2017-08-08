@@ -132,6 +132,7 @@
     <Content Include="debug\test.gif" />
     <Content Include="js\up7.file.js" />
     <Content Include="js\up7.folder.js" />
+    <Content Include="sql\down3_files.sql" />
     <Content Include="sql\up7_files.sql" />
     <Content Include="sql\up7_files_queue.sql" />
     <Content Include="sql\up7_folders.sql" />
