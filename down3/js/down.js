@@ -361,6 +361,7 @@ function DownloaderMgr()
 	{
 	    var json = JSON.parse(str);
 	         if (json.name == "open_files") { _this.open_files(json); }
+	    else if (json.name == "init_file_cmp") { _this.init_file_cmp(json); }
 	    else if (json.name == "open_folder") { _this.open_folders(json); }
 	    else if (json.name == "down_recv_size") { _this.down_recv_size(json); }
 	    else if (json.name == "down_recv_name") { _this.down_recv_name(json); }
