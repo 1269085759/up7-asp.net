@@ -211,9 +211,8 @@ function DownloaderMgr()
 	    var ui_eles = { ico:{file:uiIcoF,fd:uiIcoFD},msg: uiMsg, name: uiName, size: uiSize, process: uiProcess, percent: uiPercent, btn: { cancel: btnCancel, stop: btnStop, down: btnDown, del: btnDel }, div: ui, split: sp };
 
 	    var downer;
-        if (fd) { downer = new FdDownloader(fileSvr, this); }
+        if (fileSvr.fdTask) { downer = new FdDownloader(fileSvr, this); }
         else { downer = new FileDownloader(fileSvr,this);}
-	    //var downer = new FileDownloader(fileLoc, this);
 	    this.filesMap[fileSvr.id] = downer;//
 	    jQuery.extend(downer.ui, ui_eles);
 
@@ -257,8 +256,8 @@ function DownloaderMgr()
     };
 	this.add_file = function (fileSvr)
 	{
-        var obj = this.add_ui(fileSvr);        
-        if (obj != null) obj.addQueue();
+        var obj = this.add_ui(fileSvr);
+        if (obj != null) return;
         this.init_file(obj.fileSvr);//
 	    return obj;
 	};
