@@ -1,5 +1,5 @@
 ﻿/*
-版权所有(C) 2009-2015 荆门泽优软件有限公司
+版权所有(C) 2009-2017 荆门泽优软件有限公司
 保留所有权利
 官方网站：http://www.ncmem.com
 官方博客：http://www.cnblogs.com/xproer
@@ -102,7 +102,7 @@ function DownloaderMgr()
 	
 	this.idCount = 1; 	//上传项总数，只累加
 	this.queueCount = 0;//队列总数
-	this.filesMap = new Object(); //本地文件列表映射表,signSvr,obj-json
+	this.filesMap = new Object(); //本地文件列表映射表,id,obj-json
 	this.filesCmp = new Array();//已完成列表
 	this.filesUrl = new Array();
 	this.spliter = null;
@@ -163,6 +163,18 @@ function DownloaderMgr()
 	    return html;
 	};
 
+    this.to_params = function (param, key) {
+        var paramStr = "";
+        if (param instanceof String || param instanceof Number || param instanceof Boolean) {
+            paramStr += "&" + key + "=" + encodeURIComponent(param);
+        } else {
+            $.each(param, function (i) {
+                var k = key == null ? i : key + (param instanceof Array ? "[" + i + "]" : "." + i);
+                paramStr += '&' + _this.to_params(this, k);
+            });
+        }
+        return paramStr.substr(1);
+    };
 	this.set_config = function (v) { jQuery.extend(this.Config, v); };
 	this.clearComplete = function ()
 	{
@@ -172,21 +184,11 @@ function DownloaderMgr()
 	    });
 	    this.filesCmp.length = 0;
 	};
-	this.add_ui = function (fd/*是否是文件夹*/,fileSvr)
+	this.add_ui = function (fileSvr)
 	{
 	    //存在相同项
-	    if (this.exist_url(fileSvr.fileUrl)) return null;
-        this.filesUrl.push(fileSvr.fileUrl);
-
-	    var _this = this;
-        var fileNameArray = fileSvr.fileUrl.split("/");
-	    //自定义文件名称
-        var fileLoc = { fileUrl: fileSvr.fileUrl};
-	    //自定义名称
-	    if (typeof (f_name) == "string")
-	    {
-	        jQuery.extend(fileLoc, { nameCustom: f_name });
-	    }
+	    if (this.exist_url(fileSvr.f_id)) return null;
+        this.filesUrl.push(fileSvr.f_id);
 
 	    var ui = this.tmpFile.clone();
 	    var sp = this.spliter.clone();
@@ -212,7 +214,7 @@ function DownloaderMgr()
         if (fd) { downer = new FdDownloader(fileSvr, this); }
         else { downer = new FileDownloader(fileSvr,this);}
 	    //var downer = new FileDownloader(fileLoc, this);
-	    this.filesMap[fileSvr.signSvr] = downer;//
+	    this.filesMap[fileSvr.id] = downer;//
 	    jQuery.extend(downer.ui, ui_eles);
 
         uiName.text(fileSvr.nameLoc);
@@ -230,7 +232,7 @@ function DownloaderMgr()
 	};
 	this.resume_file = function (fileSvr)
 	{
-        var f = this.add_ui(false, fileSvr);
+        var f = this.add_ui(fileSvr);
         f.ui.size.text(fileSvr.sizeSvr);
         f.ui.name.text(fileSvr.nameLoc);
 	    f.ui.process.css("width", fileSvr.perLoc);
@@ -241,7 +243,7 @@ function DownloaderMgr()
 	};
 	this.resume_folder = function (fdSvr)
 	{	    
-        var obj = this.add_ui(true, fdSvr);
+        var obj = this.add_ui(fdSvr);
 	    if (null == obj) return;
 
 	    obj.ui.ico.file.hide();
@@ -258,13 +260,13 @@ function DownloaderMgr()
 	};
 	this.add_file = function (fileSvr)
 	{
-        var obj = this.add_ui(false, fileSvr);        
+        var obj = this.add_ui(fileSvr);        
 	    if (obj != null) obj.addQueue();        
 	    return obj;
 	};
     this.add_folder = function (fileSvr)
 	{
-        var obj = this.add_ui(true, fileSvr);
+        var obj = this.add_ui(fileSvr);
 	    if (null == obj) return;
 
 	    obj.ui.name.text(fileSvr.nameLoc);
@@ -294,52 +296,52 @@ function DownloaderMgr()
 	this.down_file = function (json) { };
 	this.init_end = function (json)
 	{
-	    var p = this.filesMap[json.signSvr];
+	    var p = this.filesMap[json.id];
 	    p.init_end(json);
 	};
 	this.add_end = function (json)
 	{
-	    var p = this.filesMap[json.signSvr];
+	    var p = this.filesMap[json.id];
 	    p.add_end(json);
 	};
 	this.down_begin = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_begin(json);
 	};
 	this.down_process = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_process(json);
 	};
 	this.down_part = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_part(json);
 	};
 	this.down_error = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_error(json);
 	};
 	this.down_recv_size = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_recv_size(json);
 	};
 	this.down_recv_name = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_recv_name(json);
 	};
 	this.down_complete = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_complete(json);
 	};
 	this.down_stoped = function (json)
 	{
-        var p = this.filesMap[json.signSvr];
+        var p = this.filesMap[json.id];
 	    p.down_stoped(json);
 	};
 	this.start_queue = function () { this.app.startQueue();};

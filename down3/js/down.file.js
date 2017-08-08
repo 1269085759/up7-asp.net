@@ -32,15 +32,13 @@ function FileDownloader(fileLoc, mgr)
     this.inited = false;
     this.event = mgr.event;
     this.fileSvr = {
-          id:0//累加，唯一标识
-        , idSvr: 0
-        , idSign: ""
-        , signSvr: ""
+          id:""//累加，唯一标识
+        , f_id: ""
         , uid: 0
         , nameLoc: ""//自定义文件名称
         , folderLoc: this.Config["Folder"]
         , pathLoc: ""
-        , fileUrl:""
+        , fileUrl:this.Config["UrlDown"]
         , lenLoc: 0
         , perLoc: "0%"
         , lenSvr: 0
@@ -50,8 +48,8 @@ function FileDownloader(fileLoc, mgr)
     };
     jQuery.extend(this.fileSvr, fileLoc);//覆盖配置
     jQuery.extend(this.fileSvr, { fields: this.fields });//附加字段
-    var url = mgr.Config["UrlDown"] + "?id=" + this.fileSvr.signSvr;
-    if (this.fileSvr.fileUrl.length < 1) this.fileSvr.fileUrl = url;
+    var url = this.Config["UrlDown"] + "?" + this.Manager.to_params(this.fields);
+    jQuery.extend(this.fileSvr, fileLoc, { fileUrl: url });//覆盖配置
 
     this.hideBtns = function ()
     {
@@ -89,11 +87,11 @@ function FileDownloader(fileLoc, mgr)
     this.down = function ()
     {
         //续传
-        if (this.State == HttpDownloaderState.Stop) this.app.addFile(this.fileSvr);
         this.hideBtns();
         this.ui.btn.stop.show();
         this.ui.msg.text("开始连接服务器...");
         this.State = HttpDownloaderState.Posting;
+        this.app.addFile(this.fileSvr);
         this.Manager.start_queue();//下载队列
     };
 
@@ -164,12 +162,18 @@ function FileDownloader(fileLoc, mgr)
             {
                 if (msg.value == null) return;
                 var json = JSON.parse(decodeURIComponent(msg.value));
-                _this.fileSvr.idSign = json.idSign;
                 _this.inited = true;
+                _this.svr_create_cmp();
             }
             , error: function (req, txt, err) { alert("创建信息失败！" + req.responseText); }
             , complete: function (req, sta) { req = null; }
         });
+    };
+
+    this.svr_create_cmp = function () {
+        setTimeout(function () {
+            _this.down();
+        }, 200);
     };
 
     this.isComplete = function () { return this.State == HttpDownloaderState.Complete; };
@@ -203,22 +207,6 @@ function FileDownloader(fileLoc, mgr)
         this.svr_delete();
     };
 
-    this.down_recv_size = function (json)
-    {
-        this.ui.size.text(json.size);
-        this.fileSvr.sizeSvr = json.size;
-        this.fileSvr.lenSvr = json.len;
-    };
-
-    this.down_recv_name = function (json)
-    {
-        this.hideBtns();
-        this.ui.btn.stop.show();
-        this.ui.name.text(json.nameSvr);
-        this.ui.name.attr("title", json.nameSvr);
-        this.fileSvr.pathLoc = json.pathLoc;
-    };
-
     this.down_process = function (json)
     {
         this.fileSvr.lenLoc = json.lenLoc;//保存进度
@@ -227,22 +215,6 @@ function FileDownloader(fileLoc, mgr)
         this.ui.process.css("width", json.percent);
         var msg = [json.sizeLoc , " ", json.speed, " ", json.time];
         this.ui.msg.text(msg.join(""));
-    };
-
-    //更新服务器进度
-    this.down_part = function (json)
-    {
-        //this.svr_update();
-    };
-
-    this.down_begin = function (json)
-    {
-        var lenSvr = this.fileSvr.lenSvr;
-        var filePart = this.Config["FilePart"];
-        if (lenSvr > filePart && 0==this.fileSvr.idSvr)
-        {
-            this.svr_create();
-        }
     };
 
     this.down_error = function (json)
