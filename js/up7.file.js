@@ -5,7 +5,7 @@ function FileUploader(fileLoc, mgr)
     //fileLoc:{nameLoc,ext,lenLoc,sizeLoc,pathLoc,md5,lenSvr},控件传递的值
     this.ui = { msg: null, process: null, percent: null, btn: { del: null, cancel: null,post:null,stop:null }, div: null, split: null };
     this.isFolder = false; //不是文件夹
-    this.svrInited = false;
+    this.svr_inited = false;
     this.app = mgr.app;
     this.Manager = mgr; //上传管理器指针
     this.event = mgr.event;
@@ -59,7 +59,7 @@ function FileUploader(fileLoc, mgr)
         {
             this.svr_error(sv); return;
         }
-        this.svrInited = true;
+        this.svr_inited = true;
         var str = decodeURIComponent(sv.value);//
         jQuery.extend(this.fileSvr,JSON.parse(str),true);//
         //服务器已存在相同文件，且已上传完成
@@ -91,6 +91,7 @@ function FileUploader(fileLoc, mgr)
             {
                 var str = decodeURIComponent(sv.value);
                 jQuery.extend(_this.fileSvr, JSON.parse(str));
+                _this.svr_inited = true;
                 _this.post_file();
             }
             , error: function (req, txt, err)
@@ -282,7 +283,7 @@ function FileUploader(fileLoc, mgr)
     this.post = function ()
     {
         this.Manager.AppendQueuePost(this.fileSvr.id);
-        if (this.svrInited)
+        if (this.svr_inited)
         {
             this.post_file();
         }
