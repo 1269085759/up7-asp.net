@@ -917,7 +917,7 @@ function HttpUploaderMgr()
 	    //本地文件名称存在
 	    if (_this.Exist(fileSvr.pathLoc)) return;
         var uper = this.addFileLoc(fileSvr);
-        uper.svrInited = true;
+        uper.svr_inited = true;
 
 	    setTimeout(function () { _this.PostFirst();},500);
 	};
