@@ -16,7 +16,7 @@ namespace up7.db.biz.database
         public FileInf read(string id)
         {
             FileInf f = new FileInf();
-            string sql = "select * from up7_files where f_id=@id;";
+            string sql = "select * from up7_files_queue where f_id=@id;";
             DbHelper db = new DbHelper();
             var cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@id", id, 32);
@@ -32,7 +32,7 @@ namespace up7.db.biz.database
 
         public void remove(string id)
         {
-            string sql = "delete from up7_files where f_id=@id;";
+            string sql = "delete from up7_files_queue where f_id=@id;";
             DbHelper db = new DbHelper();
             var cmd = db.GetCommand(sql);
             db.AddString(ref cmd, "@id", id, 32);
