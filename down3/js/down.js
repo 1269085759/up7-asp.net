@@ -257,7 +257,7 @@ function DownloaderMgr()
 	this.add_file = function (f,fields)
 	{
         var obj = this.add_ui(f);
-        if (obj != null) return;
+        if (null == obj ) return;
         obj.reset_fields(fields);
 
         this.init_file(obj.fileSvr);//
