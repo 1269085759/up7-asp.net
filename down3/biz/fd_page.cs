@@ -40,8 +40,8 @@ namespace up7.down3.biz
                         f.pathLoc = r.GetString(1);//f_pathLoc
                         f.pathSvr = r.GetString(2);
                         f.pathRel = r.GetString(3);
-                        f.lenLoc = r.GetInt64(4);
-                        f.sizeLoc = r.GetString(5);
+                        f.lenSvr = r.GetInt64(4);
+                        f.sizeSvr = r.GetString(5);
                         f.blockPath = r.GetString(6);
                         f.blockSize = r.GetInt32(7);
                         files.Add(f);
