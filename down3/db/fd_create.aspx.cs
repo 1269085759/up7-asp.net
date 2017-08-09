@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Web;
-using up7.db.biz.redis;
 using up7.db.utils;
+using up7.down3.biz;
 using up7.down3.model;
-using tasks = up7.down3.biz.redis.tasks;
 
 namespace up7.down3.db
 {
@@ -39,10 +39,15 @@ namespace up7.down3.db
             fd.pathLoc = pathLoc;
             fd.id = id;
             fd.sizeSvr = sizeSvr;
-            var j = RedisConfig.getCon();
-            tasks svr = new tasks(uid,j);
-            svr.add(fd);
-            Response.Write(cbk+"(1)");
+            fd.fdTask = true;
+            DnFile db = new DnFile();
+            db.Add(ref fd);
+
+            string json = JsonConvert.SerializeObject(fd);
+            json = HttpUtility.UrlEncode(json);
+            json = json.Replace("+", "%20");
+            json = cbk + "({\"value\":\"" + json + "\"})";//返回jsonp格式数据。
+            Response.Write(json);
         }
     }
 }
