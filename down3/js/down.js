@@ -75,7 +75,7 @@ function DownloaderMgr()
         , chrome45: { name: "com.xproer.down3", path: "http://www.ncmem.com/download/down3/down3.nat.crx" }
         , exe: { path: "http://www.ncmem.com/download/down3/down3.exe" }
         , edge: {protocol:"down3",port:9700,visible:false}
-        , "Fields": {"uname": "test","upass": "test","uid":"0","fid":"0"}
+        , "Fields": {"uname": "test","upass": "test","uid":"0"}
     };
 
     this.event = {
