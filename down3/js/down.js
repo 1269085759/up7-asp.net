@@ -233,16 +233,9 @@ function DownloaderMgr()
 	this.resume_file = function (fileSvr)
 	{
         var f = this.add_ui(fileSvr);
-	    if (null == obj) return;
+	    if (null == f) return;
 	    f.svr_inited = true;
 	    return f;
-    };
-	this.resume_folder = function (fdSvr)
-	{	    
-        var obj = this.add_ui(fdSvr);
-	    if (null == obj) return;
-	    obj.svr_inited = true;//
-	    return obj;
     };
     this.init_file = function (f) {
         this.app.initFile(f);
@@ -533,9 +526,7 @@ function DownloaderMgr()
 
                 for (var i = 0, l = files.length; i < l; ++i)
                 {
-                    if (files[i].folder)
-                    { _this.resume_folder(files[i]); }
-                    else { _this.resume_file(files[i]); }
+                    _this.resume_file(files[i]);
                 }
             }
             , error: function (req, txt, err) { alert("加载文件列表失败！" +req.responseText); }
