@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using up7.db.biz.redis;
-using FileRedis = up7.down3.biz.redis.FileRedis;
 
 namespace up7.down3.db
 {
@@ -83,30 +81,10 @@ namespace up7.down3.db
             return true;
         }
 
-        void saveToRedis()
-        {
-            //仅添加单文件下载
-            if (string.IsNullOrEmpty(fd_signSvr))
-            {
-                //添加到缓存
-                var j = RedisConfig.getCon();
-                FileRedis fr = new FileRedis(ref j);
-                fr.process(this.signSvr, this.percent, long.Parse(this.lenLoc),this.sizeLoc);
-            }//更新文件夹进度
-            else
-            {
-                //仅更新文件夹进度
-                var j = RedisConfig.getCon();
-                FileRedis fr = new FileRedis(ref j);
-                fr.process(fd_signSvr, fd_percent, long.Parse(fd_lenLoc),fd_sizeLoc);
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             this.recvParam();
             if (!this.checkParam()) return;
-            this.saveToRedis();
             
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Pragma", "No-cache");

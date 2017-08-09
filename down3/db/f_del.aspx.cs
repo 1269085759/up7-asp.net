@@ -1,7 +1,5 @@
 ﻿using System;
-using up7.db.biz.redis;
 using up7.down3.biz;
-using tasks = up7.down3.biz.redis.tasks;
 
 namespace up7.down3.db
 {

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Web;
 using Newtonsoft.Json;
-using up7.db.biz.redis;
 using up7.db.utils;
 using up7.down3.model;
-using tasks = up7.down3.biz.redis.tasks;
 using up7.down3.biz;
 
 namespace up7.down3.db

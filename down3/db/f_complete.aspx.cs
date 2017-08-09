@@ -1,7 +1,5 @@
 ﻿using System;
 using up7.db.biz.database;
-using up7.db.biz.redis;
-using tasks = up7.down3.biz.redis.tasks;
 
 namespace up7.down3.db
 {
@@ -22,9 +20,6 @@ namespace up7.down3.db
 
             DBFileQueue db = new DBFileQueue();
             db.complete(id);
-            //var j = RedisConfig.getCon();
-            //tasks svr = new tasks(uid,j);
-            //svr.del(signSvr);
 
             Response.Write(cbk + "(1)");
         }
