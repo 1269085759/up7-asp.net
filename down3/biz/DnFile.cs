@@ -16,20 +16,24 @@ namespace up7.down3.biz
             sql.Append("insert into down3_files(");
             sql.Append(" f_id");
             sql.Append(",f_uid");
+            sql.Append(",f_mac");
             sql.Append(",f_nameLoc");
             sql.Append(",f_pathLoc");
             sql.Append(",f_fileUrl");
             sql.Append(",f_lenSvr");
+            sql.Append(",f_sizeLoc");
             sql.Append(",f_sizeSvr");
             sql.Append(",f_fdTask");
 
             sql.Append(") values(");
             sql.Append(" @f_id");
             sql.Append(",@f_uid");
+            sql.Append(",@f_mac");
             sql.Append(",@f_nameLoc");
             sql.Append(",@f_pathLoc");
             sql.Append(",@f_fileUrl");
             sql.Append(",@f_lenSvr");
+            sql.Append(",@f_sizeLoc");
             sql.Append(",@f_sizeSvr");
             sql.Append(",@f_fdTask");
             sql.Append(");");
@@ -38,10 +42,12 @@ namespace up7.down3.biz
             DbCommand cmd = db.GetCommand(sql.ToString());
             db.AddString(ref cmd, "@f_id", inf.id, 32);
             db.AddInt(ref cmd, "@f_uid", inf.uid);
+            db.AddString(ref cmd, "@f_mac", inf.mac,50);
             db.AddString(ref cmd, "@f_nameLoc", inf.nameLoc, 255);
             db.AddString(ref cmd, "@f_pathLoc", inf.pathLoc, 255);
             db.AddString(ref cmd, "@f_fileUrl", inf.fileUrl, 255);
             db.AddInt64(ref cmd, "@f_lenSvr", inf.lenSvr);
+            db.AddString(ref cmd, "@f_sizeLoc", inf.sizeLoc, 10);
             db.AddString(ref cmd, "@f_sizeSvr", inf.sizeSvr, 10);
             db.AddBool(ref cmd, "@f_fdTask", inf.fdTask);
             db.ExecuteNonQuery(ref cmd);

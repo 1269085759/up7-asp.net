@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Web;
-using up7.db.biz.redis;
-using FileRedis = up7.down3.biz.redis.FileRedis;
+using up7.db.utils;
 
 namespace up7.down3.db
 {
@@ -13,63 +11,36 @@ namespace up7.down3.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String lenSvr       = Request.Headers["f-lenSvr"];
-            String nameLoc      = Request.Headers["f-nameLoc"];
-            String sizeLoc      = Request.Headers["f-sizeLoc"];
-            String pathSvr      = Request.Headers["f-pathSvr"];
-            String blockPath    = Request.Headers["f-blockPath"];
-            String blockIndex   = Request.Headers["f-blockIndex"];//基于1
-            String blockOffset  = Request.Headers["f-blockOffset"];//基于块的位置
-            String blockSize    = Request.Headers["f-blockSize"];//逻辑块大小
-            String rangeSize    = Request.Headers["f-rangeSize"];//当前请求的块大小
-            String lenLoc       = Request.Headers["f-lenLoc"];
-            String signSvr      = Request.Headers["f-signSvr"];
-            String fd_signSvr   = Request.Headers["fd-signSvr"];
-            String fd_lenLoc    = Request.Headers["fd-lenLoc"];
-            String fd_sizeLoc   = Request.Headers["fd-sizeLoc"];
-            if (!string.IsNullOrEmpty(fd_sizeLoc)) sizeLoc = fd_sizeLoc;
-            if (!string.IsNullOrEmpty(fd_signSvr)) signSvr = fd_signSvr;
-            if (!string.IsNullOrEmpty(fd_lenLoc)) lenLoc = fd_lenLoc;
-            String percent      = Request.Headers["f-percent"];
+            String pathSvr      = Request.Headers["pathSvr"];
+            String blockPath    = Request.Headers["blockPath"];
+            String blockIndex   = Request.Headers["blockIndex"];//基于1
+            String blockOffset  = Request.Headers["blockOffset"];//基于块的偏移位置
+            String fileOffset   = Request.Headers["fileOffset"];//基于文件的偏移位置
+            String blockSize    = Request.Headers["blockSize"];//当前块大小
+            blockPath = PathTool.url_decode(blockPath);
 
-            blockPath   = blockPath.Replace("+", "%20");
-            nameLoc     = nameLoc.Replace("+", "%20");
-            blockPath   = HttpUtility.UrlDecode(blockPath);//utf-8解码
-            nameLoc     = HttpUtility.UrlDecode(nameLoc);//utf-8解码
-
-            if (string.IsNullOrEmpty(lenSvr)
-                || string.IsNullOrEmpty(blockIndex)
-                || string.IsNullOrEmpty(lenLoc)
-                || string.IsNullOrEmpty(percent)
+            if (   string.IsNullOrEmpty(blockIndex)
+                || string.IsNullOrEmpty(blockPath)
+                || string.IsNullOrEmpty(blockSize)
+                || string.IsNullOrEmpty(pathSvr)
                 )
             {
-                System.Diagnostics.Debug.WriteLine("lenSvr:" + lenSvr);
-                System.Diagnostics.Debug.WriteLine("lenLoc:" + lenLoc);
-                System.Diagnostics.Debug.WriteLine("nameLoc:" + nameLoc);
-                System.Diagnostics.Debug.WriteLine("sizeLoc:" + sizeLoc);
                 System.Diagnostics.Debug.WriteLine("pathSvr:" + pathSvr);
                 System.Diagnostics.Debug.WriteLine("blockIndex:" + blockIndex);
                 System.Diagnostics.Debug.WriteLine("blockSize:" + blockSize);
-                System.Diagnostics.Debug.WriteLine("signSvr:" + signSvr);
-                System.Diagnostics.Debug.WriteLine("percent:" + percent);
+                System.Diagnostics.Debug.WriteLine("blockPath:" + blockPath);
                 System.Diagnostics.Debug.WriteLine("f_down.jsp 业务逻辑参数为空。");
                 Response.Write("param is null");
                 Response.StatusCode = 500;
                 return;
             }
 
-            //更新进度信息
-            var j = RedisConfig.getCon();
-            FileRedis fr = new FileRedis(ref j);
-            fr.process(signSvr, percent, long.Parse(lenLoc),sizeLoc);
-
-            long dataToRead = long.Parse(rangeSize) - long.Parse(blockOffset);
+            long dataToRead = long.Parse(blockSize);
 
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Pragma", "No-cache");
             Response.AddHeader("Cache-Control", "no-cache");
             Response.AddHeader("Expires", "0");
-            Response.AddHeader("Content-Disposition", "attachment;filename=" + nameLoc);
             Response.AddHeader("Content-Length", dataToRead.ToString());
 
             Stream iStream = null;

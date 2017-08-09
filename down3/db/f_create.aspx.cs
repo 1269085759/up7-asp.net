@@ -15,6 +15,7 @@ namespace up7.down3.db
         {
             string uid      = Request.QueryString["uid"];
             string id       = Request.QueryString["id"];
+            string idFile   = Request.QueryString["idFile"];
             string nameLoc  = Request.QueryString["nameLoc"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
             string pathSvr  = Request.QueryString["pathSvr"];
@@ -37,6 +38,7 @@ namespace up7.down3.db
 
             DnFileInf inf = new DnFileInf();
             inf.id = id;
+            inf.idFile = idFile;
             inf.uid = int.Parse(uid);
             inf.nameLoc = nameLoc;
             inf.pathLoc = pathLoc;//记录本地存储位置
