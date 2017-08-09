@@ -92,8 +92,7 @@ var up6_app = {
     }
     , addFolder: function (f) {
         this.queueCount++;
-        var param = { name: "add_folder"};
-        jQuery.extend(param, f, { name: "add_folder" });
+        var param = jQuery.extend({}, f, { name: "add_folder" });
         this.postMessage(param);
     }
     , stopFile: function (f) {

@@ -268,7 +268,9 @@ function DownloaderMgr()
         var obj = this.add_ui(f);
 	    if (null == obj) return;
         obj.reset_fields(fields);
-	    return obj;
+
+        this.init_folder(obj.fileSvr);//
+        return obj;
 	};
 	this.exist_url = function (url)
 	{

@@ -10,13 +10,13 @@
     this.svr_inited = false;
     this.event = mgr.event;
     this.fileSvr = {
-          signSvr:0//累加，唯一标识
-        , idSvr: 0
+          id:""
+        , f_id: ""
         , uid: 0
         , nameLoc: ""//自定义文件名称
         , folderLoc: this.Config["Folder"]
         , pathLoc: ""
-        , fileUrl:""
+        , fileUrl: this.Config["UrlDown"]
         , lenLoc: 0
         , perLoc: "0%"
         , lenSvr: 0
@@ -47,6 +47,14 @@
         this.ui.msg.text("正在下载队列中等待...");
         this.State = HttpDownloaderState.Ready;
     };
+    //自定义配置,
+    this.reset_fields = function (v) {
+        if (v == null) return;
+        jQuery.extend(this.fields, v);
+        //单独拼接url
+        var url = this.Config["UrlDown"] + "?" + this.Manager.to_params(this.fields);
+        jQuery.extend(this.fileSvr, { fileUrl: url });//覆盖配置
+    };
 
     this.addQueue = function ()
     {
@@ -65,12 +73,11 @@
     this.down = function ()
     {
         //续传
-        if (this.State == HttpDownloaderState.Stop) this.app.addFolder(this.fileSvr);
         this.hideBtns();
         this.ui.btn.stop.show();
         this.ui.msg.text("开始连接服务器...");
         this.State = HttpDownloaderState.Posting;        
-        //this.app.addFolder(this.fileSvr);
+        this.app.addFolder(this.fileSvr);
         this.Manager.start_queue();//下载队列
     };
 
@@ -104,12 +111,16 @@
     {
         this.app.openPath(this.fileSvr);
     };
+    this.init_complete = function (json) {
+        jQuery.extend(this.fileSvr, json);
+        if (!this.svr_inited) this.svr_create();//
+    };
 
     //在出错，停止中调用
     this.svr_update = function (json)
     {       
         var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
-        jQuery.extend(param, { signSvr: this.fileSvr.signSvr, lenLoc: this.fileSvr.lenLoc, perLoc: this.fileSvr.perLoc, sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
+        jQuery.extend(param, { id: this.fileSvr.id, lenLoc: this.fileSvr.lenLoc, perLoc: this.fileSvr.perLoc, sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
 
         $.ajax({
             type: "GET"
@@ -154,7 +165,7 @@
     this.isComplete = function () { return this.State == HttpDownloaderState.Complete; };
     this.svr_delete = function ()
     {
-        var param = jQuery.extend({}, this.fields,{signSvr:this.fileSvr.signSvr,time:new Date().getTime()});
+        var param = jQuery.extend({}, this.fields,{id:this.fileSvr.id,time:new Date().getTime()});
         $.ajax({
             type: "GET"
             , dataType: 'jsonp'
@@ -169,7 +180,7 @@
 
     this.svr_delete_file = function (f_id)
     {
-        var param = jQuery.extend({}, this.fields, {idSvr:f_id, time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields, {id:f_id, time: new Date().getTime() });
 
         $.ajax({
             type: "GET"

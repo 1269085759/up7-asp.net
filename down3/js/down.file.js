@@ -127,14 +127,14 @@ function FileDownloader(fileLoc, mgr)
     {
         this.app.openFile(this.fileSvr);
     };
-    this.init_complete = function (json) {
-        jQuery.extend(this.fileSvr, json);
-        if (!this.svr_inited) this.svr_create();//
-    };
 
     this.openPath = function ()
     {
         this.app.openPath(this.fileSvr);
+    };
+    this.init_complete = function (json) {
+        jQuery.extend(this.fileSvr, json);
+        if (!this.svr_inited) this.svr_create();//
     };
 
     //在出错，停止中调用
