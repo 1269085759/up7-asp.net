@@ -139,11 +139,10 @@
     {
         this.ui.btn.down.hide();
         this.ui.msg.text("正在初始化...");
-        var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields,this.fileSvr, { time: new Date().getTime() });
         jQuery.extend(param, { nameLoc: encodeURIComponent(this.fileSvr.nameLoc) });
         jQuery.extend(param, { pathLoc: encodeURIComponent(this.fileSvr.pathLoc) });
         jQuery.extend(param, { sizeSvr: encodeURIComponent(this.fileSvr.sizeSvr) });
-        jQuery.extend(param, { signSvr: this.fileSvr.signSvr});
         var ptr = this;
         $.ajax({
             type: "get"
