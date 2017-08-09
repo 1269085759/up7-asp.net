@@ -9,7 +9,7 @@ namespace up7.down3.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Request.QueryString["idSign"];//文件夹id,与up7_files.f_idSign对应
+            string id = Request.QueryString["id"];//文件夹id,与up7_files.f_idSign对应
             string index = Request.QueryString["page"];//页数，基于1
 
             if (string.IsNullOrEmpty(id)
