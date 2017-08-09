@@ -190,7 +190,7 @@ function FileDownloader(fileLoc, mgr)
     this.isComplete = function () { return this.State == HttpDownloaderState.Complete; };
     this.svr_delete = function ()
     {
-        var param = jQuery.extend({}, { uid: this.fileSvr.uid,signSvr:this.fileSvr.signSvr,time: new Date().getTime() });
+        var param = jQuery.extend({}, { uid: this.fileSvr.uid,id:this.fileSvr.id,time: new Date().getTime() });
         $.ajax({
             type: "GET"
             , dataType: 'jsonp'
