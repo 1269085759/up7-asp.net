@@ -143,7 +143,7 @@
         jQuery.extend(param, { nameLoc: encodeURIComponent(this.fileSvr.nameLoc) });
         jQuery.extend(param, { pathLoc: encodeURIComponent(this.fileSvr.pathLoc) });
         jQuery.extend(param, { sizeSvr: encodeURIComponent(this.fileSvr.sizeSvr) });
-        var ptr = this;
+
         $.ajax({
             type: "get"
             , dataType: 'jsonp'
@@ -152,13 +152,20 @@
             , data: param
             , success: function (msg)
             {
-                ptr.ui.btn.down.show();
-                ptr.ui.msg.text("初始化完毕...");
-                ptr.svr_inited = true;
+                _this.ui.btn.down.show();
+                _this.ui.msg.text("初始化完毕...");
+                _this.svr_inited = true;
+                _this.svr_create_cmp();
             }
             , error: function (req, txt, err) { alert("创建信息失败！" + req.responseText); }
             , complete: function (req, sta) { req = null; }
         });
+    };
+
+    this.svr_create_cmp = function () {
+        setTimeout(function () {
+            _this.down();
+        }, 200);
     };
 
     this.isComplete = function () { return this.State == HttpDownloaderState.Complete; };
