@@ -106,7 +106,7 @@ namespace up7.down3.biz
             sb.Append(",f_nameLoc");//1
             sb.Append(",f_pathLoc");//2
             sb.Append(",f_perLoc");//3
-            sb.Append(",f_sizeLoc");//4
+            sb.Append(",f_sizeSvr");//4
             sb.Append(",f_fdTask");//5
             //
             sb.Append(" from down3_files");
@@ -125,7 +125,7 @@ namespace up7.down3.biz
                 f.nameLoc = r.GetString(1);
                 f.pathLoc = r.GetString(2);
                 f.perLoc = r.GetString(3);
-                f.sizeLoc = r.GetString(4);
+                f.sizeSvr = r.GetString(4);
                 f.fdTask = r.GetBoolean(5);
                 files.Add(f);
             }
@@ -151,7 +151,7 @@ namespace up7.down3.biz
             sb.Append(" f_id");//0
             sb.Append(",f_fdTask");//1
             sb.Append(",f_nameLoc");//2
-            sb.Append(",f_sizeSvr");//3
+            sb.Append(",f_sizeLoc");//3
             sb.Append(",f_lenSvr");//4
             sb.Append(",f_pathSvr");//5
             sb.Append(",f_blockPath");//6
