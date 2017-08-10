@@ -55,7 +55,7 @@ function DownloaderMgr()
         , "UrlList"     : "http://localhost:88/down3/db/f_list.aspx"
         , "UrlListCmp"  : "http://localhost:88/down3/db/f_list_cmp.aspx"
         , "UrlUpdate"   : "http://localhost:88/down3/db/f_update.aspx"
-        , "UrlDown"     : "http://localhost:88/down3/db/f_down_part.aspx"
+        , "UrlDown"     : "http://localhost:88/down3/db/f_down.aspx"
 	    //folder
         , "UrlFdCreate" : "http://localhost:88/down3/db/fd_create.aspx"
         , "UrlFdPage"   : "http://localhost:88/down3/db/fd_page.aspx"
