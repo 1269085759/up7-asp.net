@@ -62,14 +62,6 @@
     {
         this.app.addFolder(this.fileSvr);
     };
-    
-    this.add_end = function(json)
-    {
-    	//已经初始化
-    	if(this.svr_inited) return;
-    	this.fileSvr.pathLoc = json.pathLoc;
-    	this.svr_create();
-    };
 
     //方法-开始下载
     this.down = function ()
