@@ -97,7 +97,7 @@ var up6_app = {
     }
     , stopFile: function (f) {
         this.queueCount--;
-        var param = { name: "stop_file", signSvr: f.signSvr};
+        var param = { name: "stop_file", id: f.id};
         this.postMessage(param);
     }
     , startQueue: function () {
