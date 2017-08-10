@@ -67,18 +67,18 @@ namespace up7.down3.biz
             db.ExecuteNonQuery(ref cmd);
         }
 
-        public void process(string fid, int uid, string lenLoc, string perLoc)
+        public void process(string fid, int uid, string sizeLoc, string perLoc)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("update down3_files set ");
-            sb.Append(" f_lenLoc =@lenLoc");
+            sb.Append(" f_sizeLoc =@sizeLoc");
             sb.Append(",f_perLoc=@f_perLoc");
             sb.Append(" where");
             sb.Append(" f_id =@f_id and f_uid=@f_uid;");
 
             DbHelper db = new DbHelper();
             DbCommand cmd = db.GetCommand(sb.ToString());
-            db.AddString(ref cmd, "@lenLoc", lenLoc, 19);
+            db.AddString(ref cmd, "@sizeLoc", sizeLoc, 10);
             db.AddString(ref cmd, "@f_perLoc", perLoc, 6);
             db.AddString(ref cmd, "@f_id", fid, 32);
             db.AddInt(ref cmd, "@f_uid", uid);

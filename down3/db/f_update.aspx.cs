@@ -13,14 +13,15 @@ namespace up7.down3.db
         {
             string fid      = Request.QueryString["id"];
             string uid      = Request.QueryString["uid"];
-            string lenLoc   = Request.QueryString["lenLoc"];
+            string sizeLoc   = Request.QueryString["sizeLoc"];
             string per      = Request.QueryString["perLoc"];
             string cbk      = Request.QueryString["callback"];
             per = PathTool.url_decode(per);
+            sizeLoc = PathTool.url_decode(sizeLoc);
             //
             if (    string.IsNullOrEmpty(fid)
                 ||  string.IsNullOrEmpty(cbk)
-                ||  string.IsNullOrEmpty(lenLoc))
+                ||  string.IsNullOrEmpty(sizeLoc))
             {
                 Response.Write(cbk+"({\"value\":0})");
                 Response.End();
@@ -28,7 +29,7 @@ namespace up7.down3.db
             }
 
             DnFile db = new DnFile();
-            db.process(fid, int.Parse(uid), lenLoc, per);
+            db.process(fid, int.Parse(uid), sizeLoc, per);
             
             Response.Write(cbk + "({\"value\":1})");
         }

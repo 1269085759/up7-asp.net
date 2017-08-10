@@ -45,6 +45,8 @@
         this.ui.btn.down.show();
         this.ui.btn.cancel.show();
         this.ui.msg.text("正在下载队列中等待...");
+        this.ui.ico.file.hide();
+        this.ui.ico.fd.show();
         this.State = HttpDownloaderState.Ready;
     };
     //自定义配置,
@@ -118,9 +120,9 @@
 
     //在出错，停止中调用
     this.svr_update = function (json)
-    {       
-        var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
-        jQuery.extend(param, { id: this.fileSvr.id, lenLoc: this.fileSvr.lenLoc, perLoc: this.fileSvr.perLoc, sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
+    {
+        var param = jQuery.extend({}, this.fields, this.fileSvr, { time: new Date().getTime() });
+        jQuery.extend(param, { perLoc: encodeURIComponent(this.fileSvr.perLoc), sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
 
         $.ajax({
             type: "GET"
@@ -227,22 +229,6 @@
         }
     };
 
-    this.down_recv_size = function (json)
-    {
-        //this.ui.size.text(json.size);
-        this.fileSvr.files[json.id].sizeSvr = json.size;
-        this.fileSvr.files[json.id].lenSvr = json.len;
-    };
-
-    this.down_recv_name = function (json)
-    {
-        this.hideBtns();
-        this.ui.btn.stop.show();
-        //this.ui.name.text(json.nameSvr);
-        //this.ui.name.attr("title", json.nameSvr);
-        //this.fileSvr.pathLoc = json.pathLoc;
-    };
-
     this.down_process = function (json)
     {
         this.fileSvr.lenLoc = json.lenLoc;//保存进度
@@ -283,7 +269,7 @@
         if (json.msg.length > 1) { this.ui.msg.text(json.msg); }
         else { this.ui.msg.text(DownloadErrorCode[json.code + ""]); }
         this.State = HttpDownloaderState.Stop;
-        //this.SvrUpdate();
+        this.svr_update();
     };
 
     this.down_stoped = function (json)
