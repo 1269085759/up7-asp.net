@@ -42,6 +42,7 @@ namespace up7.db.biz
         {
             FileInfo f = new System.IO.FileInfo(pathSvr);
             pathSvr = Path.Combine(f.DirectoryName, idSign);
+            pathSvr = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
 
