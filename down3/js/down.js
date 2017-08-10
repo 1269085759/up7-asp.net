@@ -16,6 +16,7 @@
 文档下载：http://www.ncmem.com/download/HttpDownloader/HttpDownloader-doc.rar
 联系邮箱：1085617561@qq.com
 联系QQ：1085617561
+版本：7.2.1
 更新记录：
     2009-11-05 创建
 	2014-02-27 优化版本号。
