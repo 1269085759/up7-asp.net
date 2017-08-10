@@ -151,7 +151,7 @@ namespace up7.down3.biz
             sb.Append(" f_id");//0
             sb.Append(",f_fdTask");//1
             sb.Append(",f_nameLoc");//2
-            sb.Append(",f_sizeLoc");//3
+            sb.Append(",f_sizeSvr");//3
             sb.Append(",f_lenSvr");//4
             sb.Append(",f_pathSvr");//5
             sb.Append(",f_blockPath");//6
