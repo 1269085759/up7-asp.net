@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using up7.db.biz.database;
 using up7.db.model;
+using up7.down3.model;
 
 namespace up7.down3.biz
 {
@@ -22,12 +23,12 @@ namespace up7.down3.biz
             int pageEnd = index * pageSize;
             string sql = string.Format(@"select * from 
                                         (
-	                                        select f_nameLoc,f_pathSvr,f_pathRel,f_lenLoc,f_sizeLoc,f_blockPath,f_blockSize,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_pidRoot='{0}'
+	                                        select f_id,f_nameLoc,f_pathSvr,f_pathRel,f_lenLoc,f_sizeLoc,f_blockPath,f_blockSize,ROW_NUMBER() OVER(Order by (select null) ) as RowNumber from up7_files where f_pidRoot='{0}'
                                         )a
                                         where RowNumber BETWEEN {1} and {2}
                                         ", id, pageStart, pageEnd);
 
-            List<FileInf> files = new List<FileInf>();
+            List<DnFileInf> files = new List<DnFileInf>();
             DbHelper db = new DbHelper();
             using (var cmd = db.GetCommand(sql))
             {
@@ -35,14 +36,16 @@ namespace up7.down3.biz
                 {
                     while (r.Read())
                     {
-                        var f = new FileInf();
-                        f.nameLoc = r.GetString(0);//f_nameLoc
-                        f.pathSvr = r.GetString(1);
-                        f.pathRel = r.GetString(2);
-                        f.lenSvr = r.GetInt64(3);
-                        f.sizeSvr = r.GetString(4);
-                        f.blockPath = r.GetString(5);
-                        f.blockSize = r.GetInt32(6);
+                        var f = new DnFileInf();
+                        f.id = Guid.NewGuid().ToString("N");
+                        f.idFile = r.GetString(0);
+                        f.nameLoc = r.GetString(1);//f_nameLoc
+                        f.pathSvr = r.GetString(2);
+                        f.pathRel = r.GetString(3);
+                        f.lenSvr = r.GetInt64(4);
+                        f.sizeSvr = r.GetString(5);
+                        f.blockPath = r.GetString(6);
+                        f.blockSize = r.GetInt32(7);
                         files.Add(f);
                     }
                     r.Close();

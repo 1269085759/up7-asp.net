@@ -16,7 +16,6 @@ namespace up7.down3.db
             string idFile   = Request.QueryString["idFile"];
             string nameLoc  = Request.QueryString["nameLoc"];//客户端使用的是encodeURIComponent编码，
             string pathLoc  = Request.QueryString["pathLoc"];//客户端使用的是encodeURIComponent编码，
-            string pathSvr  = Request.QueryString["pathSvr"];
             string fileUrl  = Request.QueryString["fileUrl"];
             string lenSvr   = Request.QueryString["lenSvr"];
             string sizeSvr  = Request.QueryString["sizeSvr"];
