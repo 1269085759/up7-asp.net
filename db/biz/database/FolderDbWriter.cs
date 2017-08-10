@@ -19,9 +19,9 @@ namespace up7.db.biz.database
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("insert into up7_folders(");
-            sb.Append(" fd_sign");
+            sb.Append(" fd_id");
             sb.Append(",fd_name");
-            sb.Append(",fd_pidSign");
+            sb.Append(",fd_pid");
             sb.Append(",fd_uid");
             sb.Append(",fd_length");
             sb.Append(",fd_size");
@@ -29,12 +29,12 @@ namespace up7.db.biz.database
             sb.Append(",fd_pathSvr");
             sb.Append(",fd_folders");
             sb.Append(",fd_files");
-            sb.Append(",fd_rootSign");
+            sb.Append(",fd_pidRoot");
 
             sb.Append(") values(");
-            sb.Append(" @fd_sign");
+            sb.Append(" @fd_id");
             sb.Append(",@fd_name");
-            sb.Append(",@fd_pidSign");
+            sb.Append(",@fd_pid");
             sb.Append(",@fd_uid");
             sb.Append(",@fd_length");
             sb.Append(",@fd_size");
@@ -42,15 +42,15 @@ namespace up7.db.biz.database
             sb.Append(",@fd_pathSvr");
             sb.Append(",@fd_folders");
             sb.Append(",@fd_files");
-            sb.Append(",@fd_rootSign");
+            sb.Append(",@fd_pidRoot");
             sb.Append(")");
 
             DbHelper db = new DbHelper();
             var cmd = con.CreateCommand();
             cmd.CommandText = sb.ToString();
-            db.AddString(ref cmd, "@fd_sign", string.Empty, 512);
+            db.AddString(ref cmd, "@fd_id", string.Empty, 512);
             db.AddString(ref cmd, "@fd_name", string.Empty, 50);
-            db.AddString(ref cmd, "@fd_pidSign", string.Empty, 36);
+            db.AddString(ref cmd, "@Sign", string.Empty, 36);
             db.AddInt(ref cmd, "@fd_uid", 0);
             db.AddInt(ref cmd, "@fd_length", 0);
             db.AddString(ref cmd, "@fd_size", string.Empty,50);
@@ -58,7 +58,7 @@ namespace up7.db.biz.database
             db.AddString(ref cmd, "@fd_pathSvr", string.Empty, 512);
             db.AddInt(ref cmd, "@fd_folders", 0);
             db.AddInt(ref cmd, "@fd_files", 0);
-            db.AddString(ref cmd, "@fd_rootSign", string.Empty, 512);
+            db.AddString(ref cmd, "@fd_pidRoot", string.Empty, 512);
 
             return cmd;
         }
@@ -88,7 +88,7 @@ namespace up7.db.biz.database
                 //foreach (var fd in this.root.folders)
                 //{
                 //    cmd.Parameters[0].Value = fd.id;
-                //    cmd.Parameters[1].Value = fd.nameLoc;//fd_pid
+                //    cmd.Parameters[1].Value = fd.nameLoc;//
                 //    cmd.Parameters[2].Value = fd.pid;//fd_uid
                 //    cmd.Parameters[3].Value = fd.uid;//fd_length
                 //    cmd.Parameters[4].Value = fd.lenLoc;//fd_size
@@ -96,7 +96,7 @@ namespace up7.db.biz.database
                 //    cmd.Parameters[6].Value = fd.pathLoc;//fd_pathSvr
                 //    cmd.Parameters[7].Value = fd.pathSvr;//fd_folders
                 //    //cmd.Parameters[8].Value = fd.folderCount;//fd_files
-                //    cmd.Parameters[9].Value = fd.fileCount;//fd_pidRoot
+                //    cmd.Parameters[9].Value = fd.fileCount;//Root
                 //    cmd.Parameters[10].Value = fd.pidRoot;//fd_id
                 //    cmd.ExecuteNonQuery();
                 //}

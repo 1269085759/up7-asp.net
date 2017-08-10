@@ -1,80 +1,40 @@
 ﻿using System;
 using System.IO;
-using System.Web;
+using up7.db.utils;
 
 namespace up7.down3.db
 {
     public partial class f_down : System.Web.UI.Page
     {
-        String lenSvr       = string.Empty;
-        String nameLoc      = string.Empty;
-        String sizeSvr      = string.Empty;
-        String sizeLoc      = string.Empty;
         String pathSvr      = string.Empty;
-        String pathLoc      = string.Empty;
         String blockIndex   = string.Empty;
         String fileOffset   = string.Empty;
         String blockOffset  = string.Empty;
         String blockSize    = string.Empty;
-        String rangeSize    = string.Empty;
-        String lenLoc       = string.Empty;
-        String signSvr      = string.Empty;
-        String fd_signSvr   = string.Empty;
-        String fd_lenLoc    = string.Empty;
-        String fd_sizeLoc   = string.Empty;
-        String fd_percent   = string.Empty;
-        String uid          = string.Empty;
-        String percent      = string.Empty;
 
         void recvParam()
         {
-            this.lenSvr         = Request.Headers["f-lenSvr"];
-            this.nameLoc        = Request.Headers["f-nameLoc"];
-            this.sizeLoc        = Request.Headers["f-sizeLoc"];
-            this.pathSvr        = Request.Headers["f-pathSvr"];
-            this.pathLoc        = Request.Headers["f-pathLoc"];
-            this.blockIndex     = Request.Headers["f-blockIndex"];//块索引基于1
-            this.fileOffset     = Request.Headers["f-fileOffset"];//基于文件的位置
-            this.blockOffset    = Request.Headers["f-blockOffset"];//基于块的位置
-            this.blockSize      = Request.Headers["f-blockSize"];//逻辑块大小
-            this.rangeSize      = Request.Headers["f-rangeSize"];//当前请求的块大小
-            this.lenLoc         = Request.Headers["f-lenLoc"];
-            this.signSvr        = Request.Headers["f-signSvr"];
-            this.percent        = Request.Headers["f-percent"];
-            this.uid            = Request.Headers["f-uid"];
-            this.fd_signSvr     = Request.Headers["fd-signSvr"];
-            this.fd_lenLoc      = Request.Headers["fd-lenLoc"];
-            this.fd_sizeLoc     = Request.Headers["fd-sizeLoc"];
-            this.fd_percent     = Request.Headers["fd-percent"];
+            this.pathSvr        = Request.Headers["pathSvr"];
+            this.blockIndex     = Request.Headers["blockIndex"];//块索引基于1
+            this.fileOffset     = Request.Headers["fileOffset"];//基于文件的位置
+            this.blockOffset    = Request.Headers["blockOffset"];//基于块的位置
+            this.blockSize      = Request.Headers["blockSize"];//当前需要下载的块大小
 
-            pathSvr = pathSvr.Replace("+", "%20");
-            pathLoc = pathLoc.Replace("+", "%20");
-            nameLoc = nameLoc.Replace("+", "%20");
-            pathSvr = HttpUtility.UrlDecode(pathSvr);//utf-8解码
-            pathLoc = HttpUtility.UrlDecode(pathLoc);//utf-8解码
-            nameLoc = HttpUtility.UrlDecode(nameLoc);//utf-8解码
+            pathSvr = PathTool.url_decode(pathSvr);
         }
 
         bool checkParam()
         {
-            if (string.IsNullOrEmpty(lenSvr)
-                || string.IsNullOrEmpty(pathSvr)
-                || string.IsNullOrEmpty(pathLoc)
+            if (   string.IsNullOrEmpty(pathSvr)
                 || string.IsNullOrEmpty(blockIndex)
-                || string.IsNullOrEmpty(lenLoc)
-                || string.IsNullOrEmpty(percent)
+                || string.IsNullOrEmpty(blockOffset)
+                || string.IsNullOrEmpty(fileOffset)
+                || string.IsNullOrEmpty(blockSize)
                 )
             {
-                System.Diagnostics.Debug.WriteLine("lenSvr:" + lenSvr);
-                System.Diagnostics.Debug.WriteLine("lenLoc:" + lenLoc);
-                System.Diagnostics.Debug.WriteLine("nameLoc:" + nameLoc);
-                System.Diagnostics.Debug.WriteLine("sizeSvr:" + sizeSvr);
                 System.Diagnostics.Debug.WriteLine("pathSvr:" + pathSvr);
-                System.Diagnostics.Debug.WriteLine("pathLoc:" + pathLoc);
                 System.Diagnostics.Debug.WriteLine("blockIndex:" + blockIndex);
                 System.Diagnostics.Debug.WriteLine("blockSize:" + blockSize);
-                System.Diagnostics.Debug.WriteLine("signSvr:" + signSvr);
-                System.Diagnostics.Debug.WriteLine("percent:" + percent);
                 System.Diagnostics.Debug.WriteLine("f_down.jsp 业务逻辑参数为空。");
                 return false;
             }
@@ -90,8 +50,7 @@ namespace up7.down3.db
             Response.AddHeader("Pragma", "No-cache");
             Response.AddHeader("Cache-Control", "no-cache");
             Response.AddHeader("Expires", "0");
-            Response.AddHeader("Content-Disposition", "attachment;filename=" + nameLoc);
-            Response.AddHeader("Content-Length", rangeSize.ToString());
+            Response.AddHeader("Content-Length", blockSize);
 
             Stream iStream = null;
             try
@@ -101,7 +60,7 @@ namespace up7.down3.db
                 iStream.Seek(long.Parse(fileOffset), SeekOrigin.Begin);
 
                 // Total bytes to read:
-                long dataToRead = long.Parse(rangeSize);
+                long dataToRead = long.Parse(blockSize);
 
                 byte[] buffer = new Byte[10000];
                 int length;
