@@ -260,7 +260,7 @@
         this.ui.btn.down.show();
         this.ui.btn.del.show();
         this.event.downError(this, json.code);//biz event
-        if (json.msg.length > 1) { this.ui.msg.text(json.msg); }
+        if (typeof (json.msg) == "string") { this.ui.msg.text(json.msg); }
         else { this.ui.msg.text(DownloadErrorCode[json.code + ""]); }
         this.State = HttpDownloaderState.Stop;
         this.svr_update();
