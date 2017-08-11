@@ -29,6 +29,8 @@
     };
     jQuery.extend(this.fileSvr, fileLoc);//覆盖配置
     jQuery.extend(this.fileSvr, { fields: this.fields });
+    var url = this.Config["UrlDown"] + "?" + this.Manager.to_params(this.fields);
+    jQuery.extend(this.fileSvr, fileLoc, { fileUrl: url });//覆盖配置
 
     this.hideBtns = function ()
     {
