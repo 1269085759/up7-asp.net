@@ -38,6 +38,7 @@ namespace up7.db.biz.database
             sb.Append(",f_perSvr");
             sb.Append(",f_complete");
             sb.Append(",f_fdTask");
+            sb.Append(",f_blockCount");
             sb.Append(",f_blockPath");
             sb.Append(",f_blockSize");
 
@@ -59,6 +60,7 @@ namespace up7.db.biz.database
             sb.Append(",@f_perSvr");//f_perSvr
             sb.Append(",1");//f_complete
             sb.Append(",@f_fdTask");//f_fdTask
+            sb.Append(",@f_blockCount");//f_blockPath
             sb.Append(",@f_blockPath");//f_blockPath
             sb.Append(",@f_blockSize");//f_blockSize
             sb.Append(")");
@@ -81,6 +83,7 @@ namespace up7.db.biz.database
             db.AddInt64(ref cmd , "@f_lenSvr",0);
             db.AddString(ref cmd, "@f_perSvr", string.Empty, 6);
             db.AddBool(ref cmd  , "@f_fdTask", false);
+            db.AddInt(ref cmd   , "@f_blockCount", 1);
             db.AddString(ref cmd, "@f_blockPath", string.Empty,2000);
             db.AddInt(ref cmd   , "@f_blockSize", 0);
             return cmd;
@@ -104,8 +107,9 @@ namespace up7.db.biz.database
             cmd.Parameters[13].Value = "100%";//perSvr
             //cmd.Parameters[14].Value = string.IsNullOrEmpty(f.sign) ? string.Empty : f.sign;//sign
             cmd.Parameters[14].Value = f.fdTask;//fdTask
-            cmd.Parameters[15].Value = f.blockPath;//
-            cmd.Parameters[16].Value = f.blockSize;//
+            cmd.Parameters[15].Value = f.blockCount;//
+            cmd.Parameters[16].Value = f.blockPath;//
+            cmd.Parameters[17].Value = f.blockSize;//
             cmd.ExecuteNonQuery();
         }
 
