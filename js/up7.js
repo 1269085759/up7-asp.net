@@ -2,7 +2,7 @@
 	版权所有 2009-2017 荆门泽优软件有限公司
 	保留所有权利
 	官方网站：http://www.ncmem.com/
-	产品首页：http://www.ncmem.com/webplug/http-uploader6/
+	产品首页：http://www.ncmem.com/webapp/up6.2/index.asp
 	产品介绍：http://www.cnblogs.com/xproer/archive/2012/05/29/2523757.html
 	开发文档-ASP：http://www.cnblogs.com/xproer/archive/2012/02/17/2355458.html
 	开发文档-PHP：http://www.cnblogs.com/xproer/archive/2012/02/17/2355467.html
@@ -65,7 +65,7 @@ function HttpUploaderMgr()
 	this.Config = {
 		  "EncodeType"		: "utf-8"
 		, "Company"			: "荆门泽优软件有限公司"
-		, "Version"			: "2,7,132,51259"
+		, "Version"			: "2,7,133,51262"
 		, "License"			: ""//
 		, "Authenticate"	: ""//域验证方式：basic,ntlm
 		, "AuthName"		: ""//域帐号
@@ -153,6 +153,7 @@ function HttpUploaderMgr()
 	this.chrome45 = false;
 	this.nat_load = false;
     this.chrVer = navigator.appVersion.match(/Chrome\/(\d+)/);
+	this.ffVer = navigator.userAgent.match(/Firefox\/(\d+)/);
     this.edge = navigator.userAgent.indexOf("Edge") > 0;
     this.edgeApp = new WebServer(this);
     this.app = up6_app;
@@ -351,12 +352,16 @@ function HttpUploaderMgr()
 	this.GetHtmlContainer = function()
 	{
 	    //npapi
-	    var com = '<embed name="ffParter" type="' + this.Config.firefox.type + '" pluginspage="' + this.Config.firefox.path + '" width="1" height="1"/>';        
-	    //acx += '<div style="display:none">';
-	    //拖拽组件
-        com += '<object name="droper" classid="clsid:' + this.Config.ie.drop.clsid + '"';
-        com += ' codebase="' + this.Config.ie.path + '#version=' + this.Config.Version + '" width="192" height="192" >';
-        com += '</object>';
+	    var com = '<embed name="ffParter" type="' + this.Config.firefox.type + '" pluginspage="' + this.Config.firefox.path + '" width="1" height="1"/>';
+	    if (this.chrome45) com = "";
+	    if (this.ie)
+	    {
+	        //拖拽组件
+	        com += '<object name="droper" classid="clsid:' + this.Config.ie.drop.clsid + '"';
+	        com += ' codebase="' + this.Config.ie.path + '#version=' + this.Config.Version + '" width="192" height="192" >';
+	        com += '</object>';
+	    }
+	    if (this.edge) com = '';
 	    //文件夹选择控件
         com += '<object name="parter" classid="clsid:' + this.Config.ie.part.clsid + '"';
 	    com += ' codebase="' + this.Config.ie.path + '#version=' + this.Config.Version + '" width="1" height="1" ></object>';
@@ -572,9 +577,9 @@ function HttpUploaderMgr()
 	    {
 	        jQuery.extend(this.Config.ie, this.Config.ie64);
 	    }
-	    else if (this.firefox)
-        {
-            if (!this.app.checkFF())//仍然支持npapi
+	    if (this.firefox)
+	    {
+	        if (!this.app.checkFF() || parseInt(this.ffVer[1]) >= 50)//仍然支持npapi
             {
                 this.edge = true;
                 this.app.postMessage = this.app.postMessageEdge;
@@ -585,8 +590,6 @@ function HttpUploaderMgr()
 	    {
 	        this.app.check = this.app.checkFF;
 	        jQuery.extend(this.Config.firefox, this.Config.chrome);
-	        //_this.Config["XpiPath"] = _this.Config["CrxPath"];
-	        //_this.Config["XpiType"] = _this.Config["CrxType"];
 	        //44+版本使用Native Message
 	        if (parseInt(this.chrVer[1]) >= 44)
 	        {
@@ -1024,10 +1027,10 @@ function HttpUploaderMgr()
 		var uiSize      = ui.find("div[name='fileSize']")
 		var divProcess 	= ui.find("div[name='process']");
 		var divMsg      = ui.find("div[name='msg']");
-		var btnCancel   = ui.find("a[name='cancel']");
-		var btnPost     = ui.find("a[name='post']");
-		var btnStop     = ui.find("a[name='stop']");
-		var btnDel      = ui.find("a[name='del']");
+		var btnCancel   = ui.find("span[name='cancel']");
+		var btnPost     = ui.find("span[name='post']");
+		var btnStop     = ui.find("span[name='stop']");
+		var btnDel      = ui.find("span[name='del']");
 		var divPercent	= ui.find("div[name='percent']");
 		var ui_eles = { msg: divMsg,size:uiSize, process: divProcess, percent: divPercent, btn: { del: btnDel, cancel: btnCancel, post: btnPost, stop: btnStop }, split: sp, div: ui };
 
