@@ -1,5 +1,5 @@
 ﻿using System;
-using up7.db.biz.database;
+using up7.down3.biz;
 
 namespace up7.down3.db
 {
@@ -18,8 +18,8 @@ namespace up7.down3.db
                 return;
             }
 
-            DBFileQueue db = new DBFileQueue();
-            db.complete(id);
+            DnFile d = new DnFile();
+            d.Delete(id, int.Parse(uid));
 
             Response.Write(cbk + "(1)");
         }
