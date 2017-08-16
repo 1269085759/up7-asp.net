@@ -26,20 +26,20 @@ namespace up7.db
             String callback = Request.QueryString["callback"];
             pathLoc         = PathTool.url_decode(pathLoc);
 
-            FileInf f = new FileInf();
-            f.nameLoc = Path.GetFileName(pathLoc);
-            f.nameSvr = f.nameLoc;
-            f.id = id;
-            f.pathLoc = pathLoc;
-            f.sizeLoc = sizeLoc;
-            f.lenLoc = long.Parse(lenLoc);
-            f.fileCount = int.Parse(fCount);
-            f.fdTask = true;
-            f.uid = int.Parse( uid);
+            FileInf f          = new FileInf();
+            f.nameLoc          = Path.GetFileName(pathLoc);
+            f.nameSvr          = f.nameLoc;
+            f.id               = id;
+            f.pathLoc          = pathLoc;
+            f.sizeLoc          = sizeLoc;
+            f.lenLoc           = long.Parse(lenLoc);
+            f.fileCount        = int.Parse(fCount);
+            f.fdTask           = true;
+            f.uid              = int.Parse( uid);
             //生成路径，格式：upload/年/月/日/guid/文件夹名称
             PathGuidBuilder pb = new PathGuidBuilder();
-            f.pathSvr = Path.Combine( pb.genFolder(f.uid,f.id),f.nameLoc);
-            f.pathSvr = f.pathSvr.Replace("\\", "/");
+            f.pathSvr          = Path.Combine( pb.genFolder(f.uid,f.id),f.nameLoc);
+            f.pathSvr          = f.pathSvr.Replace("\\", "/");
             Directory.CreateDirectory(f.pathSvr);
 
             //添加到队列表
