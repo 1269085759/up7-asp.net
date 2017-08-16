@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fd_update.aspx.cs" Inherits="up7.db.fd_update" %>

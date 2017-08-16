@@ -68,7 +68,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="db\fd_update.aspx" />
     <Content Include="db\f_update.aspx" />
     <Content Include="debug\big_file.aspx" />
     <Content Include="debug\check_config.aspx" />
@@ -187,13 +186,6 @@
     </Compile>
     <Compile Include="db\fd_del.aspx.designer.cs">
       <DependentUpon>fd_del.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="db\fd_update.aspx.cs">
-      <DependentUpon>fd_update.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="db\fd_update.aspx.designer.cs">
-      <DependentUpon>fd_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_update.aspx.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
