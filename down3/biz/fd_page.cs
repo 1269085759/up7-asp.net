@@ -36,14 +36,14 @@ namespace up7.down3.biz
                 {
                     while (r.Read())
                     {
-                        var f = new DnFileInf();
-                        f.id = Guid.NewGuid().ToString("N");
-                        f.idFile = r.GetString(0);
-                        f.nameLoc = r.GetString(1);//f_nameLoc
-                        f.pathSvr = r.GetString(2);
-                        f.pathRel = r.GetString(3);
-                        f.lenSvr = r.GetInt64(4);
-                        f.sizeSvr = r.GetString(5);
+                        var f       = new DnFileInf();
+                        f.id        = Guid.NewGuid().ToString("N");
+                        f.idFile    = r.GetString(0);
+                        f.nameLoc   = r.GetString(1);//f_nameLoc
+                        f.pathSvr   = r.GetString(2);
+                        f.pathRel   = r.GetString(3);
+                        f.lenSvr    = r.GetInt64(4);
+                        f.sizeSvr   = r.GetString(5);
                         f.blockPath = r.GetString(6);
                         f.blockSize = r.GetInt32(7);
                         files.Add(f);
