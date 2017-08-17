@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace up7.down3.db
 {
@@ -21,6 +22,7 @@ namespace up7.down3.db
 
             biz.fd_page p = new biz.fd_page();
             string json = p.read(index,id);
+            json = HttpUtility.UrlEncode(json);
             Response.Write(json);
         }
     }
