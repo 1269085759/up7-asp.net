@@ -14,7 +14,7 @@ namespace up7.db.biz
         ///   文件夹：
         ///     d:/webapps/folder-1/file-1-guid/1.part
         ///   文件：
-        ///     d:/webapps/year/年/月/日/file-1-guid/1.part
+        ///     d:/webapps/year/年/月/日/file-id/blocks/1.part
         /// </summary>
         /// <param name="id"></param>
         /// <param name="blockIndex"></param>
@@ -22,18 +22,15 @@ namespace up7.db.biz
         /// <returns></returns>
         public string part(string id,string blockIndex,string pathSvr)
         {
-            System.IO.FileInfo f = new System.IO.FileInfo(pathSvr);
-
-            //d:\\soft
-            pathSvr = Path.Combine(f.DirectoryName,id);
-            pathSvr = Path.Combine(pathSvr, blockIndex + ".part");
-            pathSvr = pathSvr.Replace("\\", "/");
+            string part = this.root(id, pathSvr);
+            part        = Path.Combine(part, blockIndex + ".part");
+            pathSvr     = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
 
         /// <summary>
         /// 文件块根路径
-        /// d:/webapps/files/年/月/日/file-guid/
+        /// d:/webapps/files/年/月/日/file-id/blocks
         /// </summary>
         /// <param name="id"></param>
         /// <param name="pathSvr"></param>
@@ -41,8 +38,8 @@ namespace up7.db.biz
         public string root(string id,string pathSvr)
         {
             FileInfo f = new System.IO.FileInfo(pathSvr);
-            pathSvr = Path.Combine(f.DirectoryName, id);
-            pathSvr = pathSvr.Replace("\\", "/");
+            pathSvr    = Path.Combine(f.DirectoryName, "blocks");
+            pathSvr    = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
     }

@@ -65,7 +65,7 @@ function HttpUploaderMgr()
 	this.Config = {
 		  "EncodeType"		: "utf-8"
 		, "Company"			: "荆门泽优软件有限公司"
-		, "Version"			: "2,7,133,51262"
+		, "Version"			: "2,7,136,51265"
 		, "License"			: ""//
 		, "Authenticate"	: ""//域验证方式：basic,ntlm
 		, "AuthName"		: ""//域帐号
@@ -84,7 +84,7 @@ function HttpUploaderMgr()
 		, "AppPath"			: ""//网站虚拟目录名称。子文件夹 web
         , "Cookie"			: ""//服务器cookie
         , "QueueCount"      : 1//同时上传的任务数
-        , "AutoMerge"       : 1//自动合并文件？1:合并,0:不合并
+        , "AutoMerge"       : 0//自动合并文件？1:合并,0:不合并
         //文件夹操作相关
 		, "UrlFdCreate"		: "http://localhost:88/db/fd_create.aspx"
 		, "UrlFdComplete"	: "http://localhost:88/db/fd_complete.aspx"
