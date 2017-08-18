@@ -37,7 +37,7 @@ namespace up7.db.biz
 
                 for (int i = 0, l = parts.Length; i < l; ++i)
                 {
-                    String partName = Path.Combine(fd,fileSvr.id,(i + 1) + ".part");
+                    String partName = Path.Combine(fileSvr.blockPath,(i + 1) + ".part");
                     var partData = File.ReadAllBytes(partName);
                     //每一个文件块为64mb，最后一个文件块<=64mb
                     long partOffset = prevLen;
@@ -49,7 +49,7 @@ namespace up7.db.biz
                 }
             }
 
-            Directory.Delete(fileSvr.blockPath, true);
+            Directory.Delete(Path.GetDirectoryName(fileSvr.blockPath), true);
         }
     }
 }

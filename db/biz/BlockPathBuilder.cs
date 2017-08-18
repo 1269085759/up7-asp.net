@@ -42,5 +42,21 @@ namespace up7.db.biz
             pathSvr    = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
+
+        /// <summary>
+        /// 子文件块根路径
+        /// d:/webapps/files/年/月/日/folder-id/folder-name/file-id/blocks
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pathSvr"></param>
+        /// <returns></returns>
+        public string rootFD(string id,string pathSvr)
+        {
+            FileInfo f = new System.IO.FileInfo(pathSvr);
+            pathSvr = Path.Combine(f.DirectoryName, id);
+            pathSvr = Path.Combine(pathSvr, "blocks");
+            pathSvr = pathSvr.Replace("\\", "/");
+            return pathSvr;
+        }
     }
 }

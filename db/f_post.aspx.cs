@@ -66,24 +66,23 @@ namespace up7.db
         }
         void savePartFolder()
         {
-            HttpPostedFile part = Request.Files.Get(0);
 
-            FileInf fileSvr    = new FileInf();
-            fileSvr.id         = id;
-            fileSvr.nameLoc    = Path.GetFileName(pathLoc);
-            fileSvr.nameSvr    = nameLoc;
-            fileSvr.lenLoc     = long.Parse(lenLoc);
-            fileSvr.sizeLoc    = sizeLoc;
-            fileSvr.pathLoc    = this.pathLoc;
-            fileSvr.pathSvr    = this.pathSvr;
-            fileSvr.pathRel    = this.pathRel;
-            fileSvr.pid        = this.pid;
-            fileSvr.pidRoot    = pidRoot;
-            fileSvr.blockCount = int.Parse(blockCount);
-            fileSvr.blockSize  = int.Parse(blockSize);
-            //块路径：d:/webapps/files/年/月/日/folder/folder-child/file-guid/
-            fileSvr.blockPath  = Path.GetDirectoryName(fileSvr.pathSvr);
-            fileSvr.blockPath  = Path.Combine(fileSvr.blockPath, id);
+            FileInf fileSvr      = new FileInf();
+            fileSvr.id           = id;
+            fileSvr.nameLoc      = Path.GetFileName(pathLoc);
+            fileSvr.nameSvr      = nameLoc;
+            fileSvr.lenLoc       = long.Parse(lenLoc);
+            fileSvr.sizeLoc      = sizeLoc;
+            fileSvr.pathLoc      = this.pathLoc;
+            fileSvr.pathSvr      = this.pathSvr;
+            fileSvr.pathRel      = this.pathRel;
+            fileSvr.pid          = this.pid;
+            fileSvr.pidRoot      = pidRoot;
+            fileSvr.blockCount   = int.Parse(blockCount);
+            fileSvr.blockSize    = int.Parse(blockSize);
+            //块路径：d:/webapps/files/年/月/日/folder-id/folder-name//file-id/
+            BlockPathBuilder bpb = new BlockPathBuilder();
+            fileSvr.blockPath    = bpb.rootFD(id, fileSvr.pathSvr);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
             
             //将文件列表添加到缓存
@@ -100,6 +99,7 @@ namespace up7.db
             //块路径
             string partPath = Path.Combine(fileSvr.blockPath,blockIndex+".part");
 
+            HttpPostedFile part = Request.Files.Get(0);
             part.SaveAs(partPath);
         }
 
