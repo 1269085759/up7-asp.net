@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using up7.db.biz;
 using up7.db.biz.database;
 
@@ -37,6 +38,7 @@ namespace up7.db
                 {
                     BlockMeger pm = new BlockMeger();
                     pm.merge(fileSvr);
+                    Directory.Delete(fileSvr.blockPath, true);
                 }
 
                 //合并完毕

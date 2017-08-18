@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Text;
 using up7.db.model;
 
@@ -147,6 +148,7 @@ namespace up7.db.biz.database
                     foreach(var f in files)
                     {
                         bm.merge(f);
+                        Directory.Delete(Path.GetDirectoryName(f.blockPath), true);
                     }
                 }
                 //清除文件缓存

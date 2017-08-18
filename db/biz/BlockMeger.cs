@@ -48,8 +48,6 @@ namespace up7.db.biz
                     prevLen += partData.Length;
                 }
             }
-
-            Directory.Delete(Path.GetDirectoryName(fileSvr.blockPath), true);
         }
     }
 }
