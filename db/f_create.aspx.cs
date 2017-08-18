@@ -20,14 +20,14 @@ namespace up7.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string uid          = Request.QueryString["uid"];
-            string id           = Request.QueryString["id"];
-            string lenLoc       = Request.QueryString["lenLoc"];
-            string sizeLoc      = Request.QueryString["sizeLoc"];
-            string blockSize    = Request.QueryString["blockSize"];
-            string callback     = Request.QueryString["callback"];//jsonp参数
+            string uid       = Request.QueryString["uid"];
+            string id        = Request.QueryString["id"];
+            string lenLoc    = Request.QueryString["lenLoc"];
+            string sizeLoc   = Request.QueryString["sizeLoc"];
+            string blockSize = Request.QueryString["blockSize"];
+            string callback  = Request.QueryString["callback"];//jsonp参数
             //客户端使用的是encodeURIComponent编码，
-            string pathLoc      = PathTool.url_decode(Request.QueryString["pathLoc"]);//utf-8解码
+            string pathLoc   = PathTool.url_decode(Request.QueryString["pathLoc"]);//utf-8解码
 
             //参数为空
             if (    string.IsNullOrEmpty(uid)
@@ -38,21 +38,21 @@ namespace up7.db
                 return;
             }
 
-            FileInf fileSvr = new FileInf();
-            fileSvr.id = id;
-            fileSvr.uid = int.Parse(uid);//将当前文件UID设置为当前用户UID
-            fileSvr.nameLoc = Path.GetFileName(pathLoc);
-            fileSvr.pathLoc = pathLoc;
-            fileSvr.lenLoc = Convert.ToInt64(lenLoc);
-            fileSvr.sizeLoc = sizeLoc;
-            fileSvr.blockSize = int.Parse(blockSize);
-            fileSvr.deleted = false;
-            fileSvr.nameSvr = fileSvr.nameLoc;
+            FileInf fileSvr      = new FileInf();
+            fileSvr.id           = id;
+            fileSvr.uid          = int.Parse(uid);//将当前文件UID设置为当前用户UID
+            fileSvr.nameLoc      = Path.GetFileName(pathLoc);
+            fileSvr.pathLoc      = pathLoc;
+            fileSvr.lenLoc       = Convert.ToInt64(lenLoc);
+            fileSvr.sizeLoc      = sizeLoc;
+            fileSvr.blockSize    = int.Parse(blockSize);
+            fileSvr.deleted      = false;
+            fileSvr.nameSvr      = fileSvr.nameLoc;
 
-            PathGuidBuilder pb = new PathGuidBuilder();
-            fileSvr.pathSvr = pb.genFile(fileSvr.uid, fileSvr.id,fileSvr.nameLoc);
+            PathGuidBuilder pb   = new PathGuidBuilder();
+            fileSvr.pathSvr      = pb.genFile(fileSvr.uid, fileSvr.id,fileSvr.nameLoc);
             BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath = bpb.root(id, fileSvr.pathSvr);
+            fileSvr.blockPath    = bpb.root(id, fileSvr.pathSvr);
 
             //添加到任务表
             DBFileQueue db = new DBFileQueue();
