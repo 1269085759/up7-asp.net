@@ -37,8 +37,8 @@ namespace up7.db.biz
         /// <returns></returns>
         public string root(string id,string pathSvr)
         {
-            FileInfo f = new System.IO.FileInfo(pathSvr);
-            pathSvr    = Path.Combine(f.DirectoryName, "blocks");
+            string parent = Path.GetDirectoryName(pathSvr);
+            pathSvr    = Path.Combine(parent, "blocks");
             pathSvr    = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
@@ -52,9 +52,8 @@ namespace up7.db.biz
         /// <returns></returns>
         public string rootFD(string id,string pathSvr)
         {
-            FileInfo f = new System.IO.FileInfo(pathSvr);
-            pathSvr = Path.Combine(f.DirectoryName, id);
-            pathSvr = Path.Combine(pathSvr, "blocks");
+            string parent = Path.GetDirectoryName(pathSvr);
+            pathSvr = Path.Combine(parent, id,"blocks");
             pathSvr = pathSvr.Replace("\\", "/");
             return pathSvr;
         }
