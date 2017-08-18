@@ -24,8 +24,8 @@ namespace up7.db.biz
         {
             string part = this.root(id, pathSvr);
             part        = Path.Combine(part, blockIndex + ".part");
-            pathSvr     = pathSvr.Replace("\\", "/");
-            return pathSvr;
+            part        = part.Replace("\\", "/");
+            return part;
         }
 
         /// <summary>
