@@ -198,18 +198,18 @@ function DownloaderMgr()
 	    this.pnlFiles.append(ui);
 	    this.pnlFiles.append(sp);
 
-	    var uiIcoF = ui.find("img[name='fileImg']")
-	    var uiIcoFD = ui.find("img[name='fdImg']")
-	    var uiName = ui.find("div[name='fileName']")
-	    var uiSize = ui.find("div[name='fileSize']");
+	    var uiIcoF    = ui.find("img[name='fileImg']")
+	    var uiIcoFD   = ui.find("img[name='fdImg']")
+	    var uiName    = ui.find("div[name='fileName']")
+	    var uiSize    = ui.find("div[name='fileSize']");
 	    var uiProcess = ui.find("div[name='process']");
 	    var uiPercent = ui.find("div[name='percent']");
-	    var uiMsg = ui.find("div[name='msg']");
+	    var uiMsg     = ui.find("div[name='msg']");
 	    var btnCancel = ui.find("a[name='cancel']");
-	    var btnStop = ui.find("a[name='stop']");
-	    var btnDown = ui.find("a[name='down']");
-	    var btnDel = ui.find("a[name='del']");
-	    var ui_eles = { ico:{file:uiIcoF,fd:uiIcoFD},msg: uiMsg, name: uiName, size: uiSize, process: uiProcess, percent: uiPercent, btn: { cancel: btnCancel, stop: btnStop, down: btnDown, del: btnDel }, div: ui, split: sp };
+	    var btnStop   = ui.find("a[name='stop']");
+	    var btnDown   = ui.find("a[name='down']");
+	    var btnDel    = ui.find("a[name='del']");
+	    var ui_eles   = { ico:{file:uiIcoF,fd:uiIcoFD},msg: uiMsg, name: uiName, size: uiSize, process: uiProcess, percent: uiPercent, btn: { cancel: btnCancel, stop: btnStop, down: btnDown, del: btnDel }, div: ui, split: sp };
 
 	    var downer;
         if (fileSvr.fdTask) { downer = new FdDownloader(fileSvr, this); }
