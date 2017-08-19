@@ -78,17 +78,17 @@ namespace up7.db.biz.database
             DbCommand cmd = db.GetCommand(sb.ToString());
 
             db.AddString(ref cmd, "@f_id", f.id, 36);
-            db.AddBool(ref cmd, "@f_fdTask", f.fdTask);
-            db.AddInt(ref cmd, "@f_uid", f.uid);
+            db.AddBool(ref cmd,   "@f_fdTask", f.fdTask);
+            db.AddInt(ref cmd,    "@f_uid", f.uid);
             db.AddString(ref cmd, "@f_nameLoc", f.nameLoc, 255);
             db.AddString(ref cmd, "@f_nameSvr", f.nameSvr, 255);
             db.AddString(ref cmd, "@f_pathLoc", f.pathLoc, 512);
             db.AddString(ref cmd, "@f_pathSvr", f.pathSvr, 512);
             db.AddString(ref cmd, "@f_pathRel", f.pathRel, 512);
-            db.AddInt(ref cmd, "@f_blockCount", f.blockCount);
-            db.AddInt(ref cmd, "@f_blockSize", f.blockSize);
+            db.AddInt(ref cmd,    "@f_blockCount", f.blockCount);
+            db.AddInt(ref cmd,    "@f_blockSize", f.blockSize);
             db.AddString(ref cmd, "@f_blockPath", f.blockPath, 512);
-            db.AddInt64(ref cmd, "@f_lenLoc", f.lenLoc);
+            db.AddInt64(ref cmd,  "@f_lenLoc", f.lenLoc);
             db.AddString(ref cmd, "@f_sizeLoc", f.sizeLoc, 15);
 
             db.ExecuteNonQuery(cmd);

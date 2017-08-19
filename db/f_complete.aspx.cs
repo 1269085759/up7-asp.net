@@ -13,10 +13,10 @@ namespace up7.db
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string uid = Request.QueryString["uid"];
-            string id  = Request.QueryString["id"];
+            string uid   = Request.QueryString["uid"];
+            string id    = Request.QueryString["id"];
             string merge = Request.QueryString["merge"];
-            string cbk = Request.QueryString["callback"];
+            string cbk   = Request.QueryString["callback"];
 
             //返回值。1表示成功
             int ret = 0;
