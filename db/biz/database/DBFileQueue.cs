@@ -41,41 +41,39 @@ namespace up7.db.biz.database
 
         public void add(ref FileInf f)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("insert into up7_files_queue(");
-            sb.Append(" f_id");
-            sb.Append(",f_fdTask");
-            sb.Append(",f_uid");
-            sb.Append(",f_nameLoc");
-            sb.Append(",f_nameSvr");
-            sb.Append(",f_pathLoc");
-            sb.Append(",f_pathSvr");
-            sb.Append(",f_pathRel");
-            sb.Append(",f_blockCount");
-            sb.Append(",f_blockSize");
-            sb.Append(",f_blockPath");
-            sb.Append(",f_lenLoc");
-            sb.Append(",f_sizeLoc");
-
-            sb.Append(") values (");
-
-            sb.Append(" @f_id");
-            sb.Append(",@f_fdTask");
-            sb.Append(",@f_uid");
-            sb.Append(",@f_nameLoc");
-            sb.Append(",@f_nameSvr");
-            sb.Append(",@f_pathLoc");
-            sb.Append(",@f_pathSvr");
-            sb.Append(",@f_pathRel");
-            sb.Append(",@f_blockCount");
-            sb.Append(",@f_blockSize");
-            sb.Append(",@f_blockPath");
-            sb.Append(",@f_lenLoc");
-            sb.Append(",@f_sizeLoc");
-            sb.Append(") ;");
+            string sql = @"
+                insert into up7_files_queue(
+                 f_id
+                ,f_fdTask
+                ,f_uid
+                ,f_nameLoc
+                ,f_nameSvr
+                ,f_pathLoc
+                ,f_pathSvr
+                ,f_pathRel
+                ,f_blockCount
+                ,f_blockSize
+                ,f_blockPath
+                ,f_lenLoc
+                ,f_sizeLoc
+                ) values (
+                 @f_id
+                ,@f_fdTask
+                ,@f_uid
+                ,@f_nameLoc
+                ,@f_nameSvr
+                ,@f_pathLoc
+                ,@f_pathSvr
+                ,@f_pathRel
+                ,@f_blockCount
+                ,@f_blockSize
+                ,@f_blockPath
+                ,@f_lenLoc
+                ,@f_sizeLoc
+                ) ";
 
             DbHelper db = new DbHelper();
-            DbCommand cmd = db.GetCommand(sb.ToString());
+            DbCommand cmd = db.GetCommand(sql);
 
             db.AddString(ref cmd, "@f_id", f.id, 36);
             db.AddBool(ref cmd,   "@f_fdTask", f.fdTask);
