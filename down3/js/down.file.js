@@ -106,8 +106,7 @@ function FileDownloader(fileLoc, mgr)
     this.stop = function ()
     {
         this.hideBtns();
-        this.ui.btn.down.show();
-        this.ui.btn.del.show();
+        this.svr_update();
         this.State = HttpDownloaderState.Stop;
         this.ui.msg.text("下载已停止");
         this.app.stopFile(this.fileSvr);
@@ -140,10 +139,8 @@ function FileDownloader(fileLoc, mgr)
     //在出错，停止中调用
     this.svr_update = function ()
     {
-        var param = jQuery.extend({}, this.fields, { time: new Date().getTime() });
-        jQuery.extend(param, { signSvr: this.fileSvr.signSvr });
-        jQuery.extend(param, { lenLoc: this.fileSvr.lenLoc});
-        jQuery.extend(param, { sizeLoc: this.fileSvr.sizeLoc });
+        var param = jQuery.extend({}, this.fields,this.fileSvr, { time: new Date().getTime() });
+        jQuery.extend(param, { sizeLoc: encodeURIComponent(this.fileSvr.sizeLoc) });
         jQuery.extend(param, { perLoc: encodeURIComponent(this.fileSvr.perLoc) });
         $.ajax({
             type: "GET"
