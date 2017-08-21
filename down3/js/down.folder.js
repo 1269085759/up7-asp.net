@@ -11,7 +11,7 @@
     this.event = mgr.event;
     this.fileSvr = {
           id:""
-        , f_id: ""
+        , idFile: ""
         , uid: 0
         , nameLoc: ""//自定义文件名称
         , folderLoc: this.Config["Folder"]
@@ -81,8 +81,6 @@
     this.stop = function ()
     {
         this.hideBtns();
-        this.ui.btn.down.show();
-        this.ui.btn.del.show();
         this.State = HttpDownloaderState.Stop;
         this.ui.msg.text("下载已停止");
         this.app.stopFile(this.fileSvr);
