@@ -20,9 +20,9 @@ namespace up7.db.biz
         /// <param name="blockIndex"></param>
         /// <param name="pathSvr"></param>
         /// <returns></returns>
-        public string part(string id,string blockIndex,string pathSvr)
+        public string part(string blockIndex,string pathSvr)
         {
-            string part = this.root(id, pathSvr);
+            string part = this.root(pathSvr);
             part        = Path.Combine(part, blockIndex + ".part");
             part        = part.Replace("\\", "/");
             return part;
@@ -35,7 +35,7 @@ namespace up7.db.biz
         /// <param name="id"></param>
         /// <param name="pathSvr"></param>
         /// <returns></returns>
-        public string root(string id,string pathSvr)
+        public string root(string pathSvr)
         {
             string parent = Path.GetDirectoryName(pathSvr);
             pathSvr    = Path.Combine(parent, "blocks");
