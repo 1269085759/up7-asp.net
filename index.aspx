@@ -49,6 +49,7 @@
     <p><a href="debug/check_config.aspx" target="_blank">检查配置</a></p>
     <p><a href="db/clear.aspx" target="_blank">清空数据库和Redis缓存</a></p>
     <p><a href="down3/index.htm" target="_blank">打开下载页面</a></p>
+    <p>注意：文件夹上传功能必须启动redis服务。文件上传功能不需要此服务。</p>
     <p>
         文件路径：<input id="filePath" type="text" size="50" value="D:\\360safe-inst.exe" />&nbsp;
         <input id="btnUpF" type="button" value="上传本地文件" />
