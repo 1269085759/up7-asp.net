@@ -52,7 +52,7 @@ namespace up7.db
             PathGuidBuilder pb   = new PathGuidBuilder();
             fileSvr.pathSvr      = pb.genFile(fileSvr.uid, fileSvr.id,fileSvr.nameLoc);
             BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath    = bpb.root(id, fileSvr.pathSvr);
+            fileSvr.blockPath    = bpb.root(fileSvr.pathSvr);
 
             //添加到任务表
             DBFileQueue db = new DBFileQueue();

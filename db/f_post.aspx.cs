@@ -56,7 +56,7 @@ namespace up7.db
         void savePart()
         {
             BlockPathBuilder bpb = new BlockPathBuilder();
-            string partPath = bpb.part(this.id, this.blockIndex, pathSvr);
+            string partPath = bpb.part(this.blockIndex, pathSvr);
 
             //自动创建目录
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
