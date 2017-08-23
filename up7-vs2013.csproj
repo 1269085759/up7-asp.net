@@ -88,7 +88,6 @@
     <Content Include="down3\debug\fd_create.html" />
     <Content Include="down3\debug\test.aspx" />
     <Content Include="down3\index.htm" />
-    <Content Include="down3\js\down-single.js" />
     <Content Include="down3\js\down.app.js" />
     <Content Include="down3\js\down.css" />
     <Content Include="down3\js\down.edge.js" />
