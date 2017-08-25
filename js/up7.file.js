@@ -76,10 +76,8 @@ function FileUploader(fileLoc, mgr)
     };
     this.svr_init = function ()
     {
-        var loc_path = encodeURIComponent(this.fileSvr.pathLoc);
-        var loc_len = this.fileSvr.lenLoc;
-        var loc_size = this.fileSvr.sizeLoc;
-        var param = jQuery.extend({}, this.fields, { id: this.fileSvr.id,lenLoc: loc_len, sizeLoc: loc_size, pathLoc: loc_path,blockSize:this.Config.RangeSize, time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields, this.fileSvr,{ blockSize:this.Config.RangeSize, time: new Date().getTime() });
+        jQuery.extend(param,{pathLoc:encodeURIComponent(this.fileSvr.pathLoc)});
 
         $.ajax({
             type: "GET"
@@ -106,7 +104,7 @@ function FileUploader(fileLoc, mgr)
     //在停止和出错时调用
     this.svr_update = function ()
     {
-        var param = jQuery.extend({}, this.fields, {uid:this.fileSvr.uid,sign:this.fileSvr.sign,id:this.fileSvr.id,lenSvr:this.fileSvr.lenSvr, lenLoc: this.fileSvr.lenLoc,perSvr:this.fileSvr.perSvr,blockSize:this.Config.RangeSize, time: new Date().getTime() });
+        var param = jQuery.extend({}, this.fields,this.fileSvr, {time: new Date().getTime() });
         $.ajax({
             type: "GET"
             , dataType: 'jsonp'

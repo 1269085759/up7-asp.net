@@ -25,6 +25,7 @@ namespace up7.db
             string lenLoc    = Request.QueryString["lenLoc"];
             string sizeLoc   = Request.QueryString["sizeLoc"];
             string blockSize = Request.QueryString["blockSize"];
+            string blockCount= Request.QueryString["blockCount"];
             string callback  = Request.QueryString["callback"];//jsonp参数
             //客户端使用的是encodeURIComponent编码，
             string pathLoc   = PathTool.url_decode(Request.QueryString["pathLoc"]);//utf-8解码
@@ -46,6 +47,7 @@ namespace up7.db
             fileSvr.lenLoc       = Convert.ToInt64(lenLoc);
             fileSvr.sizeLoc      = sizeLoc;
             fileSvr.blockSize    = int.Parse(blockSize);
+            fileSvr.blockCount   = int.Parse(blockCount);
             fileSvr.deleted      = false;
             fileSvr.nameSvr      = fileSvr.nameLoc;
 
