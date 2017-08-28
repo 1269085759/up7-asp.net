@@ -70,6 +70,7 @@ function HttpUploaderMgr()
 		, "Authenticate"	: ""//域验证方式：basic,ntlm
 		, "AuthName"		: ""//域帐号
 		, "AuthPass"		: ""//域密码
+        , "BlockCrypto"     : true//块信息加密方式
         , "CryptoType"      : "md5"//验证方式：md5,sha1,crc
         , "CryptoBlockSize" : 52428800//md5验证块大小
         , "CryptoChunkSize" : 52428800//md5验证片大小
@@ -92,7 +93,7 @@ function HttpUploaderMgr()
 		//文件操作相关
 		, "UrlCreate"		: "http://localhost:88/db/f_create.aspx"
 		, "UrlUpdate"		: "http://localhost:88/db/f_update.aspx"
-		, "UrlPost"			: "http://localhost:88/db/f_post.aspx"
+		, "UrlPost"			: "http://localhost:88/db/f_post_crypt.aspx"
 		, "UrlComplete"		: "http://localhost:88/db/f_complete.aspx"
 		, "UrlList"			: "http://localhost:88/db/f_list.aspx"
 		, "UrlDel"			: "http://localhost:88/db/f_del.aspx"

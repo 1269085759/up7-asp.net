@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using up7.db.biz;
 using up7.db.biz.redis;
@@ -8,7 +12,7 @@ using up7.db.utils;
 
 namespace up7.db
 {
-    public partial class f_post : System.Web.UI.Page
+    public partial class f_post_crypt : System.Web.UI.Page
     {
         string uid            = string.Empty;
         string id             = string.Empty;
@@ -28,25 +32,44 @@ namespace up7.db
         string pathRel        = string.Empty;
         string pidRoot        = string.Empty;
 
+        string aes_decode(string v) {
+            if (string.IsNullOrEmpty(v)) return string.Empty;
+            byte[] keyArray = Encoding.UTF8.GetBytes("2C4ED1CC9BAA42A9A86297C026894154");
+            byte[] toEncryptArray = Convert.FromBase64String(v);
+
+            RijndaelManaged rDel = new RijndaelManaged();
+            rDel.Key = keyArray;
+            rDel.Mode = CipherMode.ECB;
+            rDel.Padding = PaddingMode.Zeros;
+
+            ICryptoTransform cTransform = rDel.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+
         void recvParam()
         {
-            this.uid            = Request.Headers["uid"];
-            this.id             = Request.Headers["id"];//
-            this.pid            = Request.Headers["pid"];//
-            this.perSvr         = Request.Headers["perSvr"];//文件百分比
-            this.lenSvr         = Request.Headers["lenSvr"];//已传大小
-            this.lenLoc         = Request.Headers["lenLoc"];//本地文件大小
-            this.nameLoc        = Request.Headers["nameLoc"];//
-            this.sizeLoc        = Request.Headers["sizeLoc"];//
-            this.blockOffset    = Request.Headers["blockOffset"];
-            this.blockIndex     = Request.Headers["blockIndex"];//块偏移，相对于文件
-            this.blockCount     = Request.Headers["blockCount"];//块总数
-            this.blockSize      = Request.Headers["blockSize"];//块大小
-            this.blockSizeLogic = Request.Headers["blockSizeLogic"];//逻辑块大小（定义的块大小）
-            this.pathLoc        = Request.Headers["pathLoc"];//
-            this.pathSvr        = Request.Headers["pathSvr"];
-            this.pathRel        = Request.Headers["pathRel"];
-            this.pidRoot        = Request.Headers["pidRoot"];//文件夹标识(guid)
+            var blockData = this.aes_decode( Request.Form["blockData"]);
+            var kv = JsonConvert.DeserializeObject<Dictionary<string, string>>(blockData);
+
+            this.id             = kv["id"];
+            this.uid            = kv["uid"];
+            this.pid            = kv["pid"];//
+            this.perSvr         = kv["perSvr"];//文件百分比
+            this.lenSvr         = kv["lenSvr"];//已传大小
+            this.lenLoc         = kv["lenLoc"];//本地文件大小
+            this.nameLoc        = kv["nameLoc"];//
+            this.sizeLoc        = kv["sizeLoc"];//
+            this.blockOffset    = kv["blockOffset"];
+            this.blockIndex     = kv["blockIndex"];//块偏移，相对于文件
+            this.blockCount     = kv["blockCount"];//块总数
+            this.blockSize      = kv["blockSize"];//块大小
+            this.blockSizeLogic = kv["blockSizeLogic"];//逻辑块大小（定义的块大小）
+            this.pathLoc        = kv["pathLoc"];//
+            this.pathSvr        = kv["pathSvr"];
+            this.pathRel        = kv["pathRel"];
+            this.pidRoot        = kv["pidRoot"];//文件夹标识(guid)
             this.pathLoc        = PathTool.url_decode(this.pathLoc);
             this.nameLoc        = PathTool.url_decode(this.nameLoc);
             this.pathSvr        = PathTool.url_decode(this.pathSvr);
@@ -89,7 +112,7 @@ namespace up7.db
             string partPath = Path.Combine(fileSvr.blockPath, blockIndex + ".part");
 
             //将文件列表添加到缓存
-            if (blockOffset=="0")
+            if (blockOffset == "0")
             {
                 var con = RedisConfig.getCon();
                 //保存文件信息
@@ -125,20 +148,9 @@ namespace up7.db
             return true;
         }
 
-        /// <summary>
-        /// 只负责拼接文件块。将接收的文件块数据写入到文件中。
-        /// 更新记录：
-        ///		2012-04-12 更新文件大小变量类型，增加对2G以上文件的支持。
-        ///		2012-04-18 取消更新文件上传进度信息逻辑。
-        ///		2012-10-30 增加更新文件进度功能。
-        ///		2015-03-19 文件路径由客户端提供，此页面不再查询文件在服务端的路径。减少一次数据库访问操作。
-        ///     2016-03-31 增加文件夹信息字段
-        ///     2017-05-13 完善文件块逻辑，完善子文件块逻辑
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+
             this.recvParam();
 
             //参数为空
