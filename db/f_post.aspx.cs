@@ -62,11 +62,12 @@ namespace up7.db
             if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
 
             HttpPostedFile part = Request.Files.Get(0);
+            //验证大小
+            if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
         }
         void savePartFolder()
         {
-
             FileInf fileSvr      = new FileInf();
             fileSvr.id           = id;
             fileSvr.nameLoc      = Path.GetFileName(pathLoc);
@@ -84,9 +85,11 @@ namespace up7.db
             BlockPathBuilder bpb = new BlockPathBuilder();
             fileSvr.blockPath    = bpb.rootFD(id, fileSvr.pathSvr);
             if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
-            
+            //块路径
+            string partPath = Path.Combine(fileSvr.blockPath, blockIndex + ".part");
+
             //将文件列表添加到缓存
-            if(blockOffset=="0")
+            if (blockOffset=="0")
             {
                 var con = RedisConfig.getCon();
                 //保存文件信息
@@ -96,10 +99,9 @@ namespace up7.db
                 con.LPush(pidRoot, id);
             }
 
-            //块路径
-            string partPath = Path.Combine(fileSvr.blockPath,blockIndex+".part");
-
             HttpPostedFile part = Request.Files.Get(0);
+            //验证大小
+            if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
         }
 
