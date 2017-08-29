@@ -332,6 +332,7 @@ function FileUploader(fileLoc, mgr)
     {
         if (HttpUploaderState.Posting == this.State)
         {
+            this.svr_update();
             this.ui.btn.post.hide();
         	this.ui.btn.stop.hide();
         	this.ui.btn.cancel.hide();
