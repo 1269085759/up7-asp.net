@@ -74,7 +74,6 @@
     <Content Include="debug\check_config.aspx" />
     <Content Include="debug\fd_create.html" />
     <Content Include="debug\setup.html" />
-    <Content Include="debug\test.aspx" />
     <Content Include="down3\db\clear.aspx" />
     <Content Include="down3\db\fd_page.aspx" />
     <Content Include="down3\db\f_down_part.aspx" />
@@ -254,13 +253,6 @@
     </Compile>
     <Compile Include="debug\check_config.aspx.designer.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="debug\test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="debug\test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\biz\DnFile.cs" />
     <Compile Include="down3\biz\fd_page.cs" />
