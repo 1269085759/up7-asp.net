@@ -201,6 +201,7 @@
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\biz\redis\RedisConfig.cs" />
+    <Compile Include="db\utils\CryptoTool.cs" />
     <Compile Include="db\utils\FileBlockWriter.cs" />
     <Compile Include="db\model\FolderInf.cs" />
     <Compile Include="db\f_complete.aspx.cs">

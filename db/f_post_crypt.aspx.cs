@@ -32,25 +32,11 @@ namespace up7.db
         string pathRel        = string.Empty;
         string pidRoot        = string.Empty;
 
-        string aes_decode(string v) {
-            if (string.IsNullOrEmpty(v)) return string.Empty;
-            byte[] keyArray = Encoding.UTF8.GetBytes("2C4ED1CC9BAA42A9A86297C026894154");
-            byte[] toEncryptArray = Convert.FromBase64String(v);
-
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.Zeros;
-
-            ICryptoTransform cTransform = rDel.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-
-            return UTF8Encoding.UTF8.GetString(resultArray);
-        }
 
         void recvParam()
         {
-            var blockData = this.aes_decode( Request.Form["blockData"]);
+            CryptoTool ct = new CryptoTool();
+            var blockData = ct.cbc_decode( Request.Form["blockData"]);
             var kv = JsonConvert.DeserializeObject<Dictionary<string, string>>(blockData);
 
             this.id             = kv["id"];
