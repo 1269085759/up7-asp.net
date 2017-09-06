@@ -188,8 +188,8 @@ function DownloaderMgr()
 	this.add_ui = function (fileSvr)
 	{
 	    //存在相同项
-	    if (this.exist_url(fileSvr.f_id)) return null;
-        this.filesUrl.push(fileSvr.f_id);
+	    if (this.exist_url(fileSvr.idFile)) { alert("已存在相同项"); return null; };
+        this.filesUrl.push(fileSvr.idFile);
 
 	    var ui = this.tmpFile.clone();
 	    var sp = this.spliter.clone();
