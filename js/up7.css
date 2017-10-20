@@ -9,11 +9,6 @@ body{ font:12px/12px 宋体,新宋体; color:#333333; margin:0; padding:5px;}
 .file-line{background-color: #E3E6EB;overflow: hidden;display: none;height: 1px;}
 /*新构架*/
 div.top-space{margin:3px 0 0 0;}
-div.lineSpace{margin:10px 0 0 0;}
-div.UploaderItemLeft{width:315px; float:left;}
-div.UploaderItemRight{width:54px; float:left;margin:3px 0 0 0;}
-/*文件信息*/
-.FileInfo{}
 /*文件名称*/
 .file-item{font:12px/12px 新宋体;background-color: #FFFFFF; height:65px; margin:0;padding:0 0 0 2px; display:none;}
 .file-item-single{width:417px;}
