@@ -1,7 +1,5 @@
 body{ font:12px/12px 宋体,新宋体; color:#333333; margin:0; padding:5px;}
-li{ list-style:none; }
-a{ text-decoration:none; color:#004477; }
-a:hover{ color:#004477; text-decoration:underline; }
+
 .btn-footer{text-decoration: none; color:#244281; cursor:pointer;display:inline-block;height:35px;line-height:35px;padding:0 5px;}
 .btn-footer:hover{text-decoration: none; background-color:#DADADA;}
 
@@ -80,8 +78,11 @@ div.UploaderItemRight{width:54px; float:left;margin:3px 0 0 0;}
 .file-list ul li.fop{width:70px;text-align:right;padding:0 5px 0 0;}
 .file-list ul li.fop span{ color:#244281; font:12px/25px 新宋体; cursor:pointer; }
 .divHidden{ display:none;}
-/*标签*/
-.tab-panel{width:436px; height:458px;border: solid 1px #cbcbcb; background-color: #CCC; }
+/*面板容器*/
+.tab-panel{width:436px; height:458px;border: solid 1px #cbcbcb; background-color: #CCC;font:12px/12px 宋体,新宋体; }
+.tab-panel li {list-style:none; }
+.tab-panel a{text-decoration:none; color:#004477; }
+.tab-panel a:hover{ color:#004477; text-decoration:underline; }
 /*标签头*/
 .tab-item{width: 436px;height:32px; list-style-type:none;padding:0;margin:0;}
 .tab-item li{display:inline-block; height:32px;padding:0 10px; font:12px/32px 宋体; cursor:pointer; background: #CCC;}
