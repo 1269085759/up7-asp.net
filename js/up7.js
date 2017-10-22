@@ -13,7 +13,7 @@
 	VC运行库：http://www.microsoft.com/en-us/download/details.aspx?id=29
 	联系信箱：1085617561@qq.com
 	联系QQ：1085617561
-    版本：7.2.1
+    版本：7.2.2
 	更新记录：
 		2015-07-31 优化更新进度逻辑
 */
@@ -540,11 +540,12 @@ function HttpUploaderMgr()
         if (needUpdate) this.update_notice();
         else { this.btnSetup.hide(); }
     };
-    this.load_complete_edge = function (json) {
-        this.edge_load = true;
+	this.load_complete_edge = function (json)
+	{
+	    this.edge_load = true;
         this.btnSetup.hide();
         _this.app.init();
-    };
+	};
 	this.recvMessage = function (str)
 	{
 	    var json = JSON.parse(str);
@@ -563,7 +564,7 @@ function HttpUploaderMgr()
         else if (json.name == "scan_complete") { _this.scan_complete(json); }
 	    else if (json.name == "load_complete") { _this.load_complete(json);}
 	    else if (json.name == "load_complete_edge") { _this.load_complete_edge(json); }
-             else if (json.name == "extension_complete") { 
+	    else if (json.name == "extension_complete") { 
             setTimeout(function () {
                 var param = { name: "init", config: _this.Config };
                 _this.app.postMessage(param);
