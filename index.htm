@@ -33,6 +33,12 @@
                 var path = $("#filePath").val();
                 cbMgr.app.addFile({ pathLoc: path });
             });
+            //批量上传本地文件列表
+            $("#btnUpFs").click(function () {
+                var fs = [{ "pathLoc": "d:/文件校验工具.exe" }
+                    , { "pathLoc": "d:/驱动精灵 8.1.exe" }];
+                cbMgr.app.addFile({ files: fs });
+            });
             //上传指定目录
             $("#btnUpFd").click(function () {
                 var path = $("#folderPath").val();
@@ -50,6 +56,9 @@
     <p>
         文件路径：<input id="filePath" type="text" size="50" value="D:\\360safe-inst.exe" />&nbsp;
         <input id="btnUpF" type="button" value="上传本地文件" />
+    </p>
+    <p>
+        <input id="btnUpFs" type="button" value="批量上传本地文件" />
     </p>
     <p>
         目录路径：<input id="folderPath" type="text" size="50" value="C:\\Users\\Administrator\\Desktop\\test" />&nbsp;
