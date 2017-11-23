@@ -27,6 +27,14 @@ namespace up7.db.biz
             //创建目标文件夹
             var fd = Path.GetDirectoryName(fileSvr.pathSvr);
             if (!Directory.Exists(fd)) Directory.CreateDirectory(fd);
+            
+            //空文件
+            if (fileSvr.lenLoc < 1)
+            {
+                FileStream fs = File.Create(fileSvr.pathSvr);
+                fs.Close();
+                return;
+            }
 
             //取文件块
             String[] parts = Directory.GetFiles(fileSvr.blockPath);
