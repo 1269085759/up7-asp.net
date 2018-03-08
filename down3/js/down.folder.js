@@ -204,29 +204,17 @@
 
     this.down_complete = function (json)
     {
-        //所有文件下载完毕
-        if (json.all)
-        {
-            this.hideBtns();
-            this.event.downComplete(this);//biz event
-            //this.ui.btn.del.text("打开");
-            this.ui.process.css("width", "100%");
-            this.ui.percent.text("(100%)");
-            this.ui.msg.text("文件数：" + json.fileCount + " 成功：" + json.fileComplete);
-            this.State = HttpDownloaderState.Complete;
-            //this.SvrDelete();
-            this.Manager.filesCmp.push(this);
-            this.svr_delete();
-        }
-        else
-        {
-            //var f = this.fileSvr.files[json.file.id];
-            //f.complete = true;
-            //f.lenLoc = f.lenSvr;
-            //this.fileSvr.success = json.success;
-            //this.svr_delete_file(f.idSvr);
-            //this.svr_update(null);//更新文件夹进度
-        }
+        this.Manager.filesCmp.push(this);
+        this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
+        this.hideBtns();
+        this.event.downComplete(this);//biz event
+        this.ui.btn.open.show();
+        this.ui.process.css("width", "100%");
+        this.ui.percent.text("(100%)");
+        this.ui.msg.text("文件数：" + json.fileCount + " 成功：" + json.fileComplete);
+        this.State = HttpDownloaderState.Complete;
+        this.svr_delete();
+        setTimeout(function () { _this.Manager.down_next(); }, 500);
     };
 
     this.down_process = function (json)

@@ -396,6 +396,7 @@ function DownloaderMgr()
 	    else if (json.name == "down_recv_name") { _this.down_recv_name(json); }
 	    else if (json.name == "init_end") { _this.init_end(json); }
 	    else if (json.name == "add_file") { _this.add_file(json); }
+	    else if (json.name == "add_folder") { _this.add_folder(json); }
 	    else if (json.name == "add_end") { _this.add_end(json); }
 	    else if (json.name == "down_begin") { _this.down_begin(json); }
 	    else if (json.name == "down_process") { _this.down_process(json); }
