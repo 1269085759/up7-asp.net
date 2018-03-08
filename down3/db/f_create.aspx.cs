@@ -35,7 +35,7 @@ namespace up7.down3.db
 
             DnFileInf inf = new DnFileInf();
             inf.id = id;
-            inf.idFile = idFile;
+            inf.f_id = idFile;
             inf.uid = int.Parse(uid);
             inf.nameLoc = nameLoc;
             inf.pathLoc = pathLoc;//记录本地存储位置

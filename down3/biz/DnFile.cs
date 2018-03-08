@@ -170,7 +170,7 @@ namespace up7.down3.biz
             {
                 DnFileInf f = new DnFileInf();
                 f.id = Guid.NewGuid().ToString("N");
-                f.idFile = r.GetString(0);
+                f.f_id = r.GetString(0);
                 f.fdTask = r.GetBoolean(1);
                 f.nameLoc = r.GetString(2);
                 f.sizeLoc = "0byte";

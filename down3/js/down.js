@@ -236,8 +236,8 @@ function DownloaderMgr()
 	    //btnCancel.click(function () { downer.remove(); });
 
 	    downer.ready(); //准备
-	    return downer;
-	};
+        setTimeout(function () { _this.down_next(); },500);
+    };
 	this.resume_file = function (fileSvr)
 	{
         var f = this.add_ui(fileSvr);

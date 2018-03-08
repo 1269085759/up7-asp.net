@@ -38,7 +38,7 @@ namespace up7.down3.biz
                     {
                         var f       = new DnFileInf();
                         f.id        = Guid.NewGuid().ToString("N");
-                        f.idFile    = r.GetString(0);
+                        f.f_id    = r.GetString(0);
                         f.nameLoc   = r.GetString(1);//f_nameLoc
                         f.pathSvr   = r.GetString(2);
                         f.pathRel   = r.GetString(3);

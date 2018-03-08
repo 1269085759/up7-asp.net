@@ -248,6 +248,8 @@ function FileDownloader(fileLoc, mgr)
         this.ui.msg.text(DownloadErrorCode[json.code+""]);
         this.State = HttpDownloaderState.Stop;
         //this.SvrUpdate();
+        this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
+        this.Manager.add_wait(this.fileSvr.id);
     };
 
     this.down_stoped = function (json)
@@ -256,5 +258,7 @@ function FileDownloader(fileLoc, mgr)
         this.ui.btn.down.show();
         this.ui.btn.del.show();
         this.svr_update();
+        this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
+        this.Manager.add_wait(this.fileSvr.id);
     };
 }
