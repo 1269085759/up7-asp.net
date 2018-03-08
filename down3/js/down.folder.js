@@ -11,7 +11,7 @@
     this.event = mgr.event;
     this.fileSvr = {
           id:""
-        , idFile: ""
+        , f_id: ""
         , uid: 0
         , nameLoc: ""//自定义文件名称
         , folderLoc: this.Config["Folder"]

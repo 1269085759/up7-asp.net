@@ -33,7 +33,7 @@ function FileDownloader(fileLoc, mgr)
     this.event = mgr.event;
     this.fileSvr = {
           id:""//累加，唯一标识
-        , idFile: ""
+        , f_id: ""
         , uid: 0
         , nameLoc: ""//自定义文件名称
         , folderLoc: this.Config["Folder"]
