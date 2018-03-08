@@ -44,12 +44,19 @@
     this.ready = function ()
     {
         this.hideBtns();
+        this.ui.btn.del.click(function () { _this.remove(); });
+        this.ui.btn.stop.click(function () { _this.stop(); });
+        this.ui.btn.down.click(function () { _this.Manager.allStoped = false; _this.down(); });
+        this.ui.btn.cancel.click(function () { _this.remove(); });
+        this.ui.btn.open.click(function () { _this.open(); });
+
         this.ui.btn.down.show();
         this.ui.btn.cancel.show();
         this.ui.msg.text("正在下载队列中等待...");
         this.ui.ico.file.hide();
         this.ui.ico.fd.show();
         this.State = HttpDownloaderState.Ready;
+        this.Manager.add_wait(this.fileSvr.id);//添加到等待队列
     };
     //自定义配置,
     this.reset_fields = function (v) {

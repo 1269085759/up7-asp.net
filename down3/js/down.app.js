@@ -68,11 +68,16 @@ var up6_app = {
         this.postMessage(param);
     }
     , openPath: function (f) {
-        var param = { name: "open_path" };
+        var param = jQuery.extend({},f,{ name: "open_path" });
         this.postMessage(param);
     }
     , openFile: function (f) {
-        var param = { name: "open_file" };
+        var param = jQuery.extend({}, f, { name: "open_file" });
+        this.postMessage(param);
+    }
+    , downFile: function (f) {
+        this.queueCount++;
+        var param = jQuery.extend({}, f, { name: "down_file" });
         this.postMessage(param);
     }
     , initFile: function (f) {

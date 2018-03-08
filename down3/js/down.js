@@ -106,11 +106,14 @@ function DownloaderMgr()
 	this.filesMap = new Object(); //本地文件列表映射表,id,obj-json
 	this.filesCmp = new Array();//已完成列表
 	this.filesUrl = new Array();
-	this.spliter = null;
+    this.queueWait = new Array(); //等待队列，数据:id1,id2,id3
+    this.queueWork = new Array(); //正在上传的队列，数据:id1,id2,id3
+    this.spliter = null;
 	this.pnlFiles = null;//文件上传列表面板
 	this.parter = null;
 	this.btnSetup = null;//安装控件的按钮
 	this.working = false;
+    this.allStoped = false;//
 
 	this.getHtml = function()
 	{ 
@@ -141,6 +144,8 @@ function DownloaderMgr()
 						<a class="btn-box hide" name="stop" title="停止"><div>停止</div></a>\
                         <a class="btn-box" name="cancel" title="取消">取消</a>\
 						<a class="btn-box hide" name="del" title="删除"><div>删除</div></a>\
+						<span tp="btn-item" class="btn-box hide" name="open" title="打开"><div>打开</div></span>\
+						<span tp="btn-item" class="btn-box hide" name="open-fd" title="文件夹"><div>文件夹</div></span>\
 					</div>\
 				</div>';
 		//分隔线
@@ -209,7 +214,9 @@ function DownloaderMgr()
 	    var btnStop   = ui.find("a[name='stop']");
 	    var btnDown   = ui.find("a[name='down']");
 	    var btnDel    = ui.find("a[name='del']");
-	    var ui_eles   = { ico:{file:uiIcoF,fd:uiIcoFD},msg: uiMsg, name: uiName, size: uiSize, process: uiProcess, percent: uiPercent, btn: { cancel: btnCancel, stop: btnStop, down: btnDown, del: btnDel }, div: ui, split: sp };
+        var btnOpen   = ui.find("span[name='open']");
+        var btnOpenFd = ui.find("span[name='open-fd']");
+        var ui_eles = { ico: { file: uiIcoF, fd: uiIcoFD }, msg: uiMsg, name: uiName, size: uiSize, process: uiProcess, percent: uiPercent, btn: { cancel: btnCancel, stop: btnStop, down: btnDown, del: btnDel, open: btnOpen, openFd: btnOpenFd }, div: ui, split: sp };
 
 	    var downer;
         if (fileSvr.fdTask) { downer = new FdDownloader(fileSvr, this); }
@@ -223,10 +230,10 @@ function DownloaderMgr()
 	    uiSize.text(fileSvr.sizeSvr);
         uiPercent.text("(" + fileSvr.perLoc + ")");
         uiProcess.width(fileSvr.perLoc);
-	    btnDel.click(function () { downer.remove(); });
-	    btnStop.click(function () { downer.stop(); });
-	    btnDown.click(function () { downer.down(); });
-	    btnCancel.click(function () { downer.remove(); });
+	    //btnDel.click(function () { downer.remove(); });
+	    //btnStop.click(function () { downer.stop(); });
+	    //btnDown.click(function () { downer.down(); });
+	    //btnCancel.click(function () { downer.remove(); });
 
 	    downer.ready(); //准备
 	    return downer;
@@ -248,23 +255,23 @@ function DownloaderMgr()
         var p = this.filesMap[json.id];
         p.init_complete(json);
     };
-	this.add_file = function (f,fields)
+	this.add_file = function (f)
 	{
         var obj = this.add_ui(f);
-        if (null == obj ) return;
-        obj.reset_fields(fields);
+        //if (null == obj ) return;
+        //obj.reset_fields(fields);
 
-        this.init_file(obj.fileSvr);//
-	    return obj;
+        //this.init_file(obj.fileSvr);//
+	    //return obj;
 	};
-    this.add_folder = function (f,fields)
+    this.add_folder = function (f)
 	{
         var obj = this.add_ui(f);
-	    if (null == obj) return;
-        obj.reset_fields(fields);
+	    //if (null == obj) return;
+        //obj.reset_fields(fields);
 
-        this.init_folder(obj.fileSvr);//
-        return obj;
+        //this.init_folder(obj.fileSvr);//
+        //return obj;
 	};
 	this.exist_url = function (url)
 	{
@@ -282,7 +289,25 @@ function DownloaderMgr()
 	    this.app.openFolder();
 	};
 	this.down_file = function (json) { };
-	this.init_end = function (json)
+    //队列控制
+    this.work_full = function () { return (this.queueWork.length + 1) > this.Config.ThreadCount; };
+    this.add_wait = function (id) { this.queueWait.push(id); };
+    this.add_work = function (id) { this.queueWork.push(id); };
+    this.del_work = function (id) {
+        if (_this.queueWork.length < 1) return;
+        this.queueWork.remove(id);
+    };
+    this.down_next = function () {
+        if (_this.allStoped) return;
+        if (_this.work_full()) return;
+        if (_this.queueWait.length < 1) return;
+        var f_id = _this.queueWait.shift();
+        var f = _this.filesMap[f_id];
+        _this.add_work(f_id);
+        f.down();
+    };
+
+    this.init_end = function (json)
 	{
 	    var p = this.filesMap[json.id];
 	    p.init_end(json);
@@ -370,6 +395,7 @@ function DownloaderMgr()
 	    else if (json.name == "down_recv_size") { _this.down_recv_size(json); }
 	    else if (json.name == "down_recv_name") { _this.down_recv_name(json); }
 	    else if (json.name == "init_end") { _this.init_end(json); }
+	    else if (json.name == "add_file") { _this.add_file(json); }
 	    else if (json.name == "add_end") { _this.add_end(json); }
 	    else if (json.name == "down_begin") { _this.down_begin(json); }
 	    else if (json.name == "down_process") { _this.down_process(json); }
