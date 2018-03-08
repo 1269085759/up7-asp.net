@@ -80,6 +80,11 @@ var up6_app = {
         var param = jQuery.extend({}, f, { name: "down_file" });
         this.postMessage(param);
     }
+    , downFolder: function (f) {
+        this.queueCount++;
+        var param = jQuery.extend({}, f, { name: "down_folder" });
+        this.postMessage(param);
+    }
     , initFile: function (f) {
         this.queueCount++;
         var param = jQuery.extend({}, f, { name: "init_file" });

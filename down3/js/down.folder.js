@@ -80,8 +80,9 @@
         this.ui.btn.stop.show();
         this.ui.msg.text("开始连接服务器...");
         this.State = HttpDownloaderState.Posting;        
-        this.app.addFolder(this.fileSvr);
-        this.Manager.start_queue();//下载队列
+        this.app.downFolder(this.fileSvr);//下载队列
+        //this.app.addFolder(this.fileSvr);
+        //this.Manager.start_queue();//下载队列
     };
 
     //方法-停止传输
