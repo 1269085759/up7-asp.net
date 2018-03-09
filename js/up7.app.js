@@ -64,13 +64,11 @@ var up6_app = {
     }
     , addFile: function (json)
     {
-        var param = { name: "add_file"};
-        jQuery.extend(param, json);
+        var param = jQuery.extend({}, json, { name: "add_file" });
         this.postMessage(param);
     }
     , addFolder: function (json) {
-        var param = { name: "add_folder"};
-        jQuery.extend(param, json);
+        var param = jQuery.extend({}, json, { name: "add_folder" });
         this.postMessage(param);
     }
     , openFiles: function ()
@@ -90,20 +88,17 @@ var up6_app = {
     }
     , checkFile: function (f)
     {
-        var param = { name: "check_file"};
-        jQuery.extend(param, f);
+        var param = jQuery.extend({}, f, { name: "check_file" });
         this.postMessage(param);
     }
     , checkFolder: function (fd)
     {
-        var param = { name: "check_folder"};
-        jQuery.extend(param, fd);
+        var param = jQuery.extend({}, fd, { name: "check_folder" });
         param.name = "check_folder";
         this.postMessage(param);
     }
     , scanFolder: function (fd) {
-        var param = { name: "scan_folder"};
-        jQuery.extend(param, fd);
+        var param = jQuery.extend({}, fd, { name: "scan_folder" });
         param.name = "scan_folder";
         this.postMessage(param);
     }
@@ -114,14 +109,12 @@ var up6_app = {
     }
     , postFile: function (f)
     {
-        var param = { name: "post_file"};
-        jQuery.extend(param, f);
+        var param = jQuery.extend({}, f, { name: "post_file" });
         this.postMessage(param);
     }
     , postFolder: function (fd)
     {
-        var param = { name: "post_folder"};
-        jQuery.extend(param, fd);
+        var param = jQuery.extend({}, fd, { name:"post_folder"});
         param.name = "post_folder";
         this.postMessage(param);
     }
