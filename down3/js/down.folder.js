@@ -7,7 +7,6 @@
     this.Config = mgr.Config;
     this.fields = jQuery.extend({},mgr.Config.Fields);//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
-    this.svr_inited = false;
     this.event = mgr.event;
     this.fileSvr = {
           id:""
@@ -25,7 +24,8 @@
         , errors: 0
         , success:0
         , fdTask: true
-        ,files:null
+        , files: null
+        , svrInit: false
     };
     jQuery.extend(this.fileSvr, fileLoc);//覆盖配置
     jQuery.extend(this.fileSvr, { fields: this.fields });
@@ -115,7 +115,7 @@
     };
     this.init_complete = function (json) {
         jQuery.extend(this.fileSvr, json);
-        if (!this.svr_inited) this.svr_create();//
+        if (!this.fileSvr.svrInit) this.svr_create();//
     };
 
     //在出错，停止中调用
@@ -156,7 +156,7 @@
             {
                 _this.ui.btn.down.show();
                 _this.ui.msg.text("初始化完毕...");
-                _this.svr_inited = true;
+                _this.fileSvr.svrInit = true;
                 _this.svr_create_cmp();
             }
             , error: function (req, txt, err) { alert("创建信息失败！" + req.responseText); }

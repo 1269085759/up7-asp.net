@@ -6,6 +6,9 @@ var DownloadErrorCode = {
 	, "3": "域名未授权"
 	, "4": "文件大小超过限制"
 	, "5": "地址为空"
+	, "6": "配置文件不存在"
+    , "7": "本地目录不存在"
+    , "8": "查询文件信息失败"
 };
 //状态
 var HttpDownloaderState = {
@@ -29,7 +32,6 @@ function FileDownloader(fileLoc, mgr)
     this.Config = mgr.Config;
     this.fields = jQuery.extend({}, mgr.Config.Fields, { nameLoc: encodeURIComponent(fileLoc.nameLoc), sizeSvr: fileLoc.sizeSvr });//每一个对象自带一个fields幅本
     this.State = HttpDownloaderState.None;
-    this.svr_inited = false;
     this.event = mgr.event;
     this.fileSvr = {
           id:""//累加，唯一标识
@@ -45,6 +47,7 @@ function FileDownloader(fileLoc, mgr)
         , sizeSvr:"0byte"
         , complete: false
         , fdTask: false
+        , svrInit: false
     };
     jQuery.extend(this.fileSvr, fileLoc);//覆盖配置
     jQuery.extend(this.fileSvr, { fields: this.fields });//附加字段
@@ -94,8 +97,8 @@ function FileDownloader(fileLoc, mgr)
     
     this.add_end = function(json)
     {
-    	//续传不初始化
-    	if(this.svr_inited) return;
+        //续传不初始化
+        if (this.fileSvr.svrInit) return;
     	this.fileSvr.pathLoc = json.pathLoc;    	
     	this.svr_create();//
     };
@@ -103,12 +106,16 @@ function FileDownloader(fileLoc, mgr)
     //方法-开始下载
     this.down = function ()
     {
-        //续传
-        this.hideBtns();
-        this.ui.btn.stop.show();
-        this.ui.msg.text("开始连接服务器...");
-        this.State = HttpDownloaderState.Posting;
-        this.app.downFile(this.fileSvr);//下载队列
+        if (this.fileSvr.svrInit) {
+            this.hideBtns();
+            this.ui.btn.stop.show();
+            this.ui.msg.text("开始连接服务器...");
+            this.State = HttpDownloaderState.Posting;
+            this.app.downFile(this.fileSvr);//下载队列
+        }
+        else {
+            this.svr_create();
+        }
     };
 
     //方法-停止传输
@@ -143,7 +150,7 @@ function FileDownloader(fileLoc, mgr)
     };
     this.init_complete = function (json) {
         jQuery.extend(this.fileSvr, json);
-        if (!this.svr_inited) this.svr_create();//
+        if (!this.fileSvr.svrInit) this.svr_create();//
     };
 
     //在出错，停止中调用
@@ -180,7 +187,7 @@ function FileDownloader(fileLoc, mgr)
             {
                 if (msg.value == null) return;
                 var json = JSON.parse(decodeURIComponent(msg.value));
-                _this.svr_inited = true;
+                _this.fileSvr.svrInit = true;
                 _this.svr_create_cmp();
             }
             , error: function (req, txt, err) { alert("创建信息失败！" + req.responseText); }

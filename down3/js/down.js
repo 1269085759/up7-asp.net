@@ -238,12 +238,10 @@ function DownloaderMgr()
 	    downer.ready(); //准备
         setTimeout(function () { _this.down_next(); },500);
     };
-	this.resume_file = function (fileSvr)
-	{
-        var f = this.add_ui(fileSvr);
-	    if (null == f) return;
-	    f.svr_inited = true;
-	    return f;
+	this.resume_file = function (fSvr)
+    {
+        var f = jQuery.extend({}, fSvr, { svrInit: true });
+        this.add_ui(fSvr);
     };
     this.init_file = function (f) {
         this.app.initFile(f);
