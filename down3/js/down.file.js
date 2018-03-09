@@ -111,6 +111,7 @@ function FileDownloader(fileLoc, mgr)
             this.ui.btn.stop.show();
             this.ui.msg.text("开始连接服务器...");
             this.State = HttpDownloaderState.Posting;
+            this.Manager.del_wait(this.fileSvr.id);
             this.app.downFile(this.fileSvr);//下载队列
         }
         else {
@@ -266,6 +267,6 @@ function FileDownloader(fileLoc, mgr)
         this.ui.btn.del.show();
         this.svr_update();
         this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
-        this.Manager.add_wait(this.fileSvr.id);
+        //this.Manager.add_wait(this.fileSvr.id);
     };
 }

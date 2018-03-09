@@ -193,8 +193,8 @@ function DownloaderMgr()
 	this.add_ui = function (fileSvr)
 	{
 	    //存在相同项
-	    if (this.exist_url(fileSvr.f_id)) { alert("已存在相同项"); return null; };
-        this.filesUrl.push(fileSvr.f_id);
+	    if (this.exist_url(fileSvr.id)) { alert("已存在相同项"); return null; };
+        this.filesUrl.push(fileSvr.id);
 
 	    var ui = this.tmpFile.clone();
 	    var sp = this.spliter.clone();
@@ -241,7 +241,7 @@ function DownloaderMgr()
 	this.resume_file = function (fSvr)
     {
         var f = jQuery.extend({}, fSvr, { svrInit: true });
-        this.add_ui(fSvr);
+        this.add_ui(f);
     };
     this.init_file = function (f) {
         this.app.initFile(f);
@@ -290,6 +290,10 @@ function DownloaderMgr()
     //队列控制
     this.work_full = function () { return (this.queueWork.length + 1) > this.Config.ThreadCount; };
     this.add_wait = function (id) { this.queueWait.push(id); };
+    this.del_wait = function (id) {
+        if (_this.queueWait.length < 1) return;
+        this.queueWait.remove(id);
+    };
     this.add_work = function (id) { this.queueWork.push(id); };
     this.del_work = function (id) {
         if (_this.queueWork.length < 1) return;
