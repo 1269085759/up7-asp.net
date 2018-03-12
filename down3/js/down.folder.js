@@ -48,7 +48,7 @@
         this.ui.btn.stop.click(function () { _this.stop(); });
         this.ui.btn.down.click(function () { _this.Manager.allStoped = false; _this.down(); });
         this.ui.btn.cancel.click(function () { _this.remove(); });
-        this.ui.btn.open.click(function () { _this.open(); });
+        this.ui.btn.open.click(function () { _this.openPath(); });
 
         this.ui.btn.down.show();
         this.ui.btn.cancel.show();
@@ -75,14 +75,14 @@
     //方法-开始下载
     this.down = function ()
     {
-        //续传
         this.hideBtns();
         this.ui.btn.stop.show();
         this.ui.msg.text("开始连接服务器...");
-        this.State = HttpDownloaderState.Posting;        
-        this.app.downFolder(this.fileSvr);//下载队列
-        //this.app.addFolder(this.fileSvr);
-        //this.Manager.start_queue();//下载队列
+        this.State = HttpDownloaderState.Posting;
+        if (this.fileSvr.svrInit) {
+            this.app.downFolder(this.fileSvr);//下载队列
+        }
+        else { this.svr_create(); }
     };
 
     //方法-停止传输
@@ -102,11 +102,6 @@
         this.ui.div.remove();
         this.Manager.remove_url(this.fileSvr.fileUrl);
         this.svr_delete();
-    };
-
-    this.open = function ()
-    {
-        this.app.openFile(this.fileSvr);
     };
 
     this.openPath = function ()
