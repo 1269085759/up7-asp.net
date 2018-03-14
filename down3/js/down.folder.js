@@ -254,7 +254,7 @@
         this.State = HttpDownloaderState.Stop;
         this.svr_update();
         this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
-        this.Manager.add_wait(this.fileSvr.id);
+        //this.Manager.add_wait(this.fileSvr.id);
     };
 
     this.down_stoped = function (json)
@@ -264,6 +264,6 @@
         this.ui.btn.del.show();
         this.svr_update();
         this.Manager.del_work(this.fileSvr.id);//从工作队列中删除
-        this.Manager.add_wait(this.fileSvr.id);
+        //this.Manager.add_wait(this.fileSvr.id);
     };
 }
