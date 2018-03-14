@@ -1,5 +1,5 @@
 ﻿/*
-版权所有(C) 2009-2017 荆门泽优软件有限公司
+版权所有(C) 2009-2018 荆门泽优软件有限公司
 保留所有权利
 官方网站：http://www.ncmem.com
 官方博客：http://www.cnblogs.com/xproer
@@ -7,16 +7,15 @@
 在线演示：http://www.ncmem.com/products/http-downloader/demo/index.html
 开发文档：http://www.cnblogs.com/xproer/archive/2011/03/15/1984950.html
 升级日志：http://www.cnblogs.com/xproer/archive/2011/03/15/1985091.html
-示例下载(asp.net)：http://www.ncmem.com/download/HttpDownloader/asp.net/demo.rar
-示例下载(jsp-access)：http://www.ncmem.com/download/HttpDownloader/jsp/HttpDownloader.rar
-示例下载(jsp-mysql)：http://www.ncmem.com/download/HttpDownloader/jsp/HttpDownloaderMySQL.rar
-示例下载(jsp-oracle)：http://www.ncmem.com/download/HttpDownloader/jsp/HttpDownloaderOracle.rar
-示例下载(jsp-sql)：http://www.ncmem.com/download/HttpDownloader/jsp/HttpDownloaderSQL.rar
-示例下载(php)：http://www.ncmem.com/download/HttpDownloader/php/HttpDownloader.rar
-文档下载：http://www.ncmem.com/download/HttpDownloader/HttpDownloader-doc.rar
+示例下载(asp.net)：http://www.ncmem.com/download/up7/asp.net/up7.rar
+示例下载(jsp-mysql)：http://www.ncmem.com/download/up7/jsp/Uploader7Mysql.rar
+示例下载(jsp-oracle)：http://www.ncmem.com/download/up7/jsp/Uploader7Oracle.rar
+示例下载(jsp-sql)：http://www.ncmem.com/download/up7/jsp/Uploader7SQL.rar
+示例下载(php)：http://www.ncmem.com/download/up7/php/up7.rar
+文档下载：http://www.ncmem.com/download/up7/up7-doc.rar
 联系邮箱：1085617561@qq.com
 联系QQ：1085617561
-版本：7.2.1
+版本：7.2.2
 更新记录：
     2009-11-05 创建
 	2014-02-27 优化版本号。
