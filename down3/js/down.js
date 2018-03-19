@@ -39,7 +39,7 @@ function DownloaderMgr()
 {
 	var _this = this;
 	this.Config = {
-		  "Folder"		: "F:\\ftp\\"
+		  "Folder"		: ""
 		, "Debug"		: false//调试模式
 		, "LogFile"		: "f:\\log.txt"//日志文件路径。
 		, "Company"		: "荆门泽优软件有限公司"
