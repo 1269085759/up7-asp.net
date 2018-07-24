@@ -30,11 +30,11 @@ function FolderUploader(fdLoc, mgr)
     };
     this.svr_create = function ()
     {
-        if (this.folderSvr.lenLoc==0)
-        {
-            this.all_complete();
-            return;
-        }
+        //if (this.folderSvr.lenLoc==0)
+        //{
+        //    this.all_complete();
+        //    return;
+        //}
         this.ui.btn.stop.show();
         this.ui.btn.cancel.hide();
         this.ui.btn.post.hide();
