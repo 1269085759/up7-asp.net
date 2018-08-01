@@ -65,6 +65,7 @@ namespace up7.db
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+            Response.Write("ok");
         }
         void savePartFolder()
         {
@@ -103,6 +104,7 @@ namespace up7.db
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+            Response.Write("ok");
         }
 
         bool checkParam()
@@ -156,8 +158,6 @@ namespace up7.db
                 {
                     this.savePartFolder();
                 }
-
-                Response.Write("ok");
             }
         }
     }
