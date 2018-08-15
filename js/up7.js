@@ -1,5 +1,5 @@
 /*
-	版权所有 2009-2017 荆门泽优软件有限公司
+	版权所有 2009-2018 荆门泽优软件有限公司
 	保留所有权利
 	官方网站：http://www.ncmem.com/
 	产品首页：http://www.ncmem.com/webapp/up6.2/index.asp
