@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using up7.db.biz;
 using up7.db.biz.redis;
@@ -24,6 +28,8 @@ namespace up7.db
         string blockCount     = string.Empty;
         string blockSize      = string.Empty;
         string blockSizeLogic = string.Empty;
+        string blockMd5       = string.Empty;
+        string blockMd5Cal    = string.Empty;//计算的md5
         string pathSvr        = string.Empty;
         string pathRel        = string.Empty;
         string pidRoot        = string.Empty;
@@ -43,6 +49,7 @@ namespace up7.db
             this.blockCount     = Request.Headers["blockCount"];//块总数
             this.blockSize      = Request.Headers["blockSize"];//块大小
             this.blockSizeLogic = Request.Headers["blockSizeLogic"];//逻辑块大小（定义的块大小）
+            this.blockMd5       = Request.Headers["blockMd5"];//块MD5
             this.pathLoc        = Request.Headers["pathLoc"];//
             this.pathSvr        = Request.Headers["pathSvr"];
             this.pathRel        = Request.Headers["pathRel"];
@@ -147,6 +154,18 @@ namespace up7.db
             //有文件块数据
             if (Request.Files.Count > 0)
             {
+                HttpPostedFile part = Request.Files.Get(0);
+                byte[] data = new byte[part.InputStream.Length];
+                part.InputStream.Read(data, 0, (int)part.InputStream.Length);
+                MD5 md5 = MD5.Create();
+                byte[] ret = md5.ComputeHash(data);
+                StringBuilder strbul = new StringBuilder(40);
+                for (int i = 0; i < ret.Length; i++)
+                {
+                    strbul.Append(ret[i].ToString("x2"));//加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
+                }
+
+
                 //文件块
                 if (string.IsNullOrEmpty(pidRoot))
                 {
@@ -157,7 +176,18 @@ namespace up7.db
                     this.savePartFolder();
                 }
 
-                Response.Write("ok");
+                if (string.IsNullOrEmpty(this.blockMd5))
+                {
+                    Response.Write("ok");
+                }
+                else
+                {
+                    JObject o = new JObject();
+                    o["msg"] = "ok";
+                    o["md5"] = strbul.ToString();
+                    string json = JsonConvert.SerializeObject(o);//取消格式化
+                    Response.Write(json);
+                }
             }
         }
     }

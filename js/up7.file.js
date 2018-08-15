@@ -34,6 +34,7 @@ function FileUploader(fileLoc, mgr)
         , perSvr: "0%"
         , complete: false
         , deleted: false
+        , post: mgr.Config.UrlPost
     };//json obj，服务器文件信息
     this.fileSvr = jQuery.extend(this.fileSvr, fileLoc);
 

@@ -15,7 +15,8 @@
     <script language="javascript" type="text/javascript">
         var cbMgr = new HttpUploaderMgr();
         cbMgr.event.md5Complete = function (obj, md5) { /*alert(md5);*/ };
-        cbMgr.event.fileComplete = function (obj) { /*alert(obj.pathSvr);*/ };
+        cbMgr.event.fileComplete = function (obj) { /*alert(obj.fileSvr.pathSvr);*/ };
+        cbMgr.event.fileAppend = function (obj) { /*alert(obj.fileSvr.pathSvr);*/ };
         //使用不同项目配置
         //cbMgr.set_config(up7_config.qq);
         //cbMgr.set_config(up7_config.qq_mail);

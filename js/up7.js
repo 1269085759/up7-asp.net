@@ -13,7 +13,7 @@
 	VC运行库：http://www.microsoft.com/en-us/download/details.aspx?id=29
 	联系信箱：1085617561@qq.com
 	联系QQ：1085617561
-    版本：7.2.2
+    版本：7.2.3
 	更新记录：
 		2015-07-31 优化更新进度逻辑
 */
@@ -65,12 +65,13 @@ function HttpUploaderMgr()
 	this.Config = {
 		  "EncodeType"		: "utf-8"
 		, "Company"			: "荆门泽优软件有限公司"
-		, "Version"			: "2,7,141,51475"
+		, "Version"			: "2,7,142,51656"
 		, "License"			: ""//
 		, "Authenticate"	: ""//域验证方式：basic,ntlm
 		, "AuthName"		: ""//域帐号
 		, "AuthPass"		: ""//域密码
         , "BlockCrypto"     : false//块信息加密方式
+        , "BlockMD5"        : true//开启块信息验证
         , "CryptoType"      : "md5"//验证方式：md5,sha1,crc
         , "CryptoBlockSize" : 52428800//md5验证块大小
         , "CryptoChunkSize" : 52428800//md5验证片大小
@@ -121,7 +122,9 @@ function HttpUploaderMgr()
     //biz event
 	this.event = {
 	      "md5Complete": function (obj/*HttpUploader对象*/, md5) { }
+        , "fileResume": function (obj/*续传文件，参考：FileUploader*/) { }
         , "fileComplete": function (obj/*文件上传完毕，参考：FileUploader*/) { }
+        , "fileAppend": function (obj/*添加文件，参考：FileUploader*/) { }
         , "fdComplete": function (obj/*文件夹上传完毕，参考：FolderUploader*/) { }
         , "queueComplete":function(){/*队列上传完毕*/}
 	};
@@ -1002,7 +1005,8 @@ function HttpUploaderMgr()
 		});
 		btnDel.click(function () { upFile.remove(); });
 		
-		upFile.Ready(); //准备
+        upFile.Ready(); //准备
+        this.event.fileAppend(upFile);
 		return upFile;
 	};
 
