@@ -72,6 +72,18 @@ namespace up7.db
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+
+            //计算块md5
+            string md5Svr = string.Empty;
+            if ( !string.IsNullOrEmpty(this.blockMd5)) md5Svr = this.mkMD5(part.InputStream);
+
+            //返回信息
+            JObject o = new JObject();
+            o["msg"] = "ok";
+            o["md5"] = md5Svr;
+            o["offset"] = long.Parse(this.blockOffset);
+            string json = JsonConvert.SerializeObject(o);//取消格式化
+            Response.Write(json);
         }
         void savePartFolder()
         {
@@ -106,10 +118,23 @@ namespace up7.db
                 con.LPush(pidRoot, id);
             }
 
+
             HttpPostedFile part = Request.Files.Get(0);
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+
+            //计算块md5
+            string md5Svr = string.Empty;
+            if ( !string.IsNullOrEmpty(this.blockMd5) ) md5Svr = this.mkMD5(part.InputStream);
+
+            //返回信息
+            JObject o = new JObject();
+            o["msg"] = "ok";
+            o["md5"] = md5Svr;
+            o["offset"] = long.Parse(this.blockOffset);
+            string json = JsonConvert.SerializeObject(o);//取消格式化
+            Response.Write(json);
         }
 
         bool checkParam()
@@ -130,6 +155,21 @@ namespace up7.db
                 return false;
             }
             return true;
+        }
+
+        string mkMD5(Stream s)
+        {
+            HttpPostedFile part = Request.Files.Get(0);
+            byte[] data = new byte[s.Length];
+            s.Read(data, 0, (int)s.Length);
+            MD5 md5 = MD5.Create();
+            byte[] ret = md5.ComputeHash(data);
+            StringBuilder strbul = new StringBuilder(40);
+            for (int i = 0; i < ret.Length; i++)
+            {
+                strbul.Append(ret[i].ToString("x2"));//加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
+            }
+            return strbul.ToString();
         }
 
         /// <summary>
@@ -154,18 +194,6 @@ namespace up7.db
             //有文件块数据
             if (Request.Files.Count > 0)
             {
-                HttpPostedFile part = Request.Files.Get(0);
-                byte[] data = new byte[part.InputStream.Length];
-                part.InputStream.Read(data, 0, (int)part.InputStream.Length);
-                MD5 md5 = MD5.Create();
-                byte[] ret = md5.ComputeHash(data);
-                StringBuilder strbul = new StringBuilder(40);
-                for (int i = 0; i < ret.Length; i++)
-                {
-                    strbul.Append(ret[i].ToString("x2"));//加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
-                }
-
-
                 //文件块
                 if (string.IsNullOrEmpty(pidRoot))
                 {
@@ -174,19 +202,6 @@ namespace up7.db
                 else
                 {
                     this.savePartFolder();
-                }
-
-                if (string.IsNullOrEmpty(this.blockMd5))
-                {
-                    Response.Write("ok");
-                }
-                else
-                {
-                    JObject o = new JObject();
-                    o["msg"] = "ok";
-                    o["md5"] = strbul.ToString();
-                    string json = JsonConvert.SerializeObject(o);//取消格式化
-                    Response.Write(json);
                 }
             }
         }
