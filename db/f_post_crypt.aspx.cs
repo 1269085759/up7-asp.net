@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,7 @@ namespace up7.db
         string blockCount     = string.Empty;
         string blockSize      = string.Empty;
         string blockSizeLogic = string.Empty;
+        string blockMd5       = string.Empty;
         string pathSvr        = string.Empty;
         string pathRel        = string.Empty;
         string pidRoot        = string.Empty;
@@ -52,6 +54,7 @@ namespace up7.db
             this.blockCount     = kv["blockCount"];//块总数
             this.blockSize      = kv["blockSize"];//块大小
             this.blockSizeLogic = kv["blockSizeLogic"];//逻辑块大小（定义的块大小）
+            this.blockMd5       = kv["blockMd5"];//块MD5
             this.pathLoc        = kv["pathLoc"];//
             this.pathSvr        = kv["pathSvr"];
             this.pathRel        = kv["pathRel"];
@@ -74,6 +77,18 @@ namespace up7.db
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+
+            //计算块md5
+            string md5Svr = string.Empty;
+            if ( !string.IsNullOrEmpty(this.blockMd5)) md5Svr = this.mkMD5(part.InputStream);
+
+            //返回信息
+            JObject o = new JObject();
+            o["msg"] = "ok";
+            o["md5"] = md5Svr;
+            o["offset"] = long.Parse(this.blockOffset);
+            string json = JsonConvert.SerializeObject(o);//取消格式化
+            Response.Write(json);
         }
         void savePartFolder()
         {
@@ -112,6 +127,18 @@ namespace up7.db
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize)) return;
             part.SaveAs(partPath);
+
+            //计算块md5
+            string md5Svr = string.Empty;
+            if ( !string.IsNullOrEmpty(this.blockMd5) ) md5Svr = this.mkMD5(part.InputStream);
+
+            //返回信息
+            JObject o = new JObject();
+            o["msg"] = "ok";
+            o["md5"] = md5Svr;
+            o["offset"] = long.Parse(this.blockOffset);
+            string json = JsonConvert.SerializeObject(o);//取消格式化
+            Response.Write(json);
         }
 
         bool checkParam()
@@ -134,6 +161,21 @@ namespace up7.db
             return true;
         }
 
+        string mkMD5(Stream s)
+        {
+            HttpPostedFile part = Request.Files.Get(0);
+            byte[] data = new byte[s.Length];
+            s.Read(data, 0, (int)s.Length);
+            MD5 md5 = MD5.Create();
+            byte[] ret = md5.ComputeHash(data);
+            StringBuilder strbul = new StringBuilder(40);
+            for (int i = 0; i < ret.Length; i++)
+            {
+                strbul.Append(ret[i].ToString("x2"));//加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
+            }
+            return strbul.ToString();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -154,8 +196,6 @@ namespace up7.db
                 {
                     this.savePartFolder();
                 }
-
-                Response.Write("ok");
             }
         }
     }
