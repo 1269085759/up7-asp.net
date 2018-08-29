@@ -160,7 +160,7 @@ function HttpUploaderMgr()
 	this.ffVer = navigator.userAgent.match(/Firefox\/(\d+)/);
     this.edge = navigator.userAgent.indexOf("Edge") > 0;
     this.edgeApp = new WebServer(this);
-    this.app = up6_app;
+    this.app = up7_app;
     this.app.edgeApp = this.edgeApp;
     this.app.Config = this.Config;
     this.app.ins = this;
