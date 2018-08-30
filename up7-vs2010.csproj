@@ -9,14 +9,15 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HttpUploader6</RootNamespace>
-    <AssemblyName>HttpUploader6</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <RootNamespace>up7</RootNamespace>
+    <AssemblyName>up7</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <UseIISExpress>false</UseIISExpress>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,17 +37,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="csredis, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1afd0264bbe4a44a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="db\biz\BlockMeger.cs" />
@@ -68,66 +79,77 @@
     <Compile Include="db\biz\redis\tasks.cs" />
     <Compile Include="db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\clear.aspx.designer.cs">
       <DependentUpon>clear.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\fd_complete.aspx.cs">
       <DependentUpon>fd_complete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\fd_complete.aspx.designer.cs">
       <DependentUpon>fd_complete.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\fd_create.aspx.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\fd_create.aspx.designer.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\fd_del.aspx.cs">
       <DependentUpon>fd_del.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\fd_del.aspx.designer.cs">
       <DependentUpon>fd_del.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_complete.aspx.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_complete.aspx.designer.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_create.aspx.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_create.aspx.designer.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_del.aspx.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_del.aspx.designer.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_list.aspx.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_list.aspx.designer.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_post.aspx.cs">
       <DependentUpon>f_post.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_post.aspx.designer.cs">
       <DependentUpon>f_post.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_post_crypt.aspx.cs">
       <DependentUpon>f_post_crypt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_post_crypt.aspx.designer.cs">
       <DependentUpon>f_post_crypt.aspx</DependentUpon>
     </Compile>
     <Compile Include="db\f_update.aspx.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="db\f_update.aspx.designer.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
@@ -140,18 +162,21 @@
     <Compile Include="db\utils\XDebug.cs" />
     <Compile Include="debug\big_file.aspx.cs">
       <DependentUpon>big_file.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="debug\big_file.aspx.designer.cs">
       <DependentUpon>big_file.aspx</DependentUpon>
     </Compile>
     <Compile Include="debug\check_config.aspx.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="debug\check_config.aspx.designer.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
     </Compile>
     <Compile Include="debug\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="debug\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
@@ -160,78 +185,91 @@
     <Compile Include="down3\biz\fd_page.cs" />
     <Compile Include="down3\db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\clear.aspx.designer.cs">
       <DependentUpon>clear.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\fd_create.aspx.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\fd_create.aspx.designer.cs">
       <DependentUpon>fd_create.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\fd_page.aspx.cs">
       <DependentUpon>fd_page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\fd_page.aspx.designer.cs">
       <DependentUpon>fd_page.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_complete.aspx.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_complete.aspx.designer.cs">
       <DependentUpon>f_complete.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_create.aspx.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_create.aspx.designer.cs">
       <DependentUpon>f_create.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_del.aspx.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_del.aspx.designer.cs">
       <DependentUpon>f_del.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_down.aspx.cs">
       <DependentUpon>f_down.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_down.aspx.designer.cs">
       <DependentUpon>f_down.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_down_part.aspx.cs">
       <DependentUpon>f_down_part.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_down_part.aspx.designer.cs">
       <DependentUpon>f_down_part.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_list.aspx.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_list.aspx.designer.cs">
       <DependentUpon>f_list.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_list_cmp.aspx.cs">
       <DependentUpon>f_list_cmp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_list_cmp.aspx.designer.cs">
       <DependentUpon>f_list_cmp.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\db\f_update.aspx.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\db\f_update.aspx.designer.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\debug\check_config.aspx.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\debug\check_config.aspx.designer.cs">
       <DependentUpon>check_config.aspx</DependentUpon>
     </Compile>
     <Compile Include="down3\debug\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="down3\debug\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
@@ -239,6 +277,7 @@
     <Compile Include="down3\model\DnFileInf.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
