@@ -319,6 +319,7 @@ function FolderUploader(fdLoc, mgr)
     this.scan_complete = function (json)
     {
         this.ui.msg.text("扫描完毕，开始上传...");
+        this.ui.size.text(json.sizeLoc);
         jQuery.extend(this.folderSvr, json);
         this.folderScan = true;
         setTimeout(function () {
