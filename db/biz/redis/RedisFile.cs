@@ -16,9 +16,9 @@ namespace up7.db.biz.redis
             j.HSet(idSign, "blockCount", blockCount);
         }
 
-        public void create(FileInf f)
+        public bool create(FileInf f)
         {
-            if (this.con.Exists(f.id)) return;
+            if (this.con.Exists(f.id)) return false;
 
             this.con.HSet(f.id, "fdTask", f.fdTask);
             this.con.HSet(f.id, "pid", f.pid);
@@ -36,6 +36,7 @@ namespace up7.db.biz.redis
             this.con.HSet(f.id, "sizeLoc", f.sizeLoc);
             this.con.HSet(f.id, "filesCount", f.fileCount);
             this.con.HSet(f.id, "foldersCount", "0");
+            return true;
         }
 
         public FileInf read(string id)

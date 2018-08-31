@@ -126,9 +126,9 @@ namespace up7.db
                 var con = RedisConfig.getCon();
                 //保存文件信息
                 RedisFile f_svr = new RedisFile(ref con);
-                f_svr.create(fileSvr);
+                var ret = f_svr.create(fileSvr);
                 //保存到文件夹
-                con.LPush(pidRoot, id);
+                if(ret) con.LPush(pidRoot, id);
             }
 
             //计算块md5
