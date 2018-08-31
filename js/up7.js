@@ -87,6 +87,7 @@ function HttpUploaderMgr()
         , "Cookie"			: ""//服务器cookie
         , "FolderThread"    : 10//最大为10
         , "QueueCount"      : 1//同时上传的任务数
+        , "FolderThread"    : 10//文件夹上传线程数，最大为10
         , "AutoMerge"       : 1//自动合并文件？1:合并,0:不合并
         //文件夹操作相关
 		, "UrlFdCreate"		: "http://localhost:88/db/fd_create.aspx"
