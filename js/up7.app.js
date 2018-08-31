@@ -1,4 +1,4 @@
-var up6_app = {
+var up7_app = {
     ins: null
     ,edgeApp: null
     ,Config:null
