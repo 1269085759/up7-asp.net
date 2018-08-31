@@ -148,7 +148,10 @@ namespace up7.db.biz.database
                     foreach(var f in files)
                     {
                         bm.merge(f);
-                        Directory.Delete(Path.GetDirectoryName(f.blockPath), true);
+                        try {
+                            Directory.Delete(Path.GetDirectoryName(f.blockPath), true);
+                        }
+                        catch (IOException e) { }
                     }
                 }
                 //清除文件缓存
