@@ -70,7 +70,11 @@ namespace up7.db
 
             HttpPostedFile part = Request.Files.Get(0);
             //验证大小
-            if (part.InputStream.Length != long.Parse(this.blockSize)) return;
+            if (part.InputStream.Length != long.Parse(this.blockSize))
+            {
+                Response.End();
+                return;
+            }
             part.SaveAs(partPath);
 
             //计算块md5
@@ -107,6 +111,15 @@ namespace up7.db
             //块路径
             string partPath = Path.Combine(fileSvr.blockPath, blockIndex + ".part");
 
+            HttpPostedFile part = Request.Files.Get(0);
+            //验证大小
+            if (part.InputStream.Length != long.Parse(this.blockSize))
+            {
+                Response.End();
+                return;
+            }
+            part.SaveAs(partPath);
+
             //将文件列表添加到缓存
             if (blockOffset=="0")
             {
@@ -117,12 +130,6 @@ namespace up7.db
                 //保存到文件夹
                 con.LPush(pidRoot, id);
             }
-
-
-            HttpPostedFile part = Request.Files.Get(0);
-            //验证大小
-            if (part.InputStream.Length != long.Parse(this.blockSize)) return;
-            part.SaveAs(partPath);
 
             //计算块md5
             string md5Svr = string.Empty;
@@ -189,7 +196,11 @@ namespace up7.db
             this.recvParam();
 
             //参数为空
-            if (!this.checkParam()) return;
+            if (!this.checkParam())
+            {
+                Response.End();
+                return;
+            }
 
             //有文件块数据
             if (Request.Files.Count > 0)
