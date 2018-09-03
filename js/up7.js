@@ -129,6 +129,7 @@ function HttpUploaderMgr()
         , "fileAppend": function (obj/*添加文件，参考：FileUploader*/) { }
         , "fdComplete": function (obj/*文件夹上传完毕，参考：FolderUploader*/) { }
         , "queueComplete":function(){/*队列上传完毕*/}
+        , "loadComplete":function(){/*控件加载完毕*/}
 	};
     	
 	//http://www.ncmem.com/
@@ -544,6 +545,7 @@ function HttpUploaderMgr()
         }
         if (needUpdate) this.update_notice();
         else { this.btnSetup.hide(); }
+        this.event.loadComplete();
     };
 	this.load_complete_edge = function (json)
 	{
