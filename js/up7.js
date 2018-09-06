@@ -85,7 +85,6 @@ function HttpUploaderMgr()
 		, "InitDir"			: ""//初始化路径。示例：D:\\Soft
 		, "AppPath"			: ""//网站虚拟目录名称。子文件夹 web
         , "Cookie"			: ""//服务器cookie
-        , "FolderThread"    : 10//最大为10
         , "QueueCount"      : 1//同时上传的任务数
         , "FolderThread"    : 10//文件夹上传线程数，最大为10
         , "AutoMerge"       : 1//自动合并文件？1:合并,0:不合并
