@@ -48,7 +48,6 @@ namespace up7.db
             fileSvr.sizeLoc      = sizeLoc;
             fileSvr.blockSize    = int.Parse(blockSize);
             fileSvr.blockCount   = int.Parse(blockCount);
-            fileSvr.deleted      = false;
             fileSvr.nameSvr      = fileSvr.nameLoc;
 
             PathGuidBuilder pb   = new PathGuidBuilder();
@@ -57,8 +56,7 @@ namespace up7.db
             fileSvr.blockPath    = bpb.root(fileSvr.pathSvr);
 
             //添加到任务表
-            DBFileQueue db = new DBFileQueue();
-            db.add(ref fileSvr);
+            DBFile.add(ref fileSvr);
 
             string jv = JsonConvert.SerializeObject(fileSvr);
             jv = HttpUtility.UrlEncode(jv);

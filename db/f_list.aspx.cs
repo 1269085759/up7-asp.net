@@ -18,8 +18,7 @@ namespace up7.db
 
             if (!string.IsNullOrEmpty(uid))
             {
-                DBFileQueue db = new DBFileQueue();
-                var json = db.all_uncmp(int.Parse(uid));
+                var json = DBFile.all_uncmp(int.Parse(uid));
                 
                 if (!string.IsNullOrEmpty(json))
                 {

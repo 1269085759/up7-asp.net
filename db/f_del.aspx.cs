@@ -19,8 +19,7 @@ namespace up7.db
             }//参数不为空
             else
             {
-                DBFileQueue db = new DBFileQueue();
-                db.remove(id);
+                DBFile.remove(id);
                 ret = 1;
             }
             Response.Write(cbk + "(" + ret + ")");//返回jsonp格式数据

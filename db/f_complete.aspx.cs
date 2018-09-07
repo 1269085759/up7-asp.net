@@ -2,6 +2,7 @@
 using System.IO;
 using up7.db.biz;
 using up7.db.biz.database;
+using up7.db.model;
 
 namespace up7.db
 {
@@ -27,11 +28,12 @@ namespace up7.db
             }//参数不为空
             else
             {
-                DBFileQueue db = new DBFileQueue();
-                var fileSvr = db.read(id);
+                //标识已完成
+                DBFile.complete(id);
 
-                //添加到数据库
-                db.complete(id);
+                FileInf fileSvr = new FileInf();
+                fileSvr.id = id;
+                DBFile.read(ref fileSvr);
 
                 //合并块
                 if (merge == "1")
@@ -42,8 +44,7 @@ namespace up7.db
                 }
 
                 //合并完毕
-                DBFile dbf = new DBFile();
-                dbf.merged(id);
+                DBFile.merged(id);
                 ret = 1;
             }
             

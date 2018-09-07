@@ -29,8 +29,7 @@ namespace up7.db
                 return;
             }
 
-            DBFileQueue db = new DBFileQueue();
-            db.process(id, perSvr);
+            DBFile.process(id, perSvr);
         }
     }
 }

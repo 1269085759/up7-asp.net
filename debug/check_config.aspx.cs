@@ -14,7 +14,9 @@ namespace up7.debug
             //输出数据库连接信息
             this.m_conStr = DbHelper.GetConStr();
             var con = DbHelper.CreateConnection();
-            try{ con.Open();con.Close();this.m_conSucc = "成功"; }catch (Exception ex) {}
+            try{ con.Open();con.Close();this.m_conSucc = "成功"; }catch (Exception ex) {
+                Response.Write(ex.ToString());
+            }
 
             
             //输出服务器存储路径

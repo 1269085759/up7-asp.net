@@ -18,7 +18,6 @@ namespace up7.debug
             Random ran = new Random();
 
             long mb = 1048576;
-            long gb = 1073741824;
 
             for (int i = 0; i < (mb * 500); ++i)
             {

@@ -17,8 +17,7 @@ namespace up7.db
             //参数为空
             if (!string.IsNullOrEmpty(id) )
             {
-                DBFileQueue db = new DBFileQueue();
-                db.complete(id);
+                DBFile.complete(id);
 
                 var rd = RedisConfig.getCon();
                 RedisFolder fd = new RedisFolder(ref rd);
@@ -29,8 +28,7 @@ namespace up7.db
                 rd.Dispose();
 
                 //合并完毕
-                DBFile dbf = new DBFile();
-                dbf.merged(id);
+                DBFile.merged(id);
                 ret = 1;
             }
             Response.Write(cak + "(" + ret + ")");

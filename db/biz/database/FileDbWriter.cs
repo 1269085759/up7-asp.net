@@ -151,7 +151,7 @@ namespace up7.db.biz.database
                         try {
                             Directory.Delete(Path.GetDirectoryName(f.blockPath), true);
                         }
-                        catch (IOException e) { }
+                        catch  { }
                     }
                 }
                 //清除文件缓存

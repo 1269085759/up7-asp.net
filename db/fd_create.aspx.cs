@@ -43,8 +43,7 @@ namespace up7.db
             Directory.CreateDirectory(f.pathSvr);
 
             //添加到队列表
-            DBFileQueue db = new DBFileQueue();
-            db.add(ref f);
+            DBFile.add(ref f);
 
             //添加到文件夹表
             DBFolder dbf = new DBFolder();
