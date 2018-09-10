@@ -766,7 +766,7 @@ function HttpUploaderMgr()
     //从上传队列删除
 	this.RemoveQueuePost = function (fid) {
 	    if (_this.QueuePost.length < 1) return;        
-        $.grep(this.QueuePost, function (n, i) {
+        this.QueuePost = $.grep(this.QueuePost, function (n, i) {
             return n == fid;
         }, true);
 	};
@@ -781,7 +781,7 @@ function HttpUploaderMgr()
 	this.RemoveQueue = function(fid)
 	{ 
 	    if (this.QueueFiles.length < 1) return;
-        $.grep(this.QueueFiles, function (n, i) {
+        this.QueueFiles = $.grep(this.QueueFiles, function (n, i) {
             return n == fid;
         }, true);
 	};
@@ -796,7 +796,7 @@ function HttpUploaderMgr()
 	this.RemoveQueueWait = function(fid)
 	{ 
 	    if (this.QueueWait.length < 1) return;
-        $.grep(this.QueueWait, function (n, i) {
+        this.QueueWait = $.grep(this.QueueWait, function (n, i) {
             return n == fid;
         }, true);
 	};
