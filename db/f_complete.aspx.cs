@@ -31,10 +31,6 @@ namespace up7.db
                 //标识已完成
                 DBFile.complete(id);
 
-                FileInf fileSvr = new FileInf();
-                fileSvr.id = id;
-                DBFile.read(ref fileSvr);
-
                 //合并块
                 if (merge == "1")
                 {

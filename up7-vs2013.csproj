@@ -47,9 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="csredis, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1afd0264bbe4a44a, processorArchitecture=MSIL">
-      <HintPath>packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>3rd\Newtonsoft.Json.dll</HintPath>
@@ -141,17 +138,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="db\biz\BlockPathBuilder.cs" />
+    <Compile Include="db\biz\fd_scan.cs" />
     <Compile Include="db\biz\file_part.cs" />
-    <Compile Include="db\biz\database\FileDbWriter.cs" />
     <Compile Include="db\biz\database\FolderDbWriter.cs" />
     <Compile Include="db\biz\BlockMeger.cs" />
     <Compile Include="db\biz\PathBuilder.cs" />
     <Compile Include="db\biz\PathGuidBuilder.cs" />
     <Compile Include="db\biz\PathMd5Builder.cs" />
     <Compile Include="db\biz\PathUuidBuilder.cs" />
-    <Compile Include="db\biz\redis\RedisFolder.cs" />
-    <Compile Include="db\biz\redis\RedisFile.cs" />
-    <Compile Include="db\biz\redis\tasks.cs" />
     <Compile Include="db\clear.aspx.cs">
       <DependentUpon>clear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,7 +191,6 @@
     <Compile Include="db\f_update.aspx.designer.cs">
       <DependentUpon>f_update.aspx</DependentUpon>
     </Compile>
-    <Compile Include="db\biz\redis\RedisConfig.cs" />
     <Compile Include="db\utils\CryptoTool.cs" />
     <Compile Include="db\utils\FileBlockWriter.cs" />
     <Compile Include="db\model\FolderInf.cs" />

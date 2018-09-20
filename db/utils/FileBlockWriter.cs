@@ -43,10 +43,13 @@ namespace up7.db.utils
 			if (fileRange.InputStream.Length > 0)
 			{
                 //创建文件
-                if (!File.Exists(path)) this.make(path, fileLen);
+                if(offset==0)
+                {
+                    if (!File.Exists(path)) this.make(path, fileLen);
+                }
 
-				//文件已存在，写入数据
-				FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.Write);
+                //文件已存在，写入数据
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.Write);
 				fs.Seek(offset, SeekOrigin.Begin);                
 				byte[] ByteArray = new byte[fileRange.InputStream.Length];
 				fileRange.InputStream.Read(ByteArray, 0, (int)fileRange.InputStream.Length);

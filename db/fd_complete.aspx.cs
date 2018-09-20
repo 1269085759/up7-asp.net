@@ -1,6 +1,7 @@
 ﻿using System;
+using up7.db.biz;
 using up7.db.biz.database;
-using up7.db.biz.redis;
+using up7.db.model;
 
 namespace up7.db
 {
@@ -18,14 +19,13 @@ namespace up7.db
             if (!string.IsNullOrEmpty(id) )
             {
                 DBFile.complete(id);
+                FileInf folder = new FileInf();
+                folder.id = id;
+                DBFile.read(ref folder);
 
-                var rd = RedisConfig.getCon();
-                RedisFolder fd = new RedisFolder(ref rd);
-                fd.id = id;
-                fd.fileMerge = merge.Equals("1");
-                fd.saveToDb();//保存到数据库
-
-                rd.Dispose();
+                //扫描文件夹
+                fd_scan sc = new fd_scan();
+                sc.scan(folder);
 
                 //合并完毕
                 DBFile.merged(id);

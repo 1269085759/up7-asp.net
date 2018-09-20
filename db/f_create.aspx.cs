@@ -3,7 +3,6 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using up7.db.biz;
-using up7.db.biz.redis;
 using up7.db.model;
 using up7.db.utils;
 using up7.db.biz.database;

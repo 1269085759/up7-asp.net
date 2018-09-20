@@ -1,5 +1,4 @@
 ﻿using System;
-using up7.db.biz.redis;
 
 namespace up7.db
 {
@@ -19,9 +18,6 @@ namespace up7.db
             }//参数不为空
             else
             {
-                var j = RedisConfig.getCon();
-                tasks cache = new tasks(ref j);
-                cache.delFd(fid);
                 ret = 1;
             }
             Response.Write(cbk + "({\"value\":" + ret + "})");//返回jsonp格式数据

@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using up7.db.biz;
-using up7.db.biz.redis;
 using up7.db.model;
 using up7.db.utils;
 
@@ -62,9 +61,6 @@ namespace up7.db
 
         void savePart()
         {
-            //自动创建目录
-            if (!Directory.Exists(pathSvr)) Directory.CreateDirectory(Path.GetDirectoryName(pathSvr));
-
             HttpPostedFile part = Request.Files.Get(0);
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize))
@@ -118,7 +114,7 @@ namespace up7.db
 
             //保存块数据
             FileBlockWriter fbw = new FileBlockWriter();
-            fbw.write(fileSvr.pathSvr, fileSvr.lenLoc, long.Parse(this.blockOffset), part);
+            fbw.write(fileSvr.pathSvr, fileSvr.lenLoc, long.Parse(this.blockOffset), ref part);
 
             //返回信息
             JObject o = new JObject();
