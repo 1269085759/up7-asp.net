@@ -325,13 +325,12 @@ function FileUploader(fileLoc, mgr)
     //手动停止，一般在StopAll中调用
     this.stop_manual = function ()
     {
-        if (HttpUploaderState.Posting == this.State)
-        {
+        if (HttpUploaderState.Posting == this.State) {
             this.svr_update();
             this.ui.btn.post.hide();
-        	this.ui.btn.stop.hide();
-        	this.ui.btn.cancel.hide();
-            this.app.stopFile(this.fileSvr);
+            this.ui.btn.stop.hide();
+            this.ui.btn.cancel.hide();
+            this.app.stopFile({ id: this.fileSvr.id,tip:false});
         }
     };
 

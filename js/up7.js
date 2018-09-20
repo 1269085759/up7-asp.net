@@ -45,18 +45,6 @@ var HttpUploaderState = {
 	,MD5Working:9
 };
 
-//删除元素值
-Array.prototype.remove = function(val)
-{
-	for (var i = 0, n = 0; i < this.length; i++)
-	{
-		if (this[i] != val)
-		{
-			this[n++] = this[i];
-		}
-	}
-	this.length -= 1;
-}
 function debugMsg(m) { $("#msg").append(m); }
 //文件管理类
 function HttpUploaderMgr()
@@ -777,8 +765,10 @@ function HttpUploaderMgr()
 
     //从上传队列删除
 	this.RemoveQueuePost = function (fid) {
-	    if (_this.QueuePost.length < 1) return;
-	    this.QueuePost.remove(fid);
+	    if (_this.QueuePost.length < 1) return;        
+        this.QueuePost = $.grep(this.QueuePost, function (n, i) {
+            return n == fid;
+        }, true);
 	};
 	
 	//添加到上传队列
@@ -791,7 +781,9 @@ function HttpUploaderMgr()
 	this.RemoveQueue = function(fid)
 	{ 
 	    if (this.QueueFiles.length < 1) return;
-	    this.QueueFiles.remove(fid);
+        this.QueueFiles = $.grep(this.QueueFiles, function (n, i) {
+            return n == fid;
+        }, true);
 	};
 	
 	//添加到未上传ID列表，(停止，出错)
@@ -804,7 +796,9 @@ function HttpUploaderMgr()
 	this.RemoveQueueWait = function(fid)
 	{ 
 	    if (this.QueueWait.length < 1) return;
-	    this.QueueWait.remove(fid);
+        this.QueueWait = $.grep(this.QueueWait, function (n, i) {
+            return n == fid;
+        }, true);
 	};
 
 	//停止所有上传项
