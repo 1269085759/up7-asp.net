@@ -313,7 +313,7 @@ function HttpUploaderMgr()
                 , url: this.Config["UrlDel"]
                 , data: { uid: fileSvr.uid, id: fileSvr.id, time: new Date().getTime() }
 				, success: function (msg) {if (msg == 1) {ui.empty();}}
-				, error: function () { alert("发送删除文件信息失败！"+req.responseText); }
+                , error: function (req, txt, err) { alert("发送删除文件信息失败！"+req.responseText); }
 				, complete: function (req, sta) { req = null; }
 			});
 		}

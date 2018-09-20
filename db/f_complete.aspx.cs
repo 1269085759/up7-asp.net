@@ -38,9 +38,9 @@ namespace up7.db
                 //合并块
                 if (merge == "1")
                 {
-                    BlockMeger pm = new BlockMeger();
-                    pm.merge(fileSvr);
-                    Directory.Delete(fileSvr.blockPath, true);
+                    //BlockMeger pm = new BlockMeger();
+                    //pm.merge(fileSvr);
+                    //Directory.Delete(fileSvr.blockPath, true);
                 }
 
                 //合并完毕

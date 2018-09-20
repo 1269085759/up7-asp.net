@@ -12,12 +12,7 @@ namespace up7.db
             DBFile.Clear();
             DBFolder.Clear();
 
-
             Response.Write("数据库清除成功<br/>");
-            var j = RedisConfig.getCon();
-            tasks t = new tasks(ref j);
-            t.clear();
-            Response.Write("redis缓存清除成功<br/>");
 
             //删除upload文件夹
             PathBuilder pb = new PathBuilder();

@@ -256,7 +256,7 @@ namespace up7.db.biz.database
 
         public static void remove(string f_id)
         {
-            string sql = "update up7_files set f_delete=1 where f_id=@f_id ";
+            string sql = "update up7_files set f_deleted=1 where f_id=@f_id ";
 
             DbHelper db = new DbHelper();
             var cmd = db.GetCommand(sql);

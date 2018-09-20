@@ -62,11 +62,8 @@ namespace up7.db
 
         void savePart()
         {
-            BlockPathBuilder bpb = new BlockPathBuilder();
-            string partPath = bpb.part(this.blockIndex, pathSvr);
-
             //自动创建目录
-            if (!Directory.Exists(partPath)) Directory.CreateDirectory(Path.GetDirectoryName(partPath));
+            if (!Directory.Exists(pathSvr)) Directory.CreateDirectory(Path.GetDirectoryName(pathSvr));
 
             HttpPostedFile part = Request.Files.Get(0);
             //验证大小
@@ -75,11 +72,12 @@ namespace up7.db
                 Response.End();
                 return;
             }
-            part.SaveAs(partPath);
-
             //计算块md5
             string md5Svr = string.Empty;
-            if ( !string.IsNullOrEmpty(this.blockMd5)) md5Svr = this.mkMD5(part.InputStream);
+            if (!string.IsNullOrEmpty(this.blockMd5)) md5Svr = this.mkMD5(part.InputStream);
+
+            FileBlockWriter fbw = new FileBlockWriter();
+            fbw.write(pathSvr,long.Parse(this.lenLoc), long.Parse(this.blockOffset), ref part);
 
             //返回信息
             JObject o = new JObject();
@@ -104,36 +102,23 @@ namespace up7.db
             fileSvr.pidRoot      = pidRoot;
             fileSvr.blockCount   = int.Parse(blockCount);
             fileSvr.blockSize    = int.Parse(blockSize);
-            //块路径：d:/webapps/files/年/月/日/folder-id/folder-name//file-id/
-            BlockPathBuilder bpb = new BlockPathBuilder();
-            fileSvr.blockPath    = bpb.rootFD(id, fileSvr.pathSvr);
-            if (!Directory.Exists(fileSvr.blockPath)) Directory.CreateDirectory(fileSvr.blockPath);
-            //块路径
-            string partPath = Path.Combine(fileSvr.blockPath, blockIndex + ".part");
 
             HttpPostedFile part = Request.Files.Get(0);
+
             //验证大小
             if (part.InputStream.Length != long.Parse(this.blockSize))
             {
                 Response.End();
                 return;
             }
-            part.SaveAs(partPath);
-
-            //将文件列表添加到缓存
-            if (blockOffset=="0")
-            {
-                var con = RedisConfig.getCon();
-                //保存文件信息
-                RedisFile f_svr = new RedisFile(ref con);
-                var ret = f_svr.create(fileSvr);
-                //保存到文件夹
-                if(ret) con.LPush(pidRoot, id);
-            }
-
+            
             //计算块md5
             string md5Svr = string.Empty;
-            if ( !string.IsNullOrEmpty(this.blockMd5) ) md5Svr = this.mkMD5(part.InputStream);
+            if (!string.IsNullOrEmpty(this.blockMd5)) md5Svr = this.mkMD5(part.InputStream);
+
+            //保存块数据
+            FileBlockWriter fbw = new FileBlockWriter();
+            fbw.write(fileSvr.pathSvr, fileSvr.lenLoc, long.Parse(this.blockOffset), part);
 
             //返回信息
             JObject o = new JObject();
