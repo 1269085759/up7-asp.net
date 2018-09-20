@@ -325,7 +325,7 @@ function FolderUploader(fdLoc, mgr)
     //一般在StopAll()中调用
     this.stop_manual = function ()
     {
-        this.app.stopFile({ id: this.folderSvr.id });
+        this.app.stopFile({ id: this.folderSvr.id,tip:false });
         this.State = HttpUploaderState.Stop;
     };
     //手动点击“停止”按钮时
