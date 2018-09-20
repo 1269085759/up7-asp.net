@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>up7</RootNamespace>
     <AssemblyName>up7</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
@@ -53,16 +53,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="db\f_post_crypt.aspx" />
@@ -137,11 +129,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="db\biz\BlockPathBuilder.cs" />
     <Compile Include="db\biz\fd_scan.cs" />
     <Compile Include="db\biz\file_part.cs" />
     <Compile Include="db\biz\database\FolderDbWriter.cs" />
-    <Compile Include="db\biz\BlockMeger.cs" />
     <Compile Include="db\biz\PathBuilder.cs" />
     <Compile Include="db\biz\PathGuidBuilder.cs" />
     <Compile Include="db\biz\PathMd5Builder.cs" />
