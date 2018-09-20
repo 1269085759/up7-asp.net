@@ -340,9 +340,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
