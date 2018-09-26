@@ -147,7 +147,6 @@ namespace up7.db
 
         string mkMD5(Stream s)
         {
-            HttpPostedFile part = Request.Files.Get(0);
             byte[] data = new byte[s.Length];
             s.Read(data, 0, (int)s.Length);
             MD5 md5 = MD5.Create();
