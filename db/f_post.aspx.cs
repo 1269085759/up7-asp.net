@@ -149,6 +149,7 @@ namespace up7.db
         {
             byte[] data = new byte[s.Length];
             s.Read(data, 0, (int)s.Length);
+            s.Seek(0, SeekOrigin.Begin);
             MD5 md5 = MD5.Create();
             byte[] ret = md5.ComputeHash(data);
             StringBuilder strbul = new StringBuilder(40);
