@@ -4,6 +4,7 @@ function WebServer(mgr)
     // 创建一个Socket实例
     this.socket = null;
     this.tryConnect = true;
+    this.runExe = true;
 
     this.run = function ()
     {
@@ -13,6 +14,7 @@ function WebServer(mgr)
             //up6://9006
             navigator.msLaunchUri(mgr.Config.edge.protocol+"://"+mgr.Config.edge.port, function ()
             {
+                _this.runExe = false;
                 console.log('应用打开成功');
                 //_this.connect();//
                 //alert("success");
@@ -24,6 +26,7 @@ function WebServer(mgr)
         }
     };
     this.runChr = function () {
+        if ($("#uri-fra").length > 0) return;
         var protocol = mgr.Config.edge.protocol + "://" + mgr.Config.edge.port;
         var html = "<iframe id='uri-fra' width=1 height=1 src='" + protocol + "'></iframe>";
         $(document.body).append(html);
@@ -41,20 +44,16 @@ function WebServer(mgr)
             _this.socket = con;
             _this.tryConnect = false;
             console.log("服务连接成功");
-            // 发送一个初始化消息
-            //socket.send('I am the client and I\'m listening!');
 
             // 监听消息
             con.onmessage = function (event)
             {
                 mgr.recvMessage(event.data);
-                //console.log('Client received a message', event);
             };
 
             // 监听Socket的关闭
             con.onclose = function (event)
             {
-                //console.log('Client notified socket has closed', event);
             };
 
             // 关闭Socket.... 
@@ -62,6 +61,7 @@ function WebServer(mgr)
         };
         con.onerror = function (event)
         {
+            _this.run();
             console.log("连接失败");
             setTimeout(function () { _this.connect() }, 1000);//启动定时器
         };
