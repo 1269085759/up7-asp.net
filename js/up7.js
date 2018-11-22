@@ -150,6 +150,7 @@ function HttpUploaderMgr()
 	this.ffVer = navigator.userAgent.match(/Firefox\/(\d+)/);
     this.edge = navigator.userAgent.indexOf("Edge") > 0;
     this.edgeApp = new WebServer(this);
+    this.edgeApp.ent.on_close = function () { _this.socket_close(); };
     this.app = up7_app;
     this.app.edgeApp = this.edgeApp;
     this.app.Config = this.Config;
@@ -539,7 +540,13 @@ function HttpUploaderMgr()
 	    this.edge_load = true;
         this.btnSetup.hide();
         _this.app.init();
-	};
+    };
+    this.socket_close = function () {
+        while (_this.QueuePost.length > 0) {
+            _this.filesMap[_this.QueuePost[0]].post_stoped(null);
+        }
+        _this.QueuePost.length = 0;
+    };
 	this.recvMessage = function (str)
 	{
 	    var json = JSON.parse(str);
