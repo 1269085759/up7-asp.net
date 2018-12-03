@@ -13,7 +13,7 @@
 	VC运行库：http://www.microsoft.com/en-us/download/details.aspx?id=29
 	联系信箱：1085617561@qq.com
 	联系QQ：1085617561
-    版本：7.2.3
+    版本：7.2.4
 	更新记录：
 		2015-07-31 优化更新进度逻辑
 */
@@ -75,7 +75,6 @@ function HttpUploaderMgr()
         , "Cookie"			: ""//服务器cookie
         , "QueueCount"      : 1//同时上传的任务数
         , "FolderThread"    : 10//文件夹上传线程数，最大为10
-        , "AutoMerge"       : 1//自动合并文件？1:合并,0:不合并
         //文件夹操作相关
 		, "UrlFdCreate"		: "http://localhost:88/db/fd_create.aspx"
 		, "UrlFdComplete"	: "http://localhost:88/db/fd_complete.aspx"

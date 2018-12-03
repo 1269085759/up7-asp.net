@@ -11,7 +11,6 @@ namespace up7.db
         {
             string id    = Request.QueryString["id"];
             string uid   = Request.QueryString["uid"];
-            string merge = Request.QueryString["merge"];
             string cak   = Request.QueryString["callback"];
             int ret = 0;
 
