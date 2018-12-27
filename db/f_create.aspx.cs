@@ -55,6 +55,9 @@ namespace up7.db
             //添加到任务表
             DBFile.add(ref fileSvr);
 
+            //触发事件
+            up7_biz_event.file_create(fileSvr);
+
             string jv = JsonConvert.SerializeObject(fileSvr);
             jv = HttpUtility.UrlEncode(jv);
             jv = jv.Replace("+", "%20");

@@ -75,6 +75,9 @@ namespace up7.db
             FileBlockWriter fbw = new FileBlockWriter();
             fbw.write(pathSvr,long.Parse(this.lenLoc), long.Parse(this.blockOffset), ref part);
 
+            //触发事件
+            up7_biz_event.file_post_block(id, int.Parse(blockIndex));
+
             //返回信息
             JObject o = new JObject();
             o["msg"] = "ok";
@@ -115,6 +118,9 @@ namespace up7.db
             //保存块数据
             FileBlockWriter fbw = new FileBlockWriter();
             fbw.write(fileSvr.pathSvr, fileSvr.lenLoc, long.Parse(this.blockOffset), ref part);
+            
+            //触发事件
+            up7_biz_event.file_post_block(id, int.Parse(blockIndex));
 
             //返回信息
             JObject o = new JObject();

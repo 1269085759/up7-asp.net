@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using up7.db.biz;
 using up7.db.biz.database;
-using up7.db.model;
 
 namespace up7.db
 {
@@ -16,7 +14,6 @@ namespace up7.db
         {
             string uid   = Request.QueryString["uid"];
             string id    = Request.QueryString["id"];
-            string merge = Request.QueryString["merge"];
             string cbk   = Request.QueryString["callback"];
 
             //返回值。1表示成功
@@ -31,17 +28,12 @@ namespace up7.db
                 //标识已完成
                 DBFile.complete(id);
 
-                //合并块
-                if (merge == "1")
-                {
-                    //BlockMeger pm = new BlockMeger();
-                    //pm.merge(fileSvr);
-                    //Directory.Delete(fileSvr.blockPath, true);
-                }
-
                 //合并完毕
                 DBFile.merged(id);
                 ret = 1;
+
+                //触发事件
+                up7_biz_event.file_post_complete(id);
             }
             
             Response.Write(cbk + "(" + ret + ")");//必须返回jsonp格式数据

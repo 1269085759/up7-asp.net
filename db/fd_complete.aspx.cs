@@ -29,6 +29,9 @@ namespace up7.db
                 //合并完毕
                 DBFile.merged(id);
                 ret = 1;
+
+                //触发事件
+                up7_biz_event.folder_post_complete(id);
             }
             Response.Write(cak + "(" + ret + ")");
         }

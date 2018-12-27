@@ -49,6 +49,9 @@ namespace up7.db
             DBFolder dbf = new DBFolder();
             dbf.add(ref f);
 
+            //触发事件
+            up7_biz_event.folder_create(f);
+
             string json = JsonConvert.SerializeObject(f);
             json = HttpUtility.UrlEncode(json);
             json = json.Replace("+", "%20");
