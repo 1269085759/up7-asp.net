@@ -255,20 +255,10 @@ function DownloaderMgr()
 	this.add_file = function (f)
 	{
         var obj = this.add_ui(f);
-        //if (null == obj ) return;
-        //obj.reset_fields(fields);
-
-        //this.init_file(obj.fileSvr);//
-	    //return obj;
 	};
     this.add_folder = function (f)
 	{
         var obj = this.add_ui(f);
-	    //if (null == obj) return;
-        //obj.reset_fields(fields);
-
-        //this.init_folder(obj.fileSvr);//
-        //return obj;
 	};
 	this.exist_url = function (url)
 	{
